@@ -2,4 +2,4 @@
 title: Hello
 ---
 
-i don't know what the fuck i'm doing
+Hi. Look at me, wheee, making a new blog with Hakyll.
