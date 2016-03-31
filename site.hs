@@ -13,6 +13,15 @@ config :: Configuration
 config = defaultConfiguration
          { deployCommand = "rsync -avz -e 'ssh -i /home/julie/.ssh/freya.pem' ./_site/ ubuntu@54.213.78.129:/var/www/argumatronic/" }
 
+feedConfig :: FeedConfiguration
+feedConfig = FeedConfiguration
+     { feedTitle       = "argumatronic"
+     , feedDescription = "FP/Haskell blog"
+     , feedAuthorName  = "Julie Moronuki"
+     , feedAuthorEmail = "srs_haskell_cat@aol.com"
+     , feedRoot        = "http://argumatronic.com/"
+     }
+
 main :: IO ()
 main = hakyllWith config $ do
     match "images/*" $ do
@@ -33,6 +42,7 @@ main = hakyllWith config $ do
         route $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
+            >>= saveSnapshot "content"
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
@@ -49,6 +59,14 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
+
+    create ["rss.xml"] $ do
+        route idRoute
+        compile $ do
+          let feedCtx = postCtx `mappend` bodyField "description"
+          posts <- fmap (take 10) . recentFirst =<<
+                   loadAllSnapshots "posts/*" "content"
+          renderRss feedConfig feedCtx posts
 
 
     match "index.html" $ do
