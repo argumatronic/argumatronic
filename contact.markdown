@@ -2,7 +2,10 @@
 title: Contact
 ---
 
-I live in a small hut in the mountains of Kumano Kodō on Kii Hantō and would not
-like to be contacted.
+If you're going to troll me, just please be an interesting troll.
 
-I'm [\@argumatronic](https://twitter.com/argumatronic) on Twitter.
+Email: srs_haskell_cat@aol.com
+
+(completely serious about that)
+
+I'm \@[argumatronic](https://twitter.com/argumatronic) on Twitter.

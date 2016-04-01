@@ -1,35 +1,71 @@
 body {
+    font-family:sans-serif;
+    color:black;
+    margin-top:50px;
+    padding-top:20px;
+    margin-left:300px
+}
+
+/*body {
+    font-family:sans-serif;
     color: black;
     font-size: 16px;
     margin: 0px auto 0px auto;
     width: 600px;
-}
+}*/
 
 div#header {
+    padding:12px 20px 12px 0px;
+    height:100%;
+    width:270px;
+    position:fixed;
+    left:0;
+    top:0;
+    background:#4d004d;
+    color:white
+}
+
+/*div#header {
     border-bottom: 2px solid black;
     margin-bottom: 30px;
     padding: 12px 0px 12px 0px;
 }
+*/
+
+div#logo {
+    text-align:center;
+    margin-bottom:40px;
+    margin-top:40px
+}
 
 div#logo a {
-    color: #4d004d;
+    color: #F3F3F3;
+    font-family:times, serif;
+    font-size:38px;
+    font-weight:light;
     float: left;
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
+    width:270px
 }
 
+
 div#header #navigation {
+    display:table;
     text-align: right;
+    margin-left:40px
 }
 
 div#header #navigation a {
-    color: #660066;
+    display:table-row;
+    color: #F3F3F3;
     font-size: 18px;
     font-weight: bold;
-    margin-left: 12px;
+    margin-right: 12px;
     text-decoration: none;
     text-transform: uppercase;
+    width:100%
 }
 
 div#footer {
@@ -37,7 +73,7 @@ div#footer {
     color: #555;
     font-size: 12px;
     margin-top: 30px;
-    padding: 12px 0px 12px 0px;
+    padding:12px 30px 12px 0px;
     text-align: right;
 }
 
@@ -50,7 +86,20 @@ h2 {
 }
 
 div.info {
-    color: #660066;
+    color: #4d004d;
     font-size: 14px;
     font-style: italic;
+    text-align:center
+}
+div#content {
+    font-size:14px;
+    line-height:18px;
+    padding:0 30px 20px 30px
+}
+div#content h1 {
+    color:#4d004d;
+    font-family:times, serif;
+    font-style:italic;
+    font-size:46px;
+    text-align:center
 }
