@@ -1,6 +1,23 @@
+/* fonts */
+@font-face {
+  font-family: 'Libre Baskerville';
+  src: local('Libre Baskerville'), url('/fonts/LibreBaskerville-Regular.otf') format('opentype');
+  font-style: normal;
+  font-weight: normal;
+}
+
 body {
-    font-family:sans-serif;
-    color:black;
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(218,139,201,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(218,139,201,1)));
+    background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(218,139,201,1) 100%);
+    background: -o-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(218,139,201,1) 100%);
+    background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(218,139,201,1) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(218,139,201,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#da8bc9', GradientType=1 );
+    font-family: 'Libre Baskerville', georgia, serif;
+    font-size: 18px;
+    color:#302F2F;
     margin-top:50px;
     padding-top:20px;
     margin-left:300px
@@ -21,7 +38,7 @@ div#header {
     position:fixed;
     left:0;
     top:0;
-    background:#4d004d;
+    background: #4d004d;
     color:white
 }
 
@@ -92,8 +109,8 @@ div.info {
     text-align:center
 }
 div#content {
-    font-size:14px;
-    line-height:18px;
+    font-size: 18px;
+    line-height:20px;
     padding:0 30px 20px 30px
 }
 div#content h1 {
