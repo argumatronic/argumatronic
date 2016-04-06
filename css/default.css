@@ -68,7 +68,7 @@ div#logo a {
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
-    width:270px
+    width:270px;
 }
 
 
@@ -133,6 +133,7 @@ div#content h2 {
 
 div#content h3 {
     font-size: 30px;
+    text-align: left;
 }
 
 blockquote {
@@ -142,9 +143,10 @@ blockquote {
 }
 
 div.blurb {
-    margin: 40px 40px 20px 40px;
+    margin: 0 auto;
     padding: 5px 0px 5px 0px;
     max-width: 920px;
+    width: 50%;
     background-color: #ccffe5;
     clear: both;
 }
