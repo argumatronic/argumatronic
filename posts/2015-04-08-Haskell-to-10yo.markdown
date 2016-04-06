@@ -25,7 +25,9 @@ Me: “Yeah that’s the right idea. Here, write it out: `(+) 1 2 = (+ 1) -> (1+
 
 I thought at this point since we were “thinking” about it, I’d deviate from the book a bit more and show him the type signature for `(+)`.
 
-`(+) :: Num a => a -> a -> a`
+```haskell
+(+) :: Num a => a -> a -> a
+```
 
 At this point, his entire knowledge of types was “they’re a way of classifying values” and he knew nothing about typeclasses. He intuited that the “Num” probably meant it was telling the variables that they had to be numbers, and I pretty much left it at that–I think that’s a good understanding of it for day one. I explained the typeclass arrow (=>) and we looked at the function definition. He noticed that there is no equals sign and each a just points to another a until you reach the end. We talked about how this confirms the “one argument, one result” pattern: “You take the function and apply it to the first a which gives you the second a, then you apply the function to the second a and get the result.” That’s the 10-year-old’s definition of currying.
 
@@ -39,9 +41,10 @@ So, yes, we could and did.
 
 I again thought it would trip him up when we started doing things like this:
 
-> `let double x = x * 2`
-
-> `double (double (1 + 2))`
+```haskell
+let double x = x * 2
+double (double (1 + 2))
+```
 
 But he had no trouble with that at all and enjoyed putting in ever larger numbers to see if it would noticeably affect the speed of evaluation. Fun times.
 

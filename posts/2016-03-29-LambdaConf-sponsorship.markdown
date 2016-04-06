@@ -2,7 +2,7 @@
 title: Why We're Sponsoring LambdaConf 2016
 ---
 
-# The Situation
+## The Situation
 
 Most of you who will read this already know the situation and some of the background and will be here because you want to know why [haskellbook.com](http://haskellbook.com/) is sponsoring LambdaConf 2016. So, I'm going to focus on answering that question. I'll be writing in my own voice, with my own thoughts, but it represents both of the authors of Haskell Programming from First Principles.
 
@@ -19,7 +19,7 @@ I know from past experience that members of marginalized groups tend to get the 
 I talked to Chris, my best friend and coauthor, about the situation, and I told him I *very much* did not want to pull our names as sponsors. We decided that we, as sponsors and fellow humans, should stand with our friends. I told him I wanted to tell people why I'd voted the way I did. I struggled with [what to say in tweets](https://twitter.com/argumatronic/status/712901007211008000), because that's such a poor medium for explaining any kind of nuanced decision. And we've tried since then to keep responding honestly and openly about what we're doing and why. Chris is letting me handle a lot of the response because I had the stronger feelings about this, but it's frustrating him to see people condescendingly explain to me that I didn't make the right decision and maybe a committee of white dudes should decide what's best for me.
 
 
-# Our Sponsorship
+## Our Sponsorship
 
 Last year, LambdaConf was my first tech conference, and it was such a [positive and welcoming experience](https://meta.plasm.us/posts/2016/03/24/a-note-about-lambdaconf/). The organizers worked hard to make sure everyone felt included, from complete noobs to advanced type theorists, from moms who needed childcare to people who needed gender-neutral bathrooms they could use without fear:
 
@@ -32,7 +32,7 @@ This year, when we decided to sponsor, it was for these reasons. Since then, we'
 You may be comfortable with those exclusions. I have not seen a single person who talks about inclusivity and diversity in the field attacking other tech conferences for those things (there are other beginner-friendly conferences, I'm aware). That's fine -- we all prioritize the things we care deeply about. We must. I care about offering a community to those who feel excluded elsewhere. 
 
 
-# This Isn't About Yarvin
+## This Isn't About Yarvin
 
 I said already that the decision to speak up and continuing sponsorship was almost a kneejerk reaction to the speakers who were calling for solidarity even though they didn't want Yarvin there. When my friends call for solidarity, **I show up.** I am not a person who lets my friends walk into a bad situation by themselves. 
 
@@ -40,10 +40,8 @@ Somehow in the massive Twitter storm and hatemailing, what's been lost is that Y
 
 Amar Shah has since published [an anguished post](http://amar47shah.github.io/posts/2016-03-28-lambdaconf-yarvin.html) about the process that ultimately encouraged me to stick by my decision -- our decision -- that remaining sponsors and attendees of LambdaConf is the right thing for us to do:
 
-> I’m brand-new to functional programming. Hell, if you count by years in the industry you’ll see that I’m almost brand-new to software development. I don’t live in a “tech city.” Far from it. I don’t work for a company with a conference budget. Since functional programming isn’t part of our tech stack at work, I receive no support from my employer to attend an FP conference even if I am speaking at it. I turned down an enthusiastic invitation to speak at Lambda Days 2016 in Poland simply because I could not afford to go.
-
-> Hence, I was overjoyed to be selected to speak at LambdaConf 2016. Why? Because LambdaConf commits to providing speakers with accommodation. Because LambdaConf welcomes presentations on beginner-level subjects. Because everything I had read about LambdaConf for a full year seemed to indicate that they were doing everything right, from childcare and diversity scholarships to partnering with associated mini-confs to fostering an atmosphere that attendees raved about. Until he committed to a decision that may end LambdaConf for good, De Goes was onto something.
-
+> I’m brand-new to functional programming. Hell, if you count by years in the industry you’ll see that I’m almost brand-new to software development. I don’t live in a “tech city.” Far from it. I don’t work for a company with a conference budget. Since functional programming isn’t part of our tech stack at work, I receive no support from my employer to attend an FP conference even if I am speaking at it. I turned down an enthusiastic invitation to speak at Lambda Days 2016 in Poland simply because I could not afford to go.<br><br>
+> Hence, I was overjoyed to be selected to speak at LambdaConf 2016. Why? Because LambdaConf commits to providing speakers with accommodation. Because LambdaConf welcomes presentations on beginner-level subjects. Because everything I had read about LambdaConf for a full year seemed to indicate that they were doing everything right, from childcare and diversity scholarships to partnering with associated mini-confs to fostering an atmosphere that attendees raved about. Until he committed to a decision that may end LambdaConf for good, De Goes was onto something.<br><br>
 > For me, the quandary is, “If I don’t take this opportunity now to build relationships in the functional programming community, when will I have the chance again?” When will I have another shot at a cheap trip to an FP conference? When will I be asked to speak on an FP topic again?
 
 We're not sponsoring the conference because we endorse Yarvin. **We're sponsoring the conference because we want the other speakers to have their opportunity to speak**, and we want all the FP enthusiasts, from beginner to advanced, to come together and share what they've got and learn from each other. We're sponsoring the conference because pulling out means we cut off all these other people, good people, just to spite Yarvin.
@@ -59,7 +57,7 @@ I'm reminded of that quote I passed around Twitter a while back: there are two m
 So, we will be there for the other 79 or so speakers who are not Yarvin. Just yesterday, since a few (though fewer than you might think) speaker slots have opened up, I encouraged a woman I know, an FP beginner, to submit a talk proposal to fill one of the gaps opened up by the virtuous white men of Twitter. Her talk sounds damned interesting, by the way, and if you're letting Yarvin's presence scare you off of attending her talk, or Amar Shah's, or mine, then I guess you aren't the kind of support we need. 
 
 
-# The Process
+## The Process
 
 I'd like to next say a few words about the process. I think many things about this were handled poorly, but I'd like to answer some of the objections I'm seeing about it.
 
@@ -76,7 +74,7 @@ A process that was adopted to increase diversity and to allow diverse candidates
 We think the process could be improved and trust that it will be for next time. For now, this is what we've got. 
 
 
-# What We're Doing to Increase Diversity
+## What We're Doing to Increase Diversity
 
 The first thing we think about increasing diversity and inclusivity in the functional programming community is that no effort is more important than improving pedagogy and documentation. So many members of marginalized groups do not have the time or patience or resources or courage to even learn FP right now. The IRC channels and subreddits periodically engage in full civil war and, even at the best of times, can be exremely intimidating to those outside the community. So, we're working on improving access to decent learning materials. To this end, Chris started an IRC channel just for Haskell beginners that enforces a very strict code of conduct. We're also, of course, writing a book that has introduced Haskell and functional programming to many people who have written to tell us of how many times they tried and failed to learn FP. We have given away books to people who write us, especially from countries like Brazil, to tell us how hard they've struggled to learn Haskell but they can't afford the book right now. 
 

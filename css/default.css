@@ -1,10 +1,14 @@
-/* fonts */
-@font-face {
+/*@font-face {
   font-family: 'Libre Baskerville';
   src: local('Libre Baskerville'), url('/fonts/LibreBaskerville-Regular.otf') format('opentype');
   font-style: normal;
   font-weight: normal;
-}
+}*/
+
+/*add another font stanza here
+download the .otf file for whatever font you want to use & make a new font stanza here
+then use that in the div#content headers so that it will make the content headers only that font
+the body is falling back to georgia because you did not add the fonts match block to the site.hs*/
 
 body {
     background: rgba(255,255,255,1);
@@ -94,30 +98,63 @@ div#footer {
     text-align: right;
 }
 
-h1 {
-    font-size: 24px;
-    line-height:1.2em
+h1,h2,h3,h4,h5 {
+    font-family:'Cabin', sans-serif;
+    color:#4d004d;
 }
 
-h2 {
-    font-size: 20px;
+/*h1 {
+    line-height:1.2em
 }
+*/
 
 div.info {
     color: #4d004d;
     font-size: 14px;
     font-style: italic;
-    text-align:center
+    text-align: center
 }
+
 div#content {
     font-size: 18px;
-    line-height:20px;
     padding:0 30px 20px 30px
 }
+
 div#content h1 {
-    color:#4d004d;
-    font-family:times, serif;
-    font-style:italic;
     font-size:46px;
-    text-align:center
+    text-align:center;
+}
+
+div#content h2 {
+    font-style: italic;
+    font-size: 38px;
+    text-align: center;
+}
+
+div#content h3 {
+    font-size: 30px;
+}
+
+blockquote {
+  /*background-color: ;*/
+  font-style: italic;
+  padding: 3px 10px 3px 10px;
+}
+
+div.blurb {
+    margin: 40px 40px 20px 40px;
+    padding: 5px 0px 5px 0px;
+    max-width: 920px;
+    background-color: #ccffe5;
+    clear: both;
+}
+
+div.blurb p {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+}
+
+div.sourceCode {
+    margin-left: 3em;
 }
