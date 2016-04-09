@@ -26,7 +26,8 @@ body {
     margin-top:50px;
     padding-top:20px;
     margin-left:300px;
-    margin-right:400px;
+    width: 800px;
+    margin-right: 0 auto;
 }
 
 /*body {
@@ -44,7 +45,15 @@ div#header {
     position:fixed;
     left:0;
     top:0;
-    background: #4d004d;
+    /*background: #4d004d;*/
+    background: rgba(122,0,86,1);
+    background: -moz-linear-gradient(45deg, rgba(122,0,86,1) 0%, rgba(121,1,86,1) 1%, rgba(81,30,81,1) 52%, rgba(63,43,79,1) 74%);
+    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(122,0,86,1)), color-stop(1%, rgba(121,1,86,1)), color-stop(52%, rgba(81,30,81,1)), color-stop(74%, rgba(63,43,79,1)));
+    background: -webkit-linear-gradient(45deg, rgba(122,0,86,1) 0%, rgba(121,1,86,1) 1%, rgba(81,30,81,1) 52%, rgba(63,43,79,1) 74%);
+    background: -o-linear-gradient(45deg, rgba(122,0,86,1) 0%, rgba(121,1,86,1) 1%, rgba(81,30,81,1) 52%, rgba(63,43,79,1) 74%);
+    background: -ms-linear-gradient(45deg, rgba(122,0,86,1) 0%, rgba(121,1,86,1) 1%, rgba(81,30,81,1) 52%, rgba(63,43,79,1) 74%);
+    background: linear-gradient(45deg, rgba(122,0,86,1) 0%, rgba(121,1,86,1) 1%, rgba(81,30,81,1) 52%, rgba(63,43,79,1) 74%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7a0056', endColorstr='#3f2b4f', GradientType=1 );
     color:white
 }
 
