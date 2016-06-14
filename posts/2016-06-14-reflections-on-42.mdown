@@ -1,0 +1,33 @@
+---
+title: Reflections on Turning 42
+---
+
+I'm turning 42 today, and already the Douglas Adams jokes have started. I don't mind it. 
+
+I am not a religious person, and to the extent I know the meaning of life, the universe, and everything, I think it is simply to nurture and care for life and living things. I am a mother, a country girl, a teacher, a wife, a cook, a gardener, a hunter and forager, a writer, an incorrigible adopter of animals. I am a woman who will bring you homemade jam and cookies for Christmas, bring you a casserole after you've given birth, hold your baby while you're eating. 
+
+These are the things I want to be. I wasn't always this person. It's been a process. I had to become a person who wanted to get out of my own inner darkness and be a light in the world. As Chesteron said, _it is easy to be heavy, it is hard to be light._ You have to learn how to be light when the world is dark. 
+
+The last year or so has been painful. When we moved to Austin, for several months, we couldn't find a place to live. It's a long story, and not one I'm going to get into, but my two kids and my husband and I hopped around from Airbnb to Airbnb, about a week at a time. My kids had none of their belongings, their pets had all died in a house fire some time before; they were scared and sad, and my husband works 12-14 hour days, so he wasn't around a lot (still isn't). I sank all my emotional energy and every cent I made from writing Haskell Programming that summer into making my kids feel OK, like not everything was collapsing around them.
+
+We finally got settled here, and I've been so homesick and lonesome -- and busy. Writing the book while also learning Haskell and just learning what programming is like more generally (seriously, y'all, what the _hell_ is JSON even?) took much more time than most people realize. My husband and I got to a point where we were barely speaking to each other from the stress and lack of time together. I was pushing myself so hard, and still I kept pushing like I could make everything OK again from sheer force of will.
+
+And there were times in there where people were complaining because we were charging for the book. Honestly, I could not have kept doing it if we weren't -- very literally, I could not have, because my family was broke with all the Airbnb hopping and making a down payment for this house. And there were lots of times people speculated that I wasn't really contributing to the book, that Chris is the smart one and the one who knows Haskell, so I was probably just editing and not really doing that much. 
+
+Then the LambdaConf drama that just kept going on and on. Then trying to finish writing the book. Then LambdaConf itself. LambdaConf seemed to go great, and we had a lot of plans to keep doing training, keep writing great books -- and I have so much still to learn about programming -- but a week later those plans have changed for reasons I do not understand. 
+
+And I thought everything I've been doing must have been wrong. I have tried so hard to keep everything going, keep everything running, keep learning, keep writing, keep teaching, keep being there for everyone, and now I've run out of energy. I've run out of everything. And maybe, for some people, there is nothing I could ever give that would make them happy. I think that I understand this to be true at some level, and yet I take it as a personal failure.
+
+But maybe not everything was wrong? My kids are, in fact, happy and healthy. My husband is a better man than I generally think I deserve but, for whatever his reasons, he loves me and stays with me. I co-wrote a book I'm quite proud of and from what I hear it has helped many people learn what they wanted to learn and get started writing Haskell (or Swift, or Scala, or F#, I don't judge you for the language you use) for fun and profit. So maybe I'm not all bad? I don't know. I am still trying to figure that part out, because I feel bad. 
+
+I still don't have that much programming experience, not even as much as many people I've taught Haskell to. I know more about how Haskell works theoretically than I do about how to actually _do stuff_ in it, I'm afraid, although I'm working on that. 
+
+I do know other stuff, though, because programming isn't all there is to life. I know about how to teach kids to read, how to sight in a rifle, how to find morel mushrooms in the woods; I know about German philosophy and Boolean logic and the sex life of corn and that roly-poly bugs aren't bugs at all. And I figure if I can learn all those things, then perhaps someday I will understand JSON and what to do with it. It probably isn't harder than identifying mushrooms and, to the best of my knowledge, misidentifying JSON cannot literally kill you.
+
+I took up programming to help a friend. It's difficult to think of continuing with Haskell and programming in the absence of that context, but maybe there are new friends, new people to help. Some people this week, as I've been trying to figure out what the hell I do from here, have been enormously kind to me, and I'm grateful. Thank you, to all of you.
+
+I just need a break, some time to get this book finished and recover from all that has happened. And maybe a couple of very strong gin and tonics.
+
+And, apparently, according to my younger son, a birthday cake shaped like a Minecraft chicken.
+
+Here's to another year.
