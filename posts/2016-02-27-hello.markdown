@@ -3,3 +3,5 @@ title: Hello
 ---
 
 Hi. Look at me, wheee, making a new blog with Hakyll.
+
+I have a lot of CSS to figure out now.
