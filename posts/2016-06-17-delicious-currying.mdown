@@ -135,7 +135,12 @@ Maybe :: * -> *
 ```
 See, they're functions! You apply them to an argument and construct a type. 
 
-Types that have more than two arguments have even more stars. `Either`, for example, has two parameters and, thus, three stars:
+Types that have more than two arguments have even more stars. A datatype called `Either` takes two parameters:
+
+```haskell
+data Either a b = Left a | Right b
+``` 
+and the `a` is in the `Left` side of the sum type, while the `b` goes to the `Right`. Two parameters means it has three stars:
 
 ```haskell
 Prelude> :kind Either
