@@ -11,14 +11,6 @@ then use that in the div#content headers so that it will make the content header
 the body is falling back to georgia because you did not add the fonts match block to the site.hs*/
 
 body {
-    /*background: rgba(255,255,255,1);
-    background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(218,139,201,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(218,139,201,1)));
-    background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(218,139,201,1) 100%);
-    background: -o-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(218,139,201,1) 100%);
-    background: -ms-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(218,139,201,1) 100%);
-    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(218,139,201,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#da8bc9', GradientType=1 );*/
     background: #F5DAF5;
     font-family: 'Libre Baskerville', georgia, serif;
     font-size: 18px;
@@ -72,8 +64,10 @@ div#logo {
 
 div#logo a {
     color: #F3F3F3;
-    font-family:times, serif;
-    font-size:38px;
+    font-family:'Cabin', sans-serif;
+    font-style: italic;
+    /*font-family:times, serif;*/
+    font-size:40px;
     font-weight:light;
     float: left;
     font-size: 24px;
@@ -92,6 +86,7 @@ div#header #navigation {
 div#header #navigation a {
     display:table-row;
     color: #F3F3F3;
+    font-family:'Cabin', sans-serif;
     font-size: 18px;
     font-weight: bold;
     margin-right: 12px;
@@ -114,10 +109,10 @@ h1,h2,h3,h4,h5 {
     color:#4d004d;
 }
 
-/*h1 {
+h1 {
     line-height:1.2em
 }
-*/
+
 
 div.info {
     color: #4d004d;
