@@ -85,5 +85,8 @@ Some of the posts listed here go beyond basic function application and types. Yo
 
 ### The Big Awesome Typeclasses
 
-### Library Tutorials and Projects -->
+### Library Tutorials and Projects 
+
+### More General Programming (e.g. git tutorials, shell scripting, whatever seems to make sense here)
+-->
 
