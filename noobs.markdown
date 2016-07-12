@@ -69,9 +69,13 @@ Some of the posts listed here go beyond basic function application and types. Yo
 
 ### Important Functional Patterns 
 
-- [Map, Reduce, Fold](http://www.joescii.com/2013/09/09/map-reduce-and-fold-for-the-programmatically-imperative/) Yeah, the examples are in Scala, but I found I could follow them even though I don't know Scala, and I found the recommendations for when to use `map` and `fold` useful. 
-
 - [Function Composition and the $ Operator](http://lambda.jstolarek.com/2012/03/function-composition-and-dollar-operator-in-haskell/) 
+
+- A nice concrete example of [what recursion is](https://www.quora.com/How-should-I-explain-recursion-to-a-4-year-old/answer/Aaron-Krolik), including the base case. 
+
+- I also like these two posts from John D. Cook about recursion: [Understanding Recursion](http://www.johndcook.com/blog/2010/03/30/understanding-recursion/) and [Understanding Recursion Part II](http://www.johndcook.com/blog/2012/08/14/understanding-recursion-ii/). "Recursion is about solving a problem in terms of smaller versions of itself." I am going to disagree somewhat with Cook and, apparently, Paul Graham (*if I may be so bold*), and say that I did find it helpful to trace the invocations of recursive functions a couple of times (and we do that in the Recursion chapter of our book), but it's quite correct to say that once you understand what's going on, you will suddenly find that you almost never write recursive functions yourself and so you don't think about the process anymore. Instead, you just use `map` or a fold or something and the recursion is built in. Well, at any rate, I found understanding the step-by-step process of how recursive functions work helped me understand what those functions were really doing, especially with folds.
+
+- [Map, Reduce, Fold](http://www.joescii.com/2013/09/09/map-reduce-and-fold-for-the-programmatically-imperative/) Yeah, the examples are in Scala, but I found I could follow them even though I don't know Scala, and I found the recommendations for when to use `map` and `fold` useful. 
 
 - [Interactive Demonstration](https://stevekrouse.github.io/hs.js/) of `map` and folds. 
 

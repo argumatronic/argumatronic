@@ -11,7 +11,7 @@ import           Hakyll.Core.Configuration
 
 config :: Configuration
 config = defaultConfiguration
-         { deployCommand = "rsync -avz -e 'ssh -i /home/jmo/.ssh/freya.pem' ./_site/ ubuntu@argumatronic.com:/var/www/argumatronic/" }
+         { deployCommand = "rsync -avz -e 'ssh -i ~/.ssh/freya.pem' ./_site/ ubuntu@argumatronic.com:/var/www/argumatronic/" }
 
 feedConfig :: FeedConfiguration
 feedConfig = FeedConfiguration
