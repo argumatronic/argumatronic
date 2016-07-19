@@ -5,7 +5,7 @@ should probably get a No Starch affiliate account going
 
 book reviews will be of 3 types: adult, kids, kids math/sci/programming
 
-with adult, put a "the 10 novels that made me" post (Borribles, Last of the Really Great Whangdoodles, The Plague, Angle of Repose, Solider of the Great War, )
+with adult, put a "the 10 novels that made me" post (Borribles, Last of the Really Great Whangdoodles, The Plague/The Fall, Angle of Repose, Solider of the Great War, Gabriela Clove and Cinnamon, Red Sky at Morning, Sabbath's Theater, A Night of Serious Drinking, Invisible Cities although I'm not sure it's fair to characterize this as a novel. there are no women authors here. interesting.) BONUS: not novels but not nonfiction (Descent of Man by TC Boyle, Ideas of Order, Songs of Innocence/Experience, The things they carried, Harrison Bergeron, Will Eisner's Contract with God, Happy Days by S Beckett, The Country Between Us, Turtle Island, )-- i don't know if i've ever met another woman who liked Sabbath's Theater. or even any Philip Roth books. i guess i can understand why. except mom, she's the one who introduced me to Goodbye, Columbus -- offer up why i read novels to begin with
 
 with kids, include ones they like to read (whether school or otherwise) and also advice on teaching them reading
 
