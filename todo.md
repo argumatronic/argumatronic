@@ -15,3 +15,9 @@ need to make the nav bar responsive so it goes up top on mobile (see teef)
 
 i like the idea of adding tags and possibly also adding the opening sentences to the home page. there are blog post tutorials for such.
 
+## for noob list/blog:
+
+https://codewords.recurse.com/issues/two/git-from-the-inside-out
+
+https://jwiegley.github.io/git-from-the-bottom-up/
+http://www.robotstxt.org/robotstxt.html
