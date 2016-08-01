@@ -21,3 +21,6 @@ https://codewords.recurse.com/issues/two/git-from-the-inside-out
 
 https://jwiegley.github.io/git-from-the-bottom-up/
 http://www.robotstxt.org/robotstxt.html
+
+put a feet pic (with texas sign probably) on about page
+make the kitty picture the header. move header to top. responsive css. but my gradient! use that as footer? 
