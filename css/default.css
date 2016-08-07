@@ -10,34 +10,38 @@ download the .otf file for whatever font you want to use & make a new font stanz
 then use that in the div#content headers so that it will make the content headers only that font
 the body is falling back to georgia because you did not add the fonts match block to the site.hs*/
 
+* {
+    box-sizing: border-box;
+}
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background: #F5DAF5;
     font-family: 'Libre Baskerville', georgia, serif;
-    font-size: 18px;
     color:#302F2F;
-    margin-top:50px;
-    padding-top:20px;
-    margin-left:300px;
-    width: 800px;
-    margin-right: 0 auto;
 }
 
-/*body {
-    font-family:sans-serif;
-    color: black;
-    font-size: 16px;
-    margin: 0px auto 0px auto;
-    width: 600px;
-}*/
+.main--container {
+    display: flex;
+    flex-direction: column;
+}
 
-div#header {
-    padding:12px 20px 12px 0px;
+
+.main--header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+/*    padding:12px 20px 12px 0px;
     height:100%;
     width:270px;
     position:fixed;
     left:0;
-    top:0;
-    /*background: #4d004d;*/
+    top:0;*/
     background: rgba(122,0,86,1);
     background: -moz-linear-gradient(45deg, rgba(122,0,86,1) 0%, rgba(121,1,86,1) 1%, rgba(81,30,81,1) 52%, rgba(63,43,79,1) 74%);
     background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(122,0,86,1)), color-stop(1%, rgba(121,1,86,1)), color-stop(52%, rgba(81,30,81,1)), color-stop(74%, rgba(63,43,79,1)));
@@ -49,59 +53,83 @@ div#header {
     color:white
 }
 
-/*div#header {
-    border-bottom: 2px solid black;
-    margin-bottom: 30px;
-    padding: 12px 0px 12px 0px;
-}
-*/
 
-div#logo {
-    text-align:center;
-    margin-bottom:40px;
-    margin-top:40px
+.main--logo {
+    border-bottom: 1px solid white;
+    display: block;
+    padding: 1em;
+    text-align: center;
+    width: 100%;
 }
 
-div#logo a {
+.main--header a {
     color: #F3F3F3;
     font-family:'Cabin', sans-serif;
     font-style: italic;
-    /*font-family:times, serif;*/
-    font-size:40px;
+    font-size: 40px;
     font-weight:light;
-    float: left;
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
-    width:270px;
 }
 
-
-div#header #navigation {
-    display:table;
-    text-align: right;
-    margin-left:40px
+.main--nav {
+    padding: 1em;
+    line-height: 2em;
 }
 
-div#header #navigation a {
-    display:table-row;
+.main--nav a {
+    display: block;
     color: #F3F3F3;
-    font-family:'Cabin', sans-serif;
     font-size: 18px;
     font-weight: bold;
-    margin-right: 12px;
-    text-decoration: none;
     text-transform: uppercase;
-    width:100%
 }
 
-div#footer {
-    border-top: solid 2px black;
+@media (min-width: 800px) {
+    .main--header {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .main--logo {
+        border: none;
+        flex: 0 0 auto;
+        width: auto;
+    }
+
+    .main--nav {
+        display: flex;
+        flex: 1 0 300px;
+        justify-content: flex-end;
+    }
+
+    .main--nav a {
+        padding: 0 1em;
+    }
+}
+
+.main--content {
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.main--footer {
+    background: rgba(122,0,86,1);
+    color: white;
+    font-family:'Cabin', sans-serif;
+    padding: 1em;
+    text-align: center;
+/*    border-top: solid 2px black;
     color: #555;
     font-size: 12px;
     margin-top: 30px;
     padding:12px 30px 12px 0px;
-    text-align: right;
+    text-align: right;*/
+}
+
+.main--footer a {
+    color: white;
 }
 
 h1,h2,h3,h4,h5 {
@@ -121,23 +149,23 @@ div.info {
     text-align: center
 }
 
-div#content {
+.main--content {
     font-size: 18px;
     padding:0 30px 20px 30px
 }
 
-div#content h1 {
+.main--content h1 {
     font-size:46px;
     text-align:center;
 }
 
-div#content h2 {
+.main--content h2 {
     font-style: italic;
     font-size: 38px;
     text-align: center;
 }
 
-div#content h3 {
+.main--content h3 {
     font-size: 30px;
     text-align: left;
 }
