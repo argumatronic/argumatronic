@@ -1,0 +1,57 @@
+---
+title: Some Free Advice on Asking for Help
+---
+
+I'm supposed to be working on a different blog post right now, but I have a couple things on my mind about asking questions and asking for help as a beginner programmer that I wanted to get out there. It's free advice, based on personal experience, so take it for what it's worth. 
+
+I was in academia for several years, as both student and teacher, in linguistics and philosophy mostly. These are not easy fields, but they have a rich pedagogical history, so how they are taught and the progression through which students pass as they're learning has some predictability to it.
+
+One day, a couple of years ago, I abruptly decided to throw away my peaceful stay-at-home mom life for an exciting new adventure in functional programming, having never written a program more significant than drawing a circle in some kind of BASIC. Even though many people in programming now have computer science and/or math degrees, very many do not and are autodidacts, and even when they have a CS degree, they most likely did not learn FP at university and are substantially self-taught in that area. In computer science, the pedagogical history is shorter and much less settled, in my view, than it is in philosophy and linguistics. This leads to a lot of divergence in how people learn and what they know and what you can assume they know based on what they currently do.
+
+So, the topic of asking and answering questions, as a learner and as a teacher, is one I've given considerable thought to and have a lot of experience with. Even now, in my relatively beginner position in this area, I am both teaching and learning as I go along, so it's something I think about a lot from both sides.
+
+Let me start by saying that it is my considered opinion that teachers are better teachers when they are always learning. They should be prepared to learn from their students in addition to learning from other experts in their field. If you have a teacher you can already tell believes they have nothing more to learn about a topic, be wary of them. 
+
+#### DO
+Try to solve a problem or find an answer to your question on your own first. This is especially true when the person you're asking for help is volunteering their time, but it's a good policy nevertheless. It is respectful of their time, but it is also respectful of your self and your own ability to find answers and solve problems. It will also help you learn more and remember better and build up a repertoire of problem-solving skills you can use repeatedly. I wish there were better resources for modeling processes for finding solutions, but this doesn't seem to have gotten a great deal of attention yet. You can try [Mark Dominus's blog](http://blog.plover.com/) for frequent posts about just that -- problems, but more importantly, _how_ to go about solving them. That has helped me a lot.
+
+#### DO 
+Walk away from problems when they seem insoluble. Take a hike, eat a healthy dinner, get some sleep, play with your spouse, children, and dogs. Tomorrow when you come back to the problem, you may suddenly "get it." If not, at least you're asking for help with a fresh brain. So many times I find that if I do a bunch of reading about my problem, then walk away for a while, like marbles in a marble run, the bits of information that are relevant start falling into place. I might still need help, but I've made progress. 
+
+#### DO
+Consider the ["five whys"](https://en.wikipedia.org/wiki/5_Whys) of your own problem before asking for help. It might be different from the "whys" for a manufacturing concern, of course, but it's important to ask the right question, and the right question might not be the one you think. When we're talking about programming, you may think your problem is at the level of the function you're trying to write and discover that it's actually deeper, at the level of how you modeled your data. Be sure you know (and can explain) what problem you're trying to solve and why, and you may find out (this is often true for me with Haskell) that solving that problem, better understood, is not what you were originally trying to do. 
+
+#### DO
+If, after you've tried to find an answer (for a reasonable amount of time -- looking at more than one search result, for example, but abandoning it before you have bloodied your head on your desk in frustration), you haven't found one, ask someone. If you made an honest attempt to find an answer or solution and cannot, maybe it's not as obvious or beginnerish as you thought, and it's not worth beating yourself up. It's not efficient, and sometimes you have the interesting experience of finding out even the experts don't have a pat answer to your question. That is, sometimes what you're running up against is a problem no one knows a good solution to, even if you are a beginner. It's happened to me. 
+
+#### DO
+Be careful whom you ask and in what setting. I'm very hesitant to ask questions in large public channels, whether IRC or Slack or Twitter. That isn't entirely because I'm embarrassed or have had people be hostile to me in those channels; it's because I have had the experience (and seen it happen to others) where several people start lobbing information at me at once. Some of it might be helpful, some of it probably isn't, not all of it agrees with each other. As a beginner, I can't always evaluate quickly which answers are great and which are horse-pucky. I end up feeling dazed and confused and sometimes worse off than when I started. So I try to pick my medium and my teachers carefully now. 
+
+
+#### DO
+Be prepared to answer some questions from your helper and quite possibly to provide code and even error messages that you've gotten. A good teacher will often ask clarification questions; they may look like the "five whys" you've already asked yourself. They're not trying to be condescending (I mean, unless they're a jerk, but this happens less often than well-intentioned miscommunication) or pedantic. They may well know from experience that the underlying cause has a different, possibly even easier, solution if you look at that and start fresh. To do that, they may need information. I know I often find myself getting defensive or embarrassed when teachers want more information about the question I'm asking, but they can't help if they don't know what I've already tried, what you're really trying to do, and what _exactly_ went wrong.
+
+#### DO 
+Believe that if something seems ridiculously difficult, the problem might not be you. It could be that the book has broken code (if [my book](http://haskellbook.com/) has anything broken, please email us about it!) sp it's not your fault it doesn't work. It could be that the library has bad (or no!) documentation or tutorials, or that they are written with the assumption that only experts will attempt to use them. It is entirely possible that the [API is bad](https://twitter.com/bitemyapp/status/763797715507638272), that there is a bad user interface, that your computer is in revolt and will no longer do as you tell it. The time to feel bad about yourself is when you've just bitten your spouse's head off because they forgot to buy milk, not when you find that the library you need has no working example to help you get started. 
+
+#### DO
+Ask that embarrassing question. [This is the event](https://twitter.com/argumatronic/status/763418990982991872) that prompted me to write this post, because I need all this advice myself (pot meet kettle, et cetera et cetera). But this thread became a model of why you _should_ ask. I had tried to find the answer myself. I didn't find anything that was quite what I needed. Now, I've asked Michael Snoyman questions in the past and always found him gracious and forthcoming, so that was part of what made me feel comfortable doing it. I was embarrassed about asking publicly on Twitter, worried someone would sneer at me that _everyone knows how to stop a Docker container_. But, look, no one did! Not only did no one do that, no one pedantically corrected my wording. My fears were not realized. A friend popped in and gave me [the answer](https://twitter.com/JJoeKoullas/status/763420268056317953) that fixed my problem and Michael told me that he was able to reproduce the problem and find a way to fix it in the demo code. So, in some way, I may have contributed to an improvement by asking my naive question. It was a win for everyone. 
+
+Incidentally, teachers, that thread is a model of how to help beginners who don't know what they're doing. That was literally my second time doing anything with Docker and I _really_ don't know what I'm doing. But that's OK! Because I'm learning.
+
+Here is [another Twitter thread](https://twitter.com/argumatronic/status/760903133249712128) that is a great example. When I tweeted the original tweet, I had no expectation that someone would come along and give me a useful answer, but he did and it turned into a helpful conversation. I learned from it, and so did a couple of other people. It's pretty amazing when Twitter works like this.
+
+#### DON'T
+Feel embarrassed about learning. Try not to, anyway, because the fact that you're doing the work of learning is something to be proud of and have fun with. My favorite thing about homeschooling is how much I learn in the process of teaching my kids. I'm 42 years old and I think I finally understand what calculus is supposed to be about. When I took it before, it was formulae, formulae everywhere and not a drop of understanding. 
+
+As I said, some of this is advice for myself, really. I'm trying to write these blog posts lately about some things I find interesting and cool, and I hamstring myself thinking it'll be too beginner, too naive, not impressive enough. The blog post I mentioned at the top started simple, all youthful and innocent, and has now led me to this weird place where I think I understand something about category theory. And I'm afraid. I'm afraid I'm going to phrase something wrong. I'm afraid people will read it and think it's too simple, because I don't want the post to be about the category theory thing, I want it to be about how I got to the point of understanding that category theory thing so that you can, too (assuming you don't already)!
+
+Especially because I'm one of the authors of Haskell Book! People think I know so much. And it's true that I know some things very well. It is not true that I know everything. But it's hard to admit to not knowing everything in public.
+
+I had all these same fears about the last blog post I wrote about Haskell, and none of that happened. So I'm going to do it again.
+
+And I have had some really bad interactions with people since I've been learning programming. The fear is coming from a real place. There are jerks in the world, so I acknowledge that those fears are not always unreasonable and try not to let them stop me from learning by prioritizing my time and mental energy and focusing on the very many awesome people who want to help and teach and co-learn.
+
+You know what they say:
+
+_Fear is the mind-killer. Fear is the little death._ Don't be afraid to ask your questions and learn more. 
