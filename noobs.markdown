@@ -92,7 +92,10 @@ Some of the posts listed here go beyond basic function application and types. Yo
 
 ### More General Programming (e.g. git tutorials, shell scripting, whatever seems to make sense here)
 
+git: good starting point with most common commands https://medium.freecodecamp.com/git-cheat-sheet-and-best-practices-c6ce5321f52#.ibfvkofmv
+
 git: http://blog.plover.com/prog/two-things-about-git.html
+
 
 git problem-solving: http://blog.plover.com/prog/git-reset-disaster.html This is about solving a problem you might never have or not have for a long time, it's true. So why beginner? Because it explains a process for how to solve a problem using terminal commands and git that actually teaches you some useful and valuable things about terminal commands and git that you can use for other purposes, too. It's not the first thing you should read to learn git, but when you've got some of the basics down and are looking to learn more, this one is good. (p.s. MJD's blog is generally a goldmine of knowledge made accessible.)
 -->
