@@ -93,6 +93,7 @@ Some of the posts listed here go beyond basic function application and types. Yo
 ### More General Programming (e.g. git tutorials, shell scripting, whatever seems to make sense here)
 
 git: good starting point with most common commands https://medium.freecodecamp.com/git-cheat-sheet-and-best-practices-c6ce5321f52#.ibfvkofmv
+very important to point out the git commands are the same no matter if it's github or not! that confused the fuck out of me.
 
 git: http://blog.plover.com/prog/two-things-about-git.html
 
