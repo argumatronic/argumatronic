@@ -1,0 +1,51 @@
+---
+title: Logic and Calculus for Kids
+---
+
+When I was a kid, my mom had a subscription to Games Magazine. We didn't have much money, but we had incredible wealth in the form of reading material, and she got Games Magazine each year for Christmas. She let me do some of the puzzles, but she loved the logic puzzles best and she didn't let me have those. But I loved those ones best, too, so I'd often try to get to them before she had written the answers out. Even if all I had left was a word search, I'd often try to make it a logic puzzle by figuring out systematic search patterns that would help me finish it faster.
+
+I didn't know those systematic search patterns were anything logical, it was just what I liked to do and maybe things would have turned out differently if I'd had any siblings or something, I don't know. But few things gave me as much satisfaction as puzzles and figuring things out.
+
+I liked math, too, and most school subjects. Geometry was my favorite. I *loved* writing proofs. But when I got to trigonometry, my teacher, who wasn't really a math teacher but was a very fine basketball coach (who, FWIW, called me the "bad attitude problem child" of the team) couldn't explain anything that wasn't in the book. He didn't know what trig was about either. And I wasn't understanding the book's explanations, mostly because I couldn't understand *why* any of it worked the way it did. That ended up ruining me on math for many years. I took precalculus and a bit of calculus, but I'd hit the point where I believed I was bad at math and I just gave up.
+
+My freshman year of college, I was a philosophy major. I have deep, serious love for philosophy, and I was excited about the symbolic logic class we had to take, not to mention just analyzing arguments. I started dating this guy who was double-majoring in philosophy and mathematics, and I asked him one day what that was about; they seemed so different to me. Symbolic logic and argumentation in philosophy had a clear purpose to me, something I could understand the system and meaning of, but I'd already mentally quit math.
+
+But he said, "They're really the same. They're both the search for truth and beauty in the world. They just use different symbols to talk about it."
+
+He was a smart guy, because I only date awesome people. It took years before what he said sunk into my very thick skull. I even suffered through a formal logic class (part of the philosophy degree, I'm afraid) without that happening. But it finally has. 
+
+And now, I'm afraid, I have a lot of mathematical catching up to do.
+
+So, a couple of weeks ago, my kids took some online classes. The older kid took a logic class and the younger one took a "calculus for kids" class. Both were offered through [Natural Math](http://naturalmath.com/). We were happy with both, and I think a lot of parents would enjoy doing them at home with their own kids.
+
+The logic class was based on a book called [Camp Logic](http://naturalmath.com/camplogic/). They didn't make it all the way through the book that week, but we'll be continuing it as part of our homeschool. 
+
+All the logic is taught through games. It does use phrases like "proof through contradiction" but they're all well demonstrated through the patterns of the games that none of the kids struggled with them. 
+
+The first section of the book (and the first of my son's hour-long classes) is about solving cryptarithms. That was exactly the kind of puzzle I enjoyed as a kid, but I was still surprised how quickly the kids picked up the ways of solving them, and how thrilled they were when they were able to say "the answer _must_ be" because they knew it with certainty. They'd understood the joy of reasoning without realizing they were doing anything particularly special.
+
+The best thing the teacher did was give the kids time and encouragement to verbally explain their reasoning processes. This is so crucial. It's good to be able to _see_ an answer in a flash of intuition (where intuition here means, of course, systematic reasoning that you don't realize you're doing) but it's so much better to be able to put it into words and describe the steps and the process. Many teachers are impatient with allowing kids -- or even adult students -- to do this because students will phrase things badly and use some words incorrectly and maybe put some steps out of order and just generally do things less elegantly than the teacher could. That's sort of the point, though. Impatience with the student who has chosen not quite the right word or left out a step can mean they will be too embarrassed to try next time. It's so deflating.
+
+Through the week, the class worked through other parts of the book, especially Giotto puzzles. They didn't finish the book, though, so we will finish on our own. My kids (both of them, as the younger one listened in to his brother's class a lot) are excited to finish it and work more puzzles. It's a no-kidding thrill for me to share that with them, too. This book even explains what "isomorphic" means, but in the context of fun games. 
+
+Son the younger was, as I mentioned, in a "calculus for kids" class the same week. The instructor was the same, and while some of the materials she used (or possibly all?) are available on the Natural Math site, they're not in a book per se. Now, I've already given an indication of my general feelings about calculus, but I thought we'd give it a go.
+
+See, my kids have these books. Ok, they have a lot of books, far too many, enough to have a serviceable small-town lending library, probably, but I'm talking about their math storybooks. Once a long time ago we checked out a book called _Sir Cumference and the Dragon of Pi_ by Cindy Neuschwander out from a library, and it was fantastic. It has a visual, very easy to understand "proof" of why pi has the relationship with circles that it does. I don't think I ever understood it as well in school as I did by reading that book. And it seemed like that opened up my interest in math again; I remembered how I used to find so much truth and beauty there, but I'd lost that somewhere along the way, through years of schooling.
+
+We bought a bunch of similar books. There are more books in the Sir Cumference series, and there's a very nice book that has a visual proof of the Pythagorean theorem that even toddlers can understand, and Greg Tang's books that focus on thinking of things in groups, rather than counting individually, and finding patterns. We have Moebius Noodles from Natural Math, too, that has math games, and we have books about Fibonacci numbers and tessellation and do mathy artwork based on those books. For me, teaching my kids math has brought back the joy of math for me.
+
+Still, I was skeptical of the calculus for kids. I had nothing but bad memories of not understanding a damn thing from calculus. When the class started and I looked at the materials, I was still skeptical. It was all about building models and slicing things up and doing flipbook animation, and I didn't see how it was calculus.
+
+Do you?
+
+We talked about modeling 2D pictures in 3D space and also doing the reverse. We talked about building a sphere out of slices of sphere. We talked about the rate of change of a drawing to make it look like it's growing in a flipbook. We never talked about anything "mathy."
+
+All through it, again, the teacher would ask the kids to explain their thought processes. These were younger kids than the logic group, so she'd sometimes prompt them or rephrase what they'd said, but she was really patient as they explained their different ways of slicing up or modeling a problem. 
+
+On the Thursday, finally, one of the little girls asked, "How is this math?" 
+
+It's not how I learned math, either, little girl. But I wish I had. I finally understand what I was supposed to be learning in high school. I finally understand how mathematics is the same search for truth and beauty through reasoning that attracts me to philosophy. Finally I fully share my kids' enthusiasm for math again.
+
+I feel like I took a particularly good dose of some hallucinogen or whatever made William Blake the way he was, and the universe feels open again, the way it did when I was a child, like if I just apply my little human brain in a systematic way, truth and beauty will reveal themselves. 
+
+When I started this post, I thought it'd be a more straightforward review, and it seems to have ended up in a weird place. Symbolic logic and math and truth and beauty and poetry. So good.
