@@ -21,7 +21,7 @@ html, body {
 }
 
 body {
-    background: #F5DAF5;
+    background: #FFF8E7;
     font-family: 'Libre Baskerville', georgia, serif;
     color:#302F2F;
 }
@@ -171,7 +171,7 @@ div.info {
 }
 
 blockquote {
-  /*background-color: ;*/
+  background-color: #F5DAF5;
   font-style: italic;
   padding: 3px 10px 3px 10px;
 }
