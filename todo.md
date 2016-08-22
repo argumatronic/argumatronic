@@ -1,7 +1,6 @@
 add a "book reviews" link on the nav bar
 
 add book reviews
-should probably get a No Starch affiliate account going
 
 book reviews will be of 3 types: adult, kids, kids math/sci/programming
 
@@ -24,3 +23,5 @@ http://www.robotstxt.org/robotstxt.html
 
 put a feet pic (with texas sign probably) on about page
 make the kitty picture the header. move header to top. responsive css. but my gradient! use that as footer? 
+
+add a table of contents to the "for beginners" page --need to find out how to link to headings on same page. hm.

@@ -1,7 +1,8 @@
 ---
 title: For Beginners
 ---
-
+<!-- add a table of contents here. how to link to parts of the same page, omg, no idea
+ -->
 People ask me a lot how they can best get started with programming, functional programming, or Haskell specifically. Of course, I think [my book](http://haskellbook.com/), which was written for beginners, is a great place to start, but people have different needs. I'm going to try to collect here the things that I have personally found most helpful for getting started with programming and with Haskell. It's an opinionated collection. It might not be perfectly suited to your needs, but these are things that worked for me.
 
 ## What to do first
