@@ -10,7 +10,7 @@ I'm about half hippie chick and about half redneck, sympathetic to various polit
 
 One of my boyfriends broke up with me because I never take life seriously enough. 
 
-But I live by these words: *"Don't take life so serious, son, it ain't nohow permanent."*
+*"Don't take life so serious, son, it ain't nohow permanent."*
 
 I am pretty serious about pie crust, though. Don't even come at me with that store bought stuff.
 

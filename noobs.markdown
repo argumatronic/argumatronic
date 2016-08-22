@@ -84,22 +84,27 @@ Some of the posts listed here go beyond basic function application and types. Yo
 
 
 
-<!-- ### Typeclasses ? possibly combine with Types 
+<!--  ### Typeclasses ? possibly combine with Types 
 
 ### The Big Awesome Typeclasses
 
-### Library Tutorials and Projects 
+### Library Tutorials and Projects  -->
 
-### More General Programming (e.g. git tutorials, shell scripting, whatever seems to make sense here)
+### More General Programming
 
-git: good starting point with most common commands https://medium.freecodecamp.com/git-cheat-sheet-and-best-practices-c6ce5321f52#.ibfvkofmv
-very important to point out the git commands are the same no matter if it's github or not! that confused the fuck out of me.
+#### Git
 
-git: http://blog.plover.com/prog/two-things-about-git.html
+If you don't already know git, you need to. One thing I'd like to note, because this wasn't very clear to me for a long time, is that git is not GitHub. I use git mostly from the command line, so for me, when I move a repository from GitHub to Gitlab (or vice versa), I change the address of what I'm pushing to and pulling from, but the commands themselves don't change. The first time I moved something from GitHub to Gitlab, I didn't realize that would be true, and I thought I'd have to learn new things. Every experienced programmer is probably shaking their heads at me now, but if putting this out in public will prevent any one person from having the same fear, then so be it. That said, I highly encourage you to learn git from the command line. Here are some places to get started.
+
+[Read this first](http://blog.plover.com/prog/two-things-about-git.html), because it's reassuring and also has links (at the bottom) to the two best sources of understanding git's underlying model that I know of. I don't have a preference between them. I strongly urge you to familiarize yourself with the underlying structure of git. Having that model in your head will help you diagnose problems when they arise and use a search engine to find commands that you need. It's hard to search for git commands if you're not sure what you need to do, and having an idea of the underlying structure helps you know what you need to do. 
+
+[This doesn't explain very much](https://medium.freecodecamp.com/git-cheat-sheet-and-best-practices-c6ce5321f52#.ibfvkofmv) about git's underlying model, but is a good, quick starting point that explains the most commonly used commands, and it'll serve as a good reference as you're learning. 
 
 
-git problem-solving: http://blog.plover.com/prog/git-reset-disaster.html This is about solving a problem you might never have or not have for a long time, it's true. So why beginner? Because it explains a process for how to solve a problem using terminal commands and git that actually teaches you some useful and valuable things about terminal commands and git that you can use for other purposes, too. It's not the first thing you should read to learn git, but when you've got some of the basics down and are looking to learn more, this one is good. (p.s. MJD's blog is generally a goldmine of knowledge made accessible.)
--->
+
+
+<!-- git problem-solving: http://blog.plover.com/prog/git-reset-disaster.html This is about solving a problem you might never have or not have for a long time, it's true. So why beginner? Because it explains a process for how to solve a problem using terminal commands and git that actually teaches you some useful and valuable things about terminal commands and git that you can use for other purposes, too. It's not the first thing you should read to learn git, but when you've got some of the basics down and are looking to learn more, this one is good. (p.s. MJD's blog is generally a goldmine of knowledge made accessible.) -->
+
 
 <!-- add this if/when done (might PR with fixes?) https://ci.haskell-lang.org/tutorial/operators
  -->
