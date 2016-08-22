@@ -90,9 +90,9 @@ Some of the posts listed here go beyond basic function application and types. Yo
 
 ### Library Tutorials and Projects  -->
 
-### More General Programming
+## General Programming
 
-#### Git
+### Git
 
 If you don't already know git, you need to. One thing I'd like to note, because this wasn't very clear to me for a long time, is that git is not GitHub. I use git mostly from the command line, so for me, when I move a repository from GitHub to Gitlab (or vice versa), I change the address of what I'm pushing to and pulling from, but the commands themselves don't change. The first time I moved something from GitHub to Gitlab, I didn't realize that would be true, and I thought I'd have to learn new things. Every experienced programmer is probably shaking their heads at me now, but if putting this out in public will prevent any one person from having the same fear, then so be it. That said, I highly encourage you to learn git from the command line. Here are some places to get started.
 
