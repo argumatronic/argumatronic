@@ -5,10 +5,10 @@ title: For Beginners
  -->
 People ask me a lot how they can best get started with programming, functional programming, or Haskell specifically. Of course, I think [my book](http://haskellbook.com/), which was written for beginners, is a great place to start, but people have different needs. I'm going to try to collect here the things that I have personally found most helpful for getting started with programming and with Haskell. It's an opinionated collection. It might not be perfectly suited to your needs, but these are things that worked for me.
 
-## Table of Contents  
+<!-- ## Table of Contents  
 [What to do first](## What to do first)  
 [Books](## Books)  
-[No Monads for you](##no-monads-for-you)  
+[No Monads for you](##no-monads-for-you)   -->
 
 ## What to do first
 

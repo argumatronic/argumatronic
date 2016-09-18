@@ -106,7 +106,7 @@ anyR (<3) [1, 2, 3]
 ```
 It's written with a right fold, so the first thing it will do is apply its `(a -> Bool)` function (called `f` in the implementation of `anyR`) to the first value in the list.
 
-(I'm going to be writing out some steps to give a conception of how it evaluates. Please do not take this overly literally; the goal is to get the idea not )
+(I'm going to be writing out some steps to give a conception of how it evaluates. Please do not take this overly literally; the goal is to get the idea.)
 
 ```haskell
 ((<3) 1) || y : ...
