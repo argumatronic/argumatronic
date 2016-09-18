@@ -171,7 +171,7 @@ div.info {
 }
 
 blockquote {
-  background-color: #F5DAF5;
+  background-color: #e0d7da;
   font-style: italic;
   padding: 3px 10px 3px 10px;
 }
@@ -181,7 +181,7 @@ div.blurb {
     padding: 5px 0px 5px 0px;
     max-width: 920px;
     width: 50%;
-    background-color: #F5DAF5;
+    background-color: #e0d7da;
     clear: both;
 }
 
@@ -191,6 +191,96 @@ div.blurb p {
     max-width: 80%;
 }
 
-div.sourceCode {
-    margin-left: 3em;
+.sourceCode {
+    font-family: 'Ubuntu Mono', monospace;
 }
+
+div.sourceCode {
+    max-width: 50em;
+}
+
+pre.sourceCode {
+    padding: 3px 10px 3px 10px;
+    background-color: #4C3131;
+}
+
+table.sourceCode, tr.sourceCode,
+td.lineNumbers, td.sourceCode,
+table.sourceCode pre {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    border: none;
+}
+td.lineNumbers {
+    border-right: 1px solid #AAAAAA;
+    text-align: right;
+    color: #AAAAAA;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+/* Source code stuff */
+
+
+div.sourceCode {
+    max-width: 50em;
+}
+
+pre.sourceCode {
+    padding: 3px 10px 3px 10px;
+    background-color: #4C3131;
+}
+
+table.sourceCode, tr.sourceCode,
+td.lineNumbers, td.sourceCode,
+table.sourceCode pre {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    border: none;
+}
+td.lineNumbers {
+    border-right: 1px solid #AAAAAA;
+    text-align: right;
+    color: #AAAAAA;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+/*td.sourceCode { padding-left: 5px; }
+
+/* main text */
+code.sourceCode { color: #FFF8E7; }
+/* keyword */
+.sourceCode span.kw { color: #c26c9e; font-weight: bold; }
+/* import target, function name, constructors */
+.sourceCode span.dt { color: #dc95cf; } /*b18cbe*/
+/* numbers/literals? */
+.sourceCode span.dv { color: #49c6c6; }
+/* */
+.sourceCode span.bn { color: #AC7B84; }
+/* */
+.sourceCode span.fl { color: #AC7B84; }
+/* */
+.sourceCode span.ch { color: #AC7B84; }
+/* string */
+.sourceCode span.st { color: #63A6f0; }
+/* comments */
+.sourceCode span.co { color: #ffccdd; font-style: italic; }
+/* operators, accessors */
+.sourceCode span.ot { color: #f0ad63; }
+/* */
+.sourceCode span.al { color: #B84A62; font-weight: bold; }
+/* function */
+.sourceCode span.fu { color: #e48cad; }
+/* */
+/*.sourceCode span.re { }*/
+/* */
+.sourceCode span.er { color: #B84A62; font-weight: bold; }
+
+/*div.sourceCode {
+    margin-left: 3em;
+}*/
