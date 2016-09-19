@@ -70,6 +70,8 @@ Some of the posts listed here go beyond basic function application and types. Yo
 - [Currying is Delicious](http://argumatronic.com/posts/2016-06-17-delicious-currying.html) I wrote this one, and like some of the ones above, it goes a bit beyond reading basic type signatures. But it's important to understand currying, and as you get around to understanding _kind_ signatures as well, it'll help you understand functors, which will eventually help you understand the legendary Monad.  
 - The Haskell Wiki is, like most wikis, uneven in quality and helpfulness, but [this page](https://wiki.haskell.org/Common_Misunderstandings) has some nice tips and explanations of some common syntactic mistakes. 
 
+<!-- sectioning: http://stackoverflow.com/questions/10131300/partial-application-with-infix-functions -->
+
 
 ### Important Functional Patterns 
 
