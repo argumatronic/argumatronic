@@ -1,0 +1,175 @@
+---
+title: Folds and Infinite Lists
+---
+## Introduction
+
+At the last Austin Haskell meetup, we were talking about folds and lists, and there were a lot of questions about how `foldr` can work with "infinite" lists. I had written up some notes from our discussion, to answer any remaining questions and help solidify what we talked about, so I thought I'd go ahead and post it here for all the world to see.
+
+It's a beginner-ish meetup, so where I'm talking about lists, you can think of other data structures that could also be infinite, or very large, that you'd want to fold, and a lot of this will still apply. I made a note that you'll see the `Foldable` typeclass in here, but if you're not comfortable with that yet, then think of those data structures as lists. If you are, then think of them as any data structure that has a `Foldable` instance. This post does assume some prior understanding of recursion and a basic understanding of what folds are and how to use them on lists.
+
+## Different recursive strategies
+
+Since lists can keep adding more list, we can use them for data of indefinite size; we can even construct infinite lists. Nonstrictness helps manage this, because we aren't obligated to evaluate everything. However, some operations are more suitable to such lists than others are.
+
+We talked about why `foldr` can work with infinite lists but `foldl` doesn't. The crux of the difference is in how they recurse:
+
+```haskell
+foldr :: (a -> b -> b) -> b -> [a] -> b
+foldr f acc []     = acc
+foldr f acc (x:xs) = f x (foldr f acc xs)
+```
+The `f` there represents the function that we're folding over the list. With `foldr` the recursive call to "more `foldr`" is an argument to the function `f`.
+
+But with `foldl`, the recursive call is not intermediated by any function:
+
+```haskell
+foldl :: (b -> a -> b) -> b -> [a] -> b
+foldl f acc []     =  acc
+foldl f acc (x:xs) =  foldl f (f acc x) xs
+```
+Here `f` again represents the function we're folding over the list, but we call `foldl` first, again and again, *before* we call that function `f`. It has to traverse all the way down the spine of the list, accumulating a giant pile of unevaluated stuff, before it can even apply the `f` function to any of the values. Because it's left-associative, it does start applying the `f` (and the start or `acc` value) from the "head" of the list, but if it never finishes traversing the spine, it will never start applying that function.
+
+But `foldr` applies the function to a value in the list (`f x`) before it calls itself to recurse further. That means that if you have a function that can return a final result after one application, you could stop evaluating the infinite list there.
+
+Back when I was young and naive, I thought something like this might do it:
+
+```haskell
+λ> let myProduct = foldr (*) 0
+λ> myProduct [1..10]
+0
+```
+Because I used a zero instead of 1 for the start value, shouldn't it *just know* that the answer is going to be zero no matter how many items are in the list? Yeah, well, it doesn't. And this might be a time when the fact that arithmetic operators are strict in both arguments is hurting, too, although I'm not sure. That will throw a nice stack overflow exception if you try to use it on an infinite list.
+
+The other difference between the folds, and what the `r` and `l` in their names stands for is their associativity: `foldr` is right associative while `foldl` is left associative. This does affect how you write folding functions and how they evaluate, but it isn't super important for the topic of why one will work on infinite lists but the other won't.
+
+(Syntax note: The range syntax `[1..10]` is a handy way to construct lists. That example will construct a list that starts at 1 and ends at 10. Underneath, it's the same as the function `enumFromTo 1 10`. You can construct a list that will enumerate integers starting at 1 that will keep going forever because integers go to infinity and beyond: `enumFrom 1` or `[1..]` will both produce such a list, but in this post, I've used the range syntax.)
+
+## Booleans to the rescue
+
+So, to demonstrate this, you really need something that will really short-circuit, or stop evaluating, once it can determine the result. Conveniently, there are some boolean functions that do. For example, disjunctions only need to find one `True` before they know the whole thing will be `True` and they just stop evaluating once they do.
+
+This will be the family of functions we're working with here:
+
+```haskell
+λ> :t or
+or :: Foldable t => t Bool -> Bool
+λ> or [True, False, True]
+True
+
+λ> :t (||)
+(||) :: Bool -> Bool -> Bool
+λ> True || False
+True
+
+λ> :t any
+any :: Foldable t => (a -> Bool) -> t a -> Bool
+λ> any (<3) [1..10]
+True
+```
+If you're not familiar with the `Foldable` typeclass, try not to worry about that and read those `t` variables as lists (`[Bool]`, `[a]`).
+
+Interestingly, these can return a `True` on an infinite list, but to return a `False` value, the list has to be finite:
+
+```haskell
+λ> any (<3) [1..]
+True
+λ> any (<3) [5..]
+^CInterrupted.
+```
+
+## Right versus left
+
+You can write your own `any` function using a fold. What we'll do here to examine the difference between `foldr` and `foldl` is implement it twice (three times by the time this is over, probably), once with each:
+
+```haskell
+anyR :: (a -> Bool) -> [a] -> Bool
+anyR f = foldr (\x -> \y -> f x || y) False
+
+anyL :: (a -> Bool) -> [a] -> Bool
+anyL f = foldl (\x -> \y -> x || f y) False
+```
+I'm using the anonymous lambda syntax to pass values from the list we're folding to the disjunction function. With a right fold, the `(a -> Bool)` function (called `f` here) has to be applied to the `x`, or left side of the disjunction. But with the left fold, it has to be applied to the `y`, or right side of the disjunction. In both cases, the *other* argument to the disjunctive function is the `False` we're starting out with. You can see why if you look at the types of `foldr` and `foldl`:
+
+```haskell
+foldr :: Foldable t => (a -> b -> b) -> b -> t a -> b
+--                                      ^
+foldl :: Foldable t => (b -> a -> b) -> b -> t a -> b
+--                                      ^
+```
+The highlighted `b` in each type signature is the start value, or accumulator value. We need that for a couple of reasons: one is that we're folding *binary* functions, so to apply the binary function to the first value in the list, it needs a second argument. It also serves as the default value so we don't throw an exception for an empty list. It can serve other purposes as well, if there is some value you want added to the list or whatever, but it's quite often some sort of identity value for whatever type of values you have in the list are, so that it doesn't change the result of your function applications over the values of the list. It's called the accumulator value sometimes, because in the next application of the function, the `b` won't be your start value anymore; it will be the `b` that resulted from the first application of the function you're folding over the list (the function that serves as the first argument to `foldr` or `foldl` itself). I'll try to make this more clear in the examples.
+
+```haskell
+anyR (<3) [1, 2, 3]
+-- (<3) is the (a -> Bool) function we're folding over the list
+-- the list desugars into a structure like this:
+-- (1 : (2 : (3 : []))
+```
+It's written with a right fold, so the first thing it will do is apply its `(a -> Bool)` function (called `f` in the implementation of `anyR`) to the first value in the list.
+
+(I'm going to be writing out some steps to give a conception of how it evaluates. Please do not take this overly literally; the goal is to get the idea.)
+
+```haskell
+((<3) 1) || y : ...
+-- this `y` would be the result (True or False) of
+-- applying (<3) to the next value in the list
+-- and so on to the end of the list
+
+... ((<3) 3) || False : []
+-- this False here is our start value that we provided
+-- because this operator needs two Bool inputs
+```
+With the right fold, it would call more of the fold (the recursive call) next, and eventually the start value (`False` here) would show up as the right (or second) input to the final binary function. But we'll never get that far this time because `||` doesn't need any more information to return a final result of `True.` The first value is less than 3 so it already knows the final result has to be true, because that's how the Boolean truth tables crumble.
+
+So, with `anyR`, nothing bad will happen if you use this on an infinite list because it has an immediate way to return a `True`:
+
+```haskell
+λ> anyR (<3) [1..]
+True
+```
+Well, what about our `anyL` written with a left fold? On a finite list, it works fine:
+
+```haskell
+λ> anyL (<3) [1, 2, 3]
+True
+```
+But it is evaluating differently. I'm going to do the same not-literal illustration of what's going on under the surface to give you an idea of what's happening. It's left-associative so the starting `False` value will this time be the first argument to the disjunction with the first value:
+
+```haskell
+False || ((<3) 1) : ...
+
+... y || ((<3) 3) : []
+```
+Remember it's got to keep calling the `foldl` part first, before it does any applications of the function. _That means it *must* traverse the whole length of the spine._ That is why, typically, you don't use `foldl` that much -- that can get pretty costly even when the data structure is merely *very large* but not infinite.
+
+Since we have those two versions of `any` written, we can see the difference in their handling of infinitely large lists:
+
+```haskell
+λ> anyR (<3) [1..]
+True
+λ> anyL (<3) [1..]
+^CInterrupted.
+```
+The difference here is that `anyR` has a mechanism to stop traversing the whole spine: the intermediary function that can short-circuit the rest of the evaluation. Because `anyL` is written with a left fold, it has no way to stop traversing the spine; it can't evaluate anything until the recursive calls to itself, the spine traversal, reaches the end of the list.
+
+## foldl PRIME tho
+
+There is a *strict* type of left fold, `foldl'` in the `Data.List` module that can be used over large lists because it forces evaluation of its function applications as it goes along instead of allowing all the thunks (thunks are placeholders for unevaluated stuff) to accumulate. That can spare you some memory, and I've listed some references at the end of this post that give more information about thunks and evaluation and space leaks with regard to fold evaluations. But I want to point out here that this still will not work with infinite lists:
+
+```haskell
+λ> let anyL' f = foldl' (\x -> \y -> x || f y) False
+λ> anyL' (<3) [1..10]
+True
+λ> anyL' (<3) [1..]
+^CInterrupted.
+```
+It will force evaluation of thunks as it goes along, but it still can't stop itself from traversing over the entire spine of the list -- and since that never ends, neither will this fold.
+
+### Further reading:  
+
+[All About a Fold](https://github.com/lambdaconf/lambdaconf-2016-usa/blob/master/All%20about%20a%20Fold/All-about-a-fold.pdf)  This is slides from a conference talk, but I think they're thorough enough that you can get a good idea of how folds work from them, even without hearing the talk itself (although I'm hoping there will be a video of that up at some point, too).
+
+These next two go into more detail about how folds evaluate. I believe that if you could understand this blog post, you can understand either of these.
+
+[How Lazy Evaluation Works in Haskell](https://hackhands.com/lazy-evaluation-works-haskell/) This one even has nice diagrams!  
+
+[Foldr Foldl Foldl'](https://wiki.haskell.org/Foldr_Foldl_Foldl')  
