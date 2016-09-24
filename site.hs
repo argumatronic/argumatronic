@@ -1,8 +1,10 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
+import qualified Data.Set as S
 import           Hakyll
 import           Hakyll.Core.Configuration
+import           Text.Pandoc.Options
 
 --------------------------------------------------------------------------------
 --config :: Configuration
@@ -22,6 +24,16 @@ feedConfig = FeedConfiguration
      , feedRoot        = "http://argumatronic.com/"
      }
 
+customCompiler :: Compiler (Item String)
+customCompiler =
+  let customExtensions = [Ext_subscript, Ext_footnotes]
+      defaultExtensions = writerExtensions defaultHakyllWriterOptions
+      newExtensions = foldr S.insert defaultExtensions customExtensions
+      writerOptions = defaultHakyllWriterOptions {
+                      writerExtensions = newExtensions
+                      }
+   in pandocCompilerWith defaultHakyllReaderOptions writerOptions
+
 main :: IO ()
 main = hakyllWith config $ do
     match "images/*" $ do
@@ -36,16 +48,16 @@ main = hakyllWith config $ do
         route   idRoute
         compile compressCssCompiler
 
-    
+
     match (fromList ["about.md", "contact.markdown", "noobs.markdown"]) $ do
         route   $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ customCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ customCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= saveSnapshot "content"
             >>= loadAndApplyTemplate "templates/default.html" postCtx
