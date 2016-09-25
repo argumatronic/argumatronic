@@ -23,47 +23,40 @@ feedConfig = FeedConfiguration
      , feedAuthorEmail = "srs_haskell_cat@aol.com"
      , feedRoot        = "http://argumatronic.com/"
      }
-
-customCompiler :: Compiler (Item String)
-customCompiler =
-  let customExtensions = [Ext_subscript, Ext_footnotes]
-      defaultExtensions = writerExtensions defaultHakyllWriterOptions
-      newExtensions = foldr S.insert defaultExtensions customExtensions
-      writerOptions = defaultHakyllWriterOptions {
-                      writerExtensions = newExtensions
-                      }
-   in pandocCompilerWith defaultHakyllReaderOptions writerOptions
-
+     
 main :: IO ()
 main = hakyllWith config $ do
-    match "images/*" $ do
+   match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
 
-    match "favicon.ico" $ do
+   match "favicon.ico" $ do
         route   idRoute
         compile copyFileCompiler
 
-    match "css/*" $ do
+   match "css/*" $ do
         route   idRoute
         compile compressCssCompiler
 
+   match "fonts/*" $ do
+        route   idRoute
+        compile copyFileCompiler
 
-    match (fromList ["about.md", "contact.markdown", "noobs.markdown"]) $ do
+   match (fromList ["about.md", "contact.markdown", "noobs.markdown"]) $ do
         route   $ setExtension "html"
-        compile $ customCompiler
+        compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
-    match "posts/*" $ do
+   match "posts/*" $ do
         route $ setExtension "html"
-        compile $ customCompiler
+        compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= saveSnapshot "content"
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
-    create ["archive.html"] $ do
+   create ["archive.html"] $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
@@ -77,7 +70,7 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
-    create ["rss.xml"] $ do
+   create ["rss.xml"] $ do
         route idRoute
         compile $ do
           let feedCtx = postCtx `mappend` bodyField "description"
@@ -86,7 +79,7 @@ main = hakyllWith config $ do
           renderRss feedConfig feedCtx posts
 
 
-    match "index.html" $ do
+   match "index.html" $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
@@ -100,7 +93,7 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls
 
-    match "templates/*" $ compile templateCompiler
+   match "templates/*" $ compile templateCompiler
 
 
 --------------------------------------------------------------------------------

@@ -1,16 +1,22 @@
 ---
 title: For Beginners
 ---
-<!-- add a table of contents here. how to link to parts of the same page, omg, no idea
- -->
+
 People ask me a lot how they can best get started with programming, functional programming, or Haskell specifically. Of course, I think [my book](http://haskellbook.com/), which was written for beginners, is a great place to start, but people have different needs. I'm going to try to collect here the things that I have personally found most helpful for getting started with programming and with Haskell. It's an opinionated collection. It might not be perfectly suited to your needs, but these are things that worked for me.
 
-<!-- ## Table of Contents  
-[What to do first](## What to do first)  
-[Books](## Books)  
-[No Monads for you](##no-monads-for-you)   -->
+# Table of Contents  
+[What to Do First](#what-to-do-first)  
+[Books](#books)  
+[No Monads for You](#no-monads-for-you)  
+[Blog Posts and Tutorials](#blog-posts-and-tutorials)  
+  - [Lambda Calculus](#lambda-calculus)  
+  - [Haskell Basics](#haskell-basics)  
+  - [Functional Patterns](#functional-patterns)   
+  - [Awesome Typeclasses](#awesome-typeclasses)  
+[General Programming](#general-programming)  
+  - [Git](#git)
 
-## What to do first
+# What to do first
 
 OK, you're here looking at a Haskell-ish blog already so maybe you don't need this advice. But. Just in case.
 
@@ -20,7 +26,7 @@ I do recommend you just get [Stack](http://docs.haskellstack.org/en/stable/READM
 
 If you are itching to see how a project is set up in Haskell, try Chris's [How I Start: Haskell](http://howistart.org/posts/haskell/1) article and enjoy processing some CSV data.
 
-## Books
+# Books
 
 When we're talking about learning resources, I am very opinionated. In the course of writing our Haskell book, I have read most of the other Haskell books. I recognize that not everyone's judgments here will be the same as mine, but these are what worked best for me (totally new programmer with not a lot of math background):  
 
@@ -29,7 +35,7 @@ When we're talking about learning resources, I am very opinionated. In the cours
 
   - [Haskell: The Craft of Functional Programming](http://www.haskellcraft.com/craft3e/Home.html) by Simon Thompson: Ah, this book is not free, and it's not perfect, but I do love this book. It has quite a few exercises, and I found them interesting and challenging without making me want to hurl the book through the window.
 
-## No Monads for You
+# No Monads for You
 
 A lot of people who have experience programming in other languages think the big thing they need to learn about Haskell is monads and try to start there. So, here are my suggestions for beginning monads:
 
@@ -39,11 +45,11 @@ A lot of people who have experience programming in other languages think the big
 
 - [How Would You Explain Monads to a Haskell Noob](https://www.quora.com/How-would-you-explain-Monads-to-a-Haskell-noob-who-is-reasonably-experienced-in-other-languages-but-has-no-formal-maths-education/answer/Andrea-Ferro)
 
-## Blog Posts and Tutorials
+# Blog Posts and Tutorials
 
 Good, good, now that you've decided to forego learning about monads until you have a better understanding of types, typeclasses, functors and all that, here are some blog posts and tutorials from around the web that I found helpful. Even if you are working through a book, getting the same lesson presented differently, with different wording and examples, can help.
 
-### Lambda Calculus
+## Lambda Calculus
 
 Wait, what? I know. If you'd told me as a senior at university suffering through formal logic that, at the age of 40, lambda calculus would suddenly become very relevant to my interests, I'd surely have scoffed. But it's true! Haskell is a lambda calculus, so understanding it in its simplest form (not easiest, but simplest in the sense of "without all the fancy syntax") can help tremendously. We started our book with a chapter on lambda calculus, but here are some other ways to dive in:
 
@@ -51,7 +57,7 @@ Wait, what? I know. If you'd told me as a senior at university suffering through
 
 - [Functional Programming Through the Lambda Calculus](https://www.cs.rochester.edu/~brown/173/readings/LCBook.pdf) OK, so this one is more than a blog post, but I found it very readable. The example code is in Pascal but is well enough explained with reference to lambda expressions that I didn't find it problematic. Even getting through only the first two chapters will boost your functional programming skills by quite a lot, I'd think.
 
-### The Basics: Functions, Types.
+## Haskell Basics
 
 Some of the posts listed here go beyond basic function application and types. You may find you only understand half the post the first time you read it (or less sometimes, if you're like me!). That's cool. What I did is bookmark them and keep coming back to them as I learned more and I was able to recognize how much progress I was making by seeing how much more I understood each time.
 
@@ -77,7 +83,7 @@ Some of the posts listed here go beyond basic function application and types. Yo
 
 <!-- sectioning: http://stackoverflow.com/questions/10131300/partial-application-with-infix-functions -->
 
-### Important Functional Patterns
+## Functional Patterns
 
 - [Function Composition and the $ Operator](http://lambda.jstolarek.com/2012/03/function-composition-and-dollar-operator-in-haskell/)
 
@@ -91,17 +97,24 @@ Some of the posts listed here go beyond basic function application and types. Yo
 
 - [Interactive Demonstration](https://stevekrouse.github.io/hs.js/) of `map` and folds.
 
+## Awesome Typeclasses
+
+The problem with most blog posts about functors, applicatives, and monads is less that they have analogies to food items and more that they miss the point that all of those big typeclasses are generalizations of basic patterns. What we want to do is apply and compose functions in the presence of *structure*, and these are ways of doing it. None of these typeclasses are magic, and they all exist to solve common programming problems. They're things you [might well have written yourself](http://sean.voisen.org/blog/2013/10/intro-monads-maybe/), but in Haskell, we've just pulled them out into typeclasses to make them reusable with a lot of different types of structure. I mean, I say "we" but obviously this was done by smarter people than I am. 
+
+They did that with monoids, too, and even though you're thinking "monoid" sounds like some unfortunate disease, it's a pattern you're familiar with -- addition, multiplication, and list concatenation are all monoids. 
+
+The [Typeclassopedia](https://wiki.haskell.org/Typeclassopedia) is one of the things people told me to read when I was a beginner, and it was way over my head. However, once you're ready for it, it's an invaluable source of information about important typeclasses. You might try going through it as you're working through the NICTA course. Heh. 
+
+<!-- ## Example Tutorials
+
+I'm getting a little bit ahead of myself here, it seems, going from "Haskell basics" to full-blown, end-to-end examples of Haskell in practical use. But it can be difficult to stick with learning Haskell if you don't get a feel for what it's like to use it to *do stuff.* I'm going to try to limit this to examples that I think are useful for beginners to follow along with.  
+
+- I haven't tried the code yet in this [`wreq` tutorial](http://conscientiousprogrammer.com/blog/2015/12/04/24-days-of-hackage-2015-day-4-wreq-web-client-programming-with-notes-on-lens-and-operator-syntax/), unfortunately, but it's so thorough.  -->
 
 
-<!--  ### Typeclasses ? possibly combine with Types
+# General Programming
 
-### The Big Awesome Typeclasses
-
-### Library Tutorials and Projects  -->
-
-## General Programming
-
-### Git
+## Git
 
 If you don't already know git, you need to. One thing I'd like to note, because this wasn't very clear to me for a long time, is that git is not GitHub. I use git mostly from the command line, so for me, when I move a repository from GitHub to Gitlab (or vice versa), I change the address of what I'm pushing to and pulling from, but the commands themselves don't change. The first time I moved something from GitHub to Gitlab, I didn't realize that would be true, and I thought I'd have to learn new things. Every experienced programmer is probably shaking their heads at me now, but if putting this out in public will prevent any one person from having the same fear, then so be it. That said, I highly encourage you to learn git from the command line. Here are some places to get started.
 

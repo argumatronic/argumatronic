@@ -1,14 +1,13 @@
-/*@font-face {
-  font-family: 'Libre Baskerville';
-  src: local('Libre Baskerville'), url('/fonts/LibreBaskerville-Regular.otf') format('opentype');
+@font-face {
+  font-family: 'Lora';
+  src: local('Lora'), url('/fonts/LoraRegular.ttf') format('opentype');
   font-style: normal;
   font-weight: normal;
-}*/
+}
 
 /*add another font stanza here
 download the .otf file for whatever font you want to use & make a new font stanza here
-then use that in the div#content headers so that it will make the content headers only that font
-the body is falling back to georgia because you did not add the fonts match block to the site.hs*/
+then use that in the div#content headers so that it will make the content headers only that font*/
 
 * {
     box-sizing: border-box;
@@ -22,7 +21,7 @@ html, body {
 
 body {
     background: #FFF8E7;
-    font-family: 'Libre Baskerville', georgia, serif;
+    font-family: 'Lora', georgia, serif;
     color:#302F2F;
 }
 
@@ -79,6 +78,7 @@ body {
 }
 
 .main--nav a {
+    font-family:'Cabin';
     display: block;
     color: #F3F3F3;
     font-size: 18px;
