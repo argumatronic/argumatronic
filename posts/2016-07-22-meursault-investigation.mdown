@@ -1,5 +1,6 @@
 ---
 title: The Meursault Investigation
+tags: books
 ---
 
 > It is the fundamental question about freedom, about what is freedom. I'm born alone and I die alone. This gives me the right to interrogate the world, and to put the world into question the way I choose. For me fundamentally, the absurd — Camus' absurd — gave me back my feeling of dignity.  

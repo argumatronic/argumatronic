@@ -1,5 +1,6 @@
 ---
 title: Some Free Advice on Asking for Help
+tags: community
 ---
 
 I'm supposed to be working on a different blog post right now, but I have a couple things on my mind about asking questions and asking for help as a beginner programmer that I wanted to get out there. It's free advice, based on personal experience, so take it for what it's worth. 

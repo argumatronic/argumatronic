@@ -1,5 +1,6 @@
 ---
 title: Happy Birthday, Susie
+tags: personal, old blog
 ---
 
 > Another port from an old blog.

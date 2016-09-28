@@ -1,5 +1,6 @@
 ---
 title: Today My Son Learned About Tuples
+tags: Haskell, kids
 ---
 
 > I've been working on [Haskell Programming from First Principles](http://haskellbook.com/). My son and I started an experiment to see how well he, a fifth grader who didn't know much programming or algebra, could teach himself Haskell using that book. He reads the book, does exercises, asking questions where he needs to. I answer his questions and review with him what he has learned, to make certain it's sinking in. Periodically, I write about the experience for those who might be interested. The first post about this experience is [here](http://argumatronic.com/posts/2015-04-08-Haskell-to-10yo.html). I'll try to start updating more often. 

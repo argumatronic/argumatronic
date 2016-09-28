@@ -1,5 +1,6 @@
 ---
 title: Teaching a 10-year-old Haskell: Day One
+tags: Haskell, kids
 ---
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Son: &quot;Well, I&#39;m going to keep learning JavaScript until you teach me Haskell.&quot;<a href="https://twitter.com/hashtag/ultimatum?src=hash">#ultimatum</a></p>&mdash; Gin and Julie (@argumatronic) <a href="https://twitter.com/argumatronic/status/522440942918586369">October 15, 2014</a></blockquote>

@@ -1,5 +1,6 @@
 ---
 title: Reflections on Chores
+tags: personal, old blog
 ---
 
 _Ported over from my old blog._

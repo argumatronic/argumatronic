@@ -1,5 +1,6 @@
 ---
 title: Logic and Calculus for Kids
+tags: kids
 ---
 
 When I was a kid, my mom had a subscription to Games Magazine. We didn't have much money, but we had wealth in the form of reading material, and she got Games Magazine each year for Christmas. She let me do some of the puzzles, but her favorites were the logic puzzles, and she didn't let me have those. But I loved those ones best, too, so I'd try to get to them before she had written the answers out. Even if all I had left was a word search, I'd try to make it a logic puzzle by figuring out systematic search patterns that would help me finish it faster.

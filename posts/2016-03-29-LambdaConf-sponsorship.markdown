@@ -1,5 +1,6 @@
 ---
 title: Why We're Sponsoring LambdaConf 2016
+tags: community
 ---
 
 ## The Situation

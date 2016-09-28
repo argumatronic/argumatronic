@@ -1,5 +1,6 @@
 ---
 title: Hello
+tags: Hello
 ---
 
 Hi. Look at me, wheee, making a new blog with Hakyll.

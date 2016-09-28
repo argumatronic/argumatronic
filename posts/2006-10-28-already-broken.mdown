@@ -1,5 +1,6 @@
 ---
 title: It's Already Broken
+tags: personal, old blog
 ---
 
 > Another port from an old blog. 
