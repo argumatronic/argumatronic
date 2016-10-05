@@ -25,6 +25,16 @@ body {
     color:#302F2F;
 }
 
+a:link {
+color: #B84A62;
+}
+a:visited {
+color: #49c6c6;
+}
+a:hover {
+color: #e3b8c2;
+}
+
 .main--container {
     display: flex;
     flex-direction: column;
@@ -144,7 +154,7 @@ h1 {
 
 div.info {
     color: #4d004d;
-    font-size: 14px;
+    font-size: 20px;
     font-style: italic;
     text-align: center
 }
