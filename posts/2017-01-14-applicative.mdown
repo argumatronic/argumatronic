@@ -1,0 +1,145 @@
+---
+title: Applicative Gets Its Due
+tags: Haskell
+---
+
+> This is part one of a two-part post that recaps the workshop I gave at LambdaConf Winter Retreat, January 2017. This part will cover some differences between `Applicative` and `Monad` and some cool things about `Applicative`. The next part will discuss these two typeclasses, along with `Alternative`, specifically with regard to *parsing* and work through example code that uses the `optparse-applicative` library. I'm telling you this now so that you'll hold me to it. 
+
+![](/images/vaders-tie-fighter.jpg)
+
+## Starting with Functor
+
+Let's take a short look at `Functor` -- specifically, `fmap` -- to make sure we're all on the same page. `fmap` is a generalization of `map`: instead of only being able to map over lists, `fmap` allows us to map a function over many kinds of data structures. If you look at the type signature:
+
+```haskell
+fmap :: Functor f => (a -> b) -> f a -> f b
+```
+The `f`s are polymorphic but *constrained* by the `Functor` typeclass to be types that are instances of that typeclass.  So, sure, it works with lists:
+
+```haskell
+fmap (^2) [1, 2, 3]
+[1,4,9]
+```
+But it works just as well with many other types:
+
+```haskell
+fmap (^2) (Just 8)
+Just 64
+```
+The idea is that we want to apply a function to a value that is *inside* some structure (type) while leaving that structure intact. We call this lifting
+
+## A Monad Tutorial
+
+Despite what you may have heard in the past about `Monad`, it's not tremendously different from `Functor` -- in fact, it is a variety of functor. There is only a small (but important) difference between them. 
+
+The `Monad` typeclass includes several operators, but the minimal complete definition of it only includes this operator, called `bind`:
+
+```haskell
+(>>=) :: Monad m => m a -> (a -> m b) -> m b
+```
+It might initially look quite different from `fmap` because the argument order is strangely flipped. Let's use the "flip bind" operator and compare it directly to `fmap`:
+
+```haskell
+(=<<) :: Monad m   => (a -> m b) -> m a -> m b
+
+fmap  :: Functor f => (a -> b)   -> f a -> f b
+```
+I've added some extra spaces to make them line up better. The `m` variables are analogous to the `f` variables: they represent types that are instances of `Monad` or `Functor`, respectively. Any type that is an instance of `Monad` must also be an instance of `Functor` but the reverse is not true. 
+
+The difference between these two functors is that the function in the monadic one is itself generating a layer of structure. We can concretize the types to make it a little more clear:
+
+```haskell
+λ> :set -XTypeApplications
+λ> :t fmap @Maybe
+fmap @Maybe :: (a -> b) -> Maybe a -> Maybe b
+λ> :t (=<<) @Maybe
+(=<<) @Maybe :: (a -> Maybe b) -> Maybe a -> Maybe b
+```
+With the monadic operators (`(>>=)` and `(=<<)`), you're still lifting a function into a context in order to apply it to the value inside, but now the function produces an `m b` instead of just a `b`. That means the result of the function application is a nested structure (e.g., `Maybe (Maybe b)`) and we have the special monadic function `join` that smooshes those two layers into one. You can write `(>>=)` for yourself by composing `fmap` with `join`. 
+
+One important thing about monads, though, is they allow us to *sequence* actions and render the results of one dependent on earlier results. In a monadic context, returning a `Nothing` or empty list at any point can cause later computations to short-circuit. Let's take a look:
+
+```haskell
+data Person = Person {
+      name   :: String
+    , age    :: Int
+    , pl     :: String
+   } deriving (Eq, Show)
+
+nonEmpty :: String -> Maybe String
+nonEmpty ""  = Nothing
+nonEmpty str = Just str
+
+nonNegative :: Int -> Maybe Int
+nonNegative n | n >= 0 = Just n
+              | otherwise = Nothing
+
+plCheck :: Person -> Maybe Person
+plCheck c =
+  let p = pl c
+      n = name c
+  in if n == "Simon" && (p /= "Haskell")
+     then Nothing
+     else Just c
+```
+Our `Person` datatype constructs a person record out of a name, an age, and a `String` that we want to represent the name of a programming language. Two functions, `nonEmpty` and `nonNegative` check to make sure we have valid inputs -- no empty strings or negative numbers. And `plCheck` checks to make sure that if given the name `String` "Simon" then the programming language is Haskell. If it's a Simon that doesn't use Haskell, I'm sorry, but it's not a valid person. 
+
+So, let's put this together:
+
+```haskell
+mkPerson :: String
+            -> Int
+            -> String
+            -> Maybe Person
+mkPerson name' age' pl' =
+  case nonEmpty name' of
+   Nothing -> Nothing
+   -- if name is empty, the whole thing will return Nothing
+   -- if it's not empty, it returns Just name and goes on to
+   -- the next check
+   Just named ->
+     case nonNegative age' of
+      Nothing -> Nothing
+      -- if a negative number, we get Nothing; otherwise, go on
+      Just aged ->
+        case nonEmpty pl' of
+          Nothing -> Nothing
+          -- and again check for empty strings
+          Just lang ->
+              plCheck (Person named aged lang)
+```
+We only apply `plCheck` if none of the cases above returned a `Nothing` value. If we get a `Nothing` at any point, the whole thing will return `Nothing`. You can also use `do` syntax for this, even though there is no `IO` involved here (`do` syntax is for monads, and `Maybe` is our monad here). This is the same as the big nested `case` function above: 
+
+```haskell
+mkPerson' :: String -> Int -> String -> Maybe Person
+mkPerson' name' age' pl' = do
+  named <- nonEmpty name'
+  aged <- nonNegative age'
+  lang <- nonEmpty pl'
+  plCheck (Person named aged lang)
+```
+We can also rewrite that with the monadic operator, `(>>=)`, since that's what `do` syntax desugars to:
+
+```haskell
+-- successfully constructing a Simon
+λ> mkPerson "Simon" 45 "Haskell"
+Just (Person {name = "Simon", age = 45, pl = "Haskell"})
+
+λ> mkPerson' "Simon" 45 "Haskell"
+Just (Person {name = "Simon", age = 45, pl = "Haskell"})
+
+-- failure at various points before plCheck
+λ> mkPerson "Chris" (-1) "Scala"
+Nothing
+
+λ> mkPerson' "" 45 "Scala"
+Nothing
+
+-- successful until plCheck
+λ> mkPerson "Simon" 45 "Scala"
+Nothing
+```
+-- finish desugaring this into binds -- i think it couldn't possibly return anything but Nothing when there is a Nothing because Nothing contains no `a` to apply the function to (cf later when talking about AccValidation -- applicative can somehow do something with the Left value other than short circuiting but monad cannot -- since Monads inherently sequence?)
+
+
+
