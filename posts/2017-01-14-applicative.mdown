@@ -1,9 +1,9 @@
 ---
-title: Applicative Gets Its Due
+title: Applicative I: Different from Monad
 tags: Haskell
 ---
 
-> This is part one of a two-part post that recaps the workshop I gave at LambdaConf Winter Retreat, January 2017. This part will cover some differences between `Applicative` and `Monad` and some cool things about `Applicative`. The next part will discuss these two typeclasses, along with `Alternative`, specifically with regard to *parsing* and work through example code that uses the `optparse-applicative` library. I'm telling you this now so that you'll hold me to it. 
+> This is part one of a three-part post that recaps the workshop I gave at LambdaConf Winter Retreat, January 2017. This part will cover some differences between `Applicative` and `Monad` and some cool things about `Applicative`. The next part will discuss a datatype called `AccValidation` that does not have a `Monad` instance. The final part will demonstrate these two typeclasses, along with `Alternative`, specifically with regard to *parsing* and work through example code that uses the `optparse-applicative` library. I'm telling you this now so that you'll hold me to it. 
 
 ![](/images/vaders-tie-fighter.jpg)
 
@@ -26,11 +26,12 @@ But it works just as well with many other types:
 fmap (^2) (Just 8)
 Just 64
 ```
-The idea is that we want to apply a function to a value that is *inside* some structure (type) while leaving that structure intact. We call this lifting
+The idea is that we want to apply a function to a value that is *inside* some structure (type) while leaving that structure intact. We call this lifting.[1]
+[1] Specifically, the word "lifting" when used in Haskell at least refers to applying a type constructor to a type. `fmap` is lifting because it applies the type constructor `f` to the types `a` and `b`. 
 
 ## A Monad Tutorial
 
-Despite what you may have heard in the past about `Monad`, it's not tremendously different from `Functor` -- in fact, it is a variety of functor. There is only a small (but important) difference between them. 
+Despite what you may have heard in the past about `Monad`, it's not much different from `Functor` -- in fact, it is a variety of functor. There is only a small (but important) difference between them. 
 
 The `Monad` typeclass includes several operators, but the minimal complete definition of it only includes this operator, called `bind`:
 
@@ -44,9 +45,9 @@ It might initially look quite different from `fmap` because the argument order i
 
 fmap  :: Functor f => (a -> b)   -> f a -> f b
 ```
-I've added some extra spaces to make them line up better. The `m` variables are analogous to the `f` variables: they represent types that are instances of `Monad` or `Functor`, respectively. Any type that is an instance of `Monad` must also be an instance of `Functor` but the reverse is not true. 
+I've added some extra spaces to make them line up better. The `m` variables are analogous to the `f` variables: they represent type constructors that are instances of `Monad` or `Functor`, respectively. Any type that is an instance of `Monad` must also be an instance of `Functor` but the reverse is not true. 
 
-The difference between these two functors is that the function in the monadic one is itself generating a layer of structure. We can concretize the types to make it a little more clear:
+The difference between these two functors is that, in the monadic version, the function that is being applied is itself generating a layer of structure. We can concretize the types to make it a little more clear:
 
 ```haskell
 λ> :set -XTypeApplications
@@ -108,7 +109,7 @@ mkPerson name' age' pl' =
           Just lang ->
               plCheck (Person named aged lang)
 ```
-We only apply `plCheck` if none of the cases above returned a `Nothing` value. If we get a `Nothing` at any point, the whole thing will return `Nothing`. You can also use `do` syntax for this, even though there is no `IO` involved here (`do` syntax is for monads, and `Maybe` is our monad here). This is the same as the big nested `case` function above: 
+We only apply `plCheck` if none of the cases above returned a `Nothing` value. If we get a `Nothing` at any point, the whole thing will return `Nothing`. You can also use `do` syntax for this, even though there is no `IO` involved (`do` syntax is for monads, and `Maybe` is our monad here). This is the same as the big nested `case` function above: 
 
 ```haskell
 mkPerson' :: String -> Int -> String -> Maybe Person
@@ -118,7 +119,7 @@ mkPerson' name' age' pl' = do
   lang <- nonEmpty pl'
   plCheck (Person named aged lang)
 ```
-We can also rewrite that with the monadic operator, `(>>=)`, since that's what `do` syntax desugars to:
+And here are attempts to construct various `Person` values:
 
 ```haskell
 -- successfully constructing a Simon
@@ -128,10 +129,11 @@ Just (Person {name = "Simon", age = 45, pl = "Haskell"})
 λ> mkPerson' "Simon" 45 "Haskell"
 Just (Person {name = "Simon", age = 45, pl = "Haskell"})
 
--- failure at various points before plCheck
+-- failure at nonNegative
 λ> mkPerson "Chris" (-1) "Scala"
 Nothing
 
+-- failure at nonEmpty
 λ> mkPerson' "" 45 "Scala"
 Nothing
 
@@ -139,7 +141,20 @@ Nothing
 λ> mkPerson "Simon" 45 "Scala"
 Nothing
 ```
--- finish desugaring this into binds -- i think it couldn't possibly return anything but Nothing when there is a Nothing because Nothing contains no `a` to apply the function to (cf later when talking about AccValidation -- applicative can somehow do something with the Left value other than short circuiting but monad cannot -- since Monads inherently sequence?)
+Because the `m a` value has to be passed to the `(a -> m b)` function, if there's ever a `Nothing` value, there is no `a` value to get passed to the function. `Monad` is a kind of fancy function composition, so when one function application results in a value that we can't apply a function to, the whole thing just ends. Sometimes, such as when the monad in question is `IO`, what we're really talking about is chaining together a sequence of *actions*; with pure functions, it often doesn't matter what order we execute them in, but with `IO` actions it usually does. Monads are structured to respect that sequencing. But the neat thing is that underneath it all, we're still talking about nested lambdas -- but that's probably going to get saved for a later post.
+
+We can also rewrite that with the monadic operator, `(>>=)`, since that's what `do` syntax desugars to:
+
+```haskell
+mkPer :: String -> Int -> String -> Maybe Person
+mkPer name' age' pl' = 
+  Person <$> (nonEmpty name') 
+         <*> (nonNegative age') 
+         <*> (nonEmpty pl') 
+  >>= plCheck
+```
+But that looks a little funny 
+
 
 
 
