@@ -1,11 +1,9 @@
 ---
-title: Applicative I: Different from Monad
+title: Applicative I: More Like a Hot Dog than a Burrito
 tags: Haskell
 ---
 
-> This is part one of a three-part post that recaps the workshop I gave at LambdaConf Winter Retreat, January 2017. This part will cover some differences between `Applicative` and `Monad` and some cool things about `Applicative`. The next part will discuss a datatype called `AccValidation` that does not have a `Monad` instance. The final part will demonstrate these two typeclasses, along with `Alternative`, specifically with regard to *parsing* and work through example code that uses the `optparse-applicative` library. I'm telling you this now so that you'll hold me to it. 
-
-![](/images/vaders-tie-fighter.jpg)
+> This is part one of a three-part post that recaps the workshop I gave at LambdaConf Winter Retreat, January 2017. This part will cover some differences between `Applicative` and `Monad` and some cool things about `Applicative`. The next part will discuss a datatype called `AccValidation` that does not have a `Monad` instance. The final part will demonstrate these two typeclasses, along with `Alternative`, specifically with regard to *parsing* and work through example code that uses the `optparse-applicative` library. I'm telling you this now so that you'll hold me to it. **Prerequisites**: This assumes some knowledge of Haskell syntax, particularly `case` expressions and datatypes such as `Maybe` and `Either.`
 
 ## Starting with Functor
 
@@ -26,8 +24,7 @@ But it works just as well with many other types:
 fmap (^2) (Just 8)
 Just 64
 ```
-The idea is that we want to apply a function to a value that is *inside* some structure (type) while leaving that structure intact. We call this lifting.[1]
-[1] Specifically, the word "lifting" when used in Haskell at least refers to applying a type constructor to a type. `fmap` is lifting because it applies the type constructor `f` to the types `a` and `b`. 
+The idea is that we want to apply a function to a value that is *inside* some structure (type) while leaving that structure intact. We call this lifting. The word "lifting," when used in Haskell at least, refers to applying a type constructor to a type. `fmap` is lifting because it applies the type constructor `f` to the types `a` and `b`. 
 
 ## A Monad Tutorial
 
@@ -141,7 +138,48 @@ Nothing
 λ> mkPerson "Simon" 45 "Scala"
 Nothing
 ```
-Because the `m a` value has to be passed to the `(a -> m b)` function, if there's ever a `Nothing` value, there is no `a` value to get passed to the function. `Monad` is a kind of fancy function composition, so when one function application results in a value that we can't apply a function to, the whole thing just ends. Sometimes, such as when the monad in question is `IO`, what we're really talking about is chaining together a sequence of *actions*; with pure functions, it often doesn't matter what order we execute them in, but with `IO` actions it usually does. Monads are structured to respect that sequencing. But the neat thing is that underneath it all, we're still talking about nested lambdas -- but that's probably going to get saved for a later post.
+The `Nothing` result is somewhat less than helpful in terms of being able to figure out where we failed. We can rewrite our `main` to use the `Either` datatype to give us some information about where things go wrong:
+
+```haskell
+plCheck :: Person -> Either String Person
+plCheck c =
+  let p = pl c
+      n = name c
+  in if n == "Simon" && (p /= "Haskell")
+     then Left "All Simons write Haskell."
+     else Right c
+
+mkPerson :: String
+            -> Int
+            -> String
+            -> Either String Person
+mkPerson name' age' pl' =
+  case nonEmpty name' of
+   Nothing -> Left "Empty name value."
+   -- if name is empty, it will tell us that
+   -- if it's not empty, it returns Just name and goes on to
+   -- the next check
+   Just named ->
+     case nonNegative age' of
+      Nothing -> Left "Negative age."
+      -- if a negative number, we get Nothing; otherwise, go on
+      Just aged ->
+        case nonEmpty pl' of
+          Nothing -> Left "Empty prog lang."
+          -- and again check for empty strings
+          Just lang ->
+              plCheck (Person named aged lang)
+
+
+
+Because the `m a` value has to be passed to the `(a -> m b)` function, if there's ever a `Nothing` value, there is no `a` value to get passed to the function. `Monad` is a kind of fancy function composition, so when one function application results in a value that we can't apply a function to, the whole thing just ends. Sometimes, such as when the monad in question is `IO`, what we're really talking about is chaining together a sequence of *actions*; with pure functions, it often doesn't matter what order we execute them in, but with `IO` actions it often does. Monads are structured to respect that sequencing. But the neat thing is that underneath it all, we're still talking about nested lambdas -- but that's probably going to get saved for a later post.
+
+## Applicative
+
+![](/images/vaders-tie-fighter.jpg)
+
+
+
 
 We can also rewrite that with the monadic operator, `(>>=)`, since that's what `do` syntax desugars to:
 
