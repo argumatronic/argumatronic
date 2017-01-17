@@ -15,14 +15,16 @@ fmap :: Functor f => (a -> b) -> f a -> f b
 The `f`s are polymorphic but *constrained* by the `Functor` typeclass to be types that are instances of that typeclass.  So, sure, it works with lists:
 
 ```haskell
+-- f ~ [], a ~ Integer
 fmap (^2) [1, 2, 3]
 [1,4,9]
 ```
 But it works just as well with many other types:
 
 ```haskell
-fmap (^2) (Just 8)
-Just 64
+-- f ~ Maybe, a ~ String
+λ> fmap (++ "moronuki") (Just "julie ")
+Just "julie moronuki"
 ```
 The idea is that we want to apply a function to a value that is *inside* some structure (type) while leaving that structure intact. We call this lifting. The word "lifting," when used in Haskell at least, refers to applying a type constructor to a type. `fmap` is lifting because it applies the type constructor `f` to the types `a` and `b`. 
 
