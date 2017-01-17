@@ -1,4 +1,6 @@
-monoids: conjunction, disjunction, commutativity. oh shit. i'd noticed before 
+monoids: conjunction, disjunction, commutativity. oh shit. i'd noticed before that it's one type of type (i think higher-kinded) that -- if it's a kind * type then the monoid can only refer to itself, but with higher-kinded types it can refer to the type inside so the number of possible monoids proliferates. so like with Bool and Integer you get basic conjunctive/disjunctive monoids (oh, but also list??) but then with Maybe you get more based on whether you conjoin the `a` value or disjoin the outer layer. right? huh
+
+lists are interesting because 
 
 i don''t guess the other list monoid is commutative either. i guess that would be hard to do with lists.
 and other such things
@@ -82,3 +84,32 @@ it :: Monoid b => [(Char, b)]
 λ> zipWith (++) ["julie"] [mempty]
 ["julie"]
 it :: [[Char]]
+
+-- can list even have a 1 value, for a conjunctive identity? chris suggests an infinite list of the mempty for the values inside with a Monoid constraint that would actually mappend the values -- so he might be right about that, if you could construct such a value for a mempty?
+
+f :: (Monoid a) => [a] -> [a] -> [(a, a)]
+f xs ys = zip xs ys
+
+λ> f ["julie", "chris"] [mempty, mempty]
+[("julie",""),("chris","")]
+
+-- so this one doesn't do it because it doesn't actually use the monoid instance to concatenate the lists -- need to write the zip function differently. or zipWith the mappend?
+
+λ> zipWith mappend ["julie", "Chris"] ["moronuki", "martin"]
+["juliemoronuki","Chrismartin"]
+
+λ> zipWith mappend ["julie", "Chris"] [mempty, mempty]
+["julie","Chris"]
+it :: (Monoid c, Data.String.IsString c) => [c]
+
+-- i'd also considered alist of Unit values, but i'm not sure how to make that work exactly. i think in theory it should work? possibly only in theory, not code. at any rate, then the question is whether this is a proper 1 value of a list -- a proper identity of a list for the terms of conjunction. compare it to what other 1 values for products look like (Maybe, etc) to decide that. there's also the issue of idk how to make a mempty value for the typeclass that is an infinite list of mempty. mempty isn't, like, enumerable.? i must be missing something dumb here but.
+
+λ> zipWith mappend ([Any True, Any True]) ([Any True, Any False])
+[Any {getAny = True},Any {getAny = True}]
+it :: [Any]
+
+λ> zipWith mappend ([Any True, Any True]) ([mempty, mempty])
+[Any {getAny = True},Any {getAny = True}]
+it :: [Any]
+
+-- yes of course this is an adequate 1 identity, because the empty list is a zero because it contains zero values. this contains a value, but it's an identity value only. yes for the contents, but that's not relevant.
