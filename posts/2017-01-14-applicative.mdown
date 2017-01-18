@@ -3,9 +3,9 @@ title: Applicative I: More Like a Hot Dog than a Burrito
 tags: Haskell
 ---
 
-> This is part one of a three-part post that recaps the workshop I gave at LambdaConf Winter Retreat, January 2017. This part will cover some differences between `Applicative` and `Monad` and some cool things about `Applicative`. The next part will discuss a datatype called `AccValidation` that does not have a `Monad` instance. The final part will demonstrate these two typeclasses, along with `Alternative`, specifically with regard to *parsing* and work through example code that uses the `optparse-applicative` library. I'm telling you this now so that you'll hold me to it. **Prerequisites**: This assumes some knowledge of Haskell syntax, particularly `case` expressions and datatypes such as `Maybe` and `Either.`
+> This is part one of a three-part post that recaps the workshop I gave at LambdaConf Winter Retreat, January 2017. This part will cover some differences between `Applicative` and `Monad` and some cool things about `Applicative`. The next part will discuss a datatype called `AccValidation` that does not have a `Monad` instance. The final part will demonstrate these two typeclasses, along with `Alternative`, specifically with regard to *parsing* and work through example code that uses the `optparse-applicative` library. I'm telling you this now so that you'll hold me to it. **Prerequisites**: This assumes some knowledge of Haskell syntax, particularly `case` expressions and datatypes such as `Maybe` and `Either.` Further, this does assume some knowledge of monoids and conjunction and disjunction, in Boolean logic or set theory. Sorry! I will write another post about that another time and then link it.
 
-## Starting with Functor
+## We Want the Functor
 
 Let's take a short look at `Functor` -- specifically, `fmap` -- to make sure we're all on the same page. `fmap` is a generalization of `map`: instead of only being able to map over lists, `fmap` allows us to map a function over many kinds of data structures. If you look at the type signature:
 
@@ -28,7 +28,7 @@ Just "julie moronuki"
 ```
 The idea is that we want to apply a function to a value that is *inside* some structure (type) while leaving that structure intact. We call this lifting. The word "lifting," when used in Haskell at least, refers to applying a type constructor to a type. `fmap` is lifting because it applies the type constructor `f` to the types `a` and `b`. 
 
-## A Monad Tutorial
+## Not A Monad Tutorial
 
 Despite what you may have heard in the past about `Monad`, it's not much different from `Functor` -- in fact, it is a variety of functor. There is only a small (but important) difference between them. 
 
@@ -140,7 +140,7 @@ Nothing
 λ> mkPerson "Simon" 45 "Scala"
 Nothing
 ```
-The `Nothing` result is somewhat less than helpful in terms of being able to figure out where we failed. We can rewrite our `main` to use the `Either` datatype to give us some information about where things go wrong:
+The `Nothing` result is somewhat less than helpful in terms of being able to figure out where we failed. We can rewrite our person-making function to use the `Either` datatype to give us some information about where things go wrong:
 
 ```haskell
 plCheck :: Person -> Either String Person
@@ -171,15 +171,38 @@ mkPerson name' age' pl' =
           -- and again check for empty strings
           Just lang ->
               plCheck (Person named aged lang)
+```
+Using it in the REPL, you can see the various failure cases:
 
+```haskell
+λ> mkPer "Simon" (-3) "Haskell"
+Left "Negative age."
 
+-- when there are two failures, it can only report the first one
+λ> mkPer "Simon" (-3) ""
+Left "Negative age."
 
-Because the `m a` value has to be passed to the `(a -> m b)` function, if there's ever a `Nothing` value, there is no `a` value to get passed to the function. `Monad` is a kind of fancy function composition, so when one function application results in a value that we can't apply a function to, the whole thing just ends. Sometimes, such as when the monad in question is `IO`, what we're really talking about is chaining together a sequence of *actions*; with pure functions, it often doesn't matter what order we execute them in, but with `IO` actions it often does. Monads are structured to respect that sequencing. But the neat thing is that underneath it all, we're still talking about nested lambdas -- but that's probably going to get saved for a later post.
+λ> mkPer "Simon" 3 "Scala"
+Left "All Simons write Haskell."
+
+λ> mkPer "Simon" 3 ""
+Left "Empty prog lang."
+
+λ> mkPer "" 3 "Haskell"
+Left "Empty name value."
+```
+
+Because the `m a` value has to be passed to the `(a -> m b)` function, if there's ever a `Nothing` or `Left` value, there is no `a` value to get passed to the function. `Monad` is a kind of fancy function composition (for a brief explanation of that, see [here](http://stackoverflow.com/questions/34545818/is-monad-bind-operator-closer-to-function-composition-chaining-or-functi#comment56868767_34545818), so when one function application results in a value that we can't apply a function to, the whole thing just ends. Sometimes, such as when the monad in question is `IO`, what we're really talking about is chaining together a sequence of *actions*; with pure functions, it often doesn't matter what order we execute them in, but with `IO` actions it often does. Monads are structured to respect that sequencing. But the neat thing is that underneath it all, we're still talking about nested lambdas -- but that's probably going to get saved for a later post.
 
 ## Applicative
 
 ![](/images/vaders-tie-fighter.jpg)
 
+Now the point of this post and its follow-up posts is to explain how applicatives differ from monads, but it seemed useful to make sure we all understood some things about monads first. 
+
+`Applicative` is another typeclass in Haskell and is now a superclass of `Monad` and a subclass of `Functor`, despite having been introduced to the language much later than monads and functors. Applicatives are a variety of functor, often called "applicative functors". 
+
+But applicatives are *monoidal functors.* There's a monoidal structure to them that, in the course of these posts, I'm going to touch on to some extent but not fully explain; if you want to follow up on that, there is [my delightful book](http://haskellbook.com/) and there is also 
 
 
 
