@@ -1,0 +1,58 @@
+---
+title: Bad at Math
+tags: math
+---
+
+Growing up, people told me I was good at math. People told me I was good at a lot of things, and math was one of them. That was fine as long as math kept coming easily to me. I internalized this idea that being *good* at something meant that it should come easily or naturally to you, and I hit some point in high school where it didn't anymore.
+
+Suddenly math was *hard.* And it made me hate myself. I'd tell myself, I'm smart, I'm good at math, this shouldn't be so hard.
+
+So I started saying I'm bad at math, and I meant *I can't do math so I won't even try,* and I stopped trying.
+
+Oddly enough I moved into philosophy where, it turns out, I discovered a love of symbolic logic, and then into linguistics, where generative syntax and drawing X-bar trees were my thing, and then eventually, by hearing about type theory, into Haskell. 
+
+And now Haskell has brought me back to math. Those other things -- symbolic logic, abstract syntax, and Haskell -- are all sort of like math. Haskell has led me back to the hard drugs, though, and by drugs I mean *category arrows.*
+
+I don't understand it much, but it interests me. Over and over I keep going down Haskell rabbitholes until I hit some kind of mathy bedrock and it's quite delightful. 
+
+But I'm bad at math.
+
+### Bad at Haskell
+
+I'm also bad at Haskell. 
+
+Earlier today, I was proofreading and indexing the chapter of [my book](http://haskellbook.com/) on applicatives. Applicatives are neat; I just gave a workshop on them a couple of weeks ago, and now I'm turning that into a series of blog posts. I remember writing that chapter, though, and at the time it made me hurt so bad I could barely stand it. It was *so hard.* 
+
+Sometimes people, impressed by how fast I seemed to be making progress at learning Haskell, would tell me I was good at Haskell, I was so smart, and that would make it hurt so much worse.
+
+*If I'm good at this, why is it so hard?*
+
+No, I'm bad at Haskell. I'm bad at math.
+
+### Trivialities
+
+I've got this friend, a real mathy sort of dude, who keeps quoting this to me:
+
+> It's a succession of trivialities. The problem with mathematics is the accumulation of trivialities. - Jean Bellissard  
+
+For a long time, this enraged me. If they are trivialities, then why can't I understand them?
+
+Ah, well, you see, that was bad thinking. Trivial doesn't mean easy, and that part about the *accumulation* complicates matters. 
+
+Still, in my fluffy head, it makes it sound like it should be easy, like i should expect it to be relatively easy and painless and it's not. So then I get a lot of anxiety about how it's so hard for me when it's just a matter of training, of accumulating trivialities. Even if they are not all easy, they are *trivial* so why am I torturing myself this way?
+
+But then I noticed today how much of the Applicative chapter keeps harping on the *monoids* and the *functors* and how it combines those two basic ideas. A lot of the repetition of that came from me, because I understood monoids by then, and I understood functors, so I was reassuring myself that this thing that seemed alien was ... an accumulation of things I already understood. Of trivialities, in a sense.
+
+Anyway, so Haskell is making me want to learn some math. A little set theory, a little graph theory, a little category theory. Someday those things are going to make sense to me.
+
+But for right now I keep reminding myself I am *bad at Haskell* and *bad at math* because it reminds me that they are not easy things, they are hard things, and if I am going to get them, it will not come easy. 
+
+Linguistics, even really abstract syntax, comes somewhat easy to me because I am interested in exploring the (somewhat mathy) bedrock of human language. That's it. Language is what I got in the [lottery of fascinations](http://slatestarcodex.com/2013/06/30/the-lottery-of-fascinations/). That and an abiding love of being able to synthesize areas of knowledge, which is what I end up doing with logic, syntax, Haskell, and now math. The generalizations and ignoring of petty implementation details that this leads to frustrates some of my more precision-loving friends, the ones who are good at Haskell and good at math. 
+
+Now that I'm interested in math again -- but, god help me, so late in life -- it's not going to be easy because I've missed accumulating a nontrivial number of trivialities, but the interest (and my good, mathy friends) will keep me going.
+
+### Even More Trivial Trivialities
+
+This is not true of video games. I am terrible at video games, and I do not have the interest to get better at them. 
+
+Except I swore I would beat my kids at Mario Kart this year. Hmm. I guess I should practice.
