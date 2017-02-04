@@ -26,15 +26,6 @@ I never really had impostor syndrome until I suddenly found myself surrounded by
 I haven't, for what it's worth, seen my former coauthor's *other* students or people who work with him get treated this way. Perhaps they will correct me if I'm wrong. My defaults, having come from academic settings in which no one treated me like a fraud, are set so that I do not automatically suspect sexism. But, I don't know, sometimes it starts to look that way.
 
 
-<!-- Some of my coauthor's enemies went on to do things like write letters to a prospective publisher claiming that they knew "the authors" and that we were "unpleasant" and bad for "the community." I don't know who exactly did it (the publisher forwarded it to us in a way that there were two people it could have come from); I can say for sure that the person who wrote it did not know me. 
- -->
-<!-- Last year at LambdaConf, I was in a Coq workshop and the man sitting next to me *took my computer from me* and didn't give it back, despite me protesting, for long enough that I was unable to follow the workshop. The other men (yeah, of course it was all men in a Coq workshop) around us acted like I was *overreacting* by protesting it. *So dramatic, Julie.* But when I tweeted about it much later, there was universal agreement among male programmers that a) it would probably never have happened to a man, and b) oh hell yes they'd be pissed off.
- -->
-
-
-<!-- At the same conference, in a conversation about the code of conduct (again, only woman in the conversation), I made the point that a code of conduct does not address the ongoing low-level hostility women are confronted with all the time. The men asked me for examples. To generalize: a lot of men, being the default, assume that their views are reasonable by default and their emotions (e.g., anger, the acceptable male emotion) do not prevent them from making reasonable arguments. They subconsciously assume the opposite about women: a woman being upset means *prima facie* her arguments are colored by her emotions and do not need to be treated as reasonable. You can go on arguing calmly with him all you like, even as he gets visibly angry, and he can't see that he's the upset one. Until another man comes in and confronts him, then he'll back down. The only thing that beats a dick is another dick, and I, sadly, do not have one. It's not all men, and I never had this problem in philosophy or linguistics. I'm trying to imagine one of my linguistics professors believing that the only reason I was interested in linguistics was because of some man or other. 
- -->
-
 ## How Learning Haskell Became a Threat to My Physical Safety 
 
 Anyway, as it turns out, a lot of the people who dislike my coauthor and have harassed me because of him, also strongly disapproved of the LambdaConf decisions last year. Some of the people who thought I was essentially my coauthor's puppet thought he was behind our decision to go on sponsoring the conference. 
@@ -58,3 +49,22 @@ I'm not naming names here because it isn't a question of getting rid of this *on
 I persist at Haskell because I like Haskell itself, because of the few good, supportive friends I have made here, and because I'm stubborn as all hell. I also have noticed a lot of people really want to learn Haskell, and I like to teach this thing that I love, and if I may be so immodest, I think I'm pretty good at it. 
 
 But when I say I don't feel welcome here, that I don't belong here, that this "community" is *hostile*, this is what I'm talking about. 
+
+### Postscript
+
+Last night after Haskell meetup, several of us went out for a beer, as we often do. One of the men -- let's call him K -- wanted to make the argument that tweeting complaints about something is *abusive* to people who like that thing, even if the tweets are directed at no one in particular and do not even @-mention anyone. Another man -- we'll call him "friend" -- and I argued that this is not abusive and that we should save strong words like *abusive* for things that are more serious and, generally, for things done with the intent to hurt.
+
+From the way K was acting in the conversation, it was clear -- not just to me, but to friend and the other men observing the conversation -- that K was treating me differently from friend who was arguing the same thing I was; as an example, even though I was displaying less emotion than friend was (gesturing less, not raising my voice), K told me he was ignoring me because of my "theatrics." Putting that together with the way K has acted in the past at meetups, it became the consensus that he's, ok, yeah, we hate to admit this, but he's a sexist.
+
+After K left, friend suggested K probably wouldn't return to meetups because of this conversation. I smiled. Friend said I shouldn't smile about that, as it meant that the conversation had gone badly. The conversation, from my perspective, was bound to go badly, because people who think they are being abused simply because someone somewhere doesn't like the thing they like and has the audacity to gripe about it to no one in particular are not, prima facie, reasonable people. 
+
+Friend posited that sexism like K's isn't actionable. There is no recourse. He doesn't recognize that he is; he will not be convinced of it. No reasonable argument I can make is going to make him see it because his sexist biases are already such that *no argument from a woman is reasonable* and any such argument from another man is going to be taken as "political correctness" or "white knighting." 
+
+So, I had to ask friend, who is not white, and another friend (also male, also not white, also in agreement that K is a sexist): it may not be actionable, but you want me to not be happy that he may not come back to the meetups that I teach and lead -- but if he were *racist* in the same nonactionable but nonetheless degrading ways, would you want him to come back? Would you want to teach him or work with him or engage him again in conversation?
+
+They agreed: *hell no.*
+
+So then why should I have to put up with it?
+
+Yet I do. Very few men are empathetic enough (having never been women) to see when another man is being sexist, even if they themselves are not sexist. Even less are they going to treat it as unacceptable. 
+
