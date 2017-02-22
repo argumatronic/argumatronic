@@ -61,7 +61,7 @@ main = hakyllWith config $ do
   
     match "index.html" $ idR $ indexCompiler
     match "templates/*" $ compile templateCompiler
-    match (fromList ["about.md", "contact.markdown", "noobs.markdown"]) $ do
+    match (fromList ["about.md", "contact.markdown", "noobs.markdown", "cats.markdown"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
@@ -105,10 +105,6 @@ defaultTemplateWith template ctx =
         >>= loadAndApplyTemplate "templates/default.html" ctx
         >>= relativizeUrls
 
--- cssTemplateCompiler :: Compiler (Item Template)
--- cssTemplateCompiler = cached "Hakyll.Web.Template.cssTemplateCompiler" $
---     fmap (readTemplate . compressCss) <$> getResourceString
-
 postsCompiler :: Compiler (Item String)
 postsCompiler = do
     posts <- recentFirst =<< loadAll postsGlob
@@ -135,16 +131,6 @@ indexCompiler = do
        >>= loadAndApplyTemplate "templates/default.html" indexCtx
        >>= relativizeUrls
 
--- defaultCompiler :: Compiler (Item String)
--- defaultCompiler = do
---     posts <- recentFirst =<< loadAll postsGlob
---     pandocCompilerWith defaultHakyllReaderOptions writerOptions
---         >>= applyAsTemplate homeCtx
---         >>= loadAndApplyTemplate "templates/post-list.html" (postsCtx posts)
---         >>= loadAndApplyTemplate "templates/default.html" homeCtx
---         >>= relativizeUrls
-
-
 rulesForTags :: Tags -> (String -> String) -> Rules ()
 rulesForTags tags titleForTag =
     tagsRules tags $ \tag pattern -> do
@@ -160,20 +146,6 @@ rulesForTags tags titleForTag =
             >>= loadAndApplyTemplate "templates/tags.html" ctx
             >>= loadAndApplyTemplate "templates/default.html" ctx
             >>= relativizeUrls
-
--- feedCompilerHelper :: (Compiler [Item String] -> Compiler [Item String]) -> Compiler (Item String)
--- feedCompilerHelper f = do
---     posts <- f . recentFirst =<< 
---         loadAllSnapshots postsGlob "content"
---     renderAtom feedConfig feedCtx posts
-
-
--- feedCompiler :: Compiler (Item String)
--- feedCompiler = feedCompilerHelper $ fmap (take 10)
-
-
--- feedCtx :: Context String
--- feedCtx = bodyField "description" <> postCtx
 
 -- | Render a simple tag list in HTML, with the tag count next to the item
 -- https://github.com/rgoulter/my-hakyll-blog/blob/master/site.hs
