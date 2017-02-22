@@ -1,20 +1,20 @@
 @font-face {
   font-family: 'Lora';
-  src: local('Lora'), url('/fonts/LoraRegular.ttf') format('opentype');
+  src: local('Lora'), url('/fonts/Lora-Regular.ttf') format('opentype');
   font-style: normal;
   font-weight: normal;
 }
 
 @font-face {
     font-family: 'Lato';
-    src: local('Lato'), url('/fonts/LatoBold.ttf') format('opentype');
+    src: local('Lato'), url('/fonts/Lato-Bold.ttf') format('opentype');
     font-style: normal;
     font-weight: bold;
 }
 
 @font-face {
     font-family: 'Monoid';
-    src: local('Monoid'), url('/fonts/Monoid-Retina.ttf') format('opentype');
+    src: local('Monoid'), url('/fonts/Monoisome-Regular.ttf') format('opentype');
     font-style: normal;
     font-weight: normal;
 }
@@ -213,9 +213,12 @@ div.blurb p {
 
 .sourceCode {
     font-family: 'Monoid', monospace;
+    font-size: 16px
 }
 
 div.sourceCode {
+    display: flex;
+    flex-direction: column;
     max-width: 50em;
 }
 
