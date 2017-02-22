@@ -5,9 +5,19 @@
   font-weight: normal;
 }
 
-/*add another font stanza here
-download the .otf file for whatever font you want to use & make a new font stanza here
-then use that in the div#content headers so that it will make the content headers only that font*/
+@font-face {
+    font-family: 'Lato';
+    src: local('Lato'), url('/fonts/LatoBold.ttf') format('opentype');
+    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Monoid';
+    src: local('Monoid'), url('/fonts/Monoid-Retina.ttf') format('opentype');
+    font-style: normal;
+    font-weight: normal;
+}
 
 * {
     box-sizing: border-box;
@@ -73,7 +83,7 @@ color: #e3b8c2;
 
 .main--header a {
     color: #F3F3F3;
-    font-family:'Cabin', sans-serif;
+    font-family:'LatoBold', sans-serif;
     font-style: italic;
     font-size: 40px;
     font-weight:light;
@@ -88,7 +98,7 @@ color: #e3b8c2;
 }
 
 .main--nav a {
-    font-family:'Cabin';
+    font-family:'Lato';
     display: block;
     color: #F3F3F3;
     font-size: 18px;
@@ -127,7 +137,7 @@ color: #e3b8c2;
 .main--footer {
     background: rgba(122,0,86,1);
     color: white;
-    font-family:'Cabin', sans-serif;
+    font-family:'Lato', sans-serif;
     padding: 1em;
     text-align: center;
 /*    border-top: solid 2px black;
@@ -143,7 +153,7 @@ color: #e3b8c2;
 }
 
 h1,h2,h3,h4,h5 {
-    font-family:'Cabin', sans-serif;
+    font-family:'Lato', sans-serif;
     color:#4d004d;
 }
 
@@ -202,7 +212,7 @@ div.blurb p {
 }
 
 .sourceCode {
-    font-family: 'Ubuntu Mono', monospace;
+    font-family: 'Monoid', monospace;
 }
 
 div.sourceCode {
