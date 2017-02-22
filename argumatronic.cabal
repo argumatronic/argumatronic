@@ -11,5 +11,7 @@ executable site
                   , containers
                   , time
                   , filepath
+                  , blaze-html
+                  , blaze-markup
   ghc-options:      -threaded
   default-language: Haskell2010

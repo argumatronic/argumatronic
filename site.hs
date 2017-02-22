@@ -8,6 +8,12 @@ import Data.Time.Format    (parseTimeM, defaultTimeLocale)
 import Data.Time.Clock     (UTCTime)
 import System.FilePath     (takeFileName)
 
+import Text.Blaze.Html.Renderer.String (renderHtml)
+import Text.Blaze.Html ((!), toHtml, toValue)
+import Text.Blaze.Internal (preEscapedString)
+import qualified Text.Blaze.Html5 as H
+import qualified Text.Blaze.Html5.Attributes as A
+
 import Text.Pandoc.Options ( WriterOptions
                            , writerHTMLMathMethod
                            , HTMLMathMethod(MathJax)
@@ -30,7 +36,7 @@ feedConfig = FeedConfiguration
      }
 
 --------------------------------------------------------------------------------
-
+-- 
 staticContent :: Pattern
 staticContent = "favicon.ico"
            .||. "images/*"
@@ -39,6 +45,7 @@ staticContent = "favicon.ico"
 
 -- | "Lift" a compiler into an idRoute compiler.
 -- idR :: ... => Compiler (Item String) -> Rules ()
+-- https://github.com/zeckalpha/kyle.marek-spartz.org/blob/master/site.hs
 idR compiler = do
     route idRoute
     compile compiler
@@ -59,28 +66,14 @@ main = hakyllWith config $ do
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
-    -- match "posts/*" $ idR $ postCompiler
-    -- tags <- buildTags "posts/*" (fromCapture "tags/*.html")
-    -- tagsRules tags $ \tag pattern -> do
-    --   let title = "Posts tagged \"" ++ tag ++ "\""
-    --   route idRoute
-    --   compile $ do
-    --     posts <- chronological =<< loadAll pattern
-    --     let ctx = constField "title" title <>
-    --              listField "posts" postCtx (return posts) <>
-    --              defaultContext
-    --     makeItem ""
-    --      >>= loadAndApplyTemplate "templates/tags.html" ctx
-    --      >>= loadAndApplyTemplate "templates/default.html" ctx
-    --      >>= relativizeUrls
+    tags <- buildTags postsGlob (fromCapture "tags/*.html")
+
+    rulesForTags tags (\tag -> "Posts tagged \"" ++ tag ++ "\"")
+    
     match postsGlob $ do
         route $ setExtension "html"
-        compile $ postCompiler
-            -- >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            -- >>= saveSnapshot "content"
-            -- >>= loadAndApplyTemplate "templates/prev-next.html" postCtx
-            -- >>= loadAndApplyTemplate "templates/default.html" postCtx
-            -- >>= relativizeUrls
+        compile postCompiler
+
     create ["archive.html"] $ do
         route idRoute
         compile $ do
@@ -112,30 +105,22 @@ defaultTemplateWith template ctx =
         >>= loadAndApplyTemplate "templates/default.html" ctx
         >>= relativizeUrls
 
-cssTemplateCompiler :: Compiler (Item Template)
-cssTemplateCompiler = cached "Hakyll.Web.Template.cssTemplateCompiler" $
-    fmap (readTemplate . compressCss) <$> getResourceString
+-- cssTemplateCompiler :: Compiler (Item Template)
+-- cssTemplateCompiler = cached "Hakyll.Web.Template.cssTemplateCompiler" $
+--     fmap (readTemplate . compressCss) <$> getResourceString
 
 postsCompiler :: Compiler (Item String)
 postsCompiler = do
     posts <- recentFirst =<< loadAll postsGlob
     defaultTemplateWith "templates/default.html" $ postsCtx posts
 
--- route $ setExtension "html"
---         compile $ pandocCompiler
---             >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
---             >>= saveSnapshot "content"
---             >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
---             >>= relativizeUrls
-
-
 postCompiler :: Compiler (Item String)
-postCompiler =
+postCompiler = do
+   tags <- buildTags postsGlob (fromCapture "tags/*.html")
    pandocCompilerWith defaultHakyllReaderOptions writerOptions
      >>= saveSnapshot "content"
-     >>= loadAndApplyTemplate "templates/post.html"    postCtx
-     >>= loadAndApplyTemplate "templates/prev-next.html" postCtx
-     >>= loadAndApplyTemplate "templates/default.html" postCtx
+     >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
+     >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
      >>= relativizeUrls
 
 indexCompiler :: Compiler (Item String)
@@ -150,14 +135,31 @@ indexCompiler = do
        >>= loadAndApplyTemplate "templates/default.html" indexCtx
        >>= relativizeUrls
 
-defaultCompiler :: Compiler (Item String)
-defaultCompiler = do
-    posts <- recentFirst =<< loadAll postsGlob
-    pandocCompilerWith defaultHakyllReaderOptions writerOptions
-        >>= applyAsTemplate homeCtx
-        >>= loadAndApplyTemplate "templates/post-list.html" (postsCtx posts)
-        >>= loadAndApplyTemplate "templates/default.html" homeCtx
-        >>= relativizeUrls
+-- defaultCompiler :: Compiler (Item String)
+-- defaultCompiler = do
+--     posts <- recentFirst =<< loadAll postsGlob
+--     pandocCompilerWith defaultHakyllReaderOptions writerOptions
+--         >>= applyAsTemplate homeCtx
+--         >>= loadAndApplyTemplate "templates/post-list.html" (postsCtx posts)
+--         >>= loadAndApplyTemplate "templates/default.html" homeCtx
+--         >>= relativizeUrls
+
+
+rulesForTags :: Tags -> (String -> String) -> Rules ()
+rulesForTags tags titleForTag =
+    tagsRules tags $ \tag pattern -> do
+    let title = titleForTag tag -- "Posts tagged \"" ++ tag ++ "\""
+    route idRoute
+    compile $ do
+        posts <- recentFirst =<< loadAll pattern
+        let ctx = constField "title" title
+                  <> listField "posts" postCtx (return posts)
+                  <> defaultContext
+
+        makeItem ""
+            >>= loadAndApplyTemplate "templates/tags.html" ctx
+            >>= loadAndApplyTemplate "templates/default.html" ctx
+            >>= relativizeUrls
 
 -- feedCompilerHelper :: (Compiler [Item String] -> Compiler [Item String]) -> Compiler (Item String)
 -- feedCompilerHelper f = do
@@ -173,6 +175,14 @@ defaultCompiler = do
 -- feedCtx :: Context String
 -- feedCtx = bodyField "description" <> postCtx
 
+-- | Render a simple tag list in HTML, with the tag count next to the item
+-- https://github.com/rgoulter/my-hakyll-blog/blob/master/site.hs
+renderTagListLines :: Tags -> Compiler (String)
+renderTagListLines =
+    renderTags makeLink (intercalate ",<br>")
+  where
+    makeLink tag url count _ _ = renderHtml $
+        H.a ! A.href (toValue url) $ toHtml (tag ++ " (" ++ show count ++ ")")
 
 --------------------------------------------------------------------------------
 -- Next and previous posts:
@@ -223,79 +233,7 @@ sortIdentifiersByDate =
           fn2 = takeFileName $ toFilePath id2
           parseTime' fn = parseTimeM True defaultTimeLocale "%Y-%m-%d" $ intercalate "-" $ take 3 $ splitAll "-" fn
       in compare (parseTime' fn1 :: Maybe UTCTime) (parseTime' fn2 :: Maybe UTCTime)
---------------------------------------------------------------------------------
 
--- main :: IO ()
--- main = hakyllWith config $ do
---    match "images/*" $ do
---         route   idRoute
---         compile copyFileCompiler
---    match "favicon.ico" $ do
---         route   idRoute
---         compile copyFileCompiler
---    match "css/*" $ do
---         route   idRoute
---         compile compressCssCompiler
---    match "fonts/*" $ do
---         route   idRoute
---         compile copyFileCompiler
---    match (fromList ["about.md", "contact.markdown", "noobs.markdown"]) $ do
---         route   $ setExtension "html"
---         compile $ pandocCompiler
---             >>= loadAndApplyTemplate "templates/default.html" defaultContext
---             >>= relativizeUrls
---    tags <- buildTags "posts/*" (fromCapture "tags/*.html")
---    tagsRules tags $ \tag pattern -> do
---      let title = "Posts tagged \"" ++ tag ++ "\""
---      route idRoute
---      compile $ do
---        posts <- chronological =<< loadAll pattern
---        let ctx = constField "title" title <>
---                  listField "posts" postCtx (return posts) <>
---                  defaultContext
---        makeItem ""
---          >>= loadAndApplyTemplate "templates/tags.html" ctx
---          >>= loadAndApplyTemplate "templates/default.html" ctx
---          >>= relativizeUrls
---    match "posts/*" $ do
---         route $ setExtension "html"
---         compile $ postCompiler
---             >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
---             >>= saveSnapshot "content"
---             >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
---             >>= relativizeUrls
---    create ["archive.html"] $ do
---         route idRoute
---         compile $ do
---             posts <- recentFirst =<< loadAll "posts/*"
---             let archiveCtx =
---                     listField "posts" postCtx (return posts) <>
---                     constField "title" "Archives"            <>
---                     defaultContext
---             makeItem ""
---                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
---                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
---                 >>= relativizeUrls
---    create ["rss.xml"] $ do
---         route idRoute
---         compile $ do
---           let feedCtx = postCtx <> bodyField "description"
---           posts <- fmap (take 10) . recentFirst =<<
---                    loadAllSnapshots "posts/*" "content"
---           renderRss feedConfig feedCtx posts
---    match "index.html" $ do
---         route idRoute
---         compile $ do
---             posts <- recentFirst =<< loadAll "posts/*"
---             let indexCtx =
---                     listField "posts" homeCtx <>
---                     constField "title" ""     <>
---                     defaultContext
---             getResourceBody
---                 >>= applyAsTemplate homeCtx
---                 >>= loadAndApplyTemplate "templates/default.html" homeCtx
---                 >>= relativizeUrls
---    match "templates/*" $ compile defaultCompiler
 -- --------------------------------------------------------------------------------
 
 postsCtx :: [Item String] -> Context String
