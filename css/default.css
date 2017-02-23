@@ -1,3 +1,4 @@
+/*font stanzas -- the ttf files are all in the /fonts directory*/
 @font-face {
   font-family: 'Lora';
   src: local('Lora'), url('/fonts/Lora-Regular.ttf') format('opentype');
@@ -14,7 +15,7 @@
 
 @font-face {
     font-family: 'Monoid';
-    src: local('Monoid'), url('/fonts/Monoisome-Regular.ttf') format('opentype');
+    src: local('Monoid'), url('/fonts/Monoid-Regular.ttf') format('opentype');
     font-style: normal;
     font-weight: normal;
 }
@@ -35,6 +36,7 @@ body {
     color:#302F2F;
 }
 
+/*sets colors for links*/
 a:link {
 color: #B84A62;
 }
@@ -45,12 +47,19 @@ a:hover {
 color: #e3b8c2;
 }
 
+/*font for inline code*/
+code { 
+    font-family: 'Monoid', monospace;
+    font-size: 0.75em;
+    font-weight: 600; 
+}
+
 .main--container {
     display: flex;
     flex-direction: column;
 }
 
-
+/*header with wow look at that gradient*/
 .main--header {
     display: flex;
     flex-direction: column;
@@ -82,7 +91,7 @@ color: #e3b8c2;
 }
 
 .main--header a {
-    color: #F3F3F3;
+    color: #FFF8E7;
     font-family:'LatoBold', sans-serif;
     font-style: italic;
     font-size: 40px;
@@ -100,7 +109,7 @@ color: #e3b8c2;
 .main--nav a {
     font-family:'Lato';
     display: block;
-    color: #F3F3F3;
+    color: #FFF8E7;
     font-size: 18px;
     font-weight: bold;
     text-transform: uppercase;
@@ -135,8 +144,8 @@ color: #e3b8c2;
 }
 
 .main--footer {
-    background: rgba(122,0,86,1);
-    color: white;
+    background: #7A2156;
+    color: #FFF8E7;
     font-family:'Lato', sans-serif;
     padding: 1em;
     text-align: center;
@@ -152,6 +161,7 @@ color: #e3b8c2;
     color: white;
 }
 
+/*font and color for titles and section headers*/
 h1,h2,h3,h4,h5 {
     font-family:'Lato', sans-serif;
     color:#4d004d;
@@ -211,6 +221,7 @@ div.blurb p {
     max-width: 80%;
 }
 
+/*here begins styling for code blocks*/
 .sourceCode {
     font-family: 'Monoid', monospace;
     font-size: 16px
@@ -244,66 +255,33 @@ td.lineNumbers {
     padding-left: 5px;
 }
 
-/* Source code stuff */
-
-
-div.sourceCode {
-    max-width: 50em;
-}
-
-pre.sourceCode {
-    padding: 3px 10px 3px 10px;
-    background-color: #4C3131;
-}
-
-table.sourceCode, tr.sourceCode,
-td.lineNumbers, td.sourceCode,
-table.sourceCode pre {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
-    border: none;
-}
-td.lineNumbers {
-    border-right: 1px solid #AAAAAA;
-    text-align: right;
-    color: #AAAAAA;
-    padding-right: 5px;
-    padding-left: 5px;
-}
-
-/*td.sourceCode { padding-left: 5px; }
 
 /* main text */
 code.sourceCode { color: #FFF8E7; }
 /* keyword */
 .sourceCode span.kw { color: #c26c9e; font-weight: bold; }
-/* import target, function name, constructors */
+/* import target, function name, constructors, type names */
 .sourceCode span.dt { color: #dc95cf; } /*b18cbe*/
 /* numbers/literals? */
 .sourceCode span.dv { color: #49c6c6; }
 /* */
-.sourceCode span.bn { color: #AC7B84; }
+.sourceCode span.bn { color: #49c6c6; }
+/* numbers: floats */
+.sourceCode span.fl { color: #49c6c6; }
 /* */
-.sourceCode span.fl { color: #AC7B84; }
-/* */
-.sourceCode span.ch { color: #AC7B84; }
+.sourceCode span.ch { color: #49c6c6; }
 /* string */
-.sourceCode span.st { color: #63A6f0; }
+.sourceCode span.st { color: #AC7B84; }
 /* comments */
 .sourceCode span.co { color: #ffccdd; font-style: italic; }
-/* operators, accessors */
+/* mostly type-level things */
 .sourceCode span.ot { color: #f0ad63; }
 /* */
 .sourceCode span.al { color: #B84A62; font-weight: bold; }
-/* function */
+/* operators */
 .sourceCode span.fu { color: #e48cad; }
 /* */
 /*.sourceCode span.re { }*/
 /* */
 .sourceCode span.er { color: #B84A62; font-weight: bold; }
 
-/*div.sourceCode {
-    margin-left: 3em;
-}*/
