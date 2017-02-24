@@ -7,8 +7,8 @@
 }
 
 @font-face {
-    font-family: 'Lato';
-    src: local('Lato'), url('/fonts/Lato-Bold.ttf') format('opentype');
+    font-family: 'Rubik';
+    src: local('Rubik'), url('/fonts/Rubik-Light.ttf') format('opentype');
     font-style: normal;
     font-weight: bold;
 }
@@ -92,7 +92,7 @@ code {
 
 .main--header a {
     color: #FFF8E7;
-    font-family:'LatoBold', sans-serif;
+    font-family:'Rubik', sans-serif;
     font-style: italic;
     font-size: 40px;
     font-weight:light;
@@ -107,7 +107,7 @@ code {
 }
 
 .main--nav a {
-    font-family:'Lato';
+    font-family:'Rubik';
     display: block;
     color: #FFF8E7;
     font-size: 18px;
@@ -146,7 +146,7 @@ code {
 .main--footer {
     background: #7A2156;
     color: #FFF8E7;
-    font-family:'Lato', sans-serif;
+    font-family:'Rubik', sans-serif;
     padding: 1em;
     text-align: center;
 /*    border-top: solid 2px black;
@@ -163,7 +163,7 @@ code {
 
 /*font and color for titles and section headers*/
 h1,h2,h3,h4,h5 {
-    font-family:'Lato', sans-serif;
+    font-family:'Rubik', sans-serif;
     color:#4d004d;
 }
 
