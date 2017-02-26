@@ -7,8 +7,8 @@
 }
 
 @font-face {
-    font-family: 'Rubik';
-    src: local('Rubik'), url('/fonts/Rubik-Light.ttf') format('opentype');
+    font-family: 'Cabin';
+    /*src: local('Cabin'), url('/fonts/Rubik-Light.ttf') format('opentype');*/
     font-style: normal;
     font-weight: bold;
 }
@@ -17,6 +17,12 @@
     font-family: 'Monoid';
     src: local('Monoid'), url('/fonts/Monoid-Regular.ttf') format('opentype');
     font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Hypno';
+    src: local('Hypnopaedia'), url('/fonts/Hypnopaedia-Two.otf') format('opentype');
     font-weight: normal;
 }
 
@@ -92,7 +98,7 @@ code {
 
 .main--header a {
     color: #FFF8E7;
-    font-family:'Rubik', sans-serif;
+    font-family:'Cabin', sans-serif;
     font-style: italic;
     font-size: 40px;
     font-weight:light;
@@ -107,7 +113,7 @@ code {
 }
 
 .main--nav a {
-    font-family:'Rubik';
+    font-family:'Cabin';
     display: block;
     color: #FFF8E7;
     font-size: 18px;
@@ -143,27 +149,33 @@ code {
     max-width: 800px;
 }
 
-.main--footer {
-    background: #7A2156;
-    color: #FFF8E7;
-    font-family:'Rubik', sans-serif;
+footer {
+    background: #FFF8E7;
+    color: #7A2156;
+    font-family:'Cabin', sans-serif;
     padding: 1em;
     text-align: center;
-/*    border-top: solid 2px black;
-    color: #555;
-    font-size: 12px;
+    border-top: solid 2px #7A2156;
+    font-family: 'Cabin';
+    font-size: 14px;
     margin-top: 30px;
-    padding:12px 30px 12px 0px;
-    text-align: right;*/
+    padding: 12px 0px 12px 0px;
+    text-align: center;
 }
 
-.main--footer a {
-    color: white;
+footer img {
+  width: 64px;
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
+
 
 /*font and color for titles and section headers*/
 h1,h2,h3,h4,h5 {
-    font-family:'Rubik', sans-serif;
+    font-family:'Cabin', sans-serif;
     color:#4d004d;
 }
 
@@ -284,4 +296,3 @@ code.sourceCode { color: #FFF8E7; }
 /*.sourceCode span.re { }*/
 /* */
 .sourceCode span.er { color: #B84A62; font-weight: bold; }
-
