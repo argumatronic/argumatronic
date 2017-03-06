@@ -1,9 +1,9 @@
 ---
-title: Applicative I: More Like a Hot Dog than a Burrito
+title: Monads are nested lambdas
 tags: Haskell
 ---
 
-> This is part one of a three-part post that recaps the workshop I gave at LambdaConf Winter Retreat, January 2017. This part will cover some differences between `Applicative` and `Monad` and some cool things about `Applicative`. The next part will discuss a datatype called `AccValidation` that does not have a `Monad` instance. The final part will demonstrate these two typeclasses, along with `Alternative`, specifically with regard to *parsing* and work through example code that uses the `optparse-applicative` library. I'm telling you this now so that you'll hold me to it. **Prerequisites**: This assumes some knowledge of Haskell syntax, particularly `case` expressions and datatypes such as `Maybe` and `Either.` Further, this does assume some knowledge of monoids and conjunction and disjunction, in Boolean logic or set theory. Sorry! I will write another post about that another time and then link it.
+> This is part one of a series that recaps [the workshop I gave](https://www.youtube.com/watch?v=htA9-QDCTA0) at LambdaConf Winter Retreat, January 2017. This part will cover the nested, context-dependent aspect of `Monad`; in a later post I'll contrast that with the parallel, context-independent `Applicative`.<br> **Prerequisites**: This assumes some knowledge of Haskell syntax, particularly `case` expressions and datatypes such as `Maybe` and `Either.` Further, this does assume some knowledge of monoids and conjunction and disjunction, in Boolean logic or set theory. Sorry! I will write another post about that another time and then link it.
 
 ## We Want the Functor
 
@@ -26,11 +26,15 @@ But it works just as well with many other types:
 λ> fmap (++ "moronuki") (Just "julie ")
 Just "julie moronuki"
 ```
-The idea is that we want to apply a function to a value that is *inside* some structure (type) while leaving that structure intact. We call this lifting. The word "lifting," when used in Haskell at least, refers to applying a type constructor to a type. `fmap` is lifting because it applies the type constructor `f` to the types `a` and `b`. 
+You'll often hear this idea described as applying a function to a value that is *inside* some structure (type) while leaving that structure intact. I often describe it that way myself when I'm being less than precise. But it's misleading for some of the functors that are out there, so let's try to be a little more precise.
+
+A functor is a means of mapping an object from one category to another. In the process of mapping, we want to preserve the structure, so that the  In this case, we're mapping a function `(a -> b)` to a function ``
+
+We call this lifting. The word "lifting," when used in Haskell at least, refers to applying a type constructor to a type. `fmap` is lifting because it applies the type constructor `f` to the types `a` and `b`.
 
 ## Not A Monad Tutorial
 
-Despite what you may have heard in the past about `Monad`, it's not much different from `Functor` -- in fact, it is a variety of functor. There is only a small (but important) difference between them. 
+Despite what you may have heard in the past about `Monad`, it's not much different from `Functor` -- in fact, it is a variety of functor. There is only a small (but important) difference between them.
 
 The `Monad` typeclass includes several operators, but the minimal complete definition of it only includes this operator, called `bind`:
 
@@ -44,7 +48,7 @@ It might initially look quite different from `fmap` because the argument order i
 
 fmap  :: Functor f => (a -> b)   -> f a -> f b
 ```
-I've added some extra spaces to make them line up better. The `m` variables are analogous to the `f` variables: they represent type constructors that are instances of `Monad` or `Functor`, respectively. Any type that is an instance of `Monad` must also be an instance of `Functor` but the reverse is not true. 
+I've added some extra spaces to make them line up better. The `m` variables are analogous to the `f` variables: they represent type constructors that are instances of `Monad` or `Functor`, respectively. Any type that is an instance of `Monad` must also be an instance of `Functor` but the reverse is not true.
 
 The difference between these two functors is that, in the monadic version, the function that is being applied is itself generating a layer of structure. We can concretize the types to make it a little more clear:
 
@@ -55,7 +59,7 @@ fmap @Maybe :: (a -> b) -> Maybe a -> Maybe b
 λ> :t (=<<) @Maybe
 (=<<) @Maybe :: (a -> Maybe b) -> Maybe a -> Maybe b
 ```
-With the monadic operators (`(>>=)` and `(=<<)`), you're still lifting a function into a context in order to apply it to the value inside, but now the function produces an `m b` instead of just a `b`. That means the result of the function application is a nested structure (e.g., `Maybe (Maybe b)`) and we have the special monadic function `join` that smooshes those two layers into one. You can write `(>>=)` for yourself by composing `fmap` with `join`. 
+With the monadic operators (`(>>=)` and `(=<<)`), you're still lifting a function into a context in order to apply it to the value inside, but now the function produces an `m b` instead of just a `b`. That means the result of the function application is a nested structure (e.g., `Maybe (Maybe b)`) and we have the special monadic function `join` that smooshes those two layers into one. You can write `(>>=)` for yourself by composing `fmap` with `join`.
 
 One important thing about monads, though, is they allow us to *sequence* actions and render the results of one dependent on earlier results. In a monadic context, returning a `Nothing` or empty list at any point can cause later computations to short-circuit. Let's take a look:
 
@@ -82,7 +86,7 @@ plCheck c =
      then Nothing
      else Just c
 ```
-Our `Person` datatype constructs a person record out of a name, an age, and a `String` that we want to represent the name of a programming language. Two functions, `nonEmpty` and `nonNegative` check to make sure we have valid inputs -- no empty strings or negative numbers. And `plCheck` checks to make sure that if given the name `String` "Simon" then the programming language is Haskell. If it's a Simon that doesn't use Haskell, I'm sorry, but it's not a valid person. 
+Our `Person` datatype constructs a person record out of a name, an age, and a `String` that we want to represent the name of a programming language. Two functions, `nonEmpty` and `nonNegative` check to make sure we have valid inputs -- no empty strings or negative numbers. And `plCheck` checks to make sure that if given the name `String` "Simon" then the programming language is Haskell. If it's a Simon that doesn't use Haskell, I'm sorry, but it's not a valid person.
 
 So, let's put this together:
 
@@ -108,7 +112,7 @@ mkPerson name' age' pl' =
           Just lang ->
               plCheck (Person named aged lang)
 ```
-We only apply `plCheck` if none of the cases above returned a `Nothing` value. If we get a `Nothing` at any point, the whole thing will return `Nothing`. You can also use `do` syntax for this, even though there is no `IO` involved (`do` syntax is for monads, and `Maybe` is our monad here). This is the same as the big nested `case` function above: 
+We only apply `plCheck` if none of the cases above returned a `Nothing` value. If we get a `Nothing` at any point, the whole thing will return `Nothing`. You can also use `do` syntax for this, even though there is no `IO` involved (`do` syntax is for monads, and `Maybe` is our monad here). This is the same as the big nested `case` function above:
 
 ```haskell
 mkPerson' :: String -> Int -> String -> Maybe Person
@@ -198,11 +202,11 @@ Because the `m a` value has to be passed to the `(a -> m b)` function, if there'
 
 ![](/images/vaders-tie-fighter.jpg)
 
-Now the point of this post and its follow-up posts is to explain how applicatives differ from monads, but it seemed useful to make sure we all understood some things about monads first. 
+Now the point of this post and its follow-up posts is to explain how applicatives differ from monads, but it seemed useful to make sure we all understood some things about monads first.
 
-`Applicative` is another typeclass in Haskell and is now a superclass of `Monad` and a subclass of `Functor`, despite having been introduced to the language much later than monads and functors. Applicatives are a variety of functor, often called "applicative functors". 
+`Applicative` is another typeclass in Haskell and is now a superclass of `Monad` and a subclass of `Functor`, despite having been introduced to the language much later than monads and functors. Applicatives are a variety of functor, often called "applicative functors".
 
-But applicatives are *monoidal functors.* There's a monoidal structure to them that, in the course of these posts, I'm going to touch on to some extent but not fully explain; if you want to follow up on that, there is [my delightful book](http://haskellbook.com/) and there is also 
+But applicatives are *monoidal functors.* There's a monoidal structure to them that, in the course of these posts, I'm going to touch on to some extent but not fully explain; if you want to follow up on that, there is [my delightful book](http://haskellbook.com/) and there is also
 
 
 
@@ -210,14 +214,10 @@ We can also rewrite that with the monadic operator, `(>>=)`, since that's what `
 
 ```haskell
 mkPer :: String -> Int -> String -> Maybe Person
-mkPer name' age' pl' = 
-  Person <$> (nonEmpty name') 
-         <*> (nonNegative age') 
-         <*> (nonEmpty pl') 
+mkPer name' age' pl' =
+  Person <$> (nonEmpty name')
+         <*> (nonNegative age')
+         <*> (nonEmpty pl')
   >>= plCheck
 ```
-But that looks a little funny 
-
-
-
-
+But that looks a little funny
