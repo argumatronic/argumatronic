@@ -37,12 +37,12 @@ feedConfig = FeedConfiguration
      }
 
 --------------------------------------------------------------------------------
--- name some of the Patterns 
+-- name some of the Patterns
 staticContent :: Pattern
 staticContent = "favicon.ico"
            .||. "images/*"
            .||. "fonts/*"
- 
+
 postsGlob :: Pattern
 postsGlob = "posts/*"
 
@@ -67,9 +67,9 @@ main = hakyllWith config $ do
     match "templates/*" $ compile templateCompiler
   -- i should really pull this out into a separate compiler
   -- function as i did the others, but for now this works
-  -- these files are separate pages but are not in /posts 
+  -- these files are separate pages but are not in /posts
   -- and i don't want the post template applied
-    match (fromList ["about.md", "contact.markdown", "noobs.markdown", "cats.markdown"]) $ do
+    match (fromList ["about.md", "noobs.markdown", "cats.markdown"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
@@ -81,13 +81,13 @@ main = hakyllWith config $ do
     tags <- buildTags postsGlob (fromCapture "tags/*.html")
 
     rulesForTags tags (\tag -> "Posts tagged \"" ++ tag ++ "\"")
-    
-  -- for postCompiler, see below  
+
+  -- for postCompiler, see below
     match postsGlob $ do
         route $ setExtension "html"
         compile postCompiler
 
-  -- again, the archive compiler could be pulled out of here 
+  -- again, the archive compiler could be pulled out of here
   -- as i did with other compilers, but it has its own template
     create ["archive.html"] $ do
         route idRoute
@@ -134,8 +134,8 @@ indexCompiler :: Compiler (Item String)
 indexCompiler = do
    posts <- fmap (take 10) . recentFirst =<< loadAll "posts/*"
    let indexCtx =
-           listField "posts" postCtx (return posts) 
-           <> constField "title" ""        
+           listField "posts" postCtx (return posts)
+           <> constField "title" ""
            <> defaultContext
    getResourceBody
        >>= applyAsTemplate indexCtx
@@ -176,7 +176,7 @@ renderTagListLines =
 -- https://github.com/rgoulter/my-hakyll-blog/commit/a4dd0513553a77f3b819a392078e59f461d884f9
 -- these are necessary to make the next and prev buttons work
 -- then you also have to add a prev-next html template and then
--- add that template to your post.html template 
+-- add that template to your post.html template
 prevPostUrl :: Item String -> Compiler String
 prevPostUrl post = do
   posts <- getMatches postsGlob
