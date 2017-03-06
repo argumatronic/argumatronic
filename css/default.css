@@ -166,11 +166,11 @@ footer {
 
 footer img {
   width: 64px;
-  max-width: 100%;
+  /*max-width: 100%;*/
   display: inline-block;
   vertical-align: middle;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 
