@@ -1,7 +1,7 @@
 /*font stanzas -- the ttf files are all in the /fonts directory*/
 @font-face {
   font-family: 'Lora';
-  src: local('Lora'), url('/fonts/Lora-Regular.ttf') format('opentype');
+  /*src: local('Lora'), url('/fonts/Lora-Regular.ttf') format('opentype');*/
   font-style: normal;
   font-weight: normal;
 }
@@ -42,22 +42,23 @@ body {
     color:#302F2F;
 }
 
+
 /*sets colors for links*/
 a:link {
-color: #B84A62;
+  color: #55003c;
 }
 a:visited {
-color: #49c6c6;
+  color: #668a99;
 }
 a:hover {
-color: #e3b8c2;
+  color: #aa7f9d;
 }
 
 /*font for inline code*/
-code { 
+code {
     font-family: 'Monoid', monospace;
     font-size: 0.75em;
-    font-weight: 600; 
+    font-weight: 600;
 }
 
 .main--container {
@@ -160,7 +161,7 @@ footer {
     font-size: 14px;
     margin-top: 30px;
     padding: 12px 0px 12px 0px;
-    text-align: center;
+    /*text-align: center;*/
 }
 
 footer img {
@@ -191,6 +192,15 @@ div.info {
     text-align: center
 }
 
+div.icons {
+  p {
+    a {
+    margin-left: 5em;
+    margin-right: 2em;
+    }
+  }
+}
+
 .main--content {
     font-size: 18px;
     padding:0 30px 20px 30px
@@ -213,7 +223,7 @@ div.info {
 }
 
 blockquote {
-  background-color: #e0d7da;
+  background-color: #eee5eb;
   font-style: italic;
   padding: 3px 10px 3px 10px;
 }
@@ -223,7 +233,7 @@ div.blurb {
     padding: 5px 0px 5px 0px;
     max-width: 920px;
     width: 50%;
-    background-color: #e0d7da;
+    background-color: #ddccd8;
     clear: both;
 }
 
@@ -232,6 +242,7 @@ div.blurb p {
     margin-right: auto;
     max-width: 80%;
 }
+/*old blockquote and blurb color: #e0d7da , also good #ccd8dd*/
 
 /*here begins styling for code blocks*/
 .sourceCode {
@@ -247,8 +258,9 @@ div.sourceCode {
 
 pre.sourceCode {
     padding: 3px 10px 3px 10px;
-    background-color: #4C3131;
+    background-color: #422f41;
 }
+/*older source code backgrounds colors #3a2f42; #4c3131*/
 
 table.sourceCode, tr.sourceCode,
 td.lineNumbers, td.sourceCode,
