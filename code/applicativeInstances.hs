@@ -35,3 +35,14 @@ instance Applicative (Choose a) where
   (<*>) (This a) _ = This a
   (<*>) _ (This a) = This a
   (<*>) (That f) (That b) = That (f b)
+
+-- a fake tuple type
+data Tuple a b = Tuple a b
+                 deriving (Eq, Show)
+
+instance Functor (Tuple a) where
+  fmap f (Tuple a b) = Tuple a (f b)
+
+instance Monoid a => Applicative (Tuple a) where
+  pure b = Tuple mempty b
+  (<*>) (Tuple a f) (Tuple a' b) = Tuple (a <> a') (f b)
