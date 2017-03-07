@@ -1,0 +1,52 @@
+## Disjunctive monoids
+
+Monoids aren't only about *combining* things; sometimes they're about *choosing* one or the other. Since we think of canonical monoids such as addition, multiplication, and list concatenation, we develop an intuition for monoids as being primarily about *combining* two values into one. It might be more helpful to think of them as instead *merging* or *uniting* two values into one, although maybe plain English just isn't going to do justice to it.
+
+One possibility for monoids is that of Boolean conjunction -- this is where list cross-products, multiplication, and the particular Maybe applicative we're looking at up there come in. We can write out a Boolean truth table using Maybe values instead of Bool values and see that the pattern we see in the above are the same:
+
+```haskell
+-- Nothing ~ False
+-- Just a ~ True
+Nothing Nothing = Nothing
+Nothing Just a  = Nothing
+Just a  Nothing = Nothing
+Just a  Just a  = Just a (where the a is the `mappend` of the two `a` values)
+```
+
+We can get a different result from our Maybe applicative by using one of its alternative monoids of course, which means we need to call them by a new name:
+
+> First and Last examples
+
+λ> (First (Just 'a'), (+8)) <*> (First (Just 'b'), 7)
+(First {getFirst = Just 'a'},15)
+it :: Num b => (First Char, b)
+
+λ> (Last (Just 'a'), (+8)) <*> (Last (Just 'b'), 7)
+(Last {getLast = Just 'b'},15)
+it :: Num b => (Last Char, b)
+
+λ> ((Just "a"), (+8)) <*> ((Just "b"), 7)
+(Just "ab",15)
+it :: Num b => (Maybe [Char], b)
+
+λ> ((Just "a"), (+8)) <*> (Nothing, 7)
+(Just "a",15)
+it :: Num b => (Maybe [Char], b)
+
+λ> (Nothing, (+8)) <*> (Nothing, 7)
+(Nothing,15)
+it :: (Num b, Monoid a) => (Maybe a, b)
+
+λ> (Last (Just 'a'), (+8)) <*> (Last Nothing, 7)
+(Last {getLast = Just 'a'},15)
+it :: Num b => (Last Char, b)
+
+λ> (Last Nothing, (+8)) <*> (Last Nothing, 7)
+(Last {getLast = Nothing},15)
+it :: Num b => (Last a, b)
+
+-- First and Last Truth Tables (disjunctive pattern)
+Nothing Nothing = Nothing
+Just a Nothing = Just a
+Nothing Just a = Just a
+Just a Just a = Just a where the a values are not themselves mappended, but one or the other Just is chosen and returned

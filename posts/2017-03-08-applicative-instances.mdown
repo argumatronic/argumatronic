@@ -7,6 +7,8 @@ tags: Haskell, Applicative, monoids, typeclasses
 
 ## Some vanilla Applicative instances
 
+> i think let's reorder this. put the tuple thing right up at the top, then later bring in the sum type instances to contrast
+
 Another post will explain what applicative functors are and do -- this post is going to assume you understand that, more or less, and look at instances and what we can find out about these wonderful functors from their instances.
 
 The first thing to know if you think you want an `Applicative` instance for a given type is that it must admit a monoid (or, if a sum type, at least a semigroup operation) and it must have a `Functor` instance, as `Functor` is a superclass of `Applicative`. For `Functor`, the type constructor must be of kind `* -> *`. That is two stars, no more and no less. Type constructor here means what it says: it's a function that, given a type argument, constructs a value of that type.
@@ -167,6 +169,8 @@ For our purposes here, we only care about the bottom line, where there are two `
 
 > well how do we explain this, the First one does the same thing as the Maybe -- i think this is going to have to do with the nature of the functor, it needs to apply the function to something. but i will need to play with it more. i mean the point is really that, given an accumulation of type wrappers, you have to do *something* with them, yes? you have to smoosh them and it relies on the monoid to do that. it may not matter what happens to them if there is no function to apply or no value to apply it to. that may be the key there, then with twists in AccValidation and then later in Alternative.
 
+> ok for this post we just need to concentrate on answering why we need a monoid constraint on the tuple (but not on sum types) and how the smooshing together of data constructors is monoidal. period. the conjunctive/disjunctive monoid thing can wait.
+
 ```haskell
 First (Just (+2)) <*> First Nothing
 First {getFirst = Nothing}
@@ -178,23 +182,3 @@ it :: Num b => First b
 ```
 
 > same pattern for Either
-
-
-## Disjunctive monoids
-
-Monoids aren't only about *combining* things; sometimes they're about *choosing* one or the other. Since we think of canonical monoids such as addition, multiplication, and list concatenation, we develop an intuition for monoids as being primarily about *combining* two values into one. It might be more helpful to think of them as instead *merging* or *uniting* two values into one, although maybe plain English just isn't going to do justice to it.
-
-One possibility for monoids is that of Boolean conjunction -- this is where list cross-products, multiplication, and the particular Maybe applicative we're looking at up there come in. We can write out a Boolean truth table using Maybe values instead of Bool values and see that the pattern we see in the above are the same:
-
-```haskell
--- Nothing ~ False
--- Just a ~ True
-Nothing Nothing = Nothing
-Nothing Just a  = Nothing
-Just a  Nothing = Nothing
-Just a  Just a  = Just a (where the a is the `mappend` of the two `a` values)
-```
-
-We can get a different result from our Maybe applicative by using one of its alternative monoids of course, which means we need to call them by a new name:
-
-> First and Last examples
