@@ -9,19 +9,69 @@ tags: Haskell, Applicative, monoids, typeclasses
 
 Another post will explain what applicative functors are and do -- this post is going to assume you understand that, more or less, and look at instances and what we can find out about these wonderful functors from their instances.
 
+The first thing to know if you think you want an `Applicative` instance for a given type is that it must admit a monoid (or, if a sum type, at least a semigroup operation) and it must have a `Functor` instance, as `Functor` is a superclass of `Applicative`. For `Functor`, the type constructor must be of kind `* -> *`. That is two stars, no more and no less. Type constructor here means what it says: it's a function that, given a type argument, constructs a value of that type.
+
+A type constructor together with an `Applicative` instance, describing how `pure` and `(<*>)` (called `ap` sometimes, or, as I prefer, the tie-fighter) behave on that type forms an applicative functor. `pure` only lifts a value (yea, even if that value is a function) into a context by applying a type constructor to it. The tie-fighter, on the other hand, brings the func:
+
+```haskell
+<*> :: f (a -> b) -> f a -> f b
+```
+
+Looks a lot like `fmap`, yes? The difference is having that function already embedded in the same context as the rest of it.
+
 #### Sum types
 
+We'll concern ourselves for the moment with two of these: `Maybe` and `Either`. These two capture the things we want to notice, for the most part, and will let us build up some later examples.
+
+With `Maybe`, the left side of the sum type is `Nothing` and contains no `a` value to which we might apply a function. All the action in this case must happen on the right. I'm going to put the `Functor` instance here for comparison:
+
+```haskell
+data Maybe a = Nothing | Just a
+
+instance Functor Maybe where
+  fmap _ Nothing = Nothing
+  fmap f (Just a) = Just (f a)
+
+-- the `f` variable is a function so Just (f a) is the function
+-- being applied to the a value
+
+instance Applicative Maybe where
+  pure = Just
+  (<*>) Nothing _ = Nothing
+  (<*>) _ Nothing = Nothing
+  (<*>) (Just f) (Just a') = Just (a)
+```
+The `Applicative` instance constrasts with the `Functor` in that the function is also embedded in context, so we have to write two cases to cover the possibilities of `Nothing` values, whereas for `fmap` we only have to write one, because the `f` function can never be `Nothing`. We use `Just` for `pure` because the point of `pure` is to lift a value into a type context, and we lift a value into a `Maybe` context by applying the `Just` constructor to it. Even if you wanted to, you couldn't do that with `Nothing` since it has no `a`, but as we'll see in a moment, there are other reasons as well. You don't want `Maybe` there because function implementations, such as in an instance, are term- or value-level and so we use data constructors and values there, not type constructors which stay up there in the type level.
+
+Let's look at `Either` now. This is different from `Maybe` in that it has two type parameters instead of just the one. So, we need to [partially apply](http://argumatronic.com/posts/2016-06-17-delicious-currying.html) the type constructor to reduce its arity to `* -> *`, but otherwise the pattern is similar:
+
+```haskell
+data Either a b = Left a | Right b
+
+instance Functor (Either a) where
+  fmap _ (Left a) = Left a
+  fmap f (Right b) = Right (f b)
+
+instance Applicative (Either a) where
+  pure = Right
+  (<*>) (Left a) _ = Left a
+  (<*>) _ (Left a) = Left a
+  (<*>) (Right f) (Right b) = Right (f b)
+```
+All right, let's talk about that `pure` for a second. You can try loading up [this code]() and changing the implementation to have `pure` be the *left* value (called `This` in that code, to avoid name conflicts if you're using `Prelude`) and see the exciting type error that results. 
 
 
 
 #### Product types
+
+An important difference between sum types and product types that is often taken for granted but is quite noticeable when one is writing instances is that sum types are *disjunctive* while product types are *conjunctive*.
 
 
 ## Applicatives are monoidal
 
 Applicatives are functors in which the function we're applying is already in the same context as the value we want to transform. When we talk about applicative functors being monoidal, though, it's not obvious what we mean. There is no explicit `Monoid` constraint on most `Applicative` instances, for example, and you do not have to consider how the `f` types will be merged when you write an `Applicative` instance -- at least, not usually.
 
-Having the `Monoid` constraint on tuples, for example, does make this more explicit. tuple (and similar product types) need a `mempty` value for the `a` in order to implement `pure` because the `pure` only takes a thing and wraps it in the `f` type constructor, and for tuples (and similar) the `a` value is part of the type constructor itself. applying `pure` to an argument should not ever change the value of any part of the type constructor, hence you need an identity value for that `a` that will not change its value. since the `a` already has a `Monoid` constraint on it, you get the polymorphic identity value `mempty` for free, as it were.
+Having the `Monoid` constraint on tuples, for example, does make this more explicit. tuple (and similar product types) need a `mempty` value for the `a` in order to implement `pure` because the `pure` only takes a thing and wraps it in the `f` type constructor, and for tuples (and similar) the `a` value is part of the type constructor itself. applying `pure` to an argument should not ever change the value of any part of the type constructor, hence you need an identity value for that `a` that will not change its value. since you don't know anything about `a`, you need a fully polymorphic identity value for it. the `Monoid` constraint on `a` gives you the polymorphic identity value `mempty` for free, as it were.
 
 > tuple examples
 
@@ -47,7 +97,9 @@ Just (+2) <*> Just 2
 
 (Just Just (+2) 2)
 ```
-The operation (the function) for the numeric values is specified, but the only operation that can merge or unify those Justs is left implicit -- it's the default Maybe monoid.
+The operation (the function) for the numeric values is specified, but the Justs just...accumulate. The operation that can merge or unify those Justs is left implicit -- it's the default Maybe monoid.
+
+(AccValidation sort of explicitly accumulates -- the values inside, while implicitly crushing the Left constructors together.)
 
 
 ## Disjunctive monoids

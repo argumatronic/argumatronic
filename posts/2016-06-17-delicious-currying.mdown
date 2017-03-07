@@ -1,32 +1,32 @@
 ---
 title: Currying is Delicious
-tags: Haskell
+tags: Haskell, beginner-friendly
 ---
 
-> I had never wanted to be a programmer exactly, but as I was introduced to Haskell, certain aspects of it appealed to me and I grew to love it. I present them here to help me organize my own thoughts and remember why Haskell is fun. One of the things I most enjoy in life is when a bunch of facts that you usually learn independently and seem separate can be fitted together into a tidy, coherent package or progression. Haskell offers a lot of opportunities for this. 
+> I had never wanted to be a programmer exactly, but as I was introduced to Haskell, certain aspects of it appealed to me and I grew to love it. I present them here to help me organize my own thoughts and remember why Haskell is fun. One of the things I most enjoy in life is when a bunch of facts that you usually learn independently and seem separate can be fitted together into a tidy, coherent package or progression. Haskell offers a lot of opportunities for this.
 
-Today I'd like to share with you the good news about currying. Most of what follows is in the book and there are approximately 10,000 blog posts about currying already, so why write one more? Because I'd like to take it a step farther than most people do. 
+Today I'd like to share with you the good news about currying. Most of what follows is in the book and there are approximately 10,000 blog posts about currying already, so why write one more? Because I'd like to take it a step farther than most people do.
 
-The joy of currying for me was in finding that there was consistency in how _kinds_ work -- kinds being the types of types -- such that I could know how some functors would work based on what I already knew. 
+The joy of currying for me was in finding that there was consistency in how _kinds_ work -- kinds being the types of types -- such that I could know how some functors would work based on what I already knew.
 
-Maybe I take joy in strange things. 
+Maybe I take joy in strange things.
 
 ## The Function Datatype
 
-It took me some time to come to grips with the idea that a lot of types aren't just _types_; they're _type constructors_ and function-like in that they must be applied to some argument to construct a value of that type. It took me a bit longer to understand that the function arrow you see in type signatures is also a type constructor. It doesn't look or act precisely like other type constructors, but don't let that fool you. 
+It took me some time to come to grips with the idea that a lot of types aren't just _types_; they're _type constructors_ and function-like in that they must be applied to some argument to construct a value of that type. It took me a bit longer to understand that the function arrow you see in type signatures is also a type constructor. It doesn't look or act precisely like other type constructors, but don't let that fool you.
 
-The `(->)` type constructor is a product type with two parameters and no data constructors: 
+The `(->)` type constructor is a product type with two parameters and no data constructors:
 
 ```haskell
 data (->) a b
 ```
-We have two polymorphic type parameters here, `a` and `b`. A function takes an `a` argument and returns `b`. It has no data constructors, but it does construct a value -- constructing a function constructs value of type `a -> b`. 
+We have two polymorphic type parameters here, `a` and `b`. A function takes an `a` argument and returns `b`. It has no data constructors, but it does construct a value -- constructing a function constructs value of type `a -> b`.
 
-But these two parameters only allow for one input and one output. So it must be true that [Haskell functions take one argument and return one result](http://blog.tmorris.net/posts/haskell-functions-take-one-argument/). 
+But these two parameters only allow for one input and one output. So it must be true that [Haskell functions take one argument and return one result](http://blog.tmorris.net/posts/haskell-functions-take-one-argument/).
 
-We don't know anything about our parameters, though, so they can be any type -- including more functions. They may be different types, or they may be the same type. In other words, one function could take a function as the input argument and return a function as the output. If it does one or the other or both, we have a _higher-order function_. 
+We don't know anything about our parameters, though, so they can be any type -- including more functions. They may be different types, or they may be the same type. In other words, one function could take a function as the input argument and return a function as the output. If it does one or the other or both, we have a _higher-order function_.
 
-_[Currying](https://wiki.haskell.org/Currying)_ takes advantage of this ability of functions to return more functions. We know that all functions take one argument and return one result, but we also need the ability to write multiparameter functions. Currying, which happens by default in Haskell, allows us to write multiparameter functions that are _really_ nested single-parameter functions. 
+_[Currying](https://wiki.haskell.org/Currying)_ takes advantage of this ability of functions to return more functions. We know that all functions take one argument and return one result, but we also need the ability to write multiparameter functions. Currying, which happens by default in Haskell, allows us to write multiparameter functions that are _really_ nested single-parameter functions.
 
 The `(->)` associates to the right so that this:
 
@@ -67,14 +67,14 @@ One of the important points about functional programming is supposed to be that 
 
 Partial application and why it's useful is covered quite well by a number of other blog posts so I'll try not to go on too long about it, and anyway I want to get to the exciting stuff soon.
 
-While the function type associates to the right, function application associates to the left. So, 
+While the function type associates to the right, function application associates to the left. So,
 
 ```haskell
 f x y
 -- is really
 (f x) y
 ```
-where `f` is the function and `x` and `y` are the input arguments. 
+where `f` is the function and `x` and `y` are the input arguments.
 
 When we partially apply a function, we see a reduction in the parameters of the function's type signature:
 
@@ -92,7 +92,7 @@ Our new function, `add5`, will accept one input argument and return a result. No
 sum = foldr (+) 0
 reverse = foldl (flip (:)) []
 ```
-In both of those, we've partially applied folding functions to create functions that take one list input, without having to rewrite the other arguments over and over. Pretty sweet. 
+In both of those, we've partially applied folding functions to create functions that take one list input, without having to rewrite the other arguments over and over. Pretty sweet.
 
 We can even compose partially applied functions:
 
@@ -107,7 +107,7 @@ filter :: (a -> Bool) -> [a] -> [a]
 ```
 By applying them to one argument each (`5` and `even`), they become functions prepared to accept the list generated by `enumFrom` as input.
 
-Currying allows you to build more specialized functions via partial application, so the order of arguments is a design concern with functions you'll want to reuse. For example, you're more likely to want to build a filtering function that will filter all the zeroes out of any list it is given, which can be easily done by partially applying `filter` to a test for nonequality with `0`, than to build one where `filter` is partially applied to some list first and awaits its filtering criterion. A similar idea gives us the partially applied folds that work as `sum` and `reverse` functions. 
+Currying allows you to build more specialized functions via partial application, so the order of arguments is a design concern with functions you'll want to reuse. For example, you're more likely to want to build a filtering function that will filter all the zeroes out of any list it is given, which can be easily done by partially applying `filter` to a test for nonequality with `0`, than to build one where `filter` is partially applied to some list first and awaits its filtering criterion. A similar idea gives us the partially applied folds that work as `sum` and `reverse` functions.
 
 <!-- Partial application lets you build more specialized functions. -->
 
@@ -134,13 +134,13 @@ Prelude> :kind []
 Prelude> :kind Maybe
 Maybe :: * -> *
 ```
-See, they're functions! You apply them to an argument and construct a type. 
+See, they're functions! You apply them to an argument and construct a type.
 
 Types that have more than two arguments have even more stars. A datatype called `Either` takes two parameters:
 
 ```haskell
 data Either a b = Left a | Right b
-``` 
+```
 and the `a` is in the `Left` side of the sum type, while the `b` goes to the `Right`. Two parameters means it has three stars:
 
 ```haskell
@@ -155,7 +155,7 @@ Prelude> :k (Either Int)
 Prelude> :k (Either Int String)
 (Either Int String) :: *
 ```
-Woot! It does just what we expect from watching what happened to the types of functions as we partially applied them. 
+Woot! It does just what we expect from watching what happened to the types of functions as we partially applied them.
 
 And just the way there's an interaction between argument order and likelihood of partial application for functions, there's a similar interaction here. To understand why, let's look at how `Functor` works.
 
@@ -193,7 +193,7 @@ Left 1
 Prelude> fmap (+1) (Right 1)
 Right 2
 ```
-Our function can't be applied to whatever is inside the `Left` because what is inside `Left` is our `a` and that's what we had to partially apply to make `Either` have the kind `* -> *`. When we write a `Functor` instance for `Either` (or tuples, or any datatype with two parameters) to tell the compiler how `fmap` should work for that type, we have to partially apply the type constructor which makes the first type argument (or arguments, if our datatype has more than two parameters) part of the structure that `Functor` lifts over. 
+Our function can't be applied to whatever is inside the `Left` because what is inside `Left` is our `a` and that's what we had to partially apply to make `Either` have the kind `* -> *`. When we write a `Functor` instance for `Either` (or tuples, or any datatype with two parameters) to tell the compiler how `fmap` should work for that type, we have to partially apply the type constructor which makes the first type argument (or arguments, if our datatype has more than two parameters) part of the structure that `Functor` lifts over.
 
 <!-- Since ordinary `fmap` won't apply a function to the `a` in `Left a`, then, by default the `Left a` value is one that you don't want to use or touch. So, it's fairly common for people to use it for failure cases, similar to the interaction between partial application and argument order of functions we saw above. -->
 
@@ -204,11 +204,11 @@ Anyway, so we're finally getting to the part that was really exciting for me, al
 
 ## The Functor of Functions
 
-_Friends_, the function type itself has a `Functor` instance. It also has `Applicative` and `Monad` instances, but first thing's first. 
+_Friends_, the function type itself has a `Functor` instance. It also has `Applicative` and `Monad` instances, but first thing's first.
 
 Since the function type has two parameters, it is kind `* -> * -> *` so right away you know we have to apply that first argument before we can get a `Functor` for it.
 
-It feels a little different from `Either`, though, because now it isn't whatever type is safely contained within the `Left a` of our `Either` type that becomes part of the structure -- now, it's the first input to our function that will be part of the "structure." 
+It feels a little different from `Either`, though, because now it isn't whatever type is safely contained within the `Left a` of our `Either` type that becomes part of the structure -- now, it's the first input to our function that will be part of the "structure."
 
 For the `Functor`, this only amounts to function composition. We can see this by comparing the types:
 
@@ -234,9 +234,9 @@ For the `Functor`, this only amounts to function composition. We can see this by
 :: (b -> c) -> (a -> b) -> (a -> c)
 :: (b -> c) -> (a -> b) -> (a -> c)
 ```
-They're the same! Which means the `Functor` of functions isn't terribly exciting! What is exciting is that something that at first seemed weird and alienating -- _what do you mean you `fmap` a partially applied function over another partially applied function?_ -- isn't so weird. It follows from what we already knew. 
+They're the same! Which means the `Functor` of functions isn't terribly exciting! What is exciting is that something that at first seemed weird and alienating -- _what do you mean you `fmap` a partially applied function over another partially applied function?_ -- isn't so weird. It follows from what we already knew.
 
-The `Applicative` of functions is pretty exciting, though, because it allows us to create a context in which two functions are awaiting the same input and a third function can apply to the result of both of those functions, once that input is supplied. 
+The `Applicative` of functions is pretty exciting, though, because it allows us to create a context in which two functions are awaiting the same input and a third function can apply to the result of both of those functions, once that input is supplied.
 
 Waaaaat? No, for real:
 
@@ -274,11 +274,11 @@ False
 Prelude> function 16
 True
 ```
-We'll return `True` whenever the input is between 14.5 and 20.1 (but not equal to either). 
+We'll return `True` whenever the input is between 14.5 and 20.1 (but not equal to either).
 
 So partial application and currying have allowed us to create a context in which we have functions sort of hanging around waiting for some input to come from _somewhere_ in the environment, and we don't need to keep stringing that argument explicitly through every function. The `Monad` and transformer versions, called `Reader` and `ReaderT`, are quite commonly used because the pattern is so useful.
 
-Sometimes people ask us why we don't split the book into two volumes. What it comes down to is that all the really important stuff is in the first half, but people always think that to understand Haskell, they need the second half (and they do! there's a lot of stuff in there that would be difficult and tiresome to work out for yourself!). But much of what comes in the second half is just more complex ways to nest lambdas and apply and compose functions, which is what the first half is all about. 
+Sometimes people ask us why we don't split the book into two volumes. What it comes down to is that all the really important stuff is in the first half, but people always think that to understand Haskell, they need the second half (and they do! there's a lot of stuff in there that would be difficult and tiresome to work out for yourself!). But much of what comes in the second half is just more complex ways to nest lambdas and apply and compose functions, which is what the first half is all about.
 
 _Many thanks to John DeGoes and Adam McCullough for their thorough, though not at all brutal, feedback._
 
@@ -287,4 +287,3 @@ _Next post is likely to be a disquisition about disjunction._
 <!-- Yes, the Functor and Monad instances for (->) are mind-bending so I won't say much except to note that given (->) is kind * -> * -> * and Functor/Monad expect a * -> *, you'll have to partially apply the (->) type constructor before you get something of the right kind.
 
 Which actually tells you what Functor/Monad *must* do but deriving that yourself is extremely difficult. -->
-

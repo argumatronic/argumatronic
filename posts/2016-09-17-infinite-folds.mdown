@@ -1,6 +1,6 @@
 ---
 title: Folds and Infinite Lists
-tags: Haskell
+tags: Haskell, beginner-friendly
 ---
 ## Introduction
 
