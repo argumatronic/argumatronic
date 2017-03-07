@@ -88,12 +88,14 @@ instance Monoid a => Applicative (Tuple a) where
 
 First of all, we get this `Monoid` constraint on the `a` and then we have to use the `mempty` value from that typeclass for the implementation of `pure`. Why? Certainly one possible answer is, well, the compiler demands it. But we want to understand.
 
+The difference between the sum types and product types is that the a never appears with the b in a sum, but it does in a product.
+
 
 ## Applicatives are monoidal
 
 Applicatives are functors in which the function we're applying is already in the same context as the value we want to transform. When we talk about applicative functors being monoidal, though, it's not obvious what we mean. There is no explicit `Monoid` constraint on most `Applicative` instances, and you do not have to consider how the `f` types will be merged when you write an `Applicative` instance -- not usually.
 
-Having the `Monoid` constraint on tuples does make this more explicit. Tuple (and similar product types) need a `mempty` value for the `a` in order to implement `pure` because the `pure` only takes a thing and wraps it in the `f` type constructor, and for tuples (and similar) the `a` value is part of the type constructor itself. applying `pure` to an argument should not ever change the value of any part of the type constructor, hence you need an identity value for that `a` that will not change its value. Since you don't know anything about `a`, you need a fully polymorphic identity value for it. The `Monoid` constraint on `a` gives you the polymorphic identity value `mempty` for free, as it were.
+Having the `Monoid` constraint on tuples does make this more explicit. Tuple (and similar product types) need a `mempty` value for the `a` in order to implement `pure` because the `pure` only takes a thing and wraps it in the `f` type constructor, and for tuples (and similar) the `a` value is part of the type constructor itself. applying `pure` to an argument should not ever change the value of any part of the type constructor, hence you need an identity value for that `a` that will not change its value. Since you don't know anything about `a`, you need a fully polymorphic identity value for it. The `Monoid` constraint on `a` gives you the polymorphic identity value `mempty` for free, as it were. That's what `mempty` is for, to not change anything.
 
 That's the *reason*. Let's look at what it means in practice:
 
