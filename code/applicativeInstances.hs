@@ -1,6 +1,4 @@
-import Control.Applicative (ZipList)
 import Data.Monoid (First, Last, (<>))
--- import Data.List (NonEmpty)
 
 -- making up some types so they won't conflict with anything else I have in scope
 
@@ -8,19 +6,22 @@ import Data.Monoid (First, Last, (<>))
 data Possibly a = LolNo | HeckYah a
                   deriving (Eq, Show)
 
+instance Monoid a => Monoid (Possibly a) where
+  mempty = LolNo
+  LolNo `mappend` m = m
+  m `mappend` LolNo = m
+  HeckYah m1 `mappend` HeckYah m2 = HeckYah (m1 `mappend` m2)
+
 instance Functor Possibly where
   fmap _ LolNo = LolNo
   fmap f (HeckYah a) = HeckYah (f a)
 
 instance Applicative Possibly where
   pure = HeckYah
-  (<*>) LolNo _                 = LolNo
+  (<*>) LolNo _       = LolNo
   (<*>) _ LolNo                 = LolNo
   (<*>) (HeckYah f) (HeckYah a) = HeckYah (f a)
 
--- hooray for a super contrived example:
--- λ> HeckYah toUpper <*> HeckYah 'j'
--- HeckYah 'J'
 
 -- a fake Either
 data Choose a b = This a | That b

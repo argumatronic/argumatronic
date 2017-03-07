@@ -123,21 +123,59 @@ In truth, this can be a semigroup instead of a monoid for type constructors that
 
 ### Maybe it's a monoid
 
-OK, so what about in the case of the `Maybe` `Applicative`? There doesn't seem to be a monoid here.
+OK, so what about in the case of the `Maybe` `Applicative`? There doesn't seem to be a monoid here:
 
-> Maybe applicative example with Justs
-> and with a Nothing or two
+```haskell
+λ> pure (div 12) <*> Just 4
+Just 3
 
-So what's going on there, where's the monoid? Functors by definition cannot *break* structure or transform it from one category (or, ok, in this case, *type*) to another (which would be a natural transformation, not a functor). They can collapse and embed (lift); they cannot break. They must preserve the structure of the category. So, when we have two `f` values there, the functor cannot discard or break one apart. But it *can* collapse them into one layer, and in some sense, the *operation* it uses to do that is the *monoid* (or semigroup!) on that type. So when we end up with
+λ> pure (++ "Julie") <*> Just " rocks"
+Just " rocksJulie"
+
+λ> Just toUpper <*> Just 'j'
+Just 'J'
+
+λ> Just toUpper <*> Nothing
+Nothing
+```
+
+So what's going on there, where's the monoid? [Functors by definition cannot *break* structure](https://bartoszmilewski.com/2015/01/20/functors/) or transform it from one category (or, ok, in this case, *type*) to another (which would be a natural transformation, not a functor). They can collapse and embed (lift); they cannot break. They must preserve the structure of the category. So, when we have two `f` values there, the functor cannot discard or break one apart. But it *can* collapse them into one layer, and in some sense, the *operation* it uses to do that is the *monoid* (or semigroup!) on that type.
+
+When we do this:
 
 ```haskell
 Just (+2) <*> Just 2
+```
+We accumulate those `Just` wrappers, conceptually something like this:
 
+```haskell
 (Just Just (+2) 2)
 ```
-The operation (the function) for the numeric values is specified, but the Justs just...accumulate. The operation that can merge or unify those Justs is left implicit -- it's the default Maybe monoid.
 
-(AccValidation sort of explicitly accumulates -- the values inside, while implicitly crushing the Left constructors together.)
+The operation (the function) for the numeric values is specified, but the `Just`s just...accumulate. The operation that can merge or unify those `Just`s is left implicit -- it's the `Maybe` monoid. That monoid looks like this:
+
+```haskell
+instance Monoid a => Monoid (Maybe a) where
+  mempty = Nothing
+  Nothing `mappend` m = m
+  m `mappend` Nothing = m
+  Just m1 `mappend` Just m2 = Just (m1 `mappend` m2)
+```
+For our purposes here, we only care about the bottom line, where there are two `Just` values, because our `Applicative` instance
+
+> well how do we explain this, the First one does the same thing as the Maybe -- i think this is going to have to do with the nature of the functor, it needs to apply the function to something. but i will need to play with it more. i mean the point is really that, given an accumulation of type wrappers, you have to do *something* with them, yes? you have to smoosh them and it relies on the monoid to do that. it may not matter what happens to them if there is no function to apply or no value to apply it to. that may be the key there, then with twists in AccValidation and then later in Alternative.
+
+```haskell
+First (Just (+2)) <*> First Nothing
+First {getFirst = Nothing}
+it :: Num b => First b
+
+λ> First (Just (+2)) <*> First (Just 3)
+First {getFirst = Just 5}
+it :: Num b => First b
+```
+
+> same pattern for Either
 
 
 ## Disjunctive monoids
