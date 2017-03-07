@@ -1,0 +1,70 @@
+---
+title: Applicative instances
+tags: Haskell, Applicative, monoids, typeclasses
+---
+
+> For the next few weeks, I'm going to be posting semi-regularly about `Applicative` and related topics. This will eventually end up touching on monoids, functors, monads, those typeclasses of the same names, and perhaps, eventually, applicative parsing. I have about 18 blog posts on these interrelated topics started, and I wish I could have them in a [witz](https://www.witz.io/)-like graph instead of this layout, but, alas, I am not that clever. <br> *Prerequisites*: While every attempt is being made to keep this series beginner-friendly, you should have familiarity with sum and product types, with the `Functor` typeclass, with `case` expressions, and with how typeclasses work in Haskell.
+
+## Some vanilla Applicative instances
+
+Another post will explain what applicative functors are and do -- this post is going to assume you understand that, more or less, and look at instances and what we can find out about these wonderful functors from their instances.
+
+#### Sum types
+
+
+
+
+#### Product types
+
+
+## Applicatives are monoidal
+
+Applicatives are functors in which the function we're applying is already in the same context as the value we want to transform. When we talk about applicative functors being monoidal, though, it's not obvious what we mean. There is no explicit `Monoid` constraint on most `Applicative` instances, for example, and you do not have to consider how the `f` types will be merged when you write an `Applicative` instance -- at least, not usually.
+
+Having the `Monoid` constraint on tuples, for example, does make this more explicit. tuple (and similar product types) need a `mempty` value for the `a` in order to implement `pure` because the `pure` only takes a thing and wraps it in the `f` type constructor, and for tuples (and similar) the `a` value is part of the type constructor itself. applying `pure` to an argument should not ever change the value of any part of the type constructor, hence you need an identity value for that `a` that will not change its value. since the `a` already has a `Monoid` constraint on it, you get the polymorphic identity value `mempty` for free, as it were.
+
+> tuple examples
+
+But you can also see it with list applicatives:
+
+> list example with default monoid
+> ZipList example
+
+The explicit difference here is that we're using two different types, list versus ZipList. But the implicit difference, and in this case the difference that matters, is the way the types monoidally merge. A type constructor *together with* a `mappend` operation and an identity value form a monoid, so the type name is telling us *which* monoid is relevant.
+
+In truth, this can be a semigroup instead of a monoid for type constructors that are kind `* -> *`. You only need the identity value you get with a monoid for type constructors that are kind `* -> * -> *` (or even higher kinded). Because you need the mempty to preserve the structure of the *type constructor*.
+
+
+OK, so what about in the case of the `Maybe` `Applicative`? There doesn't seem to be a monoid here.
+
+> Maybe applicative example with Justs
+> and with a Nothing or two
+
+So what's going on there, where's the monoid? Functors by definition cannot *break* structure or transform it from one category (or, ok, in this case, *type*) to another (which would be a natural transformation, not a functor). They can collapse and embed (lift); they cannot break. They must preserve the structure of the category. So, when we have two `f` values there, the functor cannot discard or break one apart. But it *can* collapse them into one layer, and in some sense, the *operation* it uses to do that is the *monoid* (or semigroup!) on that type. So when we end up with
+
+```haskell
+Just (+2) <*> Just 2
+
+(Just Just (+2) 2)
+```
+The operation (the function) for the numeric values is specified, but the only operation that can merge or unify those Justs is left implicit -- it's the default Maybe monoid.
+
+
+## Disjunctive monoids
+
+Monoids aren't only about *combining* things; sometimes they're about *choosing* one or the other. Since we think of canonical monoids such as addition, multiplication, and list concatenation, we develop an intuition for monoids as being primarily about *combining* two values into one. It might be more helpful to think of them as instead *merging* or *uniting* two values into one, although maybe plain English just isn't going to do justice to it.
+
+One possibility for monoids is that of Boolean conjunction -- this is where list cross-products, multiplication, and the particular Maybe applicative we're looking at up there come in. We can write out a Boolean truth table using Maybe values instead of Bool values and see that the pattern we see in the above are the same:
+
+```haskell
+-- Nothing ~ False
+-- Just a ~ True
+Nothing Nothing = Nothing
+Nothing Just a  = Nothing
+Just a  Nothing = Nothing
+Just a  Just a  = Just a (where the a is the `mappend` of the two `a` values)
+```
+
+We can get a different result from our Maybe applicative by using one of its alternative monoids of course, which means we need to call them by a new name:
+
+> First and Last examples
