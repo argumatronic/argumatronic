@@ -1,25 +1,116 @@
 ---
-title: Applicative instances
+title: Applicatives are monoidal
 tags: Haskell, Applicative, monoids, typeclasses
 ---
 
 > For the next few weeks, I'm going to be posting semi-regularly about `Applicative` and related topics. This will eventually end up touching on monoids, functors, monads, those typeclasses of the same names, and perhaps, eventually, applicative parsing. I have about 18 blog posts on these interrelated topics started, and I wish I could have them in a [witz](https://www.witz.io/)-like graph instead of this layout, but, alas, I am not that clever. <br> *Prerequisites*: While every attempt is being made to keep this series beginner-friendly, you should have familiarity with sum and product types, with the `Functor` typeclass, with `case` expressions, and with how typeclasses work in Haskell.
 
-## Some vanilla Applicative instances
 
-> i think let's reorder this. put the tuple thing right up at the top, then later bring in the sum type instances to contrast
+## Intro
 
-Another post will explain what applicative functors are and do -- this post is going to assume you understand that, more or less, and look at instances and what we can find out about these wonderful functors from their instances.
+The first thing to know about `Applicative` is that it has two core operations, `pure` and `<*>`. The latter is often called `ap` or `apply` but I call it *the tie-fighter*. The second thing to know is that `Applicative` is superclassed by `Functor`, so any type with an `Applicative` instance must also be a `Functor` instance. 
 
-The first thing to know if you think you want an `Applicative` instance for a given type is that it must admit a monoid (or, if a sum type, at least a semigroup operation) and it must have a `Functor` instance, as `Functor` is a superclass of `Applicative`. For `Functor`, the type constructor must be of kind `* -> *`. That is two stars, no more and no less. Type constructor here means what it says: it's a function that, given a type argument, constructs a value of that type.
-
-A type constructor together with an `Applicative` instance, describing how `pure` and `(<*>)` (called `ap` sometimes, or, as I prefer, the tie-fighter) behave on that type forms an applicative functor. `pure` only lifts a value (yea, even if that value is a function) into a context by applying a type constructor to it. The tie-fighter, on the other hand, brings the func:
+For both `Functor` and `Applicative` the type constructor must be of kind `* -> *`. Type constructor here means what it says: it's a function that, given a type argument, constructs a type. Hence it is expressed as a function at the type level. The kind is two stars, no more and no less. The kind of the type shall be two stars, and two stars shall be the kind of the type. Three stars shalt not be the kind, neither shall it be one. Ahem. Sorry. Let's look at the typeclass declaration, shall we: 
 
 ```haskell
-<*> :: f (a -> b) -> f a -> f b
+class Functor f => Applicative (f :: * -> *) where
+  pure :: a -> f a
+  (<*>) :: f (a -> b) -> f a -> f b
 ```
 
-Looks a lot like `fmap`, yes? The difference is having that function already embedded in the same context as the rest of it.
+A type constructor together with an `Applicative` instance, describing how `pure` and `(<*>)` behave on that type forms an applicative functor. `pure` lifts a value (yea, even if that value is a function) into a context by applying a type constructor to it. 
+
+The tie-fighter brings the func...as in, function application. Applicatives are a variety of functor, and you may notice the type signature of `<*>` closely resembles the type of `fmap` except now our function is also embedded in the `f` structure -- the same type constructor as the `a` and `b` values are embedded in. 
+
+Another thing that is true but is usually less obvious about `Applicative` is that any type with an `Applicative` must admit a monoid (or, if a sum type, at least a semigroup operation). McBride and Paterson put this a little differently in "[Applicative Programming with Effects](http://www.staff.city.ac.uk/~ross/papers/Applicative.pdf)": *every monoid induces an applicative functor*, and that tells us something a little more than what I said.
+
+Most of the time, you do not need to think about the monoid (or semigroup, ok?) implied by an `Applicative`. Some instances make it more obvious than others, but it's always there. This is what this post is primarily meant to demonstrate. 
+
+
+## Trouble with tuples
+
+The `Applicative` instance on tuples creates some confusion, and we're just going to dive right in and see what we can make of it. 
+
+The tuple applicative behaves like this:
+
+```haskell
+λ> ("julie", (+8)) <*> (" rocks", 14)
+("julie rocks",22)
+```
+The `<*>` operator is the applicative tie-fighter (boring people call it `ap` sometimes or `apply`). It takes a function embedded in some structure (the function here being `(+8)`) and applies that to a value embedded in (the same type of) structure. The tuple is the structure.
+
+But those `String`s -- what's happening there? They concatenate, seemingly by *magic*. 
+
+It's not magic, though, it's a `Monoid` constraint:
+
+```haskell
+data (,) a b = (,) a b
+
+instance Monoid a => Applicative ((,) a) where
+    pure b = (mempty, b)
+    (a, f) <*> (a', b) = (a `mappend` a', f b)
+```
+That tells us that we have a `Monoid` on the `a` (or first, or leftmost) value of the tuple. Now, `pure` takes a value and embeds it in the applicative context. In this case, it takes a `b` value* and embeds it in a `((,) a)` context -- the `a` is *part of the type constructor*. We can use it like this:
+
+*I used `b` to be mnemonic with the type variables in the datatype, but it isn't necessary for them to have the same name. In the datatype and the first line of the instance declaration, those are type variables; in the implementations, those are value variables. The compiler does not require that they have the same name.
+
+```haskell
+λ> pure (+8) <*> ("hello", 9)
+("hello",17)
+```
+We embedded a `b` (a function, because this is an applicative) in a context. The `mempty` in the first or leftmost position of our `pure` means that the `String` doesn't change. That's what `mempty` gives us: a way to ensure, parametrically, that a value won't change. 
+
+The `b` values still do what we expect them to do with the function application. 
+
+When I'm teaching, people sometimes ask me why we need a `Monoid` constraint on *this* type constructor to make an applicative functor but not on others. There's a simple answer, for some definition of simple: 
+
+An applicative functor is a functor over some type. When we know what type we're talking about, then we already *know* which monoid to rely on to collapse two layers of constructor. But when there's a polymorphic parameter, we can't know which monoid instance it might use to merge those values, so we add the constraint to ensure that, at least, for any `a` we know *there is a way*. You don't see the constraint added explicitly for sum types such as `Either` because the standard applicative functors don't ever need to merge two (or more) `a` values inside a `Left` constructor, because they typically just return the `Left a`.  
+
+Simple, right? Totally. 
+
+We'll look more at sum types in a moment, and the next post in this series will look at an `Either` type that *does* require a (`Semigroup`, in this case) constraint on the `a` values because it does merge them instead of returning only one. 
+
+## An accumulation of structure
+
+
+
+## Applicatives are monoidal
+
+Applicatives are functors in which the function we're applying is already in the same context as the value we want to transform. When we talk about applicative functors being monoidal, though, it's not obvious what we mean. There is no explicit `Monoid` constraint on most `Applicative` instances, and you do not have to consider how the `f` types will be merged when you write an `Applicative` instance -- not usually.
+
+Having the `Monoid` constraint on tuples does make this more explicit. Tuple (and similar product types) need a `mempty` value for the `a` in order to implement `pure` because the `pure` only takes a thing and wraps it in the `f` type constructor, and for tuples (and similar) the `a` value is part of the type constructor itself. applying `pure` to an argument should not ever change the value of any part of the type constructor, hence you need an identity value for that `a` that will not change its value. Since you don't know anything about `a`, you need a fully polymorphic identity value for it. The `Monoid` constraint on `a` gives you the polymorphic identity value `mempty` for free, as it were. That's what `mempty` is for, to not change anything.
+
+That's the *reason*. Let's look at what it means in practice:
+
+```haskell
+λ> pure (+8) <*> Tuple "julie" 4
+Tuple "julie" 12
+```
+`pure` embeds the sectioned function into the `Tuple mempty` context and then we can apply it to the other `Tuple` value with `(<*>)`. The `mempty` ensures that the `a` value, a `String` in this case, is not altered.
+
+And when we have two `a` values present, the `mappend` (`<>`) merges the two values according to their monoid, i.e., their type. Sometimes that is implicit and relies on a default monoid:
+
+```haskell
+λ> Tuple "julie" (+8) <*> Tuple " rocks" 4
+Tuple "julie rocks" 12
+```
+The function application unifies the `b` (or right-side) values; the implicit monoid for `String` merges the leftmost values. But we can make it explicit, too:
+
+```haskell
+λ> Tuple (Sum 4) (+8) <*> Tuple (Sum 5) 4
+Tuple (Sum {getSum = 9}) 12
+```
+We used a `newtype` wrapper called `Sum` (from `Data.Monoid`) to specify a monoid for those numbers, and it ain't the prettiest thing in the world, but they get summed. The sum of the right-hand values is still the result of the function application.
+
+A type constructor *together with* a `mappend` operation and an identity value form a monoid, so the type name is telling us *which* monoid is relevant.
+
+
+
+
+## Some vanilla Applicative instances
+
+
+
 
 #### Sum types
 
@@ -93,35 +184,7 @@ First of all, we get this `Monoid` constraint on the `a` and then we have to use
 The difference between the sum types and product types is that the a never appears with the b in a sum, but it does in a product.
 
 
-## Applicatives are monoidal
 
-Applicatives are functors in which the function we're applying is already in the same context as the value we want to transform. When we talk about applicative functors being monoidal, though, it's not obvious what we mean. There is no explicit `Monoid` constraint on most `Applicative` instances, and you do not have to consider how the `f` types will be merged when you write an `Applicative` instance -- not usually.
-
-Having the `Monoid` constraint on tuples does make this more explicit. Tuple (and similar product types) need a `mempty` value for the `a` in order to implement `pure` because the `pure` only takes a thing and wraps it in the `f` type constructor, and for tuples (and similar) the `a` value is part of the type constructor itself. applying `pure` to an argument should not ever change the value of any part of the type constructor, hence you need an identity value for that `a` that will not change its value. Since you don't know anything about `a`, you need a fully polymorphic identity value for it. The `Monoid` constraint on `a` gives you the polymorphic identity value `mempty` for free, as it were. That's what `mempty` is for, to not change anything.
-
-That's the *reason*. Let's look at what it means in practice:
-
-```haskell
-λ> pure (+8) <*> Tuple "julie" 4
-Tuple "julie" 12
-```
-`pure` embeds the sectioned function into the `Tuple mempty` context and then we can apply it to the other `Tuple` value with `(<*>)`. The `mempty` ensures that the `a` value, a `String` in this case, is not altered.
-
-And when we have two `a` values present, the `mappend` (`<>`) merges the two values according to their monoid, i.e., their type. Sometimes that is implicit and relies on a default monoid:
-
-```haskell
-λ> Tuple "julie" (+8) <*> Tuple " rocks" 4
-Tuple "julie rocks" 12
-```
-The function application unifies the `b` (or right-side) values; the implicit monoid for `String` merges the leftmost values. But we can make it explicit, too:
-
-```haskell
-λ> Tuple (Sum 4) (+8) <*> Tuple (Sum 5) 4
-Tuple (Sum {getSum = 9}) 12
-```
-We used a `newtype` wrapper called `Sum` (from `Data.Monoid`) to specify a monoid for those numbers, and it ain't the prettiest thing in the world, but they get summed. The sum of the right-hand values is still the result of the function application.
-
-A type constructor *together with* a `mappend` operation and an identity value form a monoid, so the type name is telling us *which* monoid is relevant.
 
 In truth, this can be a semigroup instead of a monoid for type constructors that are kind `* -> *`. You only need the identity value you get with a monoid for type constructors that are kind `* -> * -> *` (or even higher kinded). Because you need the mempty to preserve the structure of the *type constructor*.
 
@@ -182,3 +245,9 @@ it :: Num b => First b
 ```
 
 > same pattern for Either
+
+## Outro
+
+Here is the takeaway:
+
+Applicative functors accumulate data constructors as they apply their function. With sum types, that accumulation is not visible and relies on an implicit monoidal operation to collapse them (although the type I'll talk about in the next post gives us a way to visualize this, as we can with tuples). With product types that have multiple parameters, such as tuples, the leftmost type(s) are part of the type constructor, `f`, but their values must also appear in conjunction with the `b` values and so we must specify a way to merge or unite the values in the `a` slot.
