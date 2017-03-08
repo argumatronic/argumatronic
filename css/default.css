@@ -261,6 +261,7 @@ pre.sourceCode {
     background-color: #422f41;
 }
 /*older source code backgrounds colors #3a2f42; #4c3131*/
+/*some pretty colors: A979A1, 79A1A9*/
 
 table.sourceCode, tr.sourceCode,
 td.lineNumbers, td.sourceCode,
@@ -279,7 +280,6 @@ td.lineNumbers {
     padding-left: 5px;
 }
 
-
 /* main text */
 code.sourceCode { color: #FFF8E7; }
 /* keyword */
@@ -295,7 +295,7 @@ code.sourceCode { color: #FFF8E7; }
 /* */
 .sourceCode span.ch { color: #49c6c6; }
 /* string */
-.sourceCode span.st { color: #AC7B84; }
+.sourceCode span.st { color: #7CA979; }
 /* comments */
 .sourceCode span.co { color: #ffccdd; font-style: italic; }
 /* mostly type-level things */

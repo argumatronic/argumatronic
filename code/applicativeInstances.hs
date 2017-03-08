@@ -33,7 +33,7 @@ instance Functor (Choose a) where
 
 instance Applicative (Choose a) where
   pure = That
-  (<*>) (This a) _ = This a
+  -- (<*>) (This a) _ = This a -- due to function not having a Show instance, this line seems irrelevant? GHC 7.10 used to print Left <function> at least. in standard (not contrived, toy) usage, you couldn't really get a function embedded in the Left anyway, i think, but still.
   (<*>) _ (This a) = This a
   (<*>) (That f) (That b) = That (f b)
 
@@ -47,3 +47,24 @@ instance Functor (Tuple a) where
 instance Monoid a => Applicative (Tuple a) where
   pure b = Tuple mempty b
   (<*>) (Tuple a f) (Tuple a' b) = Tuple (a <> a') (f b)
+
+data Initial a = Nope | Yep a
+              deriving (Eq, Show)
+
+instance Monoid a => Monoid (Initial a) where
+  mempty = Yep mempty
+  mappend Nope Nope = Nope
+  mappend (Yep a) _ = Yep a
+  mappend _ (Yep a) = Yep a
+
+instance Functor Initial where
+  fmap _ Nope = Nope
+  fmap f (Yep a) = Yep (f a)
+
+instance Applicative Initial where
+  pure = Yep
+  (<*>) _ Nope = Nope
+  (<*>) Nope (Yep a) = Nope
+  (<*>) (Yep f) (Yep a) = Yep (f a)
+  -- right it can only be this way because there is monoidal structure
+  -- but there is also the (a -> b) function. cool.

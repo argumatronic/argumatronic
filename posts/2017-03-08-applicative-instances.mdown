@@ -8,9 +8,11 @@ tags: Haskell, Applicative, monoids, typeclasses
 
 ## Intro
 
-The first thing to know about `Applicative` is that it has two core operations, `pure` and `<*>`. The latter is often called `ap` or `apply` but I call it *the tie-fighter*. The second thing to know is that `Applicative` is superclassed by `Functor`, so any type with an `Applicative` instance must also be a `Functor` instance. 
+The first thing to know about `Applicative` is that it has two core operations, `pure` and `<*>`. The latter is often called `ap` or `apply` but I call it *the tie-fighter*. The second thing to know is that `Applicative` is superclassed by `Functor`, so any type with an `Applicative` instance must also be a `Functor` instance.
 
-For both `Functor` and `Applicative` the type constructor must be of kind `* -> *`. Type constructor here means what it says: it's a function that, given a type argument, constructs a type. Hence it is expressed as a function at the type level. The kind is two stars, no more and no less. The kind of the type shall be two stars, and two stars shall be the kind of the type. Three stars shalt not be the kind, neither shall it be one. Ahem. Sorry. Let's look at the typeclass declaration, shall we: 
+For both `Functor` and `Applicative` the type constructor must be of kind `* -> *`. Type constructor here means what it says: given a type argument, it constructs a type. Hence it is expressed as a function at the type level. The kind for a functor is two stars, no more and no less. Three stars shalt not be the kind, neither shall it be one.
+
+Let's look at the typeclass declaration, shall we:
 
 ```haskell
 class Functor f => Applicative (f :: * -> *) where
@@ -18,18 +20,18 @@ class Functor f => Applicative (f :: * -> *) where
   (<*>) :: f (a -> b) -> f a -> f b
 ```
 
-A type constructor together with an `Applicative` instance, describing how `pure` and `(<*>)` behave on that type forms an applicative functor. `pure` lifts a value (yea, even if that value is a function) into a context by applying a type constructor to it. 
+A type constructor together with an `Applicative` instance, describing how `pure` and `(<*>)` behave on that type forms an applicative functor. `pure` lifts a value (yea, even if that value is a function) into a context by applying a type constructor to it.
 
-The tie-fighter brings the func...as in, function application. Applicatives are a variety of functor, and you may notice the type signature of `<*>` closely resembles the type of `fmap` except now our function is also embedded in the `f` structure -- the same type constructor as the `a` and `b` values are embedded in. 
+You may notice the type signature of `<*>` closely resembles the type of `fmap` except now our function is also embedded in the `f` structure -- the same type constructor as the `a` and `b` values are embedded in.
 
-Another thing that is true but is usually less obvious about `Applicative` is that any type with an `Applicative` must admit a monoid (or, if a sum type, at least a semigroup operation). McBride and Paterson put this a little differently in "[Applicative Programming with Effects](http://www.staff.city.ac.uk/~ross/papers/Applicative.pdf)": *every monoid induces an applicative functor*, and that tells us something a little more than what I said.
+Another thing that is true but is usually less obvious about `Applicative` is that any type with an `Applicative` must admit a monoid (or, if a sum type, at least a semigroup operation). McBride and Paterson put this a little differently in [Applicative Programming with Effects](http://www.staff.city.ac.uk/~ross/papers/Applicative.pdf): *every monoid induces an applicative functor*, and that tells us something a little more than what I said.
 
-Most of the time, you do not need to think about the monoid (or semigroup, ok?) implied by an `Applicative`. Some instances make it more obvious than others, but it's always there. This is what this post is primarily meant to demonstrate. 
+Most of the time, you do not need to think about the monoid (or semigroup, ok?) implied by an `Applicative`. Some instances make it more obvious than others, but it's always there. This is what this post is primarily meant to demonstrate.
 
 
 ## Trouble with tuples
 
-The `Applicative` instance on tuples creates some confusion, and we're just going to dive right in and see what we can make of it. 
+The `Applicative` instance on tuples creates some confusion, and we're just going to dive right in and see what we can make of it.
 
 The tuple applicative behaves like this:
 
@@ -37,11 +39,11 @@ The tuple applicative behaves like this:
 λ> ("julie", (+8)) <*> (" rocks", 14)
 ("julie rocks",22)
 ```
-The `<*>` operator is the applicative tie-fighter (boring people call it `ap` sometimes or `apply`). It takes a function embedded in some structure (the function here being `(+8)`) and applies that to a value embedded in (the same type of) structure. The tuple is the structure.
+The tie-fighter takes a function embedded in some structure -- the function here being `(+8)` -- and applies that to a value embedded in (the same type of) structure.
 
-But those `String`s -- what's happening there? They concatenate, seemingly by *magic*. 
+But those `String` values -- what's happening there? They concatenate, seemingly by *magic*.
 
-It's not magic, though, it's a `Monoid` constraint:
+It's not magic, though; it's a `Monoid` constraint:
 
 ```haskell
 data (,) a b = (,) a b
@@ -50,80 +52,45 @@ instance Monoid a => Applicative ((,) a) where
     pure b = (mempty, b)
     (a, f) <*> (a', b) = (a `mappend` a', f b)
 ```
-That tells us that we have a `Monoid` on the `a` (or first, or leftmost) value of the tuple. Now, `pure` takes a value and embeds it in the applicative context. In this case, it takes a `b` value* and embeds it in a `((,) a)` context -- the `a` is *part of the type constructor*. We can use it like this:
-
-*I used `b` to be mnemonic with the type variables in the datatype, but it isn't necessary for them to have the same name. In the datatype and the first line of the instance declaration, those are type variables; in the implementations, those are value variables. The compiler does not require that they have the same name.
+Recall from what you know about `Functor` that we need to [partially apply](http://argumatronic.com/posts/2016-06-17-delicious-currying.html) the type constructor to reduce its arity to `* -> *`. Once we do that, the `a` is now *part of the type constructor*. When `pure` takes a value and embeds it in this type context, it takes a `b` value and embeds it in a `((,) a)` -- not `(,)`.
 
 ```haskell
 λ> pure (+8) <*> ("hello", 9)
 ("hello",17)
 ```
-We embedded a `b` (a function, because this is an applicative) in a context. The `mempty` in the first or leftmost position of our `pure` means that the `String` doesn't change. That's what `mempty` gives us: a way to ensure, parametrically, that a value won't change. 
+We embedded a `b` (a function, because this is an applicative) in a context. The `mempty` we used in `pure` means that the `String` doesn't change. That's what `mempty` gives us: a way to ensure, parametrically, that a value won't change.
 
-The `b` values still do what we expect them to do with the function application. 
+The `b` values still do what we expect them to do with the function application.
 
-When I'm teaching, people sometimes ask me why we need a `Monoid` constraint on *this* type constructor to make an applicative functor but not on others. There's a simple answer, for some definition of simple: 
-
-An applicative functor is a functor over some type. When we know what type we're talking about, then we already *know* which monoid to rely on to collapse two layers of constructor. But when there's a polymorphic parameter, we can't know which monoid instance it might use to merge those values, so we add the constraint to ensure that, at least, for any `a` we know *there is a way*. You don't see the constraint added explicitly for sum types such as `Either` because the standard applicative functors don't ever need to merge two (or more) `a` values inside a `Left` constructor, because they typically just return the `Left a`.  
-
-Simple, right? Totally. 
-
-We'll look more at sum types in a moment, and the next post in this series will look at an `Either` type that *does* require a (`Semigroup`, in this case) constraint on the `a` values because it does merge them instead of returning only one. 
-
-## An accumulation of structure
-
-
-
-## Applicatives are monoidal
-
-Applicatives are functors in which the function we're applying is already in the same context as the value we want to transform. When we talk about applicative functors being monoidal, though, it's not obvious what we mean. There is no explicit `Monoid` constraint on most `Applicative` instances, and you do not have to consider how the `f` types will be merged when you write an `Applicative` instance -- not usually.
-
-Having the `Monoid` constraint on tuples does make this more explicit. Tuple (and similar product types) need a `mempty` value for the `a` in order to implement `pure` because the `pure` only takes a thing and wraps it in the `f` type constructor, and for tuples (and similar) the `a` value is part of the type constructor itself. applying `pure` to an argument should not ever change the value of any part of the type constructor, hence you need an identity value for that `a` that will not change its value. Since you don't know anything about `a`, you need a fully polymorphic identity value for it. The `Monoid` constraint on `a` gives you the polymorphic identity value `mempty` for free, as it were. That's what `mempty` is for, to not change anything.
-
-That's the *reason*. Let's look at what it means in practice:
+So we must have a `Monoid` on the `a` (or first, or leftmost) value of the tuple to give us an identity value for the `a` in the case of `pure`, or to allow us to merge or combine (where sometimes this means "choose one") `a` values.
 
 ```haskell
-λ> pure (+8) <*> Tuple "julie" 4
-Tuple "julie" 12
+λ> (3, (*10)) <*> (4, 20)
+-- no good because the numbers in the a position
+-- do not have a Monoid instance!
+
+λ> (First (Just 3), (*10)) <*> (First (Just 4), 20)
+(First {getFirst = Just 3},200)
+-- but specifying a Monoid, even one that chooses one or the other
+-- instead of combining them, is a-OK!
 ```
-`pure` embeds the sectioned function into the `Tuple mempty` context and then we can apply it to the other `Tuple` value with `(<*>)`. The `mempty` ensures that the `a` value, a `String` in this case, is not altered.
 
-And when we have two `a` values present, the `mappend` (`<>`) merges the two values according to their monoid, i.e., their type. Sometimes that is implicit and relies on a default monoid:
+Left unsaid here is that there is *already* a monoid operation merging or unifying the `(,)` portion of the structure. But it must be so because we need to add a constraint to let us combine the other portion of the structure. The difference is that `(,)` is not polymorphic, so we already know how to monoidally combine two of those; the `a` is polymorphic, so we don't know how until it is applied to a concrete type.
 
-```haskell
-λ> Tuple "julie" (+8) <*> Tuple " rocks" 4
-Tuple "julie rocks" 12
-```
-The function application unifies the `b` (or right-side) values; the implicit monoid for `String` merges the leftmost values. But we can make it explicit, too:
+An applicative functor is a functor over some type. When we know what type we're talking about, then we already *know* which monoid to rely on to collapse two layers of constructor. But when there's a polymorphic parameter, we can't know in advance how to merge those values. We add the constraint to ensure that, for any `a`, we at least know *there is a way*. You don't see the constraint added explicitly for sum types such as `Either` because the standard applicative functors don't ever need to merge two (or more) `a` values inside a `Left` constructor.  
 
-```haskell
-λ> Tuple (Sum 4) (+8) <*> Tuple (Sum 5) 4
-Tuple (Sum {getSum = 9}) 12
-```
-We used a `newtype` wrapper called `Sum` (from `Data.Monoid`) to specify a monoid for those numbers, and it ain't the prettiest thing in the world, but they get summed. The sum of the right-hand values is still the result of the function application.
+We'll look more at sum types next, and the next post in this series will look at an `Either` type that *does* require a (`Semigroup`, in this case) constraint on the `a` values because it does merge them instead of returning only one.
 
-A type constructor *together with* a `mappend` operation and an identity value form a monoid, so the type name is telling us *which* monoid is relevant.
+## Sum type applicatives
 
+There is no explicit `Monoid` constraint on most `Applicative` instances, and you do not usually have to consider how the `f` types will be merged when you write an `Applicative` instance. Perhaps we can understand why it can be implicit from McBride and Paterson's phrasing: a monoid *induces* an applicative functor -- the monoid gives rise to the applicative functor. Knowing which monoid we're talking about it is enough.
 
+With tuples, the accumulation of structure is made explicit to the degree that we can't accumulate the `a` portion of the type structure without specifying that there be a `Monoid` instance for whatever type it is, but the monoidal merging of the `(,)` portion of the structure is left implicit.
 
-
-## Some vanilla Applicative instances
-
-
-
-
-#### Sum types
-
-We'll concern ourselves for the moment with two of these: `Maybe` and `Either`. These two capture the things we want to notice, for the most part, and will let us build up some later examples.
-
-With `Maybe`, the left side of the sum type is `Nothing` and contains no `a` value to which we might apply a function. All the action in this case must happen on the right. I'm going to put the `Functor` instance here for comparison:
+But a typical instance for a sum type does not need a `Monoid` (or `Semigroup`) constraint:
 
 ```haskell
 data Maybe a = Nothing | Just a
-
-instance Functor Maybe where
-  fmap _ Nothing = Nothing
-  fmap f (Just a) = Just (f a)
 
 -- the `f` variable is a function so Just (f a) is the function
 -- being applied to the a value
@@ -133,64 +100,25 @@ instance Applicative Maybe where
   (<*>) Nothing _ = Nothing
   (<*>) _ Nothing = Nothing
   (<*>) (Just f) (Just a') = Just (f a)
-```
-The `Applicative` instance constrasts with the `Functor` in that the function is also embedded in context, so we have to write two cases to cover the possibilities of `Nothing` values, whereas for `fmap` we only have to write one, because the `f` function can never be `Nothing`. We use `Just` for `pure` because the point of `pure` is to lift a value into a type context, and we lift a value into a `Maybe` context by applying the `Just` constructor to it. Even if you wanted to, you couldn't do that with `Nothing` since it has no `a`, but as we'll see in a moment, there are other reasons as well. You don't want `Maybe` there because function implementations, such as in an instance, are term- or value-level and so we use data constructors and values there, not type constructors which stay up there in the type level.
 
-Let's look at `Either` now. This is different from `Maybe` in that it has two type parameters instead of just the one. So, we need to [partially apply](http://argumatronic.com/posts/2016-06-17-delicious-currying.html) the type constructor to reduce its arity to `* -> *`, but otherwise the pattern is similar:
-
-```haskell
 data Either a b = Left a | Right b
-
-instance Functor (Either a) where
-  fmap _ (Left a) = Left a
-  fmap f (Right b) = Right (f b)
 
 instance Applicative (Either a) where
   pure = Right
-  (<*>) (Left a) _ = Left a
+  -- (<*>) (Left a) _ = Left a
+  -- GHC 7.10 used to print "Left <function>" in this case
+  -- but now gives a "No instance for Show" error
   (<*>) _ (Left a) = Left a
   (<*>) (Right f) (Right b) = Right (f b)
 ```
-All right, let's talk about that `pure` for a second. You can try writing this (with a different type name) and changing the implementation to have `pure` be the *left* value (called `This` in that code, to avoid name conflicts if you're using `Prelude`) and see the exciting type error that results. Why doesn't it work? Because the leftmost type argument, the one wrapped by the `Left` constructor is already bound as part of the type constructor itself. That parameter is part of the `f` of `f (a -> b) -> f a -> f b`. You can't really touch it or do anything with it now that it is. You can't lift a value into that context and you can't apply a function to it.
 
-#### Product types
+We'll look at `Maybe` first. We use `Just` for `pure` because the point of `pure` is to lift a value into a type context, and we lift a value into a `Maybe` context by applying the `Just` constructor to it. Even if you wanted to, you couldn't do that with `Nothing` since it has no `a`, although you can't do it with `Left a` either. (You don't want `Maybe` there because function implementations, such as in an instance, are term- or value-level and so we use data constructors and values there, not type constructors which stay up there in the type level.)
 
-An important difference between sum types and product types that is often taken for granted but is quite noticeable when one is writing instances is that sum types are *disjunctive* while product types are *conjunctive*. So, when we talked about `Either`, a value may be *either* a `Left a` or a `Right b` *but not both*. Product types, though, require *all* their parameters to be applied in order to construct a value of the type. `Either a b` needs to be applied to either an `a` or a `b`, but `Tuple a b` needs to be applied to *both* `a` and `b`. This has an effect on our instance writing. Behold:
+`Either` is similar, but now we have an `a` on the left. As with tuples, we've had to partially apply the `Either` constructor to get the proper kindedness, so the `a`, which is wrapped at the value level by the `Left` constructor, is now part of the type constructor itself. You can try writing this (with a different type name) and changing the implementation to have `pure` be the *left* value and see the exciting type error that results. You can't lift an `a` value into that context because it *is* the context.
 
-```haskell
-data (,) a b = (,) a b
-```
+## An accumulation of context
 
-You know, I think having the type constructor be parentheses like that is probably going to obscure more than it helps here, so let's make a new type that will be identical except we'll use an English word for the type and data constructors instead of parentheses. Behold take two:
-
-```haskell
-data Tuple a b = Tuple a b
-                 deriving (Eq, Show)
-```
-The type and data constructors have the same name, as they often do in Haskell, because Haskellers like to sow confusion. Nevertheless, we can keep them straight by remembering that the type constructor only appears at type level while its identically named data constructor only appears at term- or value-level. We already know we have to partially apply this to get our kindedness right for `Functor` and `Applicative`:
-
-```haskell
-instance Functor (Tuple a) where
-  fmap f (Tuple a b) = Tuple a (f b)
-
-instance Monoid a => Applicative (Tuple a) where
-  pure b = Tuple mempty b
-  (<*>) (Tuple a f) (Tuple a' b) = Tuple (a <> a') (f b)
-```
-`fmap` must ignore the `a` value and apply the function, `f`, to the `b` value. Again, that `a` is part of the `f` type constructor now. The `Applicative` instance is a little more interesting and is the actual reason I'm writing this post. Way to bury the lede, girl.
-
-First of all, we get this `Monoid` constraint on the `a` and then we have to use the `mempty` value from that typeclass for the implementation of `pure`. Why? Certainly one possible answer is, well, the compiler demands it. But we want to understand.
-
-The difference between the sum types and product types is that the a never appears with the b in a sum, but it does in a product.
-
-
-
-
-In truth, this can be a semigroup instead of a monoid for type constructors that are kind `* -> *`. You only need the identity value you get with a monoid for type constructors that are kind `* -> * -> *` (or even higher kinded). Because you need the mempty to preserve the structure of the *type constructor*.
-
-### Maybe it's a monoid
-
-OK, so what about in the case of the `Maybe` `Applicative`? There doesn't seem to be a monoid here:
+OK, so back to our monoids. There doesn't seem to be any monoidal involvement here:
 
 ```haskell
 λ> pure (div 12) <*> Just 4
@@ -204,9 +132,16 @@ Just 'J'
 
 λ> Just toUpper <*> Nothing
 Nothing
-```
 
-So what's going on there, where's the monoid? [Functors by definition cannot *break* structure](https://bartoszmilewski.com/2015/01/20/functors/) or transform it from one category (or, ok, in this case, *type*) to another (which would be a natural transformation, not a functor). They can collapse and embed (lift); they cannot break. They must preserve the structure of the category. So, when we have two `f` values there, the functor cannot discard or break one apart. But it *can* collapse them into one layer, and in some sense, the *operation* it uses to do that is the *monoid* (or semigroup!) on that type.
+λ> pure toUpper <*> Right 'j'
+Right 'J'
+
+λ> Right (3^) <*> Right 2
+Right 9
+```
+(sometimes people ask how you even end up with a function embedded in a type context like that, in real code, and we'll go over that in an upcoming post)
+
+So what's going on there, where's the monoid? [Functors in Haskell are not supposed to *break* structure](https://bartoszmilewski.com/2015/01/20/functors/). They can collapse and embed (lift). So, when we have two `f` values there, our functor can collapse them into one layer, and implicitly, the *operation* it uses to do that is the *monoid* (or semigroup! -- since we don't need the identity for this particular purpose, I suppose this is more accurate) on that type.
 
 When we do this:
 
@@ -219,35 +154,19 @@ We accumulate those `Just` wrappers, conceptually something like this:
 (Just Just (+2) 2)
 ```
 
-The operation (the function) for the numeric values is specified, but the `Just`s just...accumulate. The operation that can merge or unify those `Just`s is left implicit -- it's the `Maybe` monoid. That monoid looks like this:
+The operation (the function) for the numeric values is specified, but the `Just`s just ... accumulate. The operation that can merge or unify those `Just`s is left implicit -- it's the `Maybe` monoid.
 
-```haskell
-instance Monoid a => Monoid (Maybe a) where
-  mempty = Nothing
-  Nothing `mappend` m = m
-  m `mappend` Nothing = m
-  Just m1 `mappend` Just m2 = Just (m1 `mappend` m2)
-```
-For our purposes here, we only care about the bottom line, where there are two `Just` values, because our `Applicative` instance
+### Comparing sum and product types
 
-> well how do we explain this, the First one does the same thing as the Maybe -- i think this is going to have to do with the nature of the functor, it needs to apply the function to something. but i will need to play with it more. i mean the point is really that, given an accumulation of type wrappers, you have to do *something* with them, yes? you have to smoosh them and it relies on the monoid to do that. it may not matter what happens to them if there is no function to apply or no value to apply it to. that may be the key there, then with twists in AccValidation and then later in Alternative.
+An important difference between sum types and product types that is often taken for granted but is quite noticeable when one is writing instances is that sum types are *disjunctive* while product types are *conjunctive*. So, when we talked about `Either`, a value may be *either* a `Left a` or a `Right b` *but not both*. Product types, though, require *all* their parameters to be applied in order to construct a value of the type. `Either a b` needs to be applied to either an `a` or a `b`, but `Tuple a b` needs to be applied to *both* `a` and `b`. This helps explain why we need a `mempty` on the `a` for an implementation of `pure` for a tuple but not for an `Either`.
 
-> ok for this post we just need to concentrate on answering why we need a monoid constraint on the tuple (but not on sum types) and how the smooshing together of data constructors is monoidal. period. the conjunctive/disjunctive monoid thing can wait.
+The difference between the sum types and product types is that the `a` never appears with the `b` in a sum, but it does in a product.
 
-```haskell
-First (Just (+2)) <*> First Nothing
-First {getFirst = Nothing}
-it :: Num b => First b
-
-λ> First (Just (+2)) <*> First (Just 3)
-First {getFirst = Just 5}
-it :: Num b => First b
-```
-
-> same pattern for Either
 
 ## Outro
 
 Here is the takeaway:
+
+#### Applicatives are monoidal functors.
 
 Applicative functors accumulate data constructors as they apply their function. With sum types, that accumulation is not visible and relies on an implicit monoidal operation to collapse them (although the type I'll talk about in the next post gives us a way to visualize this, as we can with tuples). With product types that have multiple parameters, such as tuples, the leftmost type(s) are part of the type constructor, `f`, but their values must also appear in conjunction with the `b` values and so we must specify a way to merge or unite the values in the `a` slot.
