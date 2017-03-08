@@ -150,6 +150,20 @@ code {
     max-width: 800px;
 }
 
+
+div.post {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+div.post p {
+  display: block;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+
 footer {
     background: #FFF8E7;
     color: #7A2156;
@@ -251,9 +265,10 @@ div.blurb p {
 }
 
 div.sourceCode {
-    display: flex;
-    flex-direction: column;
-    max-width: 50em;
+    display: block;
+    /*flex-direction: column;*/
+    max-width: 100%;
+    box-sizing: inherit;
 }
 
 pre.sourceCode {
