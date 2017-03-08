@@ -17,25 +17,36 @@ instance Functor Possibly where
   fmap f (HeckYah a) = HeckYah (f a)
 
 instance Applicative Possibly where
-  pure = HeckYah
+  pure a = LolNo -- bad idea but it compiles
   (<*>) LolNo _       = LolNo
   (<*>) _ LolNo                 = LolNo
   (<*>) (HeckYah f) (HeckYah a) = HeckYah (f a)
 
+  -- I bet a law involving fmap will have to fail
+  -- yes, here
+  -- fmap f x = pure f <*> x
+  -- which means, by the first thing I said above, we'd need
+  -- fmap f x = Nothing <*> x
+  -- therefore
+  -- fmap f x = x
+
 
 -- a fake Either
-data Choose a b = This a | That b
-                  deriving (Eq, Show)
-
-instance Functor (Choose a) where
-  fmap _ (This a) = This a
-  fmap f (That b) = That (f b)
-
-instance Applicative (Choose a) where
-  pure = That
-  -- (<*>) (This a) _ = This a -- due to function not having a Show instance, this line seems irrelevant? GHC 7.10 used to print Left <function> at least. in standard (not contrived, toy) usage, you couldn't really get a function embedded in the Left anyway, i think, but still.
-  (<*>) _ (This a) = This a
-  (<*>) (That f) (That b) = That (f b)
+-- data Choose a b = This a | That b
+--                   deriving (Eq, Show)
+--
+-- instance Functor (Choose a) where
+--   fmap _ (This a) = This a
+--   fmap f (That b) = That (f b)
+--
+-- instance Applicative (Choose a) where
+--   pure a = That a
+--   (<*>) (This a) _ = This a -- due to function not having a Show instance, this line seems irrelevant? GHC 7.10 used to print Left <function> at least. in standard (not contrived, toy) usage, you couldn't really get a function embedded in the Left anyway, i think, but still.
+--   (<*>) _ (This a) = This a
+--   (<*>) (That f) (That b) = That (f b)
+  -- λ> pure (*8) <*> That 4
+  -- This ()
+  -- when `pure a = This mempty`
 
 -- a fake tuple type
 data Tuple a b = Tuple a b
@@ -68,3 +79,18 @@ instance Applicative Initial where
   (<*>) (Yep f) (Yep a) = Yep (f a)
   -- right it can only be this way because there is monoidal structure
   -- but there is also the (a -> b) function. cool.
+
+-- a fake Either
+data Choose a b = This a | That b
+                  deriving (Eq, Show)
+
+instance Functor (Choose a) where
+  fmap _ (This a) = This a
+  fmap f (That b) = That (f b)
+
+instance Applicative (Choose a) where
+  -- pure _ = This mempty  -- this is possible, but, again, the `a` remains bound in the type constructor
+  pure a = This a
+  (<*>) (This a) _ = This a -- due to function not having a Show instance, this line seems irrelevant? GHC 7.10 used to print Left <function> at least. in standard (not contrived, toy) usage, you couldn't really get a function embedded in the Left anyway, i think, but still.
+  (<*>) _ (This a) = This a
+  (<*>) (That f) (That b) = That (f b)
