@@ -113,7 +113,7 @@ data Either a b = Left a | Right b
 
 instance Applicative (Either a) where
   pure = Right
-  -- (<*>) (Left a) _ = Left a
+  (<*>) (Left a) _ = Left a
   -- GHC 7.10 used to print "Left <function>" in this case
   -- but now gives a "No instance for Show" error
   (<*>) _ (Left a) = Left a

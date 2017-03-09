@@ -132,7 +132,7 @@ postCompiler = do
 -- of each post (not a teaser or the tags)
 indexCompiler :: Compiler (Item String)
 indexCompiler = do
-   posts <- fmap (take 10) . recentFirst =<< loadAll "posts/*"
+   posts <- recentFirst =<< loadAll "posts/*"
    let indexCtx =
            listField "posts" postCtx (return posts)
            <> constField "title" ""
@@ -155,7 +155,6 @@ rulesForTags tags titleForTag =
         let ctx = constField "title" title
                   <> listField "posts" postCtx (return posts)
                   <> defaultContext
-
         makeItem ""
             >>= loadAndApplyTemplate "templates/tags.html" ctx
             >>= loadAndApplyTemplate "templates/default.html" ctx
