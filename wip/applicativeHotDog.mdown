@@ -1,5 +1,5 @@
 ---
-title: Applicative functors
+title: Applicatives are not monads
 tags: Haskell, Applicative, Monad, typeclasses
 ---
 
@@ -40,8 +40,11 @@ main = do
 ```
 We won't worry too much about the particularities of `do` syntax right now, but you should know a couple of things about this:  
 
-- We are in `IO` here since we're asking for user input. `IO` is a `Monad`, yes (but also an `Applicative` and some other things).   
-- The type of `getLine` is `IO String`. It's not a `String` value itself; it's an action that may get a `String` and that `String` will be wrapped up in that `IO` type. We don't have to worry about that too much for now, because the `do` notation and the backwards arrows that bind the action to the variable name are, in some sense, unwrapping the strings from the `IO` layer. Using `print` at the end gives us back the `IO` layer that we need to make all the types work out. If you don't understand enough about how monads work yet to understand *why*, keep reading.
+- We are in `IO` here since we're printing stuff and asking for user input. `IO` is a `Monad`, yes (but also an `Applicative` and some other things). `main` anyway always has the type `IO ()` since the point of `main` is to execute the program and perform effects, not to compute something that results in a value (although, as with `isAnagram` such functions can be *part* of `main`).   
+- The type of `getLine` is `IO String`. It's not a `String` value itself; it's an action that may get a `String` and that `String` will be wrapped up in that `IO` type. We don't have to worry about that too much for now, because the `do` notation and the backwards arrows that bind the action to the variable name are, in some sense, unwrapping the strings from the `IO` layer. Using `print` at the end gives us back the `IO` layer that we need to make all the types work out. Like `fmap`, we are allowed to ignore that type layer for the moment and pass the strings to `isAnagram` as if the `IO` didn't exist.
+
+If you don't understand enough about how monads work yet to understand *why*, keep reading.
+
 
 
 
