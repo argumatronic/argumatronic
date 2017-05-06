@@ -224,7 +224,6 @@ https://mail.haskell.org/pipermail/libraries/2015-July/026057.html
 
 
 
-
 Maybe I should call my Monoids library "PorqueNoLosDos"
 Chris Martin (ch.martin@gmail.com)
 Then you can make tortilla jokes
@@ -261,4 +260,5 @@ I really don't know that
 Seems not tho
 That's why we have Alternative
 For parsing you do often want error correcting yes?
+
 But idk maybe not other times

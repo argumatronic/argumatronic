@@ -10,11 +10,10 @@ in fact the Maybe monoid is coherent with its *Alternative* instance:
 
 (can you straightforwardly rewrite any Maybe applicative code to use the alternative instance instead?)
 
-this might be more interesting compared to Either and AccValidation -- but there is no monoid in base for Either and there is no alternative instance for it either. 
+this might be more interesting compared to Either and AccValidation -- but there is no monoid in base for Either and there is no alternative instance for it either.
 
 AccValidation has semigroup, monoid, and Alt instances (not Alternative, but an Alternative-like Functor typeclass called Alt)
 
 well for AccValidation you don't want an error-correcting applicative, do you? it would defeat the special purpose of AccValidation as it would no longer accumulate in the Left but would just return the Right. yep. dunno about Alt.
 
 http://dev.stephendiehl.com/hask/#alternative
-
