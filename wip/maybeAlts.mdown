@@ -17,3 +17,4 @@ AccValidation has semigroup, monoid, and Alt instances (not Alternative, but an 
 well for AccValidation you don't want an error-correcting applicative, do you? it would defeat the special purpose of AccValidation as it would no longer accumulate in the Left but would just return the Right. yep. dunno about Alt.
 
 http://dev.stephendiehl.com/hask/#alternative
+
