@@ -221,3 +221,44 @@ https://twitter.com/ejenk/status/840759424868352002 -- but i think saying the Ma
 https://mail.haskell.org/pipermail/libraries/2014-November/024416.html
 
 https://mail.haskell.org/pipermail/libraries/2015-July/026057.html
+
+
+
+
+Maybe I should call my Monoids library "PorqueNoLosDos"
+Chris Martin (ch.martin@gmail.com)
+Then you can make tortilla jokes
+It's perfect
+It is
+I can put our tortilla category theory in the readme
+Thinking of the Maybe/Either Monoids as being either "error-correcting" or "error-propagating" has really put a new flavor on this for me.
+So I guess reading those old mailing list threads was not a waste of time
+Having error-correcting applicatives gives them another useful distinction from monad doesn't it
+Chris Martin (ch.martin@gmail.com)
+I didn't undertand what that meant
+AccValidation is "error-correcting"?
+No it's more like error-accumulating
+But propagating sure
+Chris Martin (ch.martin@gmail.com)
+which one is correcting?
+We don't have them now
+But an Applicative that was coherent with Maybe Monoid would be
+Theoretically yes. Mine dont actually work yet but
+It's part of what I was trying to tell you last night about Bool
+Every Monoid should give rise to a distinct Applicative functor Martin
+Even Bool's
+Conjunctive and Disjunctive
+Both should
+I'm p sure Alex already knows but I'm trying to figure it out myy
+Myself*
+Conjunction is error propagating
+Dusjunction is error correcting
+Logically this is true
+Making it work in Haskell qua Haskell idk
+Kmett might be right that it fucks with inference too bad to be worth it
+Or idk perhaps error correcting applicatives are useless in practice
+I really don't know that
+Seems not tho
+That's why we have Alternative
+For parsing you do often want error correcting yes?
+But idk maybe not other times
