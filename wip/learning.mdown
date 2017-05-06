@@ -1,0 +1,48 @@
+---
+title: Learning Haskell the Hard Way
+---
+
+So…Haskell Programming  is out for early access now. And since I am on record as being a Haskell noob, sometimes people wonder how I am managing to (co-)write a book for teaching Haskell.
+
+I’ve already told my story about how I came to start learning Haskell and how I knew absolutely nothing about programming previously. It’s hard to believe, but it’s still been less than a year since I started this adventure. It was in July 2014 that I first learned what a compiler is and cracked open Learn You a Haskell for Great Good (henceforth, LYAH).
+
+I was really having a hard time with LYAH. I hate to be disrespectful about LYAH because I think the author put forth a valiant effort at making an approachable Haskell book. And in some ways it is the least intimidating of the Haskell materials for beginners. Unfortunately, it wasn’t working for me. I really needed beginner-level exercises and LYAH does not offer much there. I kept trying to struggle through it, and Chris and I talked over Skype regularly to help me along.
+
+In August or September, Chris decided to start writing his own book for teaching Haskell. The idea was he would write and I would test it and send him feedback and we would proceed in that fashion, me to learn Haskell and him to write his book.
+
+I believe the first chapter he sent me was about Algebraic Datatypes and how to write your own datatypes and I went, wait wut? I understood most of what he’d written about sum and product types fine–he has always been able to explain those well, and the “algebra” involved is really quite simple–but I didn’t understand the type system well enough to understand why such things mattered, and I didn’t understand programming well enough to understand why you would need/want to write your own datatype. So it was quite difficult for me.
+
+We went like this in bursts, and it was frustrating for both of us at times. He wanted to teach me. And I wanted to learn. But I didn’t have enough basics.
+
+At some point in November, we realized I was contributing enough to the book in terms of editing, clarifying, expanding on concepts, that my name should probably be on the cover in some capacity (editor, perhaps?). At some point in December, Chris said, “Hey, it would really be better if you started contributing your own content here. How can we make that happen?”
+
+This is how we make that happen:
+
+For each chapter, Chris writes out a skeleton or scaffold of the content that will need to be covered. This includes (usually) minimal prose with code samples demonstrating concepts. At the same time, he often gives me some ideas of good sources for me to read to augment my understanding of what he’s written–this could be anything from the Haskell Report (OK, it always includes the Haskell Report) to blog posts.
+
+I read through what he’s written as well as other sources on the same topics. I start making notes and asking questions. Because I am a beginner, I still have a beginner’s idea of what makes sense and what needs more explaining. I might start playing around with the code he’s already written for that chapter. Where I understand the concepts well enough, I start adding to what he’s written and expanding on the code samples.
+
+Then when I don’t feel like I can do more on my own, I ask him questions. So. Many. Questions.  I ask him all the things a beginner needs to know to understand the material. And then some. He says I am more curious than most people are and want to understand things more deeply than most people do, so often those question-and-answer sessions lead deep into Haskell esoterica that will not make it into the book (not this book–maybe a later book) or, at least, not into this chapter.
+
+For example, last night I asked him what is the practical difference between a datatype and a newtype–that is, why would you want to write a newtype when you could just write a datatype? That answer became a lengthy talk about lifted types, unlifted types, and bottom. Then I had to parse out what we can reasonably, effectively say in this chapter versus what parts will have to wait for the later, more intermediate chapter on laziness and efficiency and what parts maybe no one ever needs to know (just kidding, of course; you can never know too much).
+
+Another recent example, and one that delighted us both, happened in our recent revisions to the second chapter. That chapter is very basic, mostly about what functions and expressions are and how to use variables. But one of our missions with the book is to demystify GHCi’s amazing error messages. So we start, even in that chapter, trying to explain common error messages. We had already pointed out in one spot that the first thing GHCi tells you is the line and column number of the error, so even if you don’t understand the message itself, it’s telling you where to look to fix the problem. Cool, right? But, in the process of revising a section about code indentation in source files, I noticed that in code like this:
+
+module Learn where
+
+ x = 10 * 5 + y
+myResult = x * 5
+y = 10
+the problem is with the one space before the x declaration, but the error message tells you the problem is on the next line, with myResult. Why would that be? This was bothering me. I’m not certain it would bother everyone, but, to me as a beginner, this kind of stuff trips me up. “You said earlier that it tells you which line number you need to fix, but this is telling me the next line. Argh this doesn’t make any sense.” I hate that kind of thing when I’m learning something new.
+
+So…I asked Chris. And he gave me a brief explanation of what’s happening there. Then we took a deep dive into GHC’s parser code to look very precisely at what’s going on. Then we had to come back to the planet in which what we need is an explanation that is accurate but also reasonable for the second chapter of the book (GHC’s parser code isn’t necessarily beginner friendly). How do we write that up in a way that makes sense for beginners? How do we also emphasize that, while you can fix this code by indenting all your declarations one space (they just need to all start at the same column), please for the love of Mike, don’t do that?
+
+Once I am satisfied that things are explained clearly for noobs, Chris checks everything (again) for accuracy, and then we start writing exercises. I write exercises (generally pretty easy ones), and Chris checks them for technical content. Chris writes exercises (generally kind of hard ones), and I check to make sure they are appropriate for that place in the book (e.g., I check to make sure they don’t use things we haven’t covered yet) and that the instructions are comprehensible to beginners.
+
+After we’re satisfied that the chapter is mostly complete in terms of content, we send it to our first tester, Angela. She, like me, is new to programming, so Haskell is her first language. She reads carefully, tries all the exercises out, and tells us where the holes are–this needs to be explained better, that should be explained earlier, the instructions for this exercise are hard to understand. She’s a huge help. I then go through and make the necessary revisions. Most chapters then go to a couple of readers who do know some Haskell for further feedback, and we, again, make necessary revisions.
+
+By the time each chapter is considered done enough for release (revision is an ongoing process, and we will not finish copy editing and proofreading until the content is more or less set in stone), it’s gone through so many steps: Chris’s writing, my writing, our Q-and-A clarification and expansion sessions, more writing from me, Chris’s check for accuracy, checking code, writing and testing exercises, implementing feedback from our awesome readers. This means that most topics are covered from different angles and that even very small things–like the line and column number of a GHCi error message–end up catching our attention (or that of one of our testers) at some point in the process. Spending so much time on a chapter also leads us to new ways to structure exercises so that the exercises also have you work with topics from different angles.
+
+If I can be quite honest, this book is somewhat exhausting. Each chapter takes a lot out of us–it’s difficult even to know where to start explaining some concepts because so many concepts in Haskell are interconnected and overlap. We’re talking about numeric types here, but we haven’t explained typeclasses yet, so how do we handle that?
+
+It’s also exhilarating. We manage to explain concepts well enough that I can write exercises, even if it was syntax I’d never seen before we started writing the chapter (writing exercises is, IMHO, a bit harder than just writing your own code).  And the feedback we’re getting from our users suggests that we’re accomplishing our goal, which is to make Haskell clear and approachable to everyone who wants to learn it, no matter their background. Writing Haskell can make you feel like a wizard, but you don’t have to be one to learn Haskell.

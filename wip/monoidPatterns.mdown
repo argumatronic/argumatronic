@@ -1,0 +1,263 @@
+## Disjunctive monoids
+
+Monoids aren't only about *combining* things; sometimes they're about *choosing* one or the other. Since we think of canonical monoids such as addition, multiplication, and list concatenation, we develop an intuition for monoids as being primarily about *combining* two values into one. It might be more helpful to think of them as instead *merging* or *uniting* two values into one, although maybe plain English just isn't going to do justice to it.
+
+One possibility for monoids is that of Boolean conjunction -- this is where list cross-products, multiplication, and the particular Maybe applicative we're looking at up there come in. We can write out a Boolean truth table using Maybe values instead of Bool values and see that the pattern we see in the above are the same:
+
+```haskell
+-- Nothing ~ False
+-- Just a ~ True
+Nothing Nothing = Nothing
+Nothing Just a  = Nothing
+Just a  Nothing = Nothing
+Just a  Just a  = Just a (where the a is the `mappend` of the two `a` values)
+```
+
+We can get a different result from our Maybe applicative by using one of its alternative monoids of course, which means we need to call them by a new name:
+
+> First and Last examples
+
+λ> (First (Just 'a'), (+8)) <*> (First (Just 'b'), 7)
+(First {getFirst = Just 'a'},15)
+it :: Num b => (First Char, b)
+
+λ> (Last (Just 'a'), (+8)) <*> (Last (Just 'b'), 7)
+(Last {getLast = Just 'b'},15)
+it :: Num b => (Last Char, b)
+
+λ> ((Just "a"), (+8)) <*> ((Just "b"), 7)
+(Just "ab",15)
+it :: Num b => (Maybe [Char], b)
+
+λ> ((Just "a"), (+8)) <*> (Nothing, 7)
+(Just "a",15)
+it :: Num b => (Maybe [Char], b)
+
+λ> (Nothing, (+8)) <*> (Nothing, 7)
+(Nothing,15)
+it :: (Num b, Monoid a) => (Maybe a, b)
+
+λ> (Last (Just 'a'), (+8)) <*> (Last Nothing, 7)
+(Last {getLast = Just 'a'},15)
+it :: Num b => (Last Char, b)
+
+λ> (Last Nothing, (+8)) <*> (Last Nothing, 7)
+(Last {getLast = Nothing},15)
+it :: Num b => (Last a, b)
+
+-- First and Last Truth Tables (disjunctive pattern)
+Nothing Nothing = Nothing
+Just a Nothing = Just a
+Nothing Just a = Just a
+Just a Just a = Just a where the a values are not themselves mappended, but one or the other Just is chosen and returned
+
+
+I don't think there is actually a place to put the ZipList Monoid without reorganizing some things in ghc.
+I can't find any module in which both of those things are imported.
+Well, not both, the *three* things that definition needs - semigroup, monoid, and ziplist
+does normal list have a semigroup?
+Chris Martin (ch.martin@gmail.com)
+yeah, it's defined in Data.Semigroup
+i didn't realize. i mean it seems mathematically like it should but at the same time what does one use it for. when do you not want an identity for list concatenation and stuff?
+Chris Martin (ch.martin@gmail.com)
+The problem is Monoid is defined in GHC.Base
+when they're NonEmpty of course but otherwise?
+yeh
+Chris Martin (ch.martin@gmail.com)
+Well take for example
+λ> stimes 4 [1,2,3]
+[1,2,3,1,2,3,1,2,3,1,2,3]
+the constraint on stimes is Semigroup, so
+yes but why
+Chris Martin (ch.martin@gmail.com)
+hm bad example
+idk, take any paramatric function that only needs a semigroup
+well again i can see why you want them on NonEmpty
+but it seems like the lack of an identity coupled with the lack of insurance that you don't have an empty list is
+Chris Martin (ch.martin@gmail.com)
+oh, here's an example, AccValidation
+Accumulates on the left into a semigroup, right
+iirc
+is there a compelling reason why it couldn't be monoid tho?
+Chris Martin (ch.martin@gmail.com)
+it would just be unnecessarily constraining
+Then you couldn't use NonEmpty with AccValidation
+yet people still use monads when they could use applicatives
+but yes fair enough.
+i'm just wary of using semigroups when you *do* want an identity. some people still use monads when they should use applicatives; some people go the other way and use semigroups when they should use monoids. in my humble, so humble, opinion of course.
+choose the right algebra for the job
+Chris Martin (ch.martin@gmail.com)
+I'm just gonna PR with a semigroup, and in it I'll complain that I can't figure out where to put the monoid, and see if anyone has any suggestions
+as you wish
+i've been asking myself a lot since i wrote that post about why applicatives are monoidal
+if a semigroup can give rise to an applicative functor
+Chris Martin (ch.martin@gmail.com)
+Like in the case of AccValidation?
+I think it's because a semigroup can give rise to a monoid
+in the case of Maybe
+?
+Chris Martin (ch.martin@gmail.com)
+instance Semigroup a => Monoid (Maybe a)
+the Semigroup constraint on AccValidation is on the a innit?
+Chris Martin (ch.martin@gmail.com)
+it is
+But as you say, the a and the b are not present together at the same time, which is critical
+to how the semigroup gets promoted to a monoid in some sense
+yeh but AccValidation itself has a Monoid
+i think? yeah like Either's
+Chris Martin (ch.martin@gmail.com)
+the underlying monoid, I think, actually being Maybe a
+i was actually thinking of NonEmpty
+not AccValidation and i'm sorry to say you lost me
+NonEmpty has an applicative
+Chris Martin (ch.martin@gmail.com)
+oh hm
+so it must be that a semigroup can give rise to an applicative functor yeah?
+Chris Martin (ch.martin@gmail.com)
+I think the monoid that gives rise to NonEmpty's applicative is the list monoid
+hmm, I need to eat.
+so a monoid is a relationship between a type, a binary associative function, and an identity value. that's why the zip monoid gives rise to a different applicative functor than regular list does. NonEmpty being a different type and not having an identity, i think i'm more comfortable with the idea that it's really the type+binary associative operation that gives rise to the applicative functor
+at least this is how i understand it and why i started thinking this is why Monoid doesn't just have two operations in it. we handle it in Haskell now by just naming the types different things, so Sum has a Monoid and Product has a Monoid, and the relationship between a type name, an operation, and an identity is preserved.
+which is fine. i started disliking it for purely aesthetic reasons, really, just the newtype wrappers bother me
+but then i realized that this pattern is absolutely pervasive
+tuples in haskell only admit one monoid, i think, but that's a constraint due to Haskell not due to their theoretical monoidal possibilities
+so then like a good Haskeller i want to call attention to the fact that there are two main patterns here, not one.
+i think the current methods obscure that, and then obscure that it's the type + operation that give rise to applicative functors, and then also traversals, and so forth.
+and probably it is semigroup that does it, tho the monoid is helpful for the parametric constraint on any type arguments
+idk if i'm making sense
+this is how i think about it now tho
+2 mins
+
+I'm really starting to feel like semigroups and applicatives should be more related than they are
+like, I feel like possibly Maybe's semigroup/monoid is the wrong one
+i think you're right, but semigroups came later than monoids (in haskell, at least) so historical reasons probably?
+Chris Martin (ch.martin@gmail.com)
+idk, the monoid too though maybe
+most of these instances I'm writing, I'm realizing how the semigroup/monoid is just so damn similar to the applicative
+😀
+Chris Martin (ch.martin@gmail.com)
+but Maybe isn't
+babe i think i'm gettin to you
+Chris Martin (ch.martin@gmail.com)
+but it could be
+yes
+the regular Maybe monoid is conjunctive, right?
+three cases return Nothing, one returns Just (a <> a) ?
+Chris Martin (ch.martin@gmail.com)
+λ> Just "a" <> Nothing
+Just "a"
+whichever one that is
+oh no
+that's the Maybe monoid?
+Chris Martin (ch.martin@gmail.com)
+λ> mappend (Just "a") Nothing
+Just "a"
+yeah
+sigh
+Chris Martin (ch.martin@gmail.com)
+I just made a tweet and then realized it probably also sounds like I had the thought spontaneously, like my blog did
+i couldn't remember which one is *the* Maybe monoid
+oh
+sorry
+Chris Martin (ch.martin@gmail.com)
+for what?
+for inhibiting you like that by telling you
+Chris Martin (ch.martin@gmail.com)
+It's okay, I don't feel inhibited
+it's just another thing to think about
+well that then, sorry
+Chris Martin (ch.martin@gmail.com)
+don't be ❤
+oh god yeah i just realized
+oh my god
+OH MY GOD
+ok this is bad
+but i have to tell you
+i couldn't remember what *the* Maybe monoid and semigroup were and
+i just *assumed* they were the ones that would be coherent with the Applicative
+i should have looked
+oh christ i've been teaching my students to write "the Maybe monoid" more like what i was expecting
+what the shit is that instance
+oh babe i've been bad
+Chris Martin (ch.martin@gmail.com)
+I don't think you've done any irreparable harm
+i mean since i'm teaching, we use the instances we're writing, not the Prelude ones, and i hadn't noticed that it wasn't teh same
+BECAUSE YOU WANT THE ONE THAT'S COHERENT WITH APPLICATIVE RIGHT?
+omfg, no it's ok wrt to my students, i can fix that, i think
+but
+Chris Martin (ch.martin@gmail.com)
+I kinda love that you made that assumption tbh
+it's not, right? it's different from the applicative, am i losin my mind?
+no that's what you were saying earlier
+thank you ❤
+Chris Martin (ch.martin@gmail.com)
+wait so what is mempty here
+Just mempty?
+And you put a Monoid constrait on the a?
+where
+on Maybe?
+Chris Martin (ch.martin@gmail.com)
+yeah
+because Nothing isn't a mempty
+no, you don't need a Monoid constraint on the Maybe Applicative instance
+no, correct
+Chris Martin (ch.martin@gmail.com)
+I mean on the Monoid instance
+oh
+sorry
+uh, yes, i think so
+so i write my Maybe monoids conjunctively, anything mappended with a Nothing returns Nothing, Just a <> Just b returns Just (a <> b) so you need a Monoid constraint on the `a` yeah
+Chris Martin (ch.martin@gmail.com)
+It's kinda like
+Haskell's Maybe represents the possibility of a value being there...
+... and the Maybe consistent with applicative represents a value that has the possibility of *not* being there
+
+https://twitter.com/chris__martin/status/840750555945402368
+
+https://twitter.com/argumatronic/status/760903133249712128
+
+https://twitter.com/ejenk/status/840759424868352002 -- but i think saying the Maybe monoids are "the same except wrt Nothing" is like saying Boolean conjunction and disjunction are the same "except wrt False".
+
+https://mail.haskell.org/pipermail/libraries/2014-November/024416.html
+
+https://mail.haskell.org/pipermail/libraries/2015-July/026057.html
+
+
+
+Maybe I should call my Monoids library "PorqueNoLosDos"
+Chris Martin (ch.martin@gmail.com)
+Then you can make tortilla jokes
+It's perfect
+It is
+I can put our tortilla category theory in the readme
+Thinking of the Maybe/Either Monoids as being either "error-correcting" or "error-propagating" has really put a new flavor on this for me.
+So I guess reading those old mailing list threads was not a waste of time
+Having error-correcting applicatives gives them another useful distinction from monad doesn't it
+Chris Martin (ch.martin@gmail.com)
+I didn't undertand what that meant
+AccValidation is "error-correcting"?
+No it's more like error-accumulating
+But propagating sure
+Chris Martin (ch.martin@gmail.com)
+which one is correcting?
+We don't have them now
+But an Applicative that was coherent with Maybe Monoid would be
+Theoretically yes. Mine dont actually work yet but
+It's part of what I was trying to tell you last night about Bool
+Every Monoid should give rise to a distinct Applicative functor Martin
+Even Bool's
+Conjunctive and Disjunctive
+Both should
+I'm p sure Alex already knows but I'm trying to figure it out myy
+Myself*
+Conjunction is error propagating
+Dusjunction is error correcting
+Logically this is true
+Making it work in Haskell qua Haskell idk
+Kmett might be right that it fucks with inference too bad to be worth it
+Or idk perhaps error correcting applicatives are useless in practice
+I really don't know that
+Seems not tho
+That's why we have Alternative
+For parsing you do often want error correcting yes?
+But idk maybe not other times

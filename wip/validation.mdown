@@ -1,0 +1,7 @@
+---
+title: Applicative II: Validation
+tags: Haskell
+---
+
+cf what i was saying about the Just wrappers just accumulating...
+(AccValidation sort of explicitly accumulates -- the values inside, while implicitly crushing the Left constructors together.)

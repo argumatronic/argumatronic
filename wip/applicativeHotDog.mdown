@@ -1,0 +1,70 @@
+---
+title: Applicatives are not monads
+tags: Haskell, Applicative, Monad, typeclasses
+---
+
+> For the next few weeks, I'm going to be posting semi-regularly about `Applicative` and related topics. This will eventually end up touching on monoids, functors, monads, those typeclasses of the same names, and perhaps, eventually, applicative parsing. <br> *Prerequisites*: While every attempt is being made to keep this series beginner-friendly, you should have familiarity with sum and product types, with the `Functor` typeclass, with `case` expressions, and with how typeclasses work in Haskell.
+
+This post is going to introduce some ways that you might find yourself using applicative functors in your programs. Upcoming posts will contrast these with monads and demonstrate some specific, useful cases where we definitely want what `Applicative` can do for us.
+
+In this series, I'm going to use the same simple (simple as in *comprising relatively few moving parts*) program as a basis for demonstrating different points. My hope is that this will be enough like *real code* to be satisfying but allow us to focus on details of how applicatives and monads *work* rather than trying to understand other complexities.
+
+The program is an anagram checker:
+
+```haskell
+module Main where
+
+import Data.Char (isAlpha)
+import Data.List (sort)
+
+isAnagram :: String -> String -> Bool
+isAnagram xs ys = sort xs == sort ys
+```
+We haven't used `isAlpha` yet, but we will, so go ahead and put that in your imports. So far, all we have is a function that takes two strings, sorts them, and compares the sorted lists. If the sorted lists are equal, we have anagrams and return the `Bool` value `True`; if they are not, they are not anagrams and we get a `False` result.
+
+Let's add a `main` that will ask for two strings of input and then use the above function to test for anagrammaticity:
+
+```haskell
+main :: IO ()
+main = do
+    putStrLn "Please enter a word."
+    -- prints this string as a prompt
+    firstWord <- getLine
+    -- if user types a string, we bind that string to variable name firstWord
+    putStrLn "Please enter a second word."
+    secondWord <- getLine
+    -- if we get a string, bind that string to variable name secondWord
+    print (isAnagram firstWord secondWord)
+    -- apply isAnagram function to the two strings we got
+    -- print the result
+```
+We won't worry too much about the particularities of `do` syntax right now, but you should know a couple of things about this:  
+
+- We are in `IO` here since we're printing stuff and asking for user input. `IO` is a `Monad`, yes (but also an `Applicative` and some other things). `main` anyway always has the type `IO ()` since the point of `main` is to execute the program and perform effects, not to compute something that results in a value (although, as with `isAnagram` such functions can be *part* of `main`).   
+- The type of `getLine` is `IO String`. It's not a `String` value itself; it's an action that may get a `String` and that `String` will be wrapped up in that `IO` type. We don't have to worry about that too much for now, because the `do` notation and the backwards arrows that bind the action to the variable name are, in some sense, unwrapping the strings from the `IO` layer. Using `print` at the end gives us back the `IO` layer that we need to make all the types work out. Like `fmap`, we are allowed to ignore that type layer for the moment and pass the strings to `isAnagram` as if the `IO` didn't exist.
+
+If you don't understand enough about how monads work yet to understand *why*, keep reading.
+
+
+
+
+
+
+
+
+
+
+\begin{code}
+bbop :: Integer -> Integer
+bbop = (+) <$> boop <*> doop
+
+duwop :: Integer -> Integer
+duwop = liftA2 (+) boop doop
+\end{code}
+
+Now we're in an \texttt{Applicative} context. We've added another function to lift over the contexts of our partially-applied functions. This time, we still have partially-applied functions that are awaiting application to an argument, but this will work differently than fmapping did. This time, the argument will get passed to both \texttt{boop} and \texttt{doop} in parallel, and the results will be added together.
+(<||>) :: (a -> Bool)
+       -> (a -> Bool)
+       -> a
+       -> Bool
+(<||>) = liftA2 (||)

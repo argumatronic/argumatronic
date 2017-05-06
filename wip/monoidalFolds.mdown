@@ -1,0 +1,7 @@
+the monoids in folds
+
+%% so ....with sum and product if there's Nada you're getting the identity value as a result? Not nothing but the identity value for whichever monoid you declared?
+
+%% REPLY: Yep, precisely. foldMap doesn't require a ``start value'' or ``zero'', so it falls back on the Monoid requires for the values being folded. foldr doesn't require a proper monoid as such, but it _does_ require a combining function (a -> b -> b), which if you consider along with the start value provided (value of type b), they make a Monoid put together.
+
+https://byorgey.wordpress.com/2012/11/05/foldr-is-made-of-monoids/
