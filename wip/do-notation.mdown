@@ -1,0 +1,218 @@
+---
+title: Thoughts on `do` notation
+tags: Haskell, FITEME, dialogues
+---
+
+These dialogue snippets are from a series of conversations occurring over months, but I've edited them to try to present a mostly coherent presentation of what Chris Martin and I think about `do` notation and why.
+
+<hr>
+The first time we realized that we even have a disagreement came in a conversation about Applicative. This was right before I was going to teach a class about Applicative and was trying to figure out what syntax people unfamiliar with Applicative find easiest to read: 
+
+J: I know every time I unthinkingly put something like 
+```haskell
+(+) <$> Just 4 <*> Just 5
+```
+in front of a student who isn't ready for it, they freak out.
+
+C: I just recognize the pattern and mentally translate it into `liftA2`.<a href="#footnote-1"><sup>1</sup></a>
+
+J: Huh, I always forget `liftA2` exists. And I think it obscures, although not as bad as `do` syntax. So I think the way that will be the most helpful is to present `(Just (+ 4)) <*> Just 5`  first, then the version using `pure`, then the infix-only version.
+
+C: I think there's a contrast between learning-Haskell and real-world-Haskell here.
+
+J: There often is, but I want to know specifically what you mean.
+
+C: When I'm writing software, I kinda *want* to "obscure" in that way with `do` notation. The lifting and the applying, they are a distraction from the higher-level idea I am trying to communicate. I know that thinking this way is often a trap, a seductive mistake. So I don't know how to justify why I think it's right in this case.
+
+J: You think directly lifting/applying is more of a distraction than `do` syntax is? This is curiosity, not argumentation, although I find `do` syntax distracting.
+
+C: Yeah, but I don't know why.
+
+J: I find it distracting because there is often more I have to read (or I feel like there is) before I know what's happening. There's this extra step of *renaming* stuff. That is not always the case -- sometimes `do` syntax is ok, depending on what's inside the block. 
+
+<hr>
+After this [series of tweets](https://twitter.com/chris__martin/status/854480397173800960), I had a bone to pick with Mr. Martin:
+
+J: Is that the book parser you're writing all in `do` notation?
+
+C: Yeah.
+
+J. Why? I don't get it. You sound like it's *obviously* better. It's frustrating for me when people act like like something is obviously better in some way, but I can't see why. Please tell me what I'm missing.
+
+C: Hmm. I don't think I know why it's more clear to me. For small expressions I don't think it makes much difference.
+
+I guess what I like is how it lets you only specify the structure of the thing you're parsing first, and then how to assemble the values, separately, on the last line, rather than having to think about both of those things at once.
+
+J: I see. Fair enough, at least you have a reason. 
+
+C: Also it eliminates parens. Paren nesting can get excessive in parser expressions. Or perhaps my style could be improved.
+
+J: I don't know. For me `do` notation is *obviously bad*, but I seem to be the only person on Earth who thinks so. Which is OK, I guess. I have my reasons, you have yours. But what's obvious to me isn't to anyone else I guess, and vice versa
+I'm snarking a little with the *obviously bad*. It's not all bad.
+
+Is this one of those things that is a result of learning Haskell first you think?
+
+C: That thought had crossed my mind. It's like... you seem to think more natively in syntax trees than the typical programmer, whereas "linear" thinking comes first to me. It's a comfort to me when I can think of a computation in sequential steps. A parser that consists of parsing `a`, then `b`, then `c`, then combining the results.
+
+J: That could be related to linguistics too. But it could be I think like that and so am attracted to generative syntax and Haskell because they make sense to the way I already think. Or it could be that doing a lot of syntax made me think a certain way. Or some reinforcing combination.
+
+I do think more sequentially, or linearly, sometimes. And if that's how I'm thinking of it I sometimes use `do` notation. But then I usually end up trying to refactor it once I -- well, I'd say "once I understand what I'm really doing." For me that probably means  *understand the underlying shape* of what I'm doing, i.e. the tree. Part of why I dislike `do` notation is for big things where I want to see some intermediate type information, it's a bit harder, though [`ScopedTypeVariables` makes it tractable](http://stackoverflow.com/a/20724216), I suppose. 
+And it feels to me like it's hiding the functors, it's hiding the mappings. I get this is not how everyone feels, and I asked you because usually you can explain why you said something, and it helps.
+
+C: Yeah, I think it's hiding the functors. There's a sort of "magic" feeling to it at times.
+
+J: I want my functors out in the open, Chris.
+
+<hr>
+A couple days later, as I was editing the Parsers chapter of [Haskell book](http://haskellbook.com/), I noticed there is a ton of `do` notation in that chapter. I didn't have much of an opinion about `do` syntax at the time we wrote it; this is a developing crankiness on my part. At any rate, I raised the conversation again:
+
+J: I just noticed there's `do` notation all over the Parsers chapter. Take this for example:
+
+```haskell
+parseSection :: Parser Section
+parseSection = do
+ skipWhitespace
+ skipComments
+ h <- parseHeader
+ skipEOL
+ assignments <- some parseAssignment
+ return $
+   Section h (M.fromList assignments)
+```
+I think that's a good example of something that is easier for most people to read in `do` notation than it otherwise would be.
+
+C: Yeah. Because it has a lot of "skips"?
+
+J: Yeah and not so much *binding* of results to different names, names that you then have to look through the rest of the block to see where they get used.
+
+*A little while later:*
+
+J: Aha! 
+> Functions are in my comfort zone; syntax that hides them takes me out of my comfort zone. -- [Paul Hudak on `do` notation](https://mail.haskell.org/pipermail/haskell-cafe/2007-August/030178.html).
+I am in good company with my bad opinions!
+
+On the other hand, I like [this perspective](https://mail.haskell.org/pipermail/haskell-cafe/2007-August/030185.html) as well.
+
+C: Maybe it'd have been culturally better if `do` notation had been an extension.
+
+J: I don't know. It's probably correct that it'd have even less wide adoption now without `do` syntax. But, uh, avoid success at all costs, right?
+
+C: I think thinking of it as an advanced feature might be helpful. I agree it obscures what's going on, and when I use it it's often in situations where I don't want to think about what's going on, not at that low level.
+
+J: Are you suggesting I think at low levels? *devilish grin*. More seriously, yeah, I get that.
+
+C: Making it an extension would make it clear that you don't *need it* for anything which might help.
+
+J: Yes. I'm just doing this thing where I'm surrounded by people who seem to all agree on their love of `do` notation, so I feel like my opinion is actually wrong but I just don't know it because I'm not a real enough programmer. So I'm seeking validation that, like, it's OK to have my opinion. You already have the confidence to have your opinion, but I do not.
+
+C: My opinions change a lot, though.
+
+J: It doesn't matter, because you have great confidence in them while you hold them! But Paul Hudak is on my team here and he is a very real programmer -- or was, before he died.
+
+<hr>
+It seems we end up discussing Chris's *controversial* tweets a lot. This conversation started from [this series of tweets](https://twitter.com/chris__martin/status/857350890012987392). It turns out that Chris has [a lot of *opinions*](https://twitter.com/search?l=&q=for%20traverse%20from%3Achris__martin&src=typd&lang=en) about `for` and `traverse` and we're always ready to argue with each other (amicably):
+
+J: Ha, I forgot that
+```haskell 
+traverse print [1..10]
+```
+prints the list of unit values at the end.
+
+C: Yeah, it really should have been `traverse_`. 
+
+J: Yes, it was a mistake but now I got me a list of units.
+
+C: I ran it in the REPL, and it looked good enough. I didn't notice the result value.
+
+J: How did you miss the big list of units? Heh.
+
+C: If I had to do it all over again I'd 
+```haskell
+for_ [1..10] print
+```
+J: I like the `foldMap` one better. I forget we have a `for_` and it scares me. 
+
+C: Yes, `foldMap` is better. Gabriel wins.
+
+J: I've never seen anyone write Haskell the way you do sometimes. It's both frightening and impressive.
+
+C: Our shake config uses `for_` a couple times. And most of the `main` of `haskell-to-tex` is in a `for_`.
+
+J: Figures. You would do that.
+
+C: Java-born, `for` loops in my blood.
+
+C: I think all the manners of traversals is something we can help clear up in the book.
+
+J: That's funny what you said, though, since `for` is `flip traverse`, isn't it? That's why `traverse` is *clearly* easier. To be honest, things like `for` irritate me for other, completely unrelated reasons as well.
+
+C: So how would you rewrite this expression? 
+```haskell
+for_ (Map.toList (fileSnippets file)) $ \(name, snippet) -> do
+        putStrLn $ "File " <> name <> " - "
+                   <> tshow (Foldable.length snippet) <> " paragraph(s)"
+        writeFile (outDir </> Text.unpack name) $ fold
+            [ "% Generated from "
+            , Text.pack (takeFileName inFile)
+            , "\n\n"
+            , "% Generated by haskell-to-tex-"
+            , Text.pack (showVersion version)
+            , "\n\n"
+            , renderSnippet snippet
+            , "\n"
+            ]
+```
+
+J: I'm not saying I would. I'm sure there are times when it makes sense. But if you don't know `for_` exists, then you'd find a way, right? So, how would you write it if you didn't know `for_` existed? 
+
+C: In that case I'd introduce a named function and reverse the order of the arguments.
+
+J: Sure, that's what I would have done. I do that a lot anyway because it's easier for me. It is probably a failure of my brain.
+
+C: It's usually easier.
+
+J: I do not want to manipulate big things in my head, all at once. I need little things. Parts. It's similar to what you said about why you like `do` for your parsers: you can think one step at a time instead of having to consider the whole progression.
+
+C: `for_` might be a special case, for people like me used to it being a special construct in other languages.
+
+J: Yeah, that's part of my worry about it.
+
+C: Yeah, that makes sense.
+
+J: If all my Java and Scala dev students find out about it, they will assume it's the same thing they're used to and not learn about `traverse`.
+
+C: I wonder if that's part of the root of our difference about `do` notation, too. They're things that make it easier to write large expressions. 
+
+J: For sure it is.
+
+C: When the goal should be: don't do that.
+
+J: Pedagogically, I want people to be able to see how the types work out. I want them to get used to thinking in types before they start relying on things like that hide that information from them. This may not apply to `for_` but it's not great with huge `do` blocks. You just end up with a big incomprehensible chunk. Like in Java. I've seen people do that.
+
+C: Big `do` blocks also lead to situations where you just have no idea what any of the types are
+so type annotations help -- at which point, you might as well also give them a name and break them off.
+
+J: Yes, exactly. I think most of the conflict we have like this is coming essentially from two things: 1. Our backgrounds (you from Javaland, me just not knowing anything about programming except a little bit about Haskell), and 2. I'm always thinking about the pedagogical ramifications rather than what I want when I write code. Or, heaven forbid, *software*.
+
+C: Yes, I'm rewriting the `haskell-to-tex` thing in smaller pieces without `do` or `for_` and it looks nice.
+
+J: It wasn't a criticism of your code. You don't have to do this. 
+
+C: The bigger improvement in that code was
+I had a bunch of stuff that could be moved out of `IO` functions. 
+
+<hr>
+J: I've been thinking about starting a FITEME series of blog posts, including one about `do` notation, so i may quote you. Hue hue.
+> Don't focus on connecting Monad and Applicative to `do` notation; that's true, but it's a distraction.<a href="#footnote-2"><sup>2</sup></a>
+
+Bonus: 
+
+J: I am distracted today. I've made fantastic progress at learning some things I really wanted to know. They just aren't relevant at all to the actual work i need to get done.
+
+C: Surely you've noticed this about learning computer things, though: All the irrelevant things end up being part of some picture. It all ends up being useful toward the gestalt computer.
+
+J: Yessss. You are my distraction enabler. 
+
+<sup>1</sup><a name="footnote-1">UPDATE: This is no longer true.</a>
+
+<sup>2</sup><a name="footnote-2">[Context here](https://twitter.com/chris__martin/status/860629420515741697)</a>
