@@ -213,6 +213,6 @@ C: Surely you've noticed this about learning computer things, though: All the ir
 
 J: Yessss. You are my distraction enabler. 
 
-<a name="footnote-1">UPDATE: This is no longer true.</a>
+<sup>1</sup><a name="footnote-1">UPDATE: This is no longer true.</a>
 
-<a name="footnote-2">[Context here](https://twitter.com/chris__martin/status/860629420515741697)</a>
+<sup>2</sup><a name="footnote-2">[Context here](https://twitter.com/chris__martin/status/860629420515741697)</a>
