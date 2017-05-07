@@ -1,4 +1,0 @@
----
-title: Applicative III: Parsing
-tags: Haskell
----

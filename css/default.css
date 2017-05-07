@@ -1,14 +1,16 @@
+@import 'partials/post-list.css';
+
 /*font stanzas -- the ttf files are all in the /fonts directory*/
 @font-face {
   font-family: 'Lora';
-  src: local('Lora'), url('/fonts/Lora-Regular.ttf') format('opentype');
+  /*src: local('Lora'), url('/fonts/Lora-Regular.ttf') format('opentype');*/
   font-style: normal;
   font-weight: normal;
 }
 
 @font-face {
-    font-family: 'Lato';
-    src: local('Lato'), url('/fonts/Lato-Bold.ttf') format('opentype');
+    font-family: 'Cabin';
+    /*src: local('Cabin'), url('/fonts/Rubik-Light.ttf') format('opentype');*/
     font-style: normal;
     font-weight: bold;
 }
@@ -17,6 +19,12 @@
     font-family: 'Monoid';
     src: local('Monoid'), url('/fonts/Monoid-Regular.ttf') format('opentype');
     font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Hypno';
+    src: local('Hypnopaedia'), url('/fonts/Hypnopaedia-Two.otf') format('opentype');
     font-weight: normal;
 }
 
@@ -36,22 +44,23 @@ body {
     color:#302F2F;
 }
 
+
 /*sets colors for links*/
 a:link {
-color: #B84A62;
+  color: #55003c;
 }
 a:visited {
-color: #49c6c6;
+  color: #668a99;
 }
 a:hover {
-color: #e3b8c2;
+  color: #aa7f9d;
 }
 
 /*font for inline code*/
-code { 
+code {
     font-family: 'Monoid', monospace;
     font-size: 0.75em;
-    font-weight: 600; 
+    font-weight: 600;
 }
 
 .main--container {
@@ -64,12 +73,6 @@ code {
     display: flex;
     flex-direction: column;
     width: 100%;
-/*    padding:12px 20px 12px 0px;
-    height:100%;
-    width:270px;
-    position:fixed;
-    left:0;
-    top:0;*/
     background: rgba(122,0,86,1);
     background: -moz-linear-gradient(45deg, rgba(122,0,86,1) 0%, rgba(121,1,86,1) 1%, rgba(81,30,81,1) 52%, rgba(63,43,79,1) 74%);
     background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(122,0,86,1)), color-stop(1%, rgba(121,1,86,1)), color-stop(52%, rgba(81,30,81,1)), color-stop(74%, rgba(63,43,79,1)));
@@ -92,7 +95,7 @@ code {
 
 .main--header a {
     color: #FFF8E7;
-    font-family:'LatoBold', sans-serif;
+    font-family:'Cabin', sans-serif;
     font-style: italic;
     font-size: 40px;
     font-weight:light;
@@ -107,7 +110,7 @@ code {
 }
 
 .main--nav a {
-    font-family:'Lato';
+    font-family:'Cabin';
     display: block;
     color: #FFF8E7;
     font-size: 18px;
@@ -143,27 +146,37 @@ code {
     max-width: 800px;
 }
 
-.main--footer {
-    background: #7A2156;
-    color: #FFF8E7;
-    font-family:'Lato', sans-serif;
+
+/*somehow i need to separate the paragraphs within div.post from the source code within div.post so that text can flex even when there are code blocks*/
+
+
+footer {
+    background: #FFF8E7;
+    color: #7A2156;
+    font-family:'Cabin', sans-serif;
     padding: 1em;
     text-align: center;
-/*    border-top: solid 2px black;
-    color: #555;
-    font-size: 12px;
+    border-top: solid 2px #7A2156;
+    font-family: 'Cabin';
+    font-size: 14px;
     margin-top: 30px;
-    padding:12px 30px 12px 0px;
-    text-align: right;*/
+    padding: 12px 0px 12px 0px;
+    /*text-align: center;*/
 }
 
-.main--footer a {
-    color: white;
+footer img {
+  width: 64px;
+  /*max-width: 100%;*/
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
+
 
 /*font and color for titles and section headers*/
 h1,h2,h3,h4,h5 {
-    font-family:'Lato', sans-serif;
+    font-family:'Cabin', sans-serif;
     color:#4d004d;
 }
 
@@ -179,9 +192,18 @@ div.info {
     text-align: center
 }
 
+div.icons {
+  p {
+    a {
+    margin-left: 5em;
+    margin-right: 2em;
+    }
+  }
+}
+
 .main--content {
     font-size: 18px;
-    padding:0 30px 20px 30px
+    padding:0 30px 20px 30px;
 }
 
 .main--content h1 {
@@ -201,7 +223,7 @@ div.info {
 }
 
 blockquote {
-  background-color: #e0d7da;
+  background-color: #eee5eb;
   font-style: italic;
   padding: 3px 10px 3px 10px;
 }
@@ -211,7 +233,7 @@ div.blurb {
     padding: 5px 0px 5px 0px;
     max-width: 920px;
     width: 50%;
-    background-color: #e0d7da;
+    background-color: #ddccd8;
     clear: both;
 }
 
@@ -220,6 +242,7 @@ div.blurb p {
     margin-right: auto;
     max-width: 80%;
 }
+/*old blockquote and blurb color: #e0d7da , also good #ccd8dd*/
 
 /*here begins styling for code blocks*/
 .sourceCode {
@@ -228,15 +251,18 @@ div.blurb p {
 }
 
 div.sourceCode {
-    display: flex;
+    display: block;
     flex-direction: column;
-    max-width: 50em;
+    max-width: 100%;
+    box-sizing: inherit;
 }
 
 pre.sourceCode {
     padding: 3px 10px 3px 10px;
-    background-color: #4C3131;
+    background-color: #422f41;
 }
+/*older source code backgrounds colors #3a2f42; #4c3131*/
+/*some pretty colors: A979A1, 79A1A9*/
 
 table.sourceCode, tr.sourceCode,
 td.lineNumbers, td.sourceCode,
@@ -255,7 +281,6 @@ td.lineNumbers {
     padding-left: 5px;
 }
 
-
 /* main text */
 code.sourceCode { color: #FFF8E7; }
 /* keyword */
@@ -271,7 +296,7 @@ code.sourceCode { color: #FFF8E7; }
 /* */
 .sourceCode span.ch { color: #49c6c6; }
 /* string */
-.sourceCode span.st { color: #AC7B84; }
+.sourceCode span.st { color: #7CA979; }
 /* comments */
 .sourceCode span.co { color: #ffccdd; font-style: italic; }
 /* mostly type-level things */
@@ -284,4 +309,3 @@ code.sourceCode { color: #FFF8E7; }
 /*.sourceCode span.re { }*/
 /* */
 .sourceCode span.er { color: #B84A62; font-weight: bold; }
-

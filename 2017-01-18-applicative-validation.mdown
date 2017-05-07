@@ -1,4 +1,0 @@
----
-title: Applicative II: Validation
-tags: Haskell
----

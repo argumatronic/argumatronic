@@ -46,6 +46,8 @@ For what it's worth, I don't think someone is going to punch me at BayHac, becau
 
 I'm not naming names here because it isn't a question of getting rid of this *one guy* or that *one bro* and then everything will be cool. The list of names of everyone who has attacked me, publicly or privately and very often solely because of their opinions of my coauthor, would be very long, and probably most of them are not bad people deep down. But I ask myself every day if the project of bringing new people into this community is a good thing to be doing. 
 
+In one of my periodic feelings that I should go and be done with it, I tweeted something about quitting Haskell. Several months later, a friend made a comment about how when he saw that, he felt sad about the self-perpetuating monoculture in programming. If there is such a monoculture and you do think it's a problem, then you should be asking yourself what behaviors and mechanisms perpetuate it and try to stop participating in them. That includes attacking people on Twitter whom you don't even know just because they're associated with someone you don't like. 
+
 I persist at Haskell because I like Haskell itself, because of the few good, supportive friends I have made here, and because I'm stubborn as all hell. I also have noticed a lot of people really want to learn Haskell, and I like to teach this thing that I love, and if I may be so immodest, I think I'm pretty good at it. 
 
 But when I say I don't feel welcome here, that I don't belong here, that this "community" is *hostile*, this is what I'm talking about. 

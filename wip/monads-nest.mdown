@@ -221,8 +221,3 @@ mkPer name' age' pl' =
   >>= plCheck
 ```
 But that looks a little funny
-
--- clever instance for type f a = (a, a)
--- return a = (a, a)
--- (a, b) >>= f = (fst (f a), snd (f b))
--- puffnfresh
