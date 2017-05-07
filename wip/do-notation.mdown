@@ -33,7 +33,7 @@ J: I find it distracting because there is often more I have to read (or I feel l
 <hr>
 After this [series of tweets](https://twitter.com/chris__martin/status/854480397173800960), I had a bone to pick with Mr. Martin:
 
-J: Is that the book parser you're writing all in do notation?
+J: Is that the book parser you're writing all in `do` notation?
 
 C: Yeah.
 
@@ -214,4 +214,5 @@ C: Surely you've noticed this about learning computer things, though: All the ir
 J: Yessss. You are my distraction enabler. 
 
 <a name="footnote-1">UPDATE: This is no longer true.</a>
+
 <a name="footnote-2">[Context here](https://twitter.com/chris__martin/status/860629420515741697)</a>
