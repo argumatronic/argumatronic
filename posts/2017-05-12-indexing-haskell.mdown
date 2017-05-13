@@ -1,0 +1,38 @@
+---
+title: Indexing Haskell (book)
+tags: Haskell, personal
+---
+
+I am a person who really appreciates a good book index, to the extent that I often wish even fiction were indexed (remember that passage where...? how can I find that again?). A book's index is an important user interface. As you make an index, you should probably be asking yourself very similar questions as when you're writing documentation for a library or designing the UI of your shiny new web app. 
+
+Probably like most people who have never had to index their own (or anyone else's books), I had not given much thought to what makes a good book index. I'm not sure the index for [Haskell Programming from First Principles](http://haskellbook.com/) is *perfect* but over the course of the past few weeks, I have put a lot of thought into making it useful and user-friendly. 
+
+We, unfortunately, had not had the foresight to think about how it would be indexed from the beginning. We had sprinkled a few index tags about, and we were able to fill in a few more via rigorous grepping. I didn't want to release the book with a half-baked index, though, that would render the 1000 pages of work opaque and difficult to reference. So I've spent the past few weeks thinking *a lot* about what makes a good index.
+ 
+I started by thinking about what makes bad ones. So many books have unhelpful indexes. In one of my favorite cookbooks, the recipes are mostly indexed by the name the authors gave them, so to look up how to make that soup, I have to remember whatever they called it, not just "zucchini soup," and unfortunately I never can (I used colored pencils to highlight my favorite recipes in the index, but I shouldn't have had to). Other books seem to point you to just any use of a given term, not necessarily the ones that contain something essential about it. I had a good laugh thinking about indexing *literally every* mention of the `Bool` or `Maybe` type, for example. 
+
+We did try, briefly, at automating the placement of index tags (LaTeX generates the index, but you still have to place the tags telling it to index something), but nothing was very satisfying. Too much, or too little. It was clear I'd have to do most of it by hand, and I planned to do that as I proofread the book. I'm reading it anyway, it should be simple to just put in index tags as necessary, right?
+
+But that wasn't giving me a high-level view of the index as a whole; that came afterwards. I had noticed, for example, that we cover a fair number of GHCi commands and language extensions, but what if you can't remember the name of the thing you're looking for. You remember we covered a GHCi command that shows you what's been evaluated so far (it's `:sprint` and it's a lot of fun, by the way) -- like not being able to remember the name of the zucchini soup, just that it *is* zucchini soup. 
+
+So after I'd gone through the book thoroughly, that's when I really started to think about the index as the user interface. How would someone who has read the whole book but wants to refer back to something use the index? How would a reader who has just picked it up and maybe only read a chapter or two use it? What kinds of information would people want to know about the book that the index could reveal even if they hadn't read any at all? Are there ways, even, that the Haskell book index could help the book serve as *documentation* for the language and community? This last one seemed like maybe too much to ask, but...I aim high.
+
+The first chore was just getting the important words and terms indexed, and cross-indexed in case you can't remember the exact term you're trying to look up. Can't remember the word "sectioning" or never even knew that word, as many Haskellers do not? You can find it under "infix operator".
+
+We'd made a point to explain GHCi error messages very thoroughly at various points in the book, so it seemed like a good move to index some of those. If you get the actual type did not match expected type and can't remember which is which, that's indexed, and the index points at places where we actually explain what that message is telling you. Always wondered why you get a "No instance for Show" when you apply a function to too few arguments -- that answer is now easy to find!
+
+Heck we even stuck a definition of API (because I didn't know what that meant when we started writing the book, and sometimes I still feel like it's a sort of vague term) in there, and you can find it easily via the index.
+
+The next most obvious thing was doing the GHCi commands. 
+
+stack commands
+
+
+language extensions, pragmas, keywords 
+
+at the last minute, i decided to use "library" as an index term. there are a few libraries we really delved into -- libraries like quickcheck, hspec, and checkers we use in depth. the data structures chapter has good introductions to criterion, containers, and vector. those might seem reasonably obvious. but did you know that we have *a lot* of detail scotty, network, random, trifecta, aeson, and sqlite-simple and use three of those in complete projects? (we don't have a real end-to-end web app in scotty in the book -- or, sorta, but not quite; but we have a perhaps TMI investigation of scotty's transformer stacks in the monad transformers chapter, though). there's a small networking/database project in the final chapter. 
+
+it's funny because people see that we start with lambda calculus or think that the "first principles" in the title means that it's going to be all esoteric math -- nope! writing SQL queries is, imo, pretty far from category theory! the thing about the lambda calculus and the math (limited) -- the "first princples" -- is we want you to *understand* what you're doing -- maybe not right now, but the information is still there when you need it. lots of people end up going back to the typeclasses chapter or to the Functor chapter later on to understand it *deeper*. Hell sometimes not even I can remember all the information that book contains, so the index is for me too!
+
+
+
