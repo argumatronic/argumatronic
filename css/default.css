@@ -63,10 +63,10 @@ code {
     font-weight: 600;
 }
 
-.main--container {
+/*.main--container {
     display: flex;
     flex-direction: column;
-}
+}*/
 
 /*header with wow look at that gradient*/
 .main--header {
@@ -258,6 +258,7 @@ div.sourceCode {
 }
 
 pre.sourceCode {
+    overflow-x: auto;
     padding: 3px 10px 3px 10px;
     background-color: #422f41;
 }
