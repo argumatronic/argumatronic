@@ -1,0 +1,24 @@
+julie's post on conjunctive vs disjunctive monoids
+
+λ> import Control.Applicative
+
+λ> (ZipList [(+1), (*3)]) <*> (ZipList [4, 5])
+ZipList {getZipList = [5,15]}
+it :: Num b => ZipList b
+
+λ> (ZipList [(+1), (*3)]) <*> (ZipList [])
+ZipList {getZipList = []}
+it :: Num b => ZipList b
+
+λ> :t zip
+zip :: [a] -> [b] -> [(a, b)]
+
+λ> zip [1, 2, 3] []
+[]
+it :: Num a => [(a, b)]
+
+
+move this to the post about monad:
+
+λ> :type (>>=) @Maybe
+(>>=) @Maybe :: Maybe a -> (a -> Maybe b) -> Maybe b
