@@ -1,4 +1,86 @@
-julie's post on conjunctive vs disjunctive monoids
+---
+title: Monoid patterns
+tags: Haskell, monoids, typeclasses
+---
+
+I am by no means an expert on Boolean algebra, set theory, or type theory, but I have been known to go around talking about monoids being conjunctive or disjunctive, and I have been asked to explain myself. 
+
+When I first learned about the `Monoid` typeclass in Haskell, it struck me that most types admit multiple instances. In many cases, the Haskell standard library has one as the default, possibly with one or more alternates, wrapped in `newtype` wrappers to maintain the one-to-one correspondence of typeclass to named type. It further struck me that, although we typically use different operators (defined in the `Num` typeclass, rather than `Monoid`) for the monoidal operations over (most? I don't know) numeric types, the other `Monoid` instances all follow that same basic pattern -- add or multiply, `all` or `any`, concatenate or zip. 
+
+I'm going to try not to get too much into theory in this post. Instead, I'll try to highlight the connections between these things as I saw them. We'll start with some basic facts about Boolean algebra.
+
+## Boolean algebra
+
+I'm going to go ahead and long-quote this definition of a Boolean algebra, for reference:
+
+> A Boolean algebra (BA) is a set A together with binary operations + and · and a unary operation −, and elements 0, 1 of A such that the following laws hold: commutative and associative laws for addition and multiplication, distributive laws both for multiplication over addition and for addition over multiplication, and [some special laws, elided]
+
+
+So, a Boolean algebra is an algebraic structure, like monoid, but one that has *two* binary associatve operations with identity values, represented by the operators that we may recognize as addition and multiplication operators, respectively. These operations are also known to be commutative, but neither commutativity nor associativity is going to concern us much in this post. Those identity values sure will, though.
+
+As a quick refresher, the Boolean truth tables for conjunction and disjunction look like this:<a name="footnote-mark-1" href="#footnote-1"><sup>1</sup></a>
+
+- conjunction 
+
+|       | False | True  |
+|-------|-------|-------|
+| False | False | False |
+| True  | False | True  |
+
+- disjunction
+
+|       | False | True  |
+|-------|-------|-------|
+| False | False | True  |
+| True  | True  | True  |
+
+
+When we talk about the identity value for these operations, we recall that something is an identity value if it doesn't change the other value when combined with it, the way adding zero to any number never changes that number. So, for Boolean conjunction, the identity is True: combining True with any other value gives you back that value. If you combine a True with a True, you get True; combine it with a False and get False. For disjunction, the identity is False; whatever you combine False with, you'll get back that other value. 
+
+This corresponds to the Boolean operators `all` and `any`, by the way, and also to the Boolean monoids, frequently called by their newtype wrappers, `All` and `Any` (to do these in your REPL, you'd need to import Data.Monoid to have the types in scope):
+
+```haskell
+λ> All False <> All True
+All {getAll = False}
+it :: All
+
+λ> Any False <> Any True
+Any {getAny = True}
+it :: Any
+```
+
+
+
+# But what if it's `Maybe`?
+
+- conjunction 
+
+|         | Nothing | Just a  |
+|---------|---------|---------|
+| Nothing | Nothing | Nothing |
+| Just a  | Nothing | Just a  |
+
+- the `Just a` could be a choice of one or a combination of the two `a` values
+- error propagating: possibly this isn't what you want
+- but it is what you get in the `Maybe` applicative!
+
+```haskell
+λ> Just (*8) <*> Nothing
+Nothing
+```
+
+- disjunction
+
+|         | Nothing | Just a  |
+|---------|---------|---------|
+| Nothing | Nothing | Just a  |
+| Just a  | Just a  | Just a  |
+
+
+
+
+
+
 
 λ> import Control.Applicative
 
@@ -22,3 +104,4 @@ move this to the post about monad:
 
 λ> :type (>>=) @Maybe
 (>>=) @Maybe :: Maybe a -> (a -> Maybe b) -> Maybe b
+<a name="footnote-1" href="#footnote-mark-1"><sup>1</sup></a> For our present purposes, we don't need to think about exclusive disjunction (`xor`), although when you look at *types* as a monoidal category, sum types themselves seem to represent exclusive disjunction, not inclusive. 

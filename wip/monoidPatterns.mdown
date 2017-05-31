@@ -261,3 +261,35 @@ Seems not tho
 That's why we have Alternative
 For parsing you do often want error correcting yes?
 But idk maybe not other times
+
+
+-- Maybe Monoid
+
+-- -- default
+-- mappend (<>) :: m -> m -> m
+-- Nothing <> Nothing = Nothing
+-- Nothing <> Just a  = Just a
+-- Just a  <> Nothing = Just a
+-- Just a  <> Just b  = Just (a <> b)
+
+-- Maybe Applicative
+
+-- <*> :: f (a -> b) -> f a -> f b
+-- Nothing <*> Nothing = Nothing
+-- Nothing <*> Just value  = Nothing
+-- Just func  <*> Nothing = Nothing 
+-- Just func  <*> Just value  = Just (func value)
+
+-- Boolean disjunction
+
+-- False || False = False 
+-- False || True = True
+-- True || False = True
+-- True || True = True 
+
+-- Boolean conjunction
+
+-- False && False = False 
+-- False && True = False
+-- True && False = False
+-- True && True = True
