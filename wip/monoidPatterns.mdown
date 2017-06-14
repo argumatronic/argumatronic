@@ -1,6 +1,35 @@
 ## Disjunctive monoids
 
-Monoids aren't only about *combining* things; sometimes they're about *choosing* one or the other. Since we think of canonical monoids such as addition, multiplication, and list concatenation, we develop an intuition for monoids as being primarily about *combining* two values into one. It might be more helpful to think of them as instead *merging* or *uniting* two values into one, although maybe plain English just isn't going to do justice to it.
+We tend to talk about monoids as if they are about *combining* things, perhaps because of intuition developed from the canonical monoids such as addition, multiplication, and list concatenation. Often, however, they're about *choosing* one or the other. It might be more helpful to think of them as instead *merging* or *uniting* two values into one, although maybe plain English just isn't going to do justice to it. 
+
+Let's see if we can get a more consistent understanding of monoids by talking about sets and Boolean algebra. This is going to be a bit hand-wavy about some set theory, so if that makes you uncomfortable, sorry. My goal here is to explain it in a way that someone who doesn't know any set theory can still read it. You math folks already have blog posts about this for you.
+
+## Overview  
+
+- Types may be sums types or product types. The cardinality of those types depends on addition or multiplication, respectively. 
+- Sum types are (exclusively) disjunctive: the instantiation of any one of the values of that type means you have a value of that type, i.e., a value of type `Bool` could be True or False, but if it is *neither* or *both*, you do not have a value of that type.  
+- Product types are conjunctive: however many arguments the type is applied to, all must be instantiated before you have a value of that type.  
+- Monoids follow this same pattern: most (all?) types may have monoids of conjunction and monoids of disjunction. We do not, in fact, have all possible `Monoid` instances written in `base`, because some are more intuitive and perhaps useful than others.  
+- There is a relationship between `Monoid` and `Applicative`; to wit, it is monoids that give rise to applicative functors, and every applicative is implicitly relying on a conjunctive monoid for handling the "structure" layer of type constructors.  
+- Conjunctive monoids are error propagating: one False or zero value causes the whole thing to be False or zero.   
+- Disjunctive monoids are error correcting: both inputs (to a binary operation) must be False or zero for the final result to be False or zero. One False/zero input does not result in failure of the other.  
+
+## Boolean algebra and sets
+
+I imagine most programmers, like most philosophy majors, will be familiar with Boolean algebra, at least with the operations of conjunction and disjunction and their associated truth tables. Both conjunction and disjunction are binary associative operations. Commutative, too, but that need not concern us at the moment, and we will not pay much attention to that in this post. Along with their respective identity values, these are monoidal operations over sets -- since there is a pair of monoids, they really form a ring or a group or some shit, assuming the inclusion of a set the operation is defined over, but, again, we needn't concern ourselves with that yet. In Haskell, they are monoidal operations over types, as well as over the set of all types. That last bit might be confusing; we'll get there.
+
+Disjunction is a logical *or* and only returns False when both inputs are False. False, therefore, is its identity value; it's the empty value that doesn't change the other argument. Conjunction, on the other hand, is a logical *and* and its identity value is True. Conjunction can only return True when both inputs are True.
+
+This, at least, is how we describe them when we are dealing with Boolean logic. When we are talking about sets, we instead describe them as *union* and *intersection*. A union of two sets is the disjunction of those sets. It feels weird to call it an "or" of two sets. It's worth noting that the standard Boolean "or" is, however, inclusive -- if you can have *pie or cake*, then you may well choose to have both, despite what your mother may have told you. The identity value of set union is the empty set. The union of two sets is a set containing all the elements of the original two sets, modulo the fact that all the elements in the set have to be unique. It's like list concatenation except you can't have repeated values.
+
+The intersection of two sets are their conjunction, their "and." English doesn't let us down quite so much on that one. The intersection of two sets is the set of only the elements that appear in both sets, not just one or the other. Here, the empty set has an annihilating effect, just as False does in Boolean conjunction or zero has in multiplication. The identity value is the ....gah.
+
+## Disjunction and conjunction of numbers
+
+
+
+
+
 
 One possibility for monoids is that of Boolean conjunction -- this is where list cross-products, multiplication, and the particular Maybe applicative we're looking at up there come in. We can write out a Boolean truth table using Maybe values instead of Bool values and see that the pattern we see in the above are the same:
 
