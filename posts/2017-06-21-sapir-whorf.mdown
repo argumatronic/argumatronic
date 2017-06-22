@@ -1,0 +1,58 @@
+---
+title: Love, monoids, and linguistic determinism
+tags: linguistics, language
+---
+
+It seems a lot of programmers, and I think a lot of non-linguists in general, believe in some version of what is known as the Sapir-Whorf Hypothesis, and people ask me about it a lot, so I thought I'd write something more by way of answer than I am usually able to say on Twitter.
+
+There are roughly two versions of this idea: a weak and a strong. The weaker one we'll call *linguistic relativity* and is the idea that the language you speak influences or affects the thoughts you can think and the ways you can behave; the extent of the limitation or effect is debatable. Many linguists accept some weak version of linguistic relativity.
+
+The stronger version, known as *linguistic determinism*, holds that all of human thoughts and behaviors are determined by the languages we speak. Sapir wrote
+
+> The fact of the matter is that the 'real world' is to a large extent unconsciously built upon the language habits of the group.  
+
+Language is something that exists, in this view, before our experience of the real world, which includes our culture, and then determines how we experience that real world and how we build our cultures. This view does not have wide acceptance among linguists.
+
+An opposing view in linguistics is one we might call the Boas-Jakobson hypothesis, after Franz Boas and Roman Jakobson. The idea here is that the real world and the ways we perceive it, again including our cultures, dictate what we choose to encode in language; whatever we speakers feel we need to express, we will find a way to do so in our language -- or, sometimes, by borrowings or other adaptations. Human language is quite flexible, like our brains, and can expand and adapt to whatever we need them to do for us. As Jakobson said
+
+> Languages differ essentially in what they *must* convey, not in what they *may* convey.
+
+I think Sapir-Whorf is seductive because of the ways most people experience language learning. We experience languages as *a priori* structures that must be learned, not (for many of us) as something we are creating and adapting as we go along. We are forced, in unpleasant writing and rhetoric classes, to fit our thoughts into molds set by some dusty grammarians many years ago. Then we try to learn a second language,<a name="footnote-mark-1" href="#footnote-1"><sup>1</sup></a> which brings the structures of language vividly to our awareness. But how little we realize that the formal version of the language we're learning, especially at first, is but a paltry subset of the ways its native speakers speak.
+
+## Apparently, there is a short treatise on love here
+
+In particular, in learning a new language, one often feels that there are things one cannot express, or certainly not easily -- thoughts one has, behaviors one is accustomed to in one's native tongue that simply do not translate well. To take an example, we Americans tend to use the word *love* to describe many relationships: we love our friends, our families, a movie, sour beers, and our romantic partners. When learning Japanese, we find that their word that translates as the English *love* is only used to describe one of those relationships, and it's weird in Japanese to tell your mom or your best platonic friend, *ai shitemasu.*
+
+It feels like a constraint and a difference in *feeling* but it's not: most English speakers do not feel the same *love* for their moms that they feel for their lovers or their best friends, and we know the difference by context.<a name="footnote-mark-2" href="#footnote-2"><sup>2</sup></a> Japanese speakers also *feel these feelings* but they express them in ways that don't translate directly to the English sentence, "I love you" -- often, in Japan, nonverbally or with subtlety that doesn't translate well to English. The relationships and feelings are similar, but the ways we talk about them are quite different. If language were constraining our thoughts and determining our feelings, we'd expect Japanese parents to *not be able to feel something we could identify as love* for their children, which would be odd.
+
+I say this as someone who is married to and has children with a Japanese citizen and native speaker: he loves his children in the ways one expects from a decent father; he just doesn't ever say it. I, the American mother, say it constantly, and I am profligate with the phrase in my other relationships: I do tell my best friends, my parents, my children, my romantic partners, that I love them; I say it equally about great books, sour beers, and the wonderful city of Paris, for which I might actually feel romantic love, one can never be sure.
+
+All right, but Japanese do view relationships with parents and spouses differently from the ways Americans do. There's a lot more *duty* involved, and maybe this isn't something Americans are comfortable calling *love* (I am, but maybe not everyone). In part, that's why they feel less need to say *I love you*; if you're doing your duty for someone, they should know you love them, so why say it? I'm generalizing broadly here, of course, but thinking about relationships this way is what influences the language use, not the other way round. Americans have the words, certainly, to describe relationships this way, but it isn't typically how we think of them (being a hedonic people rather than a deontological one), so we typically do not talk about them this way. We could, but our culture encourages us to talk about them differently, using words that relate to enjoyment and choice instead of duties. Americans tend to use these words even when talking about their parents, whereas choice and enjoyment are not big considerations in your relationship with your parents in Japan; hence, we are more comfortable using *love* to describe a broad set of relationships that we conceive of as similar whereas the Japanese do not think of them in the same way and so use different words, if they use words for it at all.
+
+The point is that when you rub up against things that are difficult to express in a new language or are expressed very differently from your own, the constraint isn't the language; the constraint is the culture. A native speaker finds the words and the grammar to express anything they need to express. That's how we get poetry and all sorts of wordplay.
+
+## OK, sure, but can you bring this all around to monoids? Because monoids are sort of your deal.
+
+I've often wondered why linguistic determinism seems to appeal so much to programmers in particular. People sometimes argue for imperative and object-oriented programming because they're meant to be models of how people think. It's supposed to be *natural* or closer to human languages and thoughts (n.b., I understand this isn't the only argument that is made in favor of these paradigms), as if the natural language we speak is constraining us to think certain ways (and, apparently, all the world's languages are, in this view, determining our thought patterns in a similar way). Sapir-Whorf also comes up a lot when people describe how crossing over into functional programming in Scala or learning Haskell or Elm changes the way they think about programming.
+
+Perhaps even more than natural languages, programming languages may feel like they exist independent of and prior to our use of them, because of their relationship to the machine; perhaps we feel less able to adapt them to our whims. The computer can be an unforgiving interlocutor.
+
+Yet, someone did make the language, to suit their priorities and express what they wanted to express. Someone had those thoughts and created a way to express them. Programmers do stretch the limits of languages to express things that aren't always *easy* or *natural* in that language, and we judge PLs in part by how expressive they allow us to be.
+
+It is true that calling something out, as Haskell does with monoids and other algebraic structures, makes it easier to talk about them and notice them. It's difficult to talk about things you don't yet have a word for -- although, always, *someone did*. Even if you feel *you* couldn't have, people have figured out these things exist and invented words to talk about them.
+
+Having convenient shorthands (words) for concepts does encourage innovation as well. Jargon is information compression: having one word that describes a complex structure or pattern condenses that information, once we understand the word, into a manageable unit and frees up conceptual space for us to go on and discover new things. Accumulating understanding of math jargon allows us to discuss succinctly math that we already know and save our breath (or ink) and working memory for new things we're just now trying to feel our way around.
+
+We invent names to make it more convenient to think about the things we want to think about and talk about; we invent languages to name and talk about patterns and relationships we care about. We invent the means to say what we want to say. But there is a little feedback loop, a little linguistic relativity here, where the things we have chosen to make easy to express and highly compressible also influence the new things we go on to create.
+
+Learning Haskell seems to change the way you think about programming because without the words (and the machinery of typeclasses, etc.), you may not have had a succinct way of expressing certain patterns that Haskell makes...maybe not *easy*, but at least clear, once you know them. You had other patterns instead that were *easy* to express while [expressing generic monoids was hard](https://joyofhaskell.com/posts/2017-03-15-typeclasses-in-translation.html) due, for example, to a lack of return type polymorphism.
+
+So monoids are a bit like love in that they exist even when we can't easily talk about them. Reality exists, contra Whorf <a name="footnote-mark-3" href="#footnote-3"><sup>3</sup></a>, independent of our ability to talk about such things, see them, or encode them in our programming languages, as a parent's love for their child exists regardless of how we verbally express it, or don't. Languages, whether natural or computer, don't determine what you can think, but they do make some things easier or harder to express and compress. What things they make easy or difficult are a reflection of the priorities of the culture they're part of.
+
+<hr>
+
+<a name="footnote-1" href="#footnote-mark-1"><sup>1</sup></a> I do not mean to include here people who are natively bi- or trilingual; I intend speakers who consciously try to learn a new language, particularly in high school or later.
+
+<a name="footnote-2" href="#footnote-mark-2"><sup>2</sup></a> Although there's ambiguity, too, which is why we are careful about whom we say "I love you" to so that our friends don't misunderstand and think we're inappropriately hitting on them.
+
+<a name="footnote-3" href="#footnote-mark-3"><sup>3</sup></a> In fairness, although I cited Whorf earlier in the post, it's not entirely clear to me that Whorf consistently believed in linguistic determinism. There are Whorf defenders on the internet, of course there are, and I do not need angry emails from them.
