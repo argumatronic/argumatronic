@@ -1,7 +1,7 @@
---
+---
 title: Wannabe Math Girl
 tags: math, books
---
+---
 
 I’ve [talked a little](https://www.youtube.com/watch?v=iuwUUlDfHcw) before, in [various places](https://twitter.com/search?l=&q=math%20from%3Aargumatronic&src=typd&lang=en), about how Haskell made me interested in math again, so I’ve been trying to learn a little math. I’ve talked about [how I consider myself bad at it](http://argumatronic.com/posts/2017-01-28-bad-at-math.html), mostly to remind myself that it’s going to be hard work. It may well be that it is all trivialities and the only problem is the accumulation of trivialities, but I haven’t had a straight math class since, uhm, 1992, ok?
 
@@ -31,11 +31,11 @@ So, now what I do is this: I read two or three books at once that are going to h
 
 At the moment, I am reading:  
 
--- How to Read and Do Proofs by Daniel Solow  
--- Math Girls by Hiroshi Yuki  
--- The Logician and the Engineer (about George Boole and Claude Shannon) by Paul Nahin  
--- A Beginner’s Guide to Mathematical Logic by Raymond Smullyan  
--- Representation and Inference for Natural Language by Blackburn and Bos  
+- *How to Read and Do Proofs* by Daniel Solow  
+- *Math Girls* by Hiroshi Yuki  
+- *The Logician and the Engineer* (about George Boole and Claude Shannon) by Paul Nahin  
+- *Beginner’s Guide to Mathematical Logic* by Raymond Smullyan  
+- *Representation and Inference for Natural Language* by Blackburn and Bos  
 
 
 Not all of these might seem immediately related, and two of them are more in the line of “casual reading” than the others that are more like textbooks. For me, that’s beneficial. Also, that last book has a relationship to linguistics, so that it hooks the math and logic into something I already know and love, and another (the one about Claude Shannon) has a relationship to circuitry, which is something I don’t know super well but also enjoy. These hooks to other things I know about and enjoy are also beneficial for me.
@@ -60,4 +60,4 @@ I have an impulse to distract myself from the mental pain of feeling stupid by c
 
 Yeah, so, this is how I’m teaching myself math lately, and it’s been fun and awesome and I’m starting to like math again, which I wasn’t sure would ever happen. My confidence is gradually building, and writing Joy is becoming a real … joy. Sorry. I’ll get a thesaurus.
 
-Anyhow, blogging about it like this is probably also helping me to think clearly about what I am doing, even though it’s embarrassing as heck to admit that I have these problems in public. I’m planning to write a review of *How to Read and Do Proofs* when I finish it, but for now if you are interested in reading and writing proofs, I’d say I recommend it.
+Anyhow, blogging about it like this is probably also helping me to think clearly about what I am doing, even though it’s embarrassing as heck to admit that I have these problems in public. I’m planning to write [a review of *How to Read and Do Proofs*](http://argumatronic.com/posts/2017-08-29-proofs-book-review.html) when I finish it, but for now if you are interested in reading and writing proofs, I’d say I recommend it.
