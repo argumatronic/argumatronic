@@ -3,6 +3,24 @@ title: Monoid patterns
 tags: Haskell, monoids, typeclasses
 ---
 
+### Hey, girl, are you gonna make this, too, about monoids?
+
+## Yes. Yes, I am.
+
+The thing I passionately talk about to anyone who will listen is the algebraic structure known as *monoid.* Monoids are important to me for several reasons, mostly because writing about the `Monoid` typeclass is what finally made me feel like I was *really getting* Haskell itself. `Monoid` helped me understand why Haskell has typeclasses, to approximate algebraic structures. 
+
+It helped me understand types and polymorphism better; most concrete types have more than one possible monoidal operation -- variations on Boolean disjunction/conjunction; set unions and intersections; addition and multiplication -- but at the type level the monoidal operation looks like this:
+
+```haskell
+<> :: Monoid a => a -> a -> a
+```
+
+What we can know about `a` is only that it is a type that has (at least one) binary associative operation over it and an identity value. That is, it forms *a monoid*, the algebraic structure, by being a set with such an operation. Generally, there will be two standard implementations for this; for some concrete types, there may be more. I like to call this the *polymorphism stack*; parametric polymorphism means there are fewer possible implementations for a given type signature, while concrete types means fewer possibilities for type of input but more possible implementations. Constrained polymorphism, as in the above, is in the middle. 
+
+And this understanding of monoids as algebraic structures led to a coherent understanding of the monoidal ecosystem in Haskell. Applicatives are monoidal functors. Monads, too, have a monoidal quality to them, although it's harder to see. The `Alternative` typeclass: more monoids. Same with `MonadPlus`. Folds are also monoidal in nature, although this also can be hard to see when you look at the type signatures for `foldr` and `foldl`. But the idea that I could understand *all of this* from the foundation of knowing a little Boolean algebra and a little about sets astonished me. 
+
+...
+
 I am by no means an expert on Boolean algebra, set theory, or type theory, but I have been known to go around talking about monoids being conjunctive or disjunctive, and I have been asked to explain myself. 
 
 When I first learned about the `Monoid` typeclass in Haskell, it struck me that most types admit multiple instances. In many cases, the Haskell standard library has one as the default, possibly with one or more alternates, wrapped in `newtype` wrappers to maintain the one-to-one correspondence of typeclass to named type. It further struck me that, although we typically use different operators (defined in the `Num` typeclass, rather than `Monoid`) for the monoidal operations over (most? I don't know) numeric types, the other `Monoid` instances all follow that same basic pattern -- add or multiply, `all` or `any`, concatenate or zip. 
