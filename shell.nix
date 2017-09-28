@@ -1,9 +1,9 @@
 { pkgs ? import <nixpkgs> {}, ghc ? pkgs.ghc }:
 
 pkgs.haskell.lib.buildStackProject {
-  name = "joyofhaskell.com";
+  name = "argumatronic.com";
   inherit ghc;
-  buildInputs = with pkgs; [ zlib ];
+  buildInputs = with pkgs; [ zlib rsync openssh ];
   LANG = "en_US.UTF-8";
   TMPDIR = "/tmp";
 }
