@@ -23,7 +23,7 @@ import Hakyll
 --------------------------------------------------------------------------------
 config :: Configuration
 config = defaultConfiguration
-         { deployCommand = "rsync -avz -e 'ssh -i ~/.ssh/freya.pem' ./_site/ ubuntu@argumatronic.com:/var/www/argumatronic/" }
+         { deployCommand = "rsync -avz -e 'ssh -i ~/.ssh/dedekind.pem' ./_site/ ubuntu@54.218.88.3:/var/www/argumatronic/" }
 -- deployCommand = "./bin/deploy.sh" -- this would be better ?
 
 -- configuration for rss feed
