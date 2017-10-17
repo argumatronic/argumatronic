@@ -1,6 +1,6 @@
 ---
 title: Applicative and Monad
-tags: Haskell, Applicative, Monad, beginner, typeclasses, parsing
+tags: Haskell, Applicative, Monad, beginner-friendly, parsing, talks
 ---
 
 I presented this workshop at LambdaConf Winter Retreat in January 2017. The first hour or so is an overview of the `Applicative` and `Monad` typeclasses in Haskell: what they are and how they are different from each other. It includes a demonstration of `AccValidation` and why that type does not have a `Monad` instance. It also covers usage of `ApplicativeDo`. 
