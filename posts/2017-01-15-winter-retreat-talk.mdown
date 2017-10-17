@@ -1,0 +1,23 @@
+---
+title: Applicative and Monad
+tags: Haskell, Applicative, Monad, beginner, typeclasses, parsing
+---
+
+I presented this workshop at LambdaConf Winter Retreat in January 2017. The first hour or so is an overview of the `Applicative` and `Monad` typeclasses in Haskell: what they are and how they are different from each other. It includes a demonstration of `AccValidation` and why that type does not have a `Monad` instance. It also covers usage of `ApplicativeDo`. 
+
+The second portion of the talk (roughly the second half) covers building an command-line parsing application using the `optparse-applicative` library. 
+
+The code and slides are all [available here](https://github.com/GinBaby/applicatives).
+
+Video of the talk:
+
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/htA9-QDCTA0?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+<br />
+<br />
+<hr>
+<br />
+
+
+
