@@ -1,0 +1,30 @@
+---
+title: The Pickled Onion Problem
+tags: community, teaching, complaints
+---
+
+When I was in university, there was a food drive. Cardboard boxes were placed around campus and students and faculty were encouraged to bring nonperishable foods and leave them in the boxes, and someone would take them to the food banks to distribute to the needy. 
+
+Someone left some pickled onions in one of the boxes. Yeah, like the kind of thing you put in martinis; they're not really, in some senses, *food*. A friend of mine spotted them and made a comment about it on his show on college radio and there was a bit of a brouhaha about it. 
+
+The thing is, food banks experience this all the time: people donating "food" no one wants to eat, or boxes and boxes of canned corn and nothing else. Many charities experience similar: there's a hurricane and everyone wants to send in their used socks and moth-eaten baby clothes regardless of what the people in need *need*.
+
+<hr>
+
+Experienced programmers frequently urge other programmers, especially beginners and junior devs, to ask more questions. Typically, they attribute unwillingness to ask questions to fear -- fear of looking stupid in front of someone more experienced, most commonly. 
+
+I am [on record](https://twitter.com/argumatronic/status/895399846613573632) as disliking this kind of discourse. It's a self-aggrandizing narrative to assume that someone who doesn't do what you do *must be fearful* (because, look, it means you're the brave one). But, in fairness, there are different kinds of fears. 
+
+I have been yelled at (literally, in some cases) by programmers for not asking good enough questions, for not framing the question correctly, for not providing enough code for the question to be answerable, for not knowing the right terminology so that my question could be precise, and so on. That's why I wrote [this](/posts/2016-08-11-asking-questions.html), essentially saying, "ask, but be careful how." 
+
+But that isn't my real fear.
+
+The reason I do not ask questions on Stack Overflow or IRC or Reddit is different -- fear, if you like, of having my time wasted and being left in greater confusion than I started off in. And I think that if you, well-intentioned as you are, want to really encourage beginners to ask more questions and seek help, you need to look around and see how many programmers are leaving pickled onions in the food drive boxes. 
+
+I think the most common pickled-onion answer I see is not people being overly rude or condescending -- it's people just answering whatever question they wish was asked. Maybe they didn't read it carefully; maybe it wasn't a well formed question; maybe they just felt like talking about this tangentially related thing. 
+
+To be fair, we might get this in Haskell more than in some communities. The Haskell subreddit has really improved, and I hear the IRC channels have, too, but it used to be that you'd ask what you thought was a reasonable beginner question and someone would tell you to start by looking into [Generics](https://hackage.haskell.org/package/base-4.10.0.0/docs/GHC-Generics.html) or maybe read some Saunders Mac Lane and then all would become clear to you. And you hate to be rude because this person took some of their valuable time to try to help you but you don't know what just happened and you still don't have an answer to your question. 
+
+Programmers are, in some sense, trying to do *charity* by helping the poor lost souls who have turned to the internet in a time of need. And so it feels bad to criticize them for doing it badly, like it feels bad to tell people not to send their moth-eaten baby clothes to the Puerto Ricans who have no power or clean water. 
+
+But contributing "help" like that imposes costs: it costs the food bank (or someone) to shuffle those pickled onions around and ends up doing no one any good. And sorting through the pickled-onion answers imposes costs on the learner, too. 

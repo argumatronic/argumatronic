@@ -1,0 +1,16 @@
+---
+title: A Monoid for All Seasons
+tags: Haskell, beginner-friendly, talks, monoids
+---
+
+In this keynote at Haskell Exchange 2017, I decided to tell people why I love monoids so much. Before I started learning Haskell, I'd never heard the word "monoid" and didn't know what *an algebra* meant. But I recognized a pattern when I learned about the `Monoid` typeclass, a pattern of conjunction and disjunction, that pervades Haskell and all its monoids, including the type system. 
+
+I recognized the pattern from some common, well-known examples: arithmetic, Boolean arithmetic, and set theory. Understanding the pattern helped me see connections all through Haskell and mathematics. 
+
+Near the end of the talk, I go briefly into category theory, the way I was first introduced to category theory and try to explain that sums and products are deeply connected, which validates our intuitions about their connections that we've seen through concrete examples. 
+
+There is some Haskell code, and I don't explain much about what typeclasses are for, so some basic Haskell knowledge is assumed. 
+
+Slides are [available here](https://docs.google.com/presentation/d/1_sD9a5-u3urGbJPuxebBQXrDtoqvKlEII3brnm0ZWb0/edit?usp=sharing).
+
+Video is [here](https://skillsmatter.com/skillscasts/10522-keynote-a-monoid-for-all-seasons). Perhaps someday we'll get it embedded here. 

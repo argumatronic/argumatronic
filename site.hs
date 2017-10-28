@@ -134,7 +134,7 @@ indexCompiler :: Compiler (Item String)
 indexCompiler = do
    posts <- recentFirst =<< loadAll "posts/*"
    let indexCtx =
-           listField "posts" postCtx (return posts)
+           listField "posts" postCtx (return (take 10 posts))
            <> constField "title" ""
            <> defaultContext
    getResourceBody
