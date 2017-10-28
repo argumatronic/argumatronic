@@ -1,0 +1,24 @@
+---
+title: Constructive pedagogy
+tags: Haskell, ideas, teaching
+---
+
+I mentioned the other day on Twitter that I have had a new idea for a Haskell beginner's book. 
+
+There were a lot of things that bothered me during the writing of Haskell book, itches I didn't get to scratch. I'm a person with a need to *understand* things, so I kept reading and pursuing those curiosities down a lot of winding garden paths until I felt I had reached better understanding. 
+
+I came around to the belief that a lot of the confusion I was having was related to just a couple of issues, and that most of those come about from the understandable urge to make Haskell seem *normal* to people who know other programming languages. We start doing things with strings and lists right off the bat (despite the fact that many of the `Prelude` functions for lists are partial functions and thus *unsafe*, which seems contradictory to our desire to get people to use Haskell because it's safer and more correct). We have people write fibonacci and factorial functions to understand recursion; we then get into `map` and folds and other standard library functions that have recursion built in. 
+
+And then, from that foundation, then we go on to teach `Functor` by saying `fmap` is a generalization of `map` -- which seems (to me at least) to imply a recursive nature to `fmap` that isn't there, that makes people think about containers (like lists) when they think and talk about functors.
+
+All of this is actually a lot of novelty -- potential infinities, nonstrictness and bottom, typeclasses, algebraic operations with odd names like functors, and ... why do we even want to generalize this thing, what does that give us? And we tend to present all this *together*, as if typeclasses were just a regular way of doing things and didn't need their own justification.  
+
+And I think in that urge to make Haskell not seem like a radical novelty (although there are languages more radical than Haskell), we try to pretend that thinking about abstractions and infinities is the normal way people think. 
+
+So, what I wanted to do is separate some novelties from other novelties and take them one by one. You can learn what a functor is without learning about `map` or about typeclasses. Then later you can combine an understanding of typeclasses and an understanding of functors and see what a `Functor` typeclass constraint, for example, on a function buys us. 
+
+One of the things we like about Haskell is the ability to destructure a problem into relatively small portions that we can reason about individually and then compose them predictably into a larger program. Yet we (and I do mean to include myself) don't usually teach Haskell that way; we teach by *refinement* rather than *construction*.
+
+Anyway, so I had an idea for how to do this as a book, or perhaps a series of short books, that would motivate and explain the novelties of Haskell somewhat independently from other novelties. I do not know if this is a good idea or if it will be broadly appealing to other people, but I do know I've learned a ton just thinking about it and writing an outline of how to do it.
+
+And I did manage to sell Chris Martin on the idea and now we're starting to structure this into a series of video courses (which may, if it goes well, turn into the book(s) I originally envisioned). 

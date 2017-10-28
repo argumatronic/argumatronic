@@ -14,3 +14,8 @@ There is some Haskell code, and I don't explain much about what typeclasses are 
 Slides are [available here](https://docs.google.com/presentation/d/1_sD9a5-u3urGbJPuxebBQXrDtoqvKlEII3brnm0ZWb0/edit?usp=sharing).
 
 Video is [here](https://skillsmatter.com/skillscasts/10522-keynote-a-monoid-for-all-seasons). Perhaps someday we'll get it embedded here. 
+
+<div style="text-align: center;">
+<iframe allowfullscreen="" data-progress="true" frameborder="0" height="390" id="vimeo-player" mozallowfullscreen="" src="//player.vimeo.com/video/238050430?api=1&amp;title=0" webkitallowfullscreen="" width="640"></iframe>
+</div>
+<br />
