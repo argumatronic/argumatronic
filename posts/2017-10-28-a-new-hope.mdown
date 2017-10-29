@@ -9,7 +9,7 @@ There were a lot of things that bothered me during the writing of Haskell book, 
 
 I came around to the belief that a lot of the confusion I was having was related to just a couple of issues, and that most of those come about from the understandable urge to make Haskell seem *normal* to people who know other programming languages. We start doing things with strings and lists right off the bat (despite the fact that many of the `Prelude` functions for lists are partial functions and thus *unsafe*, which seems contradictory to our desire to get people to use Haskell because it's safer and more correct). We have people write fibonacci and factorial functions to understand recursion; we then get into `map` and folds and other standard library functions that have recursion built in. 
 
-And then, from that foundation, then we go on to teach `Functor` by saying `fmap` is a generalization of `map` -- which seems (to me at least) to imply a recursive nature to `fmap` that isn't there, that makes people think about containers (like lists) when they think and talk about functors.
+From that foundation, then we go on to teach `Functor` by saying `fmap` is a generalization of `map` -- which seems (to me at least) to imply a recursive nature to `fmap` that isn't there, that makes people think about containers (like lists) when they think and talk about functors.
 
 All of this is actually a lot of novelty -- potential infinities, nonstrictness and bottom, typeclasses, algebraic operations with odd names like functors, and ... why do we even want to generalize this thing, what does that give us? And we tend to present all this *together*, as if typeclasses were just a regular way of doing things and didn't need their own justification.  
 
