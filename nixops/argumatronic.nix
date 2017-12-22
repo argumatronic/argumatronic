@@ -6,7 +6,7 @@
     { 
     	networking = {
   			firewall = {
-    			allowedTCPPorts = [ 80 ];
+    			allowedTCPPorts = [ 80 443 ];
   			};
 		};
     	services = {
@@ -15,6 +15,8 @@
 		    user = "julie";
 		    virtualHosts = {
 		      "argumatronic.com" = {
+		      	enableACME = true; # SSL should auto renew
+		      	forceSSL = true;
 		        locations = {
 		          "/" = {
 		            root = "/home/julie/argumatronic";

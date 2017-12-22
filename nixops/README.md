@@ -12,4 +12,14 @@ created deployment ‘18869063-c0e2-11e7-a6e5-507b9d44d4c4’
 [julie@dolores:~/argumatronic/nixops]$ ls ~/.nixops
 deployments.nixops --sqlite database!
 
-[julie@dolores:~/argumatronic/nixops]$ nixops list
+[julie@dolores:~/argumatronic/nixops]$ nixops list -- lets you see list of the deployments you have 
+
+nixops destroy then nixops delete i think deletes them from your database, should you mess up!
+
+add ports to security group; 443 for https:
+
+networking = {
+  firewall = {
+    allowedTCPPorts = [ 80 ];
+  };
+};
