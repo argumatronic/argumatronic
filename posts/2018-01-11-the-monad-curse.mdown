@@ -23,14 +23,33 @@ This datatype says that a value of type `Maybe a` is constructed by applying `Ma
 
 Functions have type signatures in Haskell; they should be written down (I will be sternly prescriptive about this), but they may also be inferred by the GHC compiler's rather powerful type inference system. We can tell a lot of things about a function from reading its type signature, and I will annotate the signatures in the code that follows.
 
-The final thing I want to say up front about Haskell is about what we call `case` expressions. I personally find the syntax slightly awkward but they are quite common in Haskell and, in my experience, many people who already know other programming languages find them fairly readable, so it's what I'll be using here.
 
-# Let's Validate some Passwords!
+# Let's Validate some User Input!
+
+For the purposes of our example, let's say we have a need to validate some passwords, surely the most exciting programming task we can imagine for ourselves today. We'll start by picking some dimensions along which we will validate passwords that our users have input.
+
+We're going to use what we call `case` expressions here. I personally find the syntax slightly awkward but they are common in Haskell and, in my experience, many people who already know other programming languages find them fairly readable, so it's what I'll be using here.
+
+
+
+
+
+# That Nesting Instinct
+
+
 
 # Got a Sequential Series of Computations where each new one depends on the successful result of the one before it? Hey, use >>=!
 
 # >>= is monadic
 
+An algebra is a set together with some operation(s) that can be defined over that set. In this case, `>>=` is the symbol for an operation that can be defined over many (not all) sets (or types). This operation acts like a pipeline to allow us to compose other computations directly, rather than having to nest them as we did with the `case` expressions.
+
+Sometimes Haskellers use the word *monad* to refer to this operation; often they use it to refer to the type, such as `Maybe`, that constitutes the set in this algebra.
+
+Reasoning algebraically about code.
+
+
+
 # Why do Haskellers care so much about this?
 
-I'm not going to go too much into typeclasses here, how they work and how we leverage them to good effect in Haskell. So what else can we say about this? That by recognizing a common pattern and giving it a name, we can gain some intuition about other times we might see it and what to expect when we use them. In particular, Haskelllers like the opportunity to reason algebraically about things -- reasoning about code in terms of sets (types) and operations we can define over those sets without having to think too much about the persnickety details of each and every set that we could ever make. Can this type that we have here be used in sequential computations where the performance of the next computation depends in some way on the result of the one before it? Cool, you might have a monad then and recognizing that might give you some extra power to reason about and understand and predict what your code will do. 
+I'm not going to go too much into typeclasses here, how they work and how we leverage them to good effect in Haskell. So what else can we say about this? That by recognizing a common pattern and giving it a name, we can gain some intuition about other times we might see it and what to expect when we use them. In particular, Haskelllers like the opportunity to reason algebraically about things -- reasoning about code in terms of sets (types) and operations we can define over those sets without having to think too much about the persnickety details of each and every set that we could ever make. Can this type that we have here be used in sequential computations where the performance of the next computation depends in some way on the result of the one before it? Cool, you might have a monad then and recognizing that might give you some extra power to reason about and understand and predict what your code will do.
