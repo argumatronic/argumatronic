@@ -23,7 +23,7 @@ import Hakyll
 --------------------------------------------------------------------------------
 config :: Configuration
 config = defaultConfiguration
-         { deployCommand = "rsync -avz -e 'ssh -i ~/.ssh/freya.pem' ./_site/ ubuntu@argumatronic.com:/var/www/argumatronic/" }
+         { deployCommand = "rsync --verbose --recursive --compress --rsh 'ssh -i ~/.ssh/id_rsa' ./_site/ julie@54.226.89.11:/home/julie/argumatronic/" }
 -- deployCommand = "./bin/deploy.sh" -- this would be better ?
 
 -- configuration for rss feed
@@ -32,7 +32,7 @@ feedConfig = FeedConfiguration
      { feedTitle       = "argumatronic"
      , feedDescription = "FP/Haskell blog"
      , feedAuthorName  = "Julie Moronuki"
-     , feedAuthorEmail = "srs_haskell_cat@aol.com"
+     , feedAuthorEmail = "argumatron@gmail.com"
      , feedRoot        = "http://argumatronic.com/"
      }
 
@@ -134,7 +134,7 @@ indexCompiler :: Compiler (Item String)
 indexCompiler = do
    posts <- recentFirst =<< loadAll "posts/*"
    let indexCtx =
-           listField "posts" postCtx (return posts)
+           listField "posts" postCtx (return (take 10 posts))
            <> constField "title" ""
            <> defaultContext
    getResourceBody

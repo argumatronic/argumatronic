@@ -1,0 +1,22 @@
+---
+title: Book Report: How to Read and Do Proofs
+tags: math, books
+---
+
+> Synopsis: *How to Read and Do Proofs* (first edition) is a short introduction to the process of reading and writing mathematical proofs. It illustrates each concept through examples and exercises (with solutions). Recommended as a quick introduction or review to people who want to understand computer science white papers better or as a starting point to learning math/logic after some time away from it.
+
+I find that lately I read a lot of white papers. While these are mostly about programming (usually Haskell, sometimes crypto), they often have proofs in them. Sometimes these proofs are reasonably well explained and I can follow them; often they are condensed, in the way that people who are writing for others in their field may condense their writing by using jargon or making assumptions that they know their audience will share. 
+
+These condensed proofs can take quite a bit of practice to read and understand. Often, I don't bother; it may be enough for me to understand the general points and not the full details. But sometimes I want to make sure I understand why something is correct, which means I need to follow the proof more carefully.
+
+I picked up Daniel Solow's *How to Read and Do Proofs* at someone's (probably someone from Twitter, so thank you) recommendation. I noticed when I went to buy it that the newer editions have become much longer and are fairly expensive, as college textbooks (which I assume this is) often are. Since I doubted that a) I needed as much detail as the longer versions might have added and b) math proofs are probably not a very rapidly changing technology where I need to be on the cutting edge, I bought a cheap used copy of the first edition.
+
+I should note up front that I am not entirely new to writing proofs. The last time I wrote a *math* proof was probably high school, but I wrote proofs in symbolic logic in college quite a lot. So this book was intended to be a refresher for me. That said, I do think it would work for someone who does not have that prior experience, as it is written clearly and with welcome brevity. It is possible that the longer versions would be more helpful to people with less experience, but I'm not sure.
+
+The thing I liked most about this book was that the author first defines and analyzes a type of proof, say proof by contradiction. Then he chooses an example theorem and gives a long-form proof, with each step in the process explained clearly. After that, he gives a condensed version, and this one looks much more like the ones you're likely to see in white papers, so you can correlate it directly with the longer form proof and see what's being elided and (usually) why.
+
+There were times that I did not understand each step in the proof, particularly when they relied on knowing some fact about, oh, triangles or something. I do not remember most of those facts from my high school math classes, I am sorry to report. A couple of times I felt it was important to me to figure those steps out; usually I ignored those details. Few white papers I am likely to read these days require me to recall specific facts about equilateral triangles, so ignoring these details suited my purposes.  
+
+I do not really need to know how to *write* proofs of my own; however, I always find that it helps you to understand something if you also know how to do it for yourself. The book has a lot of well structured exercises -- and, crucially, the solutions! -- to help you learn to write proofs. Again, for the reasons cited above, I sometimes skipped exercises if completing the proof would require me to know some facts that I do not know and don't need to know right now. But I did enough of them to remind me of how it's done so that some (not all) of the condensed proofs in white papers are less opaque to me now.
+
+I am quite happy I read it. It's helped me become more comfortable both reading [*Math Girls*](http://bentobooks.com/mathgirls/) and also reading white papers and figuring out the proofs when I want to.

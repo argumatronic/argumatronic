@@ -1,0 +1,24 @@
+---
+title: Haskell People
+tags: Haskell
+---
+
+Programming languages seem to have different cultures, or communities, around them. I've noted in the past that there's a distinct difference in the cultures around Ruby (for an example) and Haskell, and [Matt Parsons](https://twitter.com/mattoflambda) summarized it neatly when he said: 
+
+> Ruby community is v good about helping "build thing"; Haskell about "understand thing."
+
+I replied that I think this is to some extent because Haskell is, at its core, a coherent, understandable thing. Many other languages, including Ruby in my experience, have an *ad hoc* character to them -- they were made to make things. They made design decisions based on what seemed useful and pragmatic to their makers and intended audiences. Indeed, I think this really gets to the heart of the difference (where, yes, it's a continuum, not a dichotomy, don't @ me) between the imperative paradigm and functional programming. 
+
+In the video called [*Haskell is Useless*](https://www.youtube.com/watch?v=iSmkqocn0oQ), Simon Peyton Jones talks about how Haskell was created for safety (purity, limiting effects) first, whereas most languages are created to be useful above all. Effectful programming is inherently useful -- that's why we write programs, generally, to be able to affect the state of the world in some way -- but unrestricted arbitrary effects are also quite unsafe, particularly (though not only) when parallelism is involved. He notes in the video that useful languages are trying to move towards increased safety by restricting effects in various ways. Haskell, on the other hand, comes from a completely different idea of programming that emphasized safety first and then moved in the direction of usefulness. 
+
+You can certainly perform effects (and, indeed, you can be quite unsafe) in Haskell, but the type system enables a clean separation of concerns, a clean division between "pure" and effectful computations, and allows you to combine those into one program. The type system enforces this to a degree -- I say "to a degree" because you _can_ refuse to play along with this separation of concerns game and put everything inside a giant IO block like an imperative programmer. You probably won't see much point in using Haskell if you keep writing code like that because it doesn't make use of Haskell's particular strengths, but you _can_.
+
+So, the Haskell committee decided to be different from the outset and make a language based on some core ideas without worrying about being immediately useful, which gave it an inherent coherence. This central coherence in Haskell is why a lot of us come to love it. Certainly, as someone who learned Haskell despite having no interest in writing useful programs, that's [what I love about it](http://argumatronic.com/posts/2016-06-17-delicious-currying.html). It also makes it hard and different from other languages, because it feels like you have to know *the whole* before you can really do anything with it. 
+
+This also led to the central difference in culture: Haskell people are helpful with *understand thing* because very often that thing wasn't made for a specific purpose (e.g., monads do not exist for the purpose of performing effects) but is part of an overall system, based on a lambda calculus and set theory and their many improvements and developments (sure, I'm counting category theory as a development in set theory, fite me). 
+
+That system can be understood as a whole, and once you do, your understanding of Haskell will be powerful and allow you to build all the things. But it's frustrating when people from "useful" languages want to know how to *build thing* and we don't tell them that -- we think we're saying, "I will help you understand all this and then you can build the universe," but they hear, "it's impossible to build this thing without knowing category theory." 
+
+You totally can build the thing without understanding the algebraic structures involved, but Haskell culture and its people are really, really into those algebraic structures and we really, really want to tell you about them. We're like that person who needs to tell you their whole psychological history on the first date.
+
+I'm no exception, and the algebraic structure I talk about the most passionately is the *monoid*. In [a recent podcast](https://twitter.com/thefrontside/status/912327851386470400), I talked about how I think understanding *monoid* and *functor* are the key vocabulary needed to understand Haskell as a whole, and I hope this has given some idea of why. And my next talk, at the [Haskell Exchange in London on 12-13 October](https://skillsmatter.com/conferences/8522-haskell-exchange-2017), is called *A Monoid for All Seasons* and is going to go into more detail about Haskell's monoidal ecosystem that I hope will shed some light as well.

@@ -1,0 +1,33 @@
+---
+title: Teaching Haskell for Understanding
+tags: Haskell, community, teaching, talks, beginner-friendly
+---
+
+I was delighted and honored to be asked to speak at [Zurihac 2017](https://zurihac.info/) on the topic of teaching Haskell. Teaching Haskell is something I do a fair bit of, but I struggled with how to turn it into an interesting talk for a general audience. I chose to focus on teaching Haskell the way I like to teach and learn it: for understanding. 
+
+A thing I love about Haskell is that [its core logic is understandable](http://argumatronic.com/posts/2017-09-27-haskell-is-useless.html). But what does it mean to understand something, and is it different from knowing something? I relied on writings from mathematicians such as [Eugenia Cheng](http://eugeniacheng.com/) and [William Thurston](https://blogs.scientificamerican.com/cross-check/how-william-thurston-rip-helped-bring-about-the-death-of-proof/) to relate the differences between knowledge, understanding, and *belief* and I explained some ways to help learners get from knowing that something is true to understanding why and then coming, hopefully, to intuitively grasp it, to fully *own* that knowledge.
+
+Along the way, I argue that the community and culture around a programming language matter a great deal because the priorities and preferences of the people in the community dictates what libraries and tooling are available in the ecosystem, as well as how the community thinks about and values teaching, among other things.
+
+Slides are [available here](https://docs.google.com/presentation/d/1_I5mYXivG5NbOHnICld_Xo41uOyAT57Yade5qfz2toQ/edit?usp=sharing). 
+
+Video is here: 
+
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iuwUUlDfHcw?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+<br />
+
+**References**: 
+
+William Thurston, [Mathematical Education](https://arxiv.org/abs/math/0503081)  
+William Thurston, [On Proof and Progress in Mathematics](http://www.math.toronto.edu/mccann/199/thurston.pdf)  
+Eugenia Cheng, [How to Bake Pi](https://www.amazon.com/How-Bake-Pi-Exploration-Mathematics/dp/0465097677)  
+E. W. Dijkstra, [On the Cruelty of Really Teaching Computer Science](https://www.cs.utexas.edu/~EWD/transcriptions/EWD10xx/EWD1036.html)  
+E. W. Dijkstra, [Craftsman or Scientist?](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD04xx/EWD480.html)  
+William Grosso, [Java and Community Support](https://www.slideshare.net/wgrosso/java-and-community-support-presentation)   
+Tim Humphries, [The Round-trip Property](http://teh.id.au/posts/2017/06/07/round-trip-property/index.html)  
+Lucas Di Cioccio, [The Haskell Pyramid](https://docs.google.com/presentation/d/1bSANLVcGnfVIFjicj81Uo_MYQhsF0FZi_EF-NEKFecE/edit#slide=id.g21ecc886bf_0_64)   
+<br />
+<hr>
+<br />

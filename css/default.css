@@ -46,14 +46,14 @@ body {
 
 
 /*sets colors for links*/
-a:link {
-  color: #55003c;
-}
-a:visited {
-  color: #668a99;
-}
 a:hover {
   color: #aa7f9d;
+}
+a:visited {
+  color: #2c6d3f;
+}
+a:link {
+  color: #55003c;
 }
 
 /*font for inline code*/
@@ -147,7 +147,6 @@ code {
 }
 
 
-/*somehow i need to separate the paragraphs within div.post from the source code within div.post so that text can flex even when there are code blocks*/
 
 
 footer {
