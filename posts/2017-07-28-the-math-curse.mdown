@@ -1,0 +1,62 @@
+---
+title: Wannabe Math Girl
+tags: math
+---
+
+I've talked a little before, in [various](https://www.youtube.com/watch?v=iuwUUlDfHcw) [places](https://twitter.com/search?l=&q=math%20from%3Aargumatronic&src=typd&lang=en), about how Haskell made me interested in math again, so I've been trying to learn a little math. I've talked about [how I consider myself bad at it](http://argumatronic.com/posts/2017-01-28-bad-at-math.html), mostly to remind myself that it's going to be hard work. It may well be that it is all trivialities and the only problem is the accumulation of trivialities, but I haven't had a straight math class since, uhm, 1992, ok?
+
+I did have logic classes as a philosophy major and some of the abstract syntax I did in grad school was very math-like, and then I learned Haskell, so it's not that I haven't done anything *like* math, but there are *a lot* of trivialities that, if I ever accumulated them, have been lost. That was a long sentence; bear with me.
+
+Part of the reason I tell myself now that I am bad at math is because until I was about 15, I was always considered *good at math.* And, indeed, to that point, math always came reasonably easy to me. At trig, [I hit a wall](http://argumatronic.com/posts/2016-08-21-kids-logic-class.html), where it wasn't easy anymore. I had a really bad teacher that year, and I was tearing my hair out. Kinda literally -- I do -- no, scratch that -- I have, in the past, physically hurt myself due to feeling too stupid to do a math problem.
+
+One of my difficulties is that I blame myself for things really easily. When I hit that wall, at the time, I didn't blame my teacher for it. I blamed myself. Math had been easy; this is just more math so **what the hell?** Must be my brain on the fritz.
+
+I'm telling these embarrassing things about myself so that you will know that me trying to learn math again now, in my 40s, is not because it comes easy to me or I am so confident I can do it. But I came up with a kind of process, or system, for doing it that is mostly working. A properly implemented system will set you free, friends.
+
+# Math Buddies
+
+The first absolutely crucial thing for me here is that I am not alone. I have mathy friends. I met them because of Haskell, and they know way more math than maybe I ever will. But that doesn't matter; comparing myself to them (which they never ever do, by the way, and that is important) is a fool's errand. They are patient and kind to me, and they love to talk about math. I highly recommend you find you some.
+
+If I can work up the energy to start using Slack again, and you want to join my little math group, let me know. I am selective about whom I let in; nothing will bring my motivation down like having a condescending jerk in the room.
+
+Oh, and a sort of a corollary: I had to learn to ignore unhelpful randos, especially on Twitter. I used to let it confuse and frustrate me, when they'd tweet something at me that I thought was wrong (whether incorrect or not relevant to what I'd said or the problem I was having) but I wasn't *sure*. Now I just hit that mute button. I feel like it's arrogant of me to do this, but it really comes down to a form of mental self-defense.
+
+# Overlapping materials
+
+This has been the best thing I've learned to do lately. Part of the frustration for me used to be that I felt like I had to understand a thing *perfectly* from this one book, this one explanation, before I could move on. As if there wouldn't be another chance. And so I'd just keep beating my head against it until I got it.
+
+This is such an inefficient method, I am horrified by myself. On the one hand, this got me through writing the Applicative and Monad chapters of [Haskell Book](http://haskellbook.com/) in about two weeks. On the other hand, those were two of the worst weeks of my life. I'm not doing that to myself to write [The Joy of Haskell](https://joyofhaskell.com/).
+
+So, now what I do is this: I read two or three books at once that are going to hit on the same ideas and topics. I try to read a little, even if it's only a few pages, of each every day. That way I feel reassured that if I didn't quite understand something from that one, the next one will (possibly not the same day, they don't overlap perfectly) cover it at some point and then another one might, too, and eventually the different perspectives will help it sink in.
+
+At the moment, I am reading:   
+
+-  How to Read and Do Proofs by Daniel Solow  
+-  Math Girls by Hiroshi Yuki  
+-  The Logician and the Engineer (about George Boole and Claude Shannon) by Paul Nahin  
+-  A Beginner's Guide to Mathematical Logic by Raymond Smullyan  
+-  Representation and Inference for Natural Language by Blackburn and Bos  
+
+Not all of these might seem immediately related, and two of them are more in the line of "casual reading" than the others that are more like textbooks. For me, that's beneficial. Also, that last book has a relationship to linguistics, so that it hooks the math and logic into something I already know and love, and another (the one about Claude Shannon) has a relationship to circuitry, which is something I don't know super well but also enjoy. These hooks to other things I know about and enjoy are also beneficial for me.
+
+This isn't always possible, to find this many books that complement each other. When I was reading How to Bake Pi, I didn't read any other math books at the same time, but that book is gentle and enjoyable enough that I didn't feel such a need to.
+
+These are reinforcing each other on the topics of set theory and its relationship to math and logics; mathematical and logical proofs of varying kinds, both reading and writing them; understanding concepts, such as the distributive property, more deeply; varieties of logic and their relationships to each other; and, importantly, that math is both possible and sometimes enjoyable.
+
+# Pen, paper, notebooks
+
+I cannot stress enough the importance of taking physical notes while you read. For Haskell Book, we stressed that you should physically type all that code into your REPL or a text editor and run it and play with it; people would email us all the time that they had trouble copying and pasting it from the PDF. Alas, you don't get the salutary, add-on effects of muscle memory from copying and pasting. And handwritten notes are the best of all because you are actively trying to condense and synthesize what you just read (or heard) while also using your muscles to reinforce it. And even for Math Girls, I find myself working through some of the algebra on paper to make sure I understand it. I'm not going to passively accept that this works out; I want to know I understand it and can reproduce it myself (all right, sure, fine, sometimes with help!).
+
+# Relax, don't do it
+
+So, most days because of the book choices (and I do supplement with blog posts, usually only if it's been recommended to me by someone whose judgment I trust -- there are a lot of poorly written math blog posts on the internet), I feel confident that I can move past something I don't understand perfectly and get it the next time around. But, well, I still have bad moments. I still have moments when I do not get it at all and I can't move on until I do because it's driving me too crazy.
+
+Sometimes I can productively ask myself, do I need to understand this particular detail to get what I need out of this material? Often the answer is no -- I do not need to deeply understand this property of triangles in order to understand the idea of how to write a proof about it, for example -- and sometimes that allows me to stop worrying and move on. Not always.
+
+I have an impulse to distract myself from the mental pain of feeling stupid by creating some physical pain for my body to react to; it doesn't seem to release those endorphins in response to mental distress but it does for physical stress, so indeed hitting myself provided relief, it's just also... bad. When I'm really stressed I lift weights that are too heavy or go for a barefoot run to induce burning in my muscles and clear my brain. Sometimes I bake really aggressively. Sometimes it's enough to just put the book down and go build something with my kids and pet the dogs and taunt the cats. Whatever it is, I keep reminding myself, this is going to clear your head, it is not a waste of time to take this break.
+
+# The Profound Conclusion
+
+Yeah, so, this is how I'm teaching myself math lately, and it's been fun and awesome and I'm starting to like math again, which I wasn't sure would ever happen. My confidence is gradually building, and writing Joy is becoming a real ... joy. Sorry. I'll get a thesaurus.
+
+Anyhow, blogging about it like this is probably also helping me to think clearly about what I am doing, even though it's embarrassing as heck to admit that I have these problems in public. I'm planning to write a review of How to Read and Do Proofs when I finish it, but for now if you are interested in reading and writing proofs, I'd say I recommend it.
