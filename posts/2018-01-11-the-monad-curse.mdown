@@ -1,0 +1,36 @@
+---
+title: Monad Tutorial
+tags: Haskell, beginner-friendly
+---
+
+> A consequence of the focus on taxonomies in 17th and 18th century was the creation of museums, which present the studied objects neatly organized according to the taxonomy. A computer scientist of such alternative way of thinking might follow similar methods. Rather than finding mathematical abstractions and presenting abstract mathematical structures, she would build (online and interactive?) museums to present typical specimen as they appear in interesting situations in the real-world. -- Tomas Petricek, [Thinking the Unthinkable](http://tomasp.net/blog/2016/thinking-unthinkable/)
+
+I had this idea to enter the monad tutorial fray some time ago, after a conversation with [Ben Lesh](https://twitter.com/BenLesh). Essentially, I aim to present a (maybe only slightly) interesting example of a pattern we see often enough in real-world code, rather than a mathematical abstraction.
+
+I will assume as little knowledge of Haskell (and abstract algebra and category theory) as I possibly can to demonstrate the pattern. In that way, I hope to make the gist of the thing accessible to as many people as possible, and I'd love to hear from you if you think there are things I could add or clarify in order to do so.
+
+# A Few Notes about Haskell
+
+I'm going to hand-wave away very large things about Haskell here in order to focus on the things that matter. Many readers can probably happily skip this section, as I will annotate the code below
+
+The first thing important thing about Haskell is that all data in Haskell is (statically) typed. Types can be constructed out of other types. There are a few ways of doing this, but the way that will concern us here is by applying a type constructor to a type argument -- the same way a function would get applied to an argument and then evaluated. So, we have a type, called `Maybe` that looks like this:
+
+```haskell
+data Maybe a = Nothing | Just a
+```
+
+This datatype says that a value of type `Maybe a` is constructed by applying `Maybe` to another type; `a` is a variable so it could be almost any other type that we apply it to. We could have a `Maybe Integer` or a `Maybe String`, for example. It says that we have *either* a `Nothing` value, in the case where there was no `a` that we could construct a `Maybe a` value from, *or* (this is an exclusive disjunction, or sum type) a `Just a` value, where the `a` has to be the same type as the `a` of `Maybe a`. That is, if we're making a `Maybe String` value then we can either return a `Nothing` (where there is no `String` -- a kind of null or error value) or a `Just <String>`. We use this type very often in cases where we want to validate something and the possibility of not having a value to return from some computation exists -- a `String` might appear, on which we can perform some future computation, or it might not (`Nothing`).
+
+Functions have type signatures in Haskell; they should be written down (I will be sternly prescriptive about this), but they may also be inferred by the GHC compiler's rather powerful type inference system. We can tell a lot of things about a function from reading its type signature, and I will annotate the signatures in the code that follows.
+
+The final thing I want to say up front about Haskell is about what we call `case` expressions. I personally find the syntax slightly awkward but they are quite common in Haskell and, in my experience, many people who already know other programming languages find them fairly readable, so it's what I'll be using here.
+
+# Let's Validate some Passwords!
+
+# Got a Sequential Series of Computations where each new one depends on the successful result of the one before it? Hey, use >>=!
+
+# >>= is monadic
+
+# Why do Haskellers care so much about this?
+
+I'm not going to go too much into typeclasses here, how they work and how we leverage them to good effect in Haskell. So what else can we say about this? That by recognizing a common pattern and giving it a name, we can gain some intuition about other times we might see it and what to expect when we use them. In particular, Haskelllers like the opportunity to reason algebraically about things -- reasoning about code in terms of sets (types) and operations we can define over those sets without having to think too much about the persnickety details of each and every set that we could ever make. Can this type that we have here be used in sequential computations where the performance of the next computation depends in some way on the result of the one before it? Cool, you might have a monad then and recognizing that might give you some extra power to reason about and understand and predict what your code will do. 
