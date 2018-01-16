@@ -1,0 +1,69 @@
+---
+title: Pandoc TOC generation
+tags: Haskell, Hakyll
+---
+
+I've been using [Hakyll](https://jaspervdj.be/hakyll/) for a long time -- ever since I've had this blog (as opposed to any of my old WordPress etc blogs), and I like it a lot, although it's taken a long time for me to feel like I actually understand anything it's doing. I have known for a long time that Hakyll uses [pandoc](https://pandoc.org/) to render markdown files as html, and I have read that pandoc can automatically generate tables of contents from markdown headings. Since some of my posts are very long, I thought this would be a really useful thing to enable for this blog.
+
+However, I also sometimes write short posts without many headings, so I wanted to automatically generate tables of contents only on posts where I needed them and not on all posts by default. It was relatively easy, with some googling for help, of course, to figure out how to enable the TOC geneartion, but it took me some time to figure out how to enable it *only* on certain posts. I thought I should write it down for future me or for anyone else who might want to do the same thing.
+
+I knew from reading the Hakyll docs that what I wanted was a helper function like this to turn on some pandoc options:
+
+```haskell
+withToc :: WriterOptions
+withToc = defaultHakyllWriterOptions
+        { writerTableOfContents = True
+        , writerTOCDepth = 2
+        , writerTemplate = Just "Contents\n$toc$\n$body$"
+        }
+
+```
+That enables the TOC generation all right, but it isn't conditional on having, oh, a certain length or certain types of headings that would generate the TOC, so on every post, even if there were no headings, that *_Contents_* heading was showing up. So the trouble was figuring out how to make it conditional.
+
+In the general post html template, there's a conditional that looks like this:
+
+```html
+<div class="info">
+    $if(author)$
+        by $author$
+    $endif$
+</div>
+```
+
+If an author is listed in the post metadata, then it will put a byline on the rendered post; if that field is missing from the metadata, it does nothing. My first efforts to make the appearance of the TOC were, therefore, centered around that: I added a `withtoc` field to my metadata (that's also where the title and tags go, in their own fields).
+
+After playing around with it directly in the html template, I figured out what the problem was: I hadn't told the post compiler to look for that field in the metadata and know what to do with it.
+
+```haskell
+postCompiler :: Compiler (Item String)
+postCompiler = do
+   tags  <- buildTags postsGlob (fromCapture "tags/*.html")
+   ident <- getUnderlying                                 -- these are the five lines
+   toc   <- getMetadataField ident "withtoc"              -- that I added to this
+   let writerSettings = case toc of                       -- function today
+        Just _ ->  withToc                                -- in order to make my TOC
+        Nothing     -> defaultHakyllWriterOptions         -- conditional
+   pandocCompilerWith defaultHakyllReaderOptions writerSettings
+              >>= saveSnapshot "content"
+              >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
+              >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
+              >>= relativizeUrls
+```
+(Many Hakyll configurations, including the default initial configuration, I believe, will have this as part of the larger `main` rather than split off into its own function. I have started decomposing that `main` block in my own site code because I find it so much easier to think about the parts separately and then combine them at the end, but ymmv. If you have a more standard Hakyll `site.hs`, then you'd need to add this to the post compiler in your `main`, wherever you `match` on the `posts` or `postsGlob` or something like that and specify the compiler instructions.)
+
+When I had added the tags to my blog posts, I had to modify this `postCompiler` function, as you can see in the first line after the `do`, so it would know what to do with the data in the `tags` field. I did basically the same thing to make a `writerSettings` that can be conditional on the appearance of the `withtoc` field: when that field is present now, it will compile the post with my special `withToc` writer options; when that field isn't present, it will just use the defaults. I suspect there are other ways to accomplish this same thing, but this all works and so we're calling it good.
+
+The final thing I changed was adding html directly into my Haskell file to tell it to add a header when it does generate a TOC and allow me to style it. Not everyone has a header on their TOCs (the Hakyll tutorials, for example, are bulleted but don't have a header). I also wanted to add some `<div>`s so I could style it. Anyway, so I had to change the last line of my `withToc` function as below:
+
+```haskell
+withToc :: WriterOptions
+withToc = defaultHakyllWriterOptions
+        { writerTableOfContents = True
+        , writerTOCDepth = 2
+        , writerTemplate = Just "\n<div class=\"toc\"><div class=\"header\">Contents</div>\n$toc$\n</div>\n$body$"
+        }
+```
+
+That gave me the heading "Contents" inside some `<div>` classes so that I could spend the rest of my day messing with CSS.
+
+And now if you look at [posts](/posts/2017-03-08-applicative-instances.html) that are [long enough](/posts/2016-06-17-delicious-currying.html) to have headings in them, I have a lovely table of contents up at the top (and, thanks to [Chris Martin](https://twitter.com/chris__martin/), it should even be mobile-responsive).

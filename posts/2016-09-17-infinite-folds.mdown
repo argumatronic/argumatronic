@@ -1,8 +1,9 @@
 ---
 title: Folds and Infinite Lists
 tags: Haskell, beginner-friendly
+withtoc: yes
 ---
-## Introduction
+### Introduction
 
 At the last Austin Haskell meetup, we were talking about folds and lists, and there were a lot of questions about how `foldr` can work with "infinite" lists. I had written up some notes from our discussion, to answer any remaining questions and help solidify what we talked about, so I thought I'd go ahead and post it here for all the world to see.
 

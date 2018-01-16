@@ -46,14 +46,14 @@ body {
 
 
 /*sets colors for links*/
-a:hover {
-  color: #aa7f9d;
+a:link, .toc a:visited {
+  color: #55003c;
 }
 a:visited {
   color: #2c6d3f;
 }
-a:link {
-  color: #55003c;
+a:hover, .toc a:hover {
+  color: #aa7f9d;
 }
 
 /*font for inline code*/
@@ -118,6 +118,11 @@ code {
     text-transform: uppercase;
 }
 
+.main--nav a.icon {
+  display: inline-block;
+  margin: 0 0.5em;
+}
+
 @media (min-width: 800px) {
     .main--header {
         display: flex;
@@ -139,14 +144,25 @@ code {
     .main--nav a {
         padding: 0 1em;
     }
+
+    .main--nav a.icon {
+      margin: 0;
+    }
+
+    div.toc {
+      display: inline-block;
+      float: right;
+      margin-left: 1em;
+      margin-bottom: 1em;
+      max-width: 50%;
+      padding: 0;
+    }
 }
 
 .main--content {
     margin: 0 auto;
     max-width: 800px;
 }
-
-
 
 
 footer {
@@ -191,6 +207,44 @@ div.info {
     text-align: center
 }
 
+div.toc {
+  background-color: rgba(179, 4, 127, 0.08);
+  margin-top: 1em;
+  padding: 0.5em 0;
+}
+
+div.toc .header {
+  color: #4d004d;
+  font-family: Cabin;
+  font-weight:bold;
+  font-size: 24px;
+  margin: 0.5em 0.75em;
+  border-bottom: 2px solid #4d004d;
+
+}
+
+div.toc ul {
+  margin-top: 0;
+  list-style: none;
+  font-family: Cabin;
+  font-size: 18px;
+  margin-right: 2em;
+  padding-left: 1em;
+}
+
+div.toc li:before {
+  content: "\03bb>";
+  color: #4d004d;
+  font-weight: bold;
+  display: inline-block;
+  width: 1.5em;
+}
+
+div.toc li:not(:last-child) {
+    margin-bottom: 4px;
+}
+
+
 div.icons {
   p {
     a {
@@ -219,20 +273,20 @@ div.icons {
 .main--content h3 {
     font-size: 30px;
     text-align: left;
+    margin-bottom: 0;
 }
 
 blockquote {
-  background-color: #eee5eb;
+  background-color: rgba(179, 4, 127, 0.08);
   font-style: italic;
-  padding: 3px 10px 3px 10px;
+  padding: 0.25em 2em;
 }
 
 div.blurb {
     margin: 0 auto;
-    padding: 5px 0px 5px 0px;
-    max-width: 920px;
-    width: 50%;
-    background-color: #ddccd8;
+    padding: 0.25em 2em;
+    max-width: 50%;
+    background-color: rgba(179, 4, 127, 0.08);
     clear: both;
 }
 
@@ -241,7 +295,6 @@ div.blurb p {
     margin-right: auto;
     max-width: 80%;
 }
-/*old blockquote and blurb color: #e0d7da , also good #ccd8dd*/
 
 /*here begins styling for code blocks*/
 .sourceCode {

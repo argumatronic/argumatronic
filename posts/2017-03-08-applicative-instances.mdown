@@ -1,12 +1,13 @@
 ---
 title: Applicatives are monoidal
+author: Julie Moronuki
 tags: Haskell, Applicative, monoids, typeclasses
+withtoc: yes
 ---
 
-> For the next few weeks, I'm going to be posting semi-regularly about `Applicative` and related topics. This will eventually end up touching on monoids, functors, monads, those typeclasses of the same names, and perhaps, eventually, applicative parsing. I have about 18 blog posts on these interrelated topics started, and I wish I could have them in a [witz](https://www.witz.io/)-like graph instead of this layout, but, alas, I am not that clever. <br> *Prerequisites*: While every attempt is being made to keep this series beginner-friendly, you should have familiarity with sum and product types, with the `Functor` typeclass, with `case` expressions, and with how typeclasses work in Haskell.
+### Intro
 
-
-## Intro
+*Prerequisites*: I will try to keep this beginner-friendly, you should have familiarity with sum and product types, with the `Functor` typeclass, with `case` expressions, and with how typeclasses work in Haskell.
 
 The first thing to know about `Applicative` is that it has two core operations, `pure` and `<*>`. The latter is often called `ap` or `apply` but I call it *the tie-fighter*. The second thing to know is that `Applicative` is superclassed by `Functor`, so any type with an `Applicative` instance must also be a `Functor` instance.
 
@@ -35,7 +36,6 @@ except now our function is also embedded in the `f` structure -- the same type c
 Another thing that is true but is usually less obvious about `Applicative` is that any type with an `Applicative` must be a monoid (or, if a sum type, at least a semigroup). McBride and Paterson say in [Applicative Programming with Effects](http://www.staff.city.ac.uk/~ross/papers/Applicative.pdf): *every monoid induces an applicative functor*, and that tells us something interesting: it is the monoid that gives rise to the applicative functor.
 
 Most of the time, you do not need to think about the monoid (or semigroup, ok?) implied by an `Applicative`. Some instances make it more obvious than others, but it's always there. This is what this post is primarily meant to demonstrate.
-
 
 ## Trouble with tuples
 

@@ -1,5 +1,5 @@
 ---
-title: Teaching a 10-year-old Haskell: Day One
+title: "Teaching a 10-year-old Haskell"
 tags: Haskell, kids
 ---
 

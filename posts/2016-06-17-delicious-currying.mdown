@@ -1,9 +1,12 @@
 ---
 title: Currying is Delicious
 tags: Haskell, beginner-friendly
+withtoc: yes
 ---
 
-> I had never wanted to be a programmer exactly, but as I was introduced to Haskell, certain aspects of it appealed to me and I grew to love it. I present them here to help me organize my own thoughts and remember why Haskell is fun. One of the things I most enjoy in life is when a bunch of facts that you usually learn independently and seem separate can be fitted together into a tidy, coherent package or progression. Haskell offers a lot of opportunities for this.
+### Intro
+
+I had never wanted to be a programmer exactly, but as I was introduced to Haskell, certain aspects of it appealed to me and I grew to love it. I present them here to help me organize my own thoughts and remember why Haskell is fun. One of the things I most enjoy in life is when a bunch of facts that you usually learn independently and seem separate can be fitted together into a tidy, coherent package or progression. Haskell offers a lot of opportunities for this.
 
 Today I'd like to share with you the good news about currying. Most of what follows is in the book and there are approximately 10,000 blog posts about currying already, so why write one more? Because I'd like to take it a step farther than most people do.
 

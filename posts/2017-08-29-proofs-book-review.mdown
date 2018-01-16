@@ -1,11 +1,11 @@
 ---
-title: Book Report: How to Read and Do Proofs
+title: "Book Report: How to Read and Do Proofs"
 tags: math, books
 ---
 
 > Synopsis: *How to Read and Do Proofs* (first edition) is a short introduction to the process of reading and writing mathematical proofs. It illustrates each concept through examples and exercises (with solutions). Recommended as a quick introduction or review to people who want to understand computer science white papers better or as a starting point to learning math/logic after some time away from it.
 
-I find that lately I read a lot of white papers. While these are mostly about programming (usually Haskell, sometimes crypto), they often have proofs in them. Sometimes these proofs are reasonably well explained and I can follow them; often they are condensed, in the way that people who are writing for others in their field may condense their writing by using jargon or making assumptions that they know their audience will share. 
+I find that lately I read a lot of white papers. While these are mostly about programming (usually Haskell, sometimes crypto), they often have proofs in them. Sometimes these proofs are reasonably well explained and I can follow them; often they are condensed, in the way that people who are writing for others in their field may condense their writing by using jargon or making assumptions that they know their audience will share.
 
 These condensed proofs can take quite a bit of practice to read and understand. Often, I don't bother; it may be enough for me to understand the general points and not the full details. But sometimes I want to make sure I understand why something is correct, which means I need to follow the proof more carefully.
 

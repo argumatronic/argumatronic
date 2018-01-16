@@ -1,13 +1,17 @@
 ---
-title: Monad Tutorial
+title: The Nesting Instinct
 tags: Haskell, beginner-friendly
+withtoc: yes
 ---
+
+### Intro
+
+This post is an experiment I decided to attempt after conversations with Ben Lesh and some other folks. Often there are Haskell tutorials presented that attempt to explain an abstraction, for which they contrive some code that involves several other concepts that may be new or difficult to follow for the new Haskeller or the curious non-Haskeller. Instead I just want to show a common pattern that may already be familiar to such readers and then talk a little about how we talk about that pattern in Haskell.
+
+I will assume as little knowledge of Haskell as I possibly can to demonstrate the pattern. In that way, I hope to make the gist of the thing accessible to as many people as possible, and I'd love to hear from you if you think there are things I could add or clarify in order to do so.
 
 > A consequence of the focus on taxonomies in 17th and 18th century was the creation of museums, which present the studied objects neatly organized according to the taxonomy. A computer scientist of such alternative way of thinking might follow similar methods. Rather than finding mathematical abstractions and presenting abstract mathematical structures, she would build (online and interactive?) museums to present typical specimen as they appear in interesting situations in the real-world. -- Tomas Petricek, [Thinking the Unthinkable](http://tomasp.net/blog/2016/thinking-unthinkable/)
 
-I had this idea to enter the monad tutorial fray some time ago, after a conversation with [Ben Lesh](https://twitter.com/BenLesh). Essentially, I aim to present a (maybe only slightly) interesting example of a pattern we see often enough in real-world code, rather than a mathematical abstraction.
-
-I will assume as little knowledge of Haskell (and abstract algebra and category theory) as I possibly can to demonstrate the pattern. In that way, I hope to make the gist of the thing accessible to as many people as possible, and I'd love to hear from you if you think there are things I could add or clarify in order to do so.
 
 # A Few Notes about Haskell
 

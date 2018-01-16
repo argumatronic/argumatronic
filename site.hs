@@ -15,9 +15,9 @@ import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 
 import Text.Pandoc.Options ( WriterOptions
-                           , writerHTMLMathMethod
-                           , HTMLMathMethod(MathJax)
-                           , writerHtml5
+                           , writerTableOfContents
+                           , writerTemplate
+                           , writerTOCDepth
                            )
 import Hakyll
 --------------------------------------------------------------------------------
@@ -119,12 +119,17 @@ main = hakyllWith config $ do
 -- to add options. writerOptions is defined below, as is the postCtxWithTags
 postCompiler :: Compiler (Item String)
 postCompiler = do
-   tags <- buildTags postsGlob (fromCapture "tags/*.html")
-   pandocCompilerWith defaultHakyllReaderOptions writerOptions
-     >>= saveSnapshot "content"
-     >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
-     >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
-     >>= relativizeUrls
+   tags  <- buildTags postsGlob (fromCapture "tags/*.html")
+   ident <- getUnderlying
+   toc   <- getMetadataField ident "withtoc"
+   let writerSettings = case toc of
+        Just _ ->  withToc
+        Nothing     -> defaultHakyllWriterOptions
+   pandocCompilerWith defaultHakyllReaderOptions writerSettings
+              >>= saveSnapshot "content"
+              >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
+              >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
+              >>= relativizeUrls
 
 -- the index is my home page and has its own template
 -- i only wanted the list on the home page to have 10 posts
@@ -224,13 +229,13 @@ sortIdentifiersByDate =
 
 -- --------------------------------------------------------------------------------
 
--- writerOptions for the postCompiler
--- adds MathJax so i could theoretically write fancy math in my posts
-writerOptions :: WriterOptions
-writerOptions = defaultHakyllWriterOptions
-    { writerHTMLMathMethod = MathJax "http://cdn.mathjax.org/mathjax/latest/MathJax.js"
-    , writerHtml5          = True
-    }
+-- trying to auto-generate tables of contents for long posts
+withToc :: WriterOptions
+withToc = defaultHakyllWriterOptions
+        { writerTableOfContents = True
+        , writerTOCDepth = 2
+        , writerTemplate = Just "\n<div class=\"toc\"><div class=\"header\">Contents</div>\n$toc$\n</div>\n$body$"
+        }
 
 -- i'm not really sure this is the ideal way to set up these contexts
 -- but it does work. may reconsider later, esp if i add teasers.
