@@ -7,6 +7,8 @@ I've been using [Hakyll](https://jaspervdj.be/hakyll/) for a long time -- ever s
 
 However, I also sometimes write short posts without many headings, so I wanted to automatically generate tables of contents only on posts where I needed them and not on all posts by default. It was relatively easy, with some googling for help, of course, to figure out how to enable the TOC generation, but it took me some time to figure out how to enable it *only* on certain posts. I thought I should write it down for future me or for anyone else who might want to do the same thing.
 
+> Note: I'm on hakyll-4.10 and stack resolver lts-10.3. I am fairly certain this would have to be written slightly differently for older versions of hakyll.
+
 I knew from reading the Hakyll docs that what I wanted was a helper function like this to turn on some pandoc options:
 
 ```haskell
