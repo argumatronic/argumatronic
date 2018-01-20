@@ -57,3 +57,30 @@ Reasoning algebraically about code.
 # Why do Haskellers care so much about this?
 
 I'm not going to go too much into typeclasses here, how they work and how we leverage them to good effect in Haskell. So what else can we say about this? That by recognizing a common pattern and giving it a name, we can gain some intuition about other times we might see it and what to expect when we use them. In particular, Haskelllers like the opportunity to reason algebraically about things -- reasoning about code in terms of sets (types) and operations we can define over those sets without having to think too much about the persnickety details of each and every set that we could ever make. Can this type that we have here be used in sequential computations where the performance of the next computation depends in some way on the result of the one before it? Cool, you might have a monad then and recognizing that might give you some extra power to reason about and understand and predict what your code will do.
+
+
+# A Note on Terminology
+
+*Monad* can refer to a few things. One is a typeclass that (mostly) corresponds to an algebraic structure (a set plus some law-abiding operations defined for that set) of the same name; to form a complete algebra, in Haskell at least, though, you need three things:
+
+- the typeclass declaration, which defines the operation *in maximal generality*;
+- a type that can implement that operation; and
+- a typeclass instance that binds the type with the typeclass declaration and defines the operation(s) specifically for that type.
+
+Where I personally get tripped up is that, very often, Haskellers use the word "monad" to refer *to a type that implements the monad typeclass*. They do this with the names of other typeclasses, too, so the type `Maybe` *is* a monoid, a functor, a monad, and so on, because it is a type (set) that has [monoidal, functorial, monadic] operations defined over it.
+
+# A Note on Learning Haskell
+
+One of the reasons I hesitated so long to publish this post is that people who don't have much interest in learning Haskell or who are just at the beginning of learning Haskell seem, contrary to the [best advice on the internet](http://dev.stephendiehl.com/hask/#eightfold-path-to-monad-satori), to always want to know straightaway what a monad is. It's like they've taken on some outsized mythical status. But the monad is really a sort of small thing. It's a common enough programming task, chaining together sequences of functions that we want to behave in a predictable manner. Monad is a means of simplifying that (in some way; it doesn't seem like a simplification when it's new to you, but by giving us certain intuitions about how this pattern should behave -- the infamous monad laws! -- and being highly composable, they do remove some complexity, as the right abstraction should).
+
+Everything we do in Haskell, even `IO`, can be done without monads, but not as easily or well. Monads are a small thing that let us do those things more easily, more regularly. I know when I was learning Haskell I had built it up in my mind that it would be this huge, difficult to understand thing, and it's sort of anticlimactic when you find out what it really is: instead of nesting case expressions or something like that, we'll just chain stuff together with an operator. Cool.
+
+# Further reading:
+
+- [A Gentle Intro to Monads ... Maybe?](http://sean.voisen.org/blog/2013/10/intro-monads-maybe/) -- code in this one is all JavaScript.
+- [A Guide to FP Lingo for JavaScripters](https://gist.github.com/ericelliott/ea925c58410f0ae74aef) -- what the heck, it's like the JavaScripters outnumber us Haskellers. :)
+- [It's a bit like asking "What is a number?"](https://stackoverflow.com/questions/44965/what-is-a-monad#10245311)
+- [Adjacency](https://chris-martin.org/2015/adjacency) -- There is an interesting point being made here about adjacency in Haskell vs adjacency in `do`-blocks, but he rather undersells the fact that monadic binding (and, thus, `do` syntax, isn't just for `IO`.)
+
+
+
