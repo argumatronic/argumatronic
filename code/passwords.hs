@@ -1,103 +1,92 @@
 module Main where
 
-import Data.Char (isSpace, isPunctuation)
+import Data.Char (isSpace, isPunctuation, isAlpha)
 
+-- the sample case expression
+function :: String -> String
+function xs =
+  case (xs == "Julie") of
+    True -> (xs ++ " is 43.")
+    False -> "How old are you?"
 
-stripUsername :: String -> Maybe String
-stripUsername "" = Nothing
-stripUsername (x:xs) =
-  case (isSpace x || isPunctuation x) of
-    True -> stripUsername xs
-    -- is recursive to strip off as many leading
-    -- whitespaces/punctuations as there are
-    False -> Just (x:xs)
+-- if you want to play with taking user input, you can try
+-- running that function with this `main`. `getLine` is an
+-- IO action to get a string from user input and pass it
+-- in as an argument. you could
+-- write another branch that could take an answer to the
+-- printed question and respond depending on various
+-- answers. you needn't worry yet about what >>= is. it is
+-- called `bind` and it binds the result of `getLine` to
+-- the next function called; that is, it lets us pass that
+-- result to another function, similar to what function
+-- composition does. more on this later.
 
--- only care about stripping whitespace, not punctuation,
--- off password
+--main :: IO ()
+--main = getLine >>= \name -> putStrLn (function name)
+
+-- strip any *leading* whitespace off the input first
 stripSpacePwd :: String -> Maybe String
 stripSpacePwd "" = Nothing
 stripSpacePwd (x:xs) =
   case (isSpace x) of
     True -> stripSpacePwd xs
+    -- is recursive to strip off as many leading
+    -- whitespaces/punctuations as there are
     False -> Just (x:xs)
 
-
-validateLength :: Int
-               -> String
-               -> Maybe String
-validateLength maxLen s =
-  if (length s) > maxLen
-  then Nothing
-  else Just s
-
-newtype Username =
-  Username String deriving (Eq, Show)
-newtype Password =
-  Password String deriving (Eq, Show)
-
-mkName :: String -> Maybe Username
-mkName name =
-  case stripUsername name of
-    Nothing -> Nothing
-    Just name' ->
-      case validateLength 15 name' of
-        Nothing -> Nothing
-        Just name'' -> Just (Username name'')
-    -- wrote this with case statements first,
-    -- because we want the input to validateLength to
-    -- depend on the output of stripUsername -- that is,
-    -- we only want to check the length *after* it's been stripped
+-- check to see that all characters are alphabetic
+-- this will return Nothing if there are any other
+-- characters in the password, including whitespace
+checkAlpha :: String -> Maybe String
+checkAlpha "" = Nothing
+checkAlpha xs =
+  case (all isAlpha xs) of
+    False -> Nothing
+    True -> Just xs
 
 
-    -- so we have something sequential, where one result *should depend*
-    -- on the output of the former. we do want it to short-circuit if
-    -- the strip function returns Nothing. so then we realized...
-    -- it's a Monad! so we rewrote the above like this:
+-- check that the input String is 15 characters or less
+validateLength :: String -> Maybe String
+validateLength s =
+  case (length s > 15) of
+    True -> Nothing
+    False -> Just s
 
-mkNm :: String -> Maybe Username
-mkNm name = fmap Username (stripUsername name >>= validateLength 15)
+-- we can't do either of these because the result of each function
+-- application is a `Maybe String` which cannot be passed directly
+-- into the next function as a `String` argument (none of these
+-- accepts a `Maybe String` as an input). these both throw type errors.
 
--- >>= :: m a -> (a -> m b) -> m b
--- stripUsername name :: Maybe Username ~~ m a (m is Maybe)
--- validateLength :: String -> Maybe Username ~~ (a -> m b)
+--makePwd :: String -> Maybe String
+--makePwd xs = validateLength . checkAlpha . stripSpacePwd $ xs
 
--- and very similar for the mkPasswd function
-mkPasswd :: String -> Maybe Password
-mkPasswd pwd = fmap Password (stripSpacePwd pwd >>= validateLength 50)
-
-
-data User = User Username Password deriving (Eq, Show)
-
--- for this part, we want to accumulate the errors
--- so we will use the AccValidation type and its Applicative
--- instance to do that
-
-validUser :: String -> AccValidation [String] Username
-validUser n =
-    case mkNm n of
-        Nothing -> AccFailure ["Please enter a valid username."]
-        Just name -> AccSuccess name
-
-validPwd :: String -> AccValidation [String] Password
-validPwd p =
-    case mkPasswd p of
-        Nothing -> AccFailure ["Please enter a valid password."]
-        Just pwd -> AccSuccess pwd
+--makePasswd :: String -> Maybe String
+--makePasswd xs =  validateLength (checkAlpha (stripSpacePwd xs))
 
 
-mkUser :: String -> String -> AccValidation [String] User
-mkUser n p =
-    User <$> validUser n <*> validPwd p
+-- but instead of nesting all the cases into one very large function,
+-- we can get that nested type of behavior while avoiding the
+-- problem that we had with function composition and parenthesized
+-- application if we use `bind` (>>=)
 
-display :: AccValidation [String] User -> IO ()
-display avUser =
-  case avUser of
-    AccFailure err -> putStrLn (unlines err)
-    AccSuccess user -> putStrLn "Success!"
 
+makePassword :: String -> Maybe String
+makePassword xs = stripSpacePwd xs
+                  >>= checkAlpha
+                  >>= validateLength
 
 main :: IO ()
-main = do
-  name <- getLine
-  pwd <- getLine
-  display (mkUser name pwd)
+-- with do syntax
+--main = do
+--  password <- getLine
+--  print $ makePassword password
+
+-- without do syntax, using >>= (the monad is IO)
+main = getLine >>= (\input -> print $ makePassword input)
+
+
+
+
+
+
+
