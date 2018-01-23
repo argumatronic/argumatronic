@@ -45,7 +45,7 @@ point  up the diffs between this and monad. why validation can't have a monad bu
 
 
 
-# Code projects (annotate and turn them into writings)
+# Code projects (annotate and turn them into writings) -- probably all of these will go to typeclasses.com
 
 ## Roguelike
 
@@ -54,3 +54,11 @@ point  up the diffs between this and monad. why validation can't have a monad bu
 ## ppl
 
 ## redo clock using fltkhs
+
+# books for the curious nonprogrammer or beginning programmer
+
+- How Software Works
+- Once Upon an Algorithm
+- BubbleSort zines
+- Lauren Ipsum and CS Unplugged for the much younger
+- related:  baseCS and imposter's handbook

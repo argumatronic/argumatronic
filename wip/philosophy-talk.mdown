@@ -1,0 +1,32 @@
+philosophy and programming
+
+# principles of careful thinking
+
+- of charity
+- of clarity
+- of mental dexterity (for the sake of the rhyme) -- what we mean here is stretching the mind to think in ways you haven't thought before; enlarging your mental toolbox
+
+# philosophy is a search for the true, the good, and the beautiful
+
+# the true: logic and epistemology
+
+- epistemology is about what we can know. over the years, epistemologists have tempered our enthusiasm for finding the truth by helping us to understand that in many cases we can't even know if we've found a universal truth. math feels like a universal truth
+- logic isn't the same as truth, but philosophy's focus on what is the correct way to argue is how we have made progress toward understanding. we can separate things that might be true from things that are most likely false.
+- validity vs soundness
+- why fallacies don't necessarily imply lack of truth
+
+# the good: ethics and being in the world
+
+- few people think beyond utilitarianism, but it's like mental carbohydrates. primarily hedonic notions of happiness are like sugar, and consequentialism is both relatively easy to understand and also logically problematic -- because consequences are something you rarely control perfectly. programmers should understand that running some code doesn't always lead to the intended consequence -- especially in stateful systems, such as the real world, things go awry and lead to *bad* consequences, even if no one in particular can be faulted. most people who think of themselves as "amoral" are consequentialists of one stripe or another (not all consequentialism is happiness/hedonism focused, although most of it is a variant on that theme).
+- there are other ethical systems. in the past, i've likened deontology to protein and virtue ethics to fat. in truth, we probably need a bit of all three, like our bodies need some of all three to keep us alive and healthy. doing your duty can be right even when it makes someone unhappy.
+- virtue ethics focus on the excellence of the self. we are all imperfect but capable of becoming better. becoming *better* means understanding first of all who we are and what we are good and bad at, what our weaknesses are. people tend to take the thing they are good at and go at it 100%, but this isn't the way to become an *excellent person*. becoming an excellent person is a process of becoming content and humble, in a realistic way. it is different from consequentialism in that it is self-referential and process focused; there are no consequences here because the process never ends.
+- with technology, though, we have to ask ourselves what the consequences of our work will be for our users and to society at large; what our duties are; but also how we can become more excellent.
+
+# the beautiful: aesthetics and judgment
+
+Kant believed there were universally applicable judgments about beauty. we tend to find symmetry beautiful, symmetry and patterns and representations of the natural world in one way or another. expound on patterns.
+
+# a few words about justice
+
+- Aristotle
+- Nietzsche

@@ -6,26 +6,38 @@ withtoc: yes
 
 ### Intro
 
-This post is an experiment I decided to attempt after conversations with Ben Lesh and some other folks. Often there are Haskell tutorials presented that attempt to explain an abstraction, for which they contrive some code that involves several other concepts that may be new or difficult to follow for the new Haskeller or the curious non-Haskeller. Instead I just want to show a common pattern that may already be familiar to such readers and then talk a little about how we talk about that pattern in Haskell.
+This post is an experiment I decided to attempt after conversations with Ben Lesh and some other folks. I will assume as little knowledge of Haskell as I possibly can in presenting some a common pattern, a standard sort of program. Later we'll talk about some tools we have in Haskell to make the pattern more conceptually compact.
 
-I will assume as little knowledge of Haskell as I possibly can to demonstrate the pattern. In that way, I hope to make the gist of the thing accessible to as many people as possible, and I'd love to hear from you if you think there are things I could add or clarify in order to do so.
+I hope to make the gist of the thing accessible to as many people as possible, and I'd love to hear from you if you think there are things I could add or clarify in order to do so.
 
 > A consequence of the focus on taxonomies in 17th and 18th century was the creation of museums, which present the studied objects neatly organized according to the taxonomy. A computer scientist of such alternative way of thinking might follow similar methods. Rather than finding mathematical abstractions and presenting abstract mathematical structures, she would build (online and interactive?) museums to present typical specimen as they appear in interesting situations in the real-world. -- Tomas Petricek, [Thinking the Unthinkable](http://tomasp.net/blog/2016/thinking-unthinkable/)
 
 
-# A Few Notes about Haskell
+# Notes about Haskell
 
-I'm going to hand-wave away very large things about Haskell here in order to focus on the things that matter. Many readers can probably happily skip this section, as I will annotate the code below
+If you can already read Haskell at least a little, go ahead and skip this section. I will annotate the code in the examples, but if you've never read Haskell at all, then this section may be helpful to you.
 
-The first thing important thing about Haskell is that all data in Haskell is (statically) typed. Types can be constructed out of other types. There are a few ways of doing this, but the way that will concern us here is by applying a type constructor to a type argument -- the same way a function would get applied to an argument and then evaluated. So, we have a type, called `Maybe` that looks like this:
+All data in Haskell is (statically) typed. Types may be concrete, such as `Integer` or `Bool`, but there are also *type constructors*. We construct a value of one of these types by applying the type constructor to a type argument -- the same way a function would get applied to an argument and then evaluated. So, we have a type, called `Maybe` that looks like this:
 
 ```haskell
 data Maybe a = Nothing | Just a
 ```
 
-This datatype says that a value of type `Maybe a` is constructed by applying `Maybe` to another type; `a` is a variable so it could be almost any other type that we apply it to. We could have a `Maybe Integer` or a `Maybe String`, for example. It says that we have *either* a `Nothing` value, in the case where there was no `a` that we could construct a `Maybe a` value from, *or* (this is an exclusive disjunction, or sum type) a `Just a` value, where the `a` has to be the same type as the `a` of `Maybe a`. That is, if we're making a `Maybe String` value then we can either return a `Nothing` (where there is no `String` -- a kind of null or error value) or a `Just <String>`. We use this type very often in cases where we want to validate something and the possibility of not having a value to return from some computation exists -- a `String` might appear, on which we can perform some future computation, or it might not (`Nothing`).
+This datatype says that a value of type `Maybe a` is constructed by applying `Maybe` to another type; `a` is a variable so it could be almost any other type that we apply it to. We could have a `Maybe Integer` or a `Maybe String`, for example. It says that we have *either* a `Nothing` value, in the case where there was no `a` that we could construct a `Maybe a` value from, *or* (this is an exclusive disjunction, known as a *sum type*) a `Just a` value, where the `a` has to be the same type as the `a` of `Maybe a`.
 
-Functions have type signatures in Haskell; they should be written down (I will be sternly prescriptive about this), but they may also be inferred by the GHC compiler's rather powerful type inference system. We can tell a lot of things about a function from reading its type signature, and I will annotate the signatures in the code that follows.
+If we're constructing a `Maybe String` value then we can either return a `Nothing` (where there is no `String`) -- a kind of null or error value -- or a `Just <String>`. We use this type very often in cases where a possibility of not having a value to return from some computation exists -- a `String` might appear, on which we can perform some future computation, or it might not (`Nothing`).
+
+Next let's look at `case` expressions, a common way of pattern matching on values to effect different outcomes based on the matched value. A `case` expression in general looks like this:
+
+```haskell
+function =
+  case exp where
+    value1 -> result1
+    value2 -> result2
+ -- ... (the pattern matches should be exhaustive, that is, cover all the possible values of that type)
+```
+
+The two values (or patterns) must be of the same type. When this function is called, `exp` will be evaluated. Which result you
 
 
 # Let's Validate some User Input!
