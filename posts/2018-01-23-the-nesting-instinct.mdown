@@ -1,0 +1,282 @@
+---
+title: The Nesting Instinct
+tags: Haskell, beginner-friendly
+withtoc: yes
+---
+
+### Intro
+
+This post is an experiment I decided to attempt after conversations with [Ben Lesh](https://twitter.com/BenLesh) and some other folks. I will assume as little knowledge of Haskell as I possibly can here. Later we'll talk about some tools we have in Haskell to make the pattern more conceptually compact.
+
+I hope to make this accessible to as many people as possible, and I'd love to hear from you if you think there are things I could add or clarify in order to do so.
+
+
+# Intro to Haskell
+
+If you can already read Haskell at least a little, go ahead and skip this section. I will annotate the code in the examples, but if you've never read Haskell at all, then this section may be helpful to you.
+
+All data in Haskell is (statically) typed. Types may be concrete, such as `Integer` or `Bool`, but there are also *type constructors*[^constructors]. Type constructors must be applied to a type argument in order to become a concrete type and have concrete values -- the same way a function would get applied to an argument and then evaluated. So, we have a type, called `Maybe` that looks like this:
+
+```haskell
+data Maybe a = Nothing | Just a
+```
+
+This datatype says that a value of type `Maybe a` is constructed by applying `Maybe` to another type; `a` is a variable so it could be almost any other type that we apply it to. We could have a `Maybe Integer` or a `Maybe String`, for example. It also says that we have *either* a `Nothing` value, in the case where there was no `a` that we could construct a `Maybe a` value from, *or* (this is an exclusive disjunction, known as a *sum type*) a `Just a` value, where the `a` has to be the same type as the `a` of `Maybe a`.
+
+If we're constructing a `Maybe String` value then we can either return a `Nothing` (where there is no `String`) -- a kind of null or error value -- or a `Just "string"`. We use this type very often in cases where a possibility of not having a value to return from some computation exists -- a `String` might appear, on which we can perform some future computation, or it might not, in which case we have `Nothing`.
+
+  [^constructors]: For more on constructors, see [here](https://wiki.haskell.org/Constructor).
+
+Next let's look at `case` expressions, a common way of pattern matching on values to effect different outcomes based on the matched value. We'll start with this one that can remind me how bloody old I am:
+
+```haskell
+function xs =
+  case (xs == "Julie") of
+    True -> (xs ++ " is 43.")
+    False -> "How old are you?"
+```
+
+When this function is applied to an argument that is equal to the `String` "Julie", it will match on the `True` (because `==` reduces to a `Bool`) and concatenate "Julie" with " is 43." Given any other `String` argument, it will match on the `False`.
+
+> Note this doesn't include any means of printing any of our strings to the screen; if you want to play with it in the REPL, you can, as GHCi always runs an implicit `print` action. It's at the top of [the code file](https://github.com/GinBaby/argumatronic/blob/master/code/passwords.hs) that goes with this post.
+
+A `case` expression in general looks like this:
+
+```haskell
+function =
+  case exp of
+    value1 -> result1
+    value2 -> result2
+    -- ... (the pattern matches should
+    --       be exhaustive)
+```
+
+The values are the patterns we're matching on. They must be of the same type, the same type as the result type of `exp`, as `Bool` is the result type of `==` so we had the values `True` and `False` in our previous example. They should cover all possible values of that type.
+
+When such a function is called:
+
+- `exp` is evaluated (ignoring Haskell's actual evaluation strategy), which means it will be reduced to some value;
+- the result value is matched against `value1`, `value2`, and so on down;
+- the first value it matches is chosen and that branch is followed;
+- the result of matching on that value is the result of the whole `case` expression.
+
+
+# A typical specimen
+
+> A consequence of the focus on taxonomies in 17th and 18th century was the creation of museums, which present the studied objects neatly organized according to the taxonomy. A computer scientist of such alternative way of thinking might follow similar methods. Rather than finding mathematical abstractions and presenting abstract mathematical structures, she would build (online and interactive?) museums to present typical specimen as they appear in interesting situations in the real-world. -- Tomas Petricek, [Thinking the Unthinkable](http://tomasp.net/blog/2016/thinking-unthinkable/)
+
+OK, let's say we need to validate some passwords. We'll start by picking some criteria for our users' passwords: we'll first strip off any leading whitespace, we'll only allow alphabetic characters (no special characters, numbers, or spaces) and we'll have a maximum length of 15 characters because we want our customers to choose unsafe passwords.
+
+We'll write each of our functions discretely so we can consider each problem separately. First, let's strip any leading whitespace off the input:
+
+```haskell
+stripSpacePwd :: String -> Maybe String
+stripSpacePwd "" = Nothing
+-- this first step gives us an "error"
+-- if the input is an empty string
+-- and also provides a base case for the
+-- recursion in the case expression
+stripSpacePwd (x:xs) =
+  case (isSpace x) of
+    True -> stripSpacePwd xs
+    -- is recursive to strip off as many
+    -- leading whitespaces as there are
+    False -> Just (x:xs)
+```
+
+This `(x:xs)` construction is how we deconstruct lists (Strings, in this case) to pattern match on them element-by-element; the `x` refers to the head of the list and the `xs` to the rest of it. We test each `x` in the string to see if it is whitespace; if there is no leading whitespace, we return the entire string (wrapped in this `Just` constructor) -- the head, `x`, consed onto the rest of the list, `xs`. If there is whitespace, we return the tail of the list only (`xs`) and call the function again on the tail, in case there is more than one leading whitespace. If you give it a string of all whitespace, it'll hit that base case and return `Nothing` -- we have no password to validate. Otherwise it will stop when it reaches a character that isn't whitespace, follow the `False` branch, and return the password.
+
+Next let's make sure we have only alphabetic characters. This one is less complex because we don't have to (manually) recurse, but otherwise the pattern is the same:
+
+```haskell
+checkAlpha :: String -> Maybe String
+checkAlpha "" = Nothing
+checkAlpha xs =
+  case (all isAlpha xs) of
+    False -> Nothing
+    True -> Just xs
+```
+
+We're again returning a `Maybe String` so that we have the possibility of returning `Nothing`. (In a "real" program, that could allow us to match on the `Nothing` to return error statements to the user, for example. We'll see other was of handling this in later posts.) We used `isAlpha` which checks each character to see that it's an alphabetic character and `all` which recursively checks each item in a list for us and returns a `True` only when it's `True` for all the elements.
+
+Finally, we'll add a length checker:
+
+```haskell
+validateLength :: String -> Maybe String
+validateLength s =
+  case (length s > 15) of
+    True -> Nothing
+    False -> Just s
+```
+
+We had decided on a maximum length of 15 characters, for purely evil reasons no doubt, so it takes the input string, checks to see if its length is longer than 15; if it is, we get a `Nothing` and if it's not, we get our password.
+
+# Validation time!
+
+Now what we need to do is compose these somehow so that all of them are applied to the same input string and a failure at any juncture gives us an overall failure.
+
+We could write one long function that nests all the various case expressions that we're using:
+
+```haskell
+makePassword :: String -> Maybe String
+makePassword xs =
+  case stripSpacePwd xs of
+    Nothing -> Nothing
+    Just xs' ->
+      case checkAlpha xs' of
+        Nothing -> Nothing
+        Just xs'' ->
+          case validateLength xs'' of
+            Nothing -> Nothing
+            Just xs''' -> Just xs'''
+```
+
+This is valid Haskell, but these can get quite long and hard to read and think about, especially if we need to add more steps later (or remove some). And you sometimes have to rename arguments to avoid shadowing (that's what `xs'` and `xs''` are: new names).
+
+We might initially be tempted to try just composing them in some way, perhaps:
+
+```haskell
+makePasswd :: String -> Maybe String
+makePasswd xs = (validateLength . checkAlpha . stripSpacePwd) xs
+
+-- or
+
+makePasswd :: String -> Maybe String
+makePasswd xs = validateLength (checkAlpha (stripSpacePwd xs))
+```
+
+Unfortunately, the compiler will reject both of those and chastise you with  intimidating type errors!
+
+The reason is that each of those functions returns a `Maybe String` -- not a `String` -- but they each only accept `String` as their first argument.
+
+> At the risk of appearing quite not smart, I'll admit that when I was first learning Haskell, I used to sometimes write this all out on paper to trace the flow of the types through the nested or composed function applications.
+
+What we need is something that will allow to chain together functions that take a `String` and return a `Maybe String`.
+
+# In a bind
+
+Conveniently, Haskell has an operator that does this: `>>=`. It's so important and beloved by Haskellers, that it's part of the Haskell logo. It's called *bind*, and we can chain our validation functions together with it like this:
+
+```haskell
+makePassword :: String -> Maybe String
+makePassword xs = stripSpacePwd xs
+                  >>= checkAlpha
+                  >>= validateLength
+```
+
+The result of `stripSpacePwd` will affect the whole rest of the computation. If it's a `Nothing`, nothing else will get evaluated. If it's a `Just String`, then we will pass that `Just String` to the next function, even though it needs a `String` as the first argument, like magic.
+
+(It's not magic, though.)
+
+# Look at the types
+
+> If you've never looked at Haskell before, this part might be somewhat opaque for you, but explaining all this in detail requires explaining almost all of Haskell. We're only here for the gist, not the crunchy details.
+
+Let's look at how `>>=` works. The (not quite complete) type signature for this operator looks like this:
+
+```haskell
+(>>=) :: m a -> (a -> m b) -> m b
+--         ^     ^
+--          these
+--       are the same
+```
+
+When the `m` type constructor that we're talking about is `Maybe`, the type looks like this:
+
+```haskell
+(>>=) @Maybe :: Maybe a -> (a -> Maybe b) -> Maybe b
+
+-- you can do this in your REPL by turning on the
+-- language extension TypeApplications
+```
+
+The complete type of `>>=` looks like this:
+
+```haskell
+(>>=) :: Monad m => m a -> (a -> m b) -> m b
+--       |________|
+--       this part
+-- tells us that whatever type `m` is,
+-- it has to be a monad
+```
+
+*Ahhh, the M word.*
+
+Our new friend `>>=` is the primary operation of the `Monad` typeclass, so very literally this constraint (`Monad m =>`) says that whatever type `m` is, it must be a type that is a monad: a type that has an implementation of this function `>>=` written for it.
+
+### But what *is* a monad?
+
+A monad is a type constructor (a type like `Maybe` that can take a type argument, not a concrete type like `Bool`) together with a (valid, lawful) implementation of the `>>=` operation. So you'll hear sentences like "`Maybe` is a monad" meaning it's a type that has such an implementation of `>>=`. And this is why you hear people talk about wrapping things "in a monad" or about containers and burritos and whatnot -- we even have a function that does nothing but wrap a value up so it can be used in such a computation (it's called `pure` now and lives in the `Applicative` typeclass instead of in `Monad` but why is a long story).
+
+
+# Why do Haskellers care about this?
+
+I'm not going to go too much into typeclasses here, how they work and how we leverage them to good effect in Haskell. So what else can we say about this? That by recognizing a common pattern and giving it a name, we can gain some intuition about other times we might see it and what to expect when we use them.
+
+In particular, Haskellers like the opportunity to reason *algebraically* about things. Let's talk about what that means for a moment.
+
+
+### Algebras
+
+An algebra is a set together with some operation(s) that can be defined over that set. In this case, `>>=` is the symbol for an operation that can be defined over many (not all) sets -- think of types as sets.
+
+So, a monad is an algebra, or algebraic structure, that has at least two components:
+
+- a set, or type, such as `Maybe`;
+- a bind operation defined over it.
+
+It also has some laws, or else it wouldn't be a proper algebra, and we talk a lot about the monad laws in Haskell and we can (and should) property check our `>>=` implementations to make sure they behave lawfully. *BUT* the Haskell compiler doesn't enforce laws, so a monad in Haskell is perhaps slightly less imposing than a monad in mathematics.
+
+### Thinking algebraically
+
+Reasoning about code in terms of (types) and operations we can define over those sets without having to think too much about the details of each and every set that we could ever make. Can this type that we have here be used in sequential computations where the performance of the next computation depends in some way on the result of the one before it? Cool, we might have a monad then and recognizing that might give us some extra power to reason about and understand and predict what our code will do.
+
+Typeclasses remove yet another layer of detail to think about and let us generalize even more. How well that works is a matter of some debate, but in part we do it for the same reasons that mathematicians talk about groups and sets and very general things like that: abstracting away some details allows us to focus on and consider only the parts we care about at a certain time, and sometimes allows us to see connections we never noticed before.
+
+### But isn't it a monoid in the category of endofunctors, though?
+
+It is, and understanding why can be helpful. But it's not the right place to *start* understanding monads, unless you already understand some category theory, and while I admire people who do, they are distinctly not my intended audience for this post. I suspect they would ostracize me for being so hand-wavy about all this.
+
+Someday, I'll try to write a beginner friendly post about what it means that it's a monoid in the category of endofunctors. If you know what a monoid is and know that "endofunctors" for Haskell purposes just means "functors" and understand that by "functors" we mean type constructors (not `fmap` itself), then perhaps the *monoidness* of `>>=` (and also the `Applicative` operation `<*>`) will begin to become apparent. Perhaps [Ken's Twitter thread](https://twitter.com/KenScambler/status/955441793465696257) will help, too. If you don't already understand those things, then it might not, and that's OK; it takes time to build up and internalize all the concepts.
+
+If you're trying to learn Haskell and don't already know category theory, it is perfectly fine to use `>>=` when you need it (or `do` syntax, which is a syntactic sugar over this and looks more imperative[^do-syntax]) and not worry any more about it. Since all user input and every `main` action in Haskell is handled with monads, you sort of have to to be able to use them without understanding them deeply for a while. If you have a series of computations that should be performed sequentially such that each new one depends on the successful result of the one before it, you may want `>>=` to chain them together (which requires them to be wrapped in a [monad] type constructor such as `Maybe`.)
+
+  [^do-syntax]: Examples of all this code but using `do` instead of `>>=` are in the [code file](https://github.com/GinBaby/argumatronic/blob/master/code/passwords.hs).
+
+Since you generally want side effects to be sequenced, and we use the `IO` type to constrain side-effecting code, `IO` is a sort of canonical monad. `IO`, which is the obligatory type constructor of all `main` actions and all side-effecting code, is a monad, so a lot of code you write that will do anything involving `IO` is already wrapped in such a constructor and, hence, monadic, but understanding the actual implementation of this is beyond unnecessary to writing real working programs in Haskell.
+
+
+### And what about `do` syntax?
+
+I don't use `do` syntax when I'm trying to teach monads, even though it is meant to allow the writing of monadic code in a nice imperative style. For teaching purposes, I don't like the fact that it hides the composition-like piping of arguments between functions. I once said it ["hides the functors"](https://joyofhaskell.com/posts/2017-05-07-do-notation.html); it makes it harder for me to follow the flow of types through the function applications, and so I don't particularly like it when I'm teaching people about functors and monads. It's cool to start using `do` to effect monadic operations without understanding how `>>=` works, though; we've all been there.
+
+
+# A Note on Terminology
+
+*Monad* can refer to a few things. One is a typeclass that (mostly) corresponds to an algebraic structure (a set plus some law-abiding operations defined for that set) of the same name; to form a complete algebra, in Haskell at least, though, you need three things:
+
+- the `class` declaration, which defines the operation *with maximal generality*;
+- a type that can implement that operation; and
+- a typeclass `instance` that binds the type with the typeclass declaration and defines the operation(s) specifically for that type.
+
+Usually, the phrase "X is a monad" tells you that X is a type constructor with an `instance` of `Monad`.
+
+This is why I don't prefer saying that `Maybe` *is* an instance of `Monad` but, rather, that it *has* an instance because an `instance` declaration is a specific piece of code that has to exist or else the type has no legitimate implementation of the function. If no `instance` exists, no function exists for that set so we have an incomplete algebra.
+
+Incidentally, Haskellers do this with the names of (some, but not all) other typeclasses, too, so the type `Maybe` *is* a monoid, a functor, a monad, and so on, because it is a type (set) that has [monoidal, functorial, monadic] operations defined over it.
+
+# A Note on Learning Haskell
+
+One of the reasons I hesitated so long to publish this post is that people who don't have much interest in learning Haskell or who are just at the beginning of learning Haskell seem, contrary to the [best advice on the internet](http://dev.stephendiehl.com/hask/#eightfold-path-to-monad-satori), to always want to know straightaway what a monad is. It's like monads have taken on some outsized mythical status. But the monad is really a sort of small thing. It's a common enough programming task, chaining together sequences of functions that we want to behave in a predictable manner. Monad is a means of simplifying that (in some way; it doesn't seem like a simplification when it's new to you, but by giving us certain intuitions about how this pattern should behave -- the infamous monad laws! -- and being highly composable, they do remove some complexity, as the right abstraction should).
+
+Everything we do in Haskell, even `IO`, can be done without monads, but not as easily or well. Monads let us do those things more easily, more consistently. I know when I was learning Haskell I had built it up in my mind that it would be this huge, difficult to understand thing, and it's sort of anticlimactic when you find out what it really is: instead of nesting case expressions or something like that, we'll just chain stuff together with an operator. Cool.
+
+# Further reading:
+
+- [A Gentle Intro to Monads ... Maybe?](http://sean.voisen.org/blog/2013/10/intro-monads-maybe/) -- code in this one is all JavaScript.
+- [A Guide to FP Lingo for JavaScripters](https://gist.github.com/ericelliott/ea925c58410f0ae74aef) -- what the heck, it's like the JavaScripters outnumber us Haskellers. :)
+- [It's a bit like asking "What is a number?"](https://stackoverflow.com/questions/44965/what-is-a-monad#10245311)
+- [Adjacency](https://chris-martin.org/2015/adjacency) -- There is an interesting point being made here about adjacency in Haskell vs adjacency in `do`-blocks, but he rather undersells the fact that monadic binding (and, thus, `do` syntax, isn't just for `IO`.)
+
+
+

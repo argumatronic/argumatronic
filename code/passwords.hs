@@ -64,6 +64,17 @@ validateLength s =
 --makePasswd xs =  validateLength (checkAlpha (stripSpacePwd xs))
 
 
+makeP :: String -> Maybe String
+makeP xs = case stripSpacePwd xs of
+  Nothing -> Nothing
+  Just xs' ->
+    case checkAlpha xs' of
+      Nothing -> Nothing
+      Just xs'' ->
+        case validateLength xs'' of
+          Nothing -> Nothing
+          Just xs''' -> Just xs'''
+
 -- but instead of nesting all the cases into one very large function,
 -- we can get that nested type of behavior while avoiding the
 -- problem that we had with function composition and parenthesized
@@ -75,14 +86,25 @@ makePassword xs = stripSpacePwd xs
                   >>= checkAlpha
                   >>= validateLength
 
-main :: IO ()
--- with do syntax
---main = do
---  password <- getLine
---  print $ makePassword password
+-- you can use `do` syntax with any monad; here
+-- our monad is still `Maybe` but this is what
+-- the above function makePassword looks like with
+-- some `do` sugar on top
 
+makePasswordDo :: String -> Maybe String
+makePasswordDo xs = do
+  xs'  <- stripSpacePwd xs
+  xs'' <- checkAlpha xs'
+  validateLength xs''
+
+main :: IO ()
 -- without do syntax, using >>= (the monad is IO)
-main = getLine >>= (\input -> print $ makePassword input)
+main = getLine >>= (\input -> print (makePassword input))
+
+mainWithDo :: IO ()
+mainWithDo = do
+  password <- getLine
+  print (makePassword password)
 
 
 
