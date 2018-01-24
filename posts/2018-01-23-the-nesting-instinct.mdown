@@ -276,7 +276,7 @@ Everything we do in Haskell, even `IO`, can be done without monads, but not as e
 - [A Gentle Intro to Monads ... Maybe?](http://sean.voisen.org/blog/2013/10/intro-monads-maybe/) -- code in this one is all JavaScript.
 - [A Guide to FP Lingo for JavaScripters](https://gist.github.com/ericelliott/ea925c58410f0ae74aef) -- what the heck, it's like the JavaScripters outnumber us Haskellers. :)
 - [It's a bit like asking "What is a number?"](https://stackoverflow.com/questions/44965/what-is-a-monad#10245311)
-- [Adjacency](https://chris-martin.org/2015/adjacency) -- There is an interesting point being made here about adjacency in Haskell vs adjacency in `do`-blocks, but he rather undersells the fact that monadic binding (and, thus, `do` syntax, isn't just for `IO`.)
+- [Adjacency](https://chris-martin.org/2015/adjacency) -- There is an interesting point being made here about adjacency in Haskell vs adjacency in `do`-blocks, but he rather undersells the fact that monadic binding (and, thus, `do` syntax) isn't just for `IO`.
 
 
 
