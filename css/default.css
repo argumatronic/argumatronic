@@ -3,14 +3,12 @@
 /*font stanzas -- the ttf files are all in the /fonts directory*/
 @font-face {
   font-family: 'Lora';
-  /*src: local('Lora'), url('/fonts/Lora-Regular.ttf') format('opentype');*/
   font-style: normal;
   font-weight: normal;
 }
 
 @font-face {
     font-family: 'Cabin';
-    /*src: local('Cabin'), url('/fonts/Rubik-Light.ttf') format('opentype');*/
     font-style: normal;
     font-weight: bold;
 }
@@ -61,6 +59,7 @@ code {
     font-family: 'Monoid', monospace;
     font-size: 0.75em;
     font-weight: 600;
+    font-variant-ligatures: none;
 }
 
 /*.main--container {
@@ -299,7 +298,8 @@ div.blurb p {
 /*here begins styling for code blocks*/
 .sourceCode {
     font-family: 'Monoid', monospace;
-    font-size: 16px
+    font-size: 16px;
+    font-variant-ligatures: discretionary-ligatures;
 }
 
 div.sourceCode {
@@ -314,8 +314,6 @@ pre.sourceCode {
     padding: 3px 10px 3px 10px;
     background-color: #422f41;
 }
-/*older source code backgrounds colors #3a2f42; #4c3131*/
-/*some pretty colors: A979A1, 79A1A9*/
 
 table.sourceCode, tr.sourceCode,
 td.lineNumbers, td.sourceCode,
