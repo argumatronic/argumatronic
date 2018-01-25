@@ -97,7 +97,7 @@ checkAlpha xs =
     True -> Just xs
 ```
 
-We're again returning a `Maybe String` so that we have the possibility of returning `Nothing`. (In a "real" program, that could allow us to match on the `Nothing` to return error statements to the user, for example. We'll see other was of handling this in later posts.) We used `isAlpha` which checks each character to see that it's an alphabetic character and `all` which recursively checks each item in a list for us and returns a `True` only when it's `True` for all the elements.
+We're again returning a `Maybe String` so that we have the possibility of returning `Nothing`. (In a "real" program, that could allow us to match on the `Nothing` to return error statements to the user, for example. We'll see other ways of handling this in later posts.) We used `isAlpha` which checks each character to see that it's an alphabetic character and `all` which recursively checks each item in a list for us and returns a `True` only when it's `True` for all the elements.
 
 Finally, we'll add a length checker:
 
