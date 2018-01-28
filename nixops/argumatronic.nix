@@ -10,6 +10,9 @@
     			allowedTCPPorts = [ 80 443 ];
   			};
 		};
+		# nix-deploy needs the deploying user to be able to sudo without a password
+		security.sudo.wheelNeedsPassword = false;
+
     	services = {
 		  nginx = {
 		    enable = true;
