@@ -1,3 +1,4 @@
+# nixos config for a specific ec2 instance
 let
   region = "us-east-1";
   accessKeyId = "julie"; # this is how it finds the aws key

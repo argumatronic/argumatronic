@@ -23,3 +23,5 @@ networking = {
     allowedTCPPorts = [ 80 ];
   };
 };
+
+the one nixos config is an abstract config for any server; the ec2 specific one is for configuring that server specifically. so, like, there could be another config for digital ocean that could use the same abstract config combined with a droplet-specifc one to configure that instance.
