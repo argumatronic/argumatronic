@@ -32,7 +32,7 @@ Next let's look at `case` expressions, a common way of pattern matching on value
 ```haskell
 function xs =
   case (xs == "Julie") of
-    --     ^ equality function (double =) returns a Bool value
+    --     ^ equality function returns a Bool value
     True -> (xs ++ " is 43.")
     False -> "How old are you?"
 ```

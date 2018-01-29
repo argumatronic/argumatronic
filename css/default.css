@@ -299,7 +299,7 @@ div.blurb p {
 .sourceCode {
     font-family: 'Monoid', monospace;
     font-size: 16px;
-    font-variant-ligatures: discretionary-ligatures;
+    font-variant-ligatures: none;
 }
 
 div.sourceCode {
