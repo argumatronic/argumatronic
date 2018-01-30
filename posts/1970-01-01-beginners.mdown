@@ -1,20 +1,11 @@
 ---
 title: For Beginners
+tags: beginner-friendly
+withtoc: yes
 ---
 
 People ask me a lot how they can best get started with programming, functional programming, or Haskell specifically. Of course, I think [my book](http://haskellbook.com/), which was written for beginners, is a great place to start, but people have different needs. I'm going to try to collect here the things that I have personally found most helpful for getting started with programming and with Haskell. It's an opinionated collection. It might not be perfectly suited to your needs, but these are things that worked for me.
 
-# Table of Contents
-[What to Do First](#what-to-do-first)
-[Books](#books)
-[No Monads for You](#no-monads-for-you)
-[Blog Posts and Tutorials](#blog-posts-and-tutorials)
-  - [Lambda Calculus](#lambda-calculus)
-  - [Haskell Basics](#haskell-basics)
-  - [Functional Patterns](#functional-patterns)
-  - [Awesome Typeclasses](#awesome-typeclasses)
-[General Programming](#general-programming)
-  - [Git](#git)
 
 # What to do first
 
@@ -22,7 +13,7 @@ OK, you're here looking at a Haskell-ish blog already so maybe you don't need th
 
 This [Getting Started](https://haskell-lang.org/get-started) guide will help you get set up quickly.
 
-I do recommend you just get [Stack](http://docs.haskellstack.org/en/stable/README/) right off the bat and look through some of its documentation. The documentation for it is fairly thorough.
+I do recommend you get [Stack](http://docs.haskellstack.org/en/stable/README/) right off the bat and look through some of its documentation. The documentation for it is fairly thorough.
 
 If you are itching to see how a project is set up in Haskell, try Chris Allen's [How I Start: Haskell](http://howistart.org/posts/haskell/1) article and enjoy processing some CSV data.
 
@@ -45,7 +36,7 @@ A lot of people who have experience programming in other languages think the big
 
 - [How Would You Explain Monads to a Haskell Noob](https://www.quora.com/How-would-you-explain-Monads-to-a-Haskell-noob-who-is-reasonably-experienced-in-other-languages-but-has-no-formal-maths-education/answer/Andrea-Ferro)
 
-- If you really can't wait, try [this post](posts/2018-01-23-the-nesting-instinct.html)
+- If you really can't wait, try [this post](2018-01-23-the-nesting-instinct.html).
 
 # Blog Posts and Tutorials
 
@@ -66,21 +57,28 @@ Some of the posts listed here go beyond basic function application and types. Yo
 > It's a mindset change. I wish I'd known this earlier as it would've saved me frustration and doubt, but you kind of need to unlearn what you think you know about coding, then go back to the basics.
 -- [This person has the right idea.](http://japgolly.blogspot.com.au/2014/06/a-year-of-functional-programming.html).
 
+- [Reading Simple Haskell](https://soupi.github.io/rfc/reading_simple_haskell/) is both a great introduction and a great review/reference to basic Haskell structure and syntax.
+
+- There is also this [Haskell Cheat Sheet](http://cheatsheet.codeslower.com/) available in several formats, which is a nice touch. It may be more useful for reference/review than learning as a beginner, but it's nice to have around anyway.
+
 - [Haskell Syntax is Terse](https://www.fpcomplete.com/blog/2012/09/ten-things-you-should-know-about-haskell-syntax)
 
 - [Haskell Basics](https://www.schoolofhaskell.com/school/starting-with-haskell/introduction-to-haskell/1-haskell-basics) This is the first lesson in the School of Haskell, and it covers a lot of fundamentals, including (important!) how to read GHCi error messages.
 
 - [Function Application and Definition](http://slpopejoy.github.io/posts/2014-11-27-FunctionApplicationDefinition.html) This one covers _a lot_, but there is a ton of examples that help if you follow along with them.
 
-- [Haskell Functions Take One Argument](http://blog.tmorris.net/posts/haskell-functions-take-one-argument/) Well, speaking of terse, Tony Morris can be a bit terse himself, but I think this post makes its point clearly.
+- [Haskell Functions Take One Argument](http://blog.tmorris.net/posts/haskell-functions-take-one-argument/) Well, speaking of terse, Tony Morris can be a bit terse himself, but I think this post makes its point clearly. I believe it can seem like a pedantic point to beginners -- that Haskell functions have only argument -- but understanding it well is important to understanding partial application, which is ubiquitous in Haskell code.
 
 - [Types & Kinds](http://slpopejoy.github.io/posts/2015-04-10-Types.html) Again, a lot of examples here to help you understand the points.
 
 - [Sum Types](https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/sum-types) This post is a good, not terribly jargon-filled overview with some very nice examples. It's mostly about sum types with just a bit about product types at the end, presumably because product types seem to be more common in other languages.
 
+- We made a [types cheat sheet](https://argumatronic.com/images/types_sheet.pdf) available as a reference for understanding and reading Haskell datatype declarations and type signatures.
+
 - [The Algebra of Algebraic Data Types](http://chris-taylor.github.io/blog/2013/02/10/the-algebra-of-algebraic-data-types/) This link goes to Part I. There is a Part II and Part III, each covering slightly more advanced topics, as well as a video of a talk the author gave on the subject.
 
 - [Currying is Delicious](http://argumatronic.com/posts/2016-06-17-delicious-currying.html) I wrote this one, and like some of the ones above, it goes a bit beyond reading basic type signatures. But it's important to understand currying, and as you get around to understanding _kind_ signatures as well, it'll help you understand functors, which will eventually help you understand the legendary Monad.
+
 - The Haskell Wiki is, like most wikis, uneven in quality and helpfulness, but [this page](https://wiki.haskell.org/Common_Misunderstandings) has some nice tips and explanations of some common syntactic mistakes.
 
 <!-- sectioning: http://stackoverflow.com/questions/10131300/partial-application-with-infix-functions -->
