@@ -13,12 +13,6 @@ stripUsername (x:xs) =
 
 
 
-newtype Username =
-  Username String deriving (Eq, Show)
-newtype Password =
-  Password String deriving (Eq, Show)
-
-
 mkName :: String -> Maybe Username
 mkName name =
   case stripUsername name of
@@ -46,21 +40,38 @@ mkPasswd pwd = fmap Password (stripSpacePwd pwd >>= validateLength 50)
 
 data User = User Username Password deriving (Eq, Show)
 
--- for this part, we want to accumulate the errors
--- so we will use the AccValidation type and its Applicative
--- instance to do that
+newtype Username =
+  Username String deriving (Eq, Show)
+newtype Password =
+  Password String deriving (Eq, Show)
 
---validUser :: String -> AccValidation [String] Username
---validUser n =
---    case mkNm n of
---        Nothing -> AccFailure ["Please enter a valid username."]
---        Just name -> AccSuccess name
+validUser :: String -> AccValidation [String] Username
+validUser n =
+    case makeName n of
+        Nothing -> AccFailure ["Please enter a valid username."]
+        Just name -> AccSuccess name
 
---validPwd :: String -> AccValidation [String] Password
---validPwd p =
---    case mkPasswd p of
---        Nothing -> AccFailure ["Please enter a valid password."]
---        Just pwd -> AccSuccess pwd
+validPassword :: String -> AccValidation [String] Password
+validPassword p =
+    case makePassword p of
+        Nothing -> AccFailure ["Please enter a valid password."]
+        Just password -> AccSuccess password
+
+main :: IO ()
+main = do
+  name <- getLine
+  password <- getLine
+  display (makeUser name password)
+
+
+
+
+
+
+
+
+
+
 
 
 --mkUser :: String -> String -> AccValidation [String] User
@@ -72,9 +83,3 @@ data User = User Username Password deriving (Eq, Show)
 --  case avUser of
 --    AccFailure err -> putStrLn (unlines err)
 --    AccSuccess user -> putStrLn "Success!"
-
---main :: IO ()
---main = do
---  name <- getLine
---  pwd <- getLine
---  display (mkUser name pwd)

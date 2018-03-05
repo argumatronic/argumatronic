@@ -1,0 +1,3 @@
+# hakyll + nixops or nix-deploy
+
+remember to mention alternatives, e.g., deploying hakyll via github pages (https://github.com/jaspervdj/hakyll/blob/master/web/tutorials/github-pages-tutorial.md)
