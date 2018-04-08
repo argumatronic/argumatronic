@@ -4,7 +4,7 @@ tags: beginner-friendly
 withtoc: yes
 ---
 
-People ask me a lot how they can best get started with programming, functional programming, or Haskell specifically. Of course, I think [my book](http://haskellbook.com/), which was written for beginners, is a great place to start, but people have different needs. I'm going to try to collect here the things that I have personally found most helpful for getting started with programming and with Haskell. It's an opinionated collection. It might not be perfectly suited to your needs, but these are things that worked for me.
+People ask me a lot how they can best get started with programming, functional programming, or Haskell specifically. I think [Haskell Programming from First Principles](http://haskellbook.com/), which was written for beginners, is a great place to start, but FULL DISCLOSURE, I am one of its authors. I'm going to try to collect here the things that I have personally found most helpful for getting started with programming and with Haskell. It's an opinionated collection. It might not be perfectly suited to your needs, but these are things that worked for me.
 
 
 # What to do first
@@ -13,9 +13,10 @@ OK, you're here looking at a Haskell-ish blog already so maybe you don't need th
 
 This [Getting Started](https://haskell-lang.org/get-started) guide will help you get set up quickly.
 
-I do recommend you get [Stack](http://docs.haskellstack.org/en/stable/README/) right off the bat and look through some of its documentation. The documentation for it is fairly thorough.
+If you are not already a Nix user, I recommend you use [Stack](http://docs.haskellstack.org/en/stable/README/) and look through some of its documentation. The documentation for it is fairly thorough.
 
-If you are itching to see how a project is set up in Haskell, try Chris Allen's [How I Start: Haskell](http://howistart.org/posts/haskell/1) article and enjoy processing some CSV data.
+If you are itching to write some Haskell, try [Writing Simple Haskell](https://soupi.github.io/rfc/writing_simple_haskell/).
+
 
 # Books
 
@@ -25,6 +26,11 @@ When we're talking about learning resources, I am very opinionated. In the cours
   - [Haskell Programming from First Principles](http://haskellbook.com/) by Chris Allen and Julie Moronuki: Sure. It's my book. This is how I learned Haskell, so it covers thoroughly all the things I didn't know, which was everything. It assumes no particular background knowledge besides some familiarity with high school level algebra. It goes from the lambda calculus through monad transformers, parser combinators, and exception handling, so it covers more than enough to get you working on your own projects in Haskell (or other functional languages). It has quite a few exercises.
 
   - [Haskell: The Craft of Functional Programming](http://www.haskellcraft.com/craft3e/Home.html) by Simon Thompson: Ah, this book is not free, and it's not perfect, but I do love this book. It has quite a few exercises, and I found them interesting and challenging without making me want to hurl the book through the window.
+
+  - There is also what used to be known as "[the NICTA course](https://github.com/data61/fp-course)". This is a great course, challenging but well structured. My best recommendation for most people is either to work through it with a mentor who knows Haskell or to work through it while reading or working through supplementary material.
+
+  - For those who prefer video or blog post learning that still has structure like a book, rather than being a random collection of stuff, [Type Classes](https://typeclasses.com) has projects and courses for beginner, intermediate, and advanced Haskell.
+
 
 # No Monads for You
 
@@ -55,7 +61,7 @@ Wait, what? I know. If you'd told me as a senior at university suffering through
 Some of the posts listed here go beyond basic function application and types. You may find you only understand half the post the first time you read it (or less sometimes, if you're like me!). That's cool. What I did is bookmark them and keep coming back to them as I learned more and I was able to recognize how much progress I was making by seeing how much more I understood each time.
 
 > It's a mindset change. I wish I'd known this earlier as it would've saved me frustration and doubt, but you kind of need to unlearn what you think you know about coding, then go back to the basics.
--- [This person has the right idea.](http://japgolly.blogspot.com.au/2014/06/a-year-of-functional-programming.html).
+-- [This person](http://japgolly.blogspot.com.au/2014/06/a-year-of-functional-programming.html) has the right idea.
 
 - [Reading Simple Haskell](https://soupi.github.io/rfc/reading_simple_haskell/) is both a great introduction and a great review/reference to basic Haskell structure and syntax.
 
