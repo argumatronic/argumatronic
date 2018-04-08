@@ -1,0 +1,52 @@
+---
+title: The monad complaint pipeline
+tags: Haskell, community, monad, complaints
+---
+
+I haven't been around the Haskell community since the early days of the Great Lisp Wars, I admit, and so I do not know who are the original sinners. This is just a description of something I've seen play out on Twitter and Reddit and the like several times since I have been here.
+
+## The Bad Beginning
+
+We begin in the Haskell community. We are a relatively small community, but we're maybe a little chatty, maybe have a little too much free time waiting for something to compile. Hence we are engaged in near constant internecine war over build tools and the like.
+
+Suddenly, something brings Haskell to the attention of non-Haskellers. It might be that an article about contravariance gets retweeted way outside of the audience it was intended for (people who are pretty comfortable reading Haskell type signatures) and suddenly a few non-Haskellers are *pissed*. More frequently it's that some famous dude with a large platform decides he's figured out what *monads really are* and shares his opinion with his thousands of followers.
+
+Hardened by the ongoing Versioning Wars, Haskellers are heavily armored and have a bit of a siege mentality already. Now galvanized against a common enemy, Haskellers come together.
+
+So a guy has decided monads are X, usually something pipe-like. A famous guy with a bunch of followers. He's not particularly a Haskeller, and the first thing Haskellers wonder is why he cares what a monad is since he doesn't write a language that comfortably supports that abstraction.
+
+And I don't know how they reacted the first time it ever happened. Maybe, as is written in the annals of the Great Lisp Wars, Haskellers inherited the brittle argumentative nature of their parenthesized forebears and immediately attacked. Perhaps we are all still paying for their sins.
+
+But what happens now is some of us try to ignore the famous dude being wrong and go about our business, but several people -- generally, the same crowd who are most engaged in the Stack and Versioning Wars -- show up in this guy's mentions to tell him how wrong he is.
+
+For a long time this baffled me. Why do you care that someone is wrong on the internet? But now I know, because now I've seen the aftermath enough times.
+
+## Ceci n'est pas une monade
+
+There are a few things that happen after this:
+
+The immediate effect is the hasty generalization from "this group of Haskellers is dogpiling me about my wrongness" to "all Haskellers are assholes."
+
+Later some less famous dude will say he's thought about learning Haskell, and some Haskellers will show up to encourage him, but then he'll claim that he's put off learning it because of all the jargon. Why do Haskellers use the word "monad" anyway? THEY'RE JUST PIPES, he'll insist, he knows this, he learned it from the famous guy.
+
+Haskellers reply that the word "pipe" or "computation expression" or "marshmallow" or whatever is misleading, that monad is the mathematical term so, while we understand it can be intimidating at first, we feel it's best to stick with the name for the sake of research. And pipes are a sort of OK, not entirely wrong, first way of thinking about monads, but not sufficient for understanding them well, and so using an unfamiliar word suggests that there is something to be learned, that these aren't *just pipes*.
+
+Sometimes one of the famous guys will come back and ask if we think we're smarter than Oleg because smug references to Oleg constitute an automatic win in online arguments.
+
+It doesn't even really matter who Oleg is, don't worry about it. Bringing up Oleg is, for the current purposes, like sounding a trumpet in battle.
+
+(I am sorry, I hope the real Oleg doesn't read this, I'm sure he's a nice enough fellow.)
+
+In the next round, we get third-tier dudes asking what the hell is wrong with Haskellers that they can't explain monads since MONADS ARE JUST PIPES.
+
+*snicker snort* _Haskell isn't a practical language anyway, look at these dorks._ 
+
+Nevermind that plenty of people (including me) *have* explained monads, many times over -- [for non-Haskellers](https://argumatronic.com/posts/2018-01-23-the-nesting-instinct.html), [for JavaScripters](http://sean.voisen.org/blog/2013/10/intro-monads-maybe/), [for beginning Haskellers](http://mightybyte.github.io/monad-challenges/), with and without physical analogies to containers and burritos, with and without in-depth descriptions of the Monad Laws.
+
+And then the famous dudes and the less famous dudes will decide that we are assholes for correcting them, assholes for using a word they don't like when one of several misleading words is readily available, that Haskellers just like to be misunderstood because we prefer to lord it over people, using the very word as a gatekeeping tool.
+
+And if you, the Haskeller, fight back against *any* of this, you are in the wrong. But you know how they say that it takes an order of magnitude more energy to fight bullshit than to produce it? Yeah, the famous guy with the pipes has already moved on with his life and you can't ever refute the bullshit, because you are not famous.
+
+You are not famous and people will believe the famous guy and his appeal to the Great Oleg and only think you're an asshole for trying to refute it.
+
+And then it will happen all over again in a few weeks. Fortunately, Haskellers stay fit for battle by debating the moral correctness of package revision policies.
