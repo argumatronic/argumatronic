@@ -1,0 +1,38 @@
+---
+title: In defense of "monoid"
+tags: Haskell, beginner-friendly, monoids
+withtoc: yes
+---
+
+# How I met the monoid
+
+There was a very serendipitous time in the writing of [haskellbook](http://haskellbook.com/) when I was writing Chapter 6, Typeclasses, while my coauthor was beginning to scaffold Chapter 15 about the `Monoid` and `Semigroup` typeclasses.
+
+The Typeclasses chapter mostly deals with common but not especially interesting typeclasses, such as `Num` (some basic numeric operations), `Eq` (equality), and `Ord` which has ordering operations. That chapter hammers the point that there must be a unique pairing between a typeclass and a type; the bit of code that pairs them and tells the compiler what the implementation of a given operation for a specific type looks like is called an *instance*.
+
+But what he sent me initially for the chapter on `Monoid` opened with the definition of what a monoid is and then gave examples. Since the definition is not the ideal place to *begin* understanding something, I turned to the examples: integer addition, integer multiplication, list concatenation.
+
+Now, this is where a lot of monoid explanations start, but there are some puzzling things about this group. For one thing, we've established that there should be a *unique* pairing of type to typeclass, yet here integers are with addition *and* multiplication. And lists are a very different type from integers, in ways that are extremely important in some other contexts.
+
+So, on the one hand, the familiarity of these representative monoids is reassuring; we all know how these things work. On the other, this would seem to bear some explanation. If a type has only one instance of a typeclass, what the heck is going on with integers? And why are the differences between a concrete type, such as `Integer`, and a type constructor, such as lists or `Maybe` seemingly irrelevant here?
+
+And, even if we admit the similarities and ignore the differences, why do we have a name for those similarities?
+
+# Where monoids come from
+
+
+
+
+the common pattern; these are things you know with differences in their implementations but with
+
+# Always be abstracting
+
+when we abstract, pull out a commonality to talk about, we often invent a word for that commonality or abstraction, to point to *that pattern* and not the differences.
+
+In the book, it is defined, "A monoid is a binary associative operation with an identity." We'll talk more about that definition
+That is the standard definition of the monoid operation, but *monoid* is an *algebraic structure* which means it's more properly understood as a *set* *_with_* a binary associative operation and an identity element. That is, an algebraic structure such as a *monoid* is a *set* plus some operations that obey some laws, but I didn't understand that quite that well at the time.
+
+
+# Learn from examples
+
+we tend when teaching haskell to start from the word "monoid" and the definition instead of building up this intuition from examples
