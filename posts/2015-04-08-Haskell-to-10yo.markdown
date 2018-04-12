@@ -3,8 +3,6 @@ title: "Teaching a 10-year-old Haskell"
 tags: Haskell, kids
 ---
 
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Son: &quot;Well, I&#39;m going to keep learning JavaScript until you teach me Haskell.&quot;<a href="https://twitter.com/hashtag/ultimatum?src=hash">#ultimatum</a></p>&mdash; Gin and Julie (@argumatronic) <a href="https://twitter.com/argumatronic/status/522440942918586369">October 15, 2014</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 My older son, who is in fourth grade (homeschool) and just turned 10, has been nagging me for ages to teach him Haskell. The desire originates from me learning Haskell and writing [a book](http://haskellbook.com/) with Chris Allen. I have told him a little bit about Haskell as I’ve been learning it, and he thought it sounded cool. Today I finally gave in and started teaching him.
 

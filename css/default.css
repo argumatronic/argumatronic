@@ -180,7 +180,6 @@ footer {
 
 footer img {
   width: 64px;
-  /*max-width: 100%;*/
   display: inline-block;
   vertical-align: middle;
   padding-top: 20px;
@@ -284,7 +283,7 @@ blockquote {
 div.blurb {
     margin: 0 auto;
     padding: 0.25em 2em;
-    max-width: 50%;
+    max-width: 70%;
     background-color: rgba(179, 4, 127, 0.08);
     clear: both;
 }
@@ -300,6 +299,13 @@ div.blurb p {
     font-family: 'Monoid', monospace;
     font-size: 16px;
     font-variant-ligatures: none;
+}
+
+img {
+  display: block;
+  flex-direction: column;
+  max-width: 100%;
+  box-sizing: inherit;
 }
 
 div.sourceCode {

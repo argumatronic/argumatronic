@@ -4,35 +4,76 @@ tags: Haskell, beginner-friendly, monoids
 withtoc: yes
 ---
 
-# How I met the monoid
+# Meet the monoids
 
-There was a very serendipitous time in the writing of [haskellbook](http://haskellbook.com/) when I was writing Chapter 6, Typeclasses, while my coauthor was beginning to scaffold Chapter 15 about the `Monoid` and `Semigroup` typeclasses.
 
-The Typeclasses chapter mostly deals with common but not especially interesting typeclasses, such as `Num` (some basic numeric operations), `Eq` (equality), and `Ord` which has ordering operations. That chapter hammers the point that there must be a unique pairing between a typeclass and a type; the bit of code that pairs them and tells the compiler what the implementation of a given operation for a specific type looks like is called an *instance*.
+When you first encounter monoids, you will most likely be confronted by a definition and some examples, most commonly addition and multiplication of integers (and some other types of numbers) and list concatenation. The definition can seem opaque if you're not used to reading maths definitions: a monoid is a set with a binary associative operation over it and an identity element. It has to obey some laws, and sometimes you will hear that it is a set that is *closed* under[^closed] an binary associative operation and has an identity element.
 
-But what he sent me initially for the chapter on `Monoid` opened with the definition of what a monoid is and then gave examples. Since the definition is not the ideal place to *begin* understanding something, I turned to the examples: integer addition, integer multiplication, list concatenation.
+  [^closed]: When we say something is *closed under* some operation we mean that applying X operation to elements of set Y always yields a result that is a member of set Y. For example, integers are *closed under* addition because applying the addition operator to two integers always returns an integer; similarly, concatenating two lists always returns a list.
 
-Now, this is where a lot of monoid explanations start, but there are some puzzling things about this group. For one thing, we've established that there should be a *unique* pairing of type to typeclass, yet here integers are with addition *and* multiplication. And lists are a very different type from integers, in ways that are extremely important in some other contexts.
+For our purposes, we can think of types as the sets referred to in the definition. Binary operators are operators, such as `+`, `*`, and `++` (list concatenation in Haskell) that take two arguments. Haskell has an endless number of such operators -- many in `base` and common libraries, but also in Haskell you can make your own to suit your fancy. Associativity means that we can change the order[^order] in which we perform the operations, by re-parenthesizing, without changing the result.[^commutative] And an *identity* element is an element of the set that, if given as one of the arguments to this operation, does not change the other argument. Zero is the identity of integers under addition, one is the identity of integers under multiplication, the empty list is the identity of lists under concatenation (that is, if you concatenate a list with an empty list, the result is the list you started with, like when you add zero to an integer).
 
-So, on the one hand, the familiarity of these representative monoids is reassuring; we all know how these things work. On the other, this would seem to bear some explanation. If a type has only one instance of a typeclass, what the heck is going on with integers? And why are the differences between a concrete type, such as `Integer`, and a type constructor, such as lists or `Maybe` seemingly irrelevant here?
+  [^order]: For example, `(3 + 5) + 6 == 3 + (5 + 6)` and `([1, 2] ++ [3, 4]) ++ [5, 6] == [1, 2] ++ ([3, 4] ++ [5, 6])`. All monoids are associative.
 
-And, even if we admit the similarities and ignore the differences, why do we have a name for those similarities?
+  [^commutative]: If we can change the order of the arguments themselves without changing the result, then we have a commutative monoid. Addition and multiplication of integers are commutative, but list concatenation is not. `3 + 5 = 5 + 3` but `[1, 2, 3] ++ [4, 5]` does not equal `[4, 5] ++ [1, 2, 3]`.
+
+These three operations clearly have some things in common (binariness, associativity, the presence of an identity or neutral element), but there are also some big differences. Addition and multiplication are *unlike* each other in important ways, and integers are a concrete type in Haskell whereas a list is a type constructor. So it can be difficult to see what the point of all this is. Or, at least, it was for me. Looking at more examples helped me a lot.
+
 
 # Where monoids come from
 
+I'll try to keep this brief. I really like to contextualize monoids by talking about how George Boole, by inventing his algebra, revolutionized the study of logic. There was a time in history when serious people memorized patterns of syllogisms and whether they were valid or invalid. It was a clumsy and labor intensive way of thinking about reasoning, if you ask me, and Boole's formalism represented a significant simplification.
+
+One of the things that formalization gives us is a heightened ability to see and talk about patterns and similarities across various disciplines. In this case, Boole and then the set theorists gave us a way to see that addition and multiplication are *the same* in important ways as some operations over truth values and sets in general. I talk about this more in [this talk](https://skillsmatter.com/skillscasts/10522-keynote-a-monoid-for-all-seasons) if you are interested.
+
+So let's look at the ways in which some binary associative operations over Booleans, integers, and sets in general are the same. There are two basic categories into which these things fall: binary associative operations *like* multiplication or Boolean conjunction, and binary associative operations *like* addition and Boolean disjunction.
 
 
+Boolean conjunction shares some important properties with multiplication:
 
-the common pattern; these are things you know with differences in their implementations but with
+![](/images/conjunction-multiplication.png)
+
+- Their identity is always one or something equivalent to one for some defintion of "equivalent."
+
+- Passing them some "zero" value -- 0, False, an empty list or set -- *annihilates* them and zeroes out the whole thing.
+
+While Boolean disjunction shares important properties with addition:
+
+![](/images/disjunction-addition.png)
+
+Furthermore, the Boolean operators share properties with set intersection (conjunction) and union (disjunction):
+
+![](/images/set-monoids.png)
+
+The top one illustrates conjunction or intersection; the bottom one illustrates disjunction or union.[^disjoint]
+
+  [^disjoint]: Of all the set operations, it's *disjoint union* that most closely corresponds to integer addition and *Cartesian product* that most closely corresponds to integer multiplication, but this is not particularly important to the current point. It is important, however, when you want to try to understand how Haskell's types are also monoids.
+
+Once we see that we have operations that are fundamentally similar across three kinds of things, one of which is *sets in general*, we may get the impression that this pattern is a very general pattern we'll find over many, many kinds of things.
+
 
 # Always be abstracting
 
-when we abstract, pull out a commonality to talk about, we often invent a word for that commonality or abstraction, to point to *that pattern* and not the differences.
+And that's when the abstract algebraists came in and decided we want names for these structures (where *structure* means a set plus at least one operation that obeys some laws, and so they called structures that have at least once such operation (in practice, many sets are monoids under more than one operation)
 
-In the book, it is defined, "A monoid is a binary associative operation with an identity." We'll talk more about that definition
-That is the standard definition of the monoid operation, but *monoid* is an *algebraic structure* which means it's more properly understood as a *set* *_with_* a binary associative operation and an identity element. That is, an algebraic structure such as a *monoid* is a *set* plus some operations that obey some laws, but I didn't understand that quite that well at the time.
+The operations and laws vary by the structure. A *semigroup* is like a monoid but without the requirement of the identity element, so there are many more semigroups than there are monoids, but we can say less interesting things about them. A *semiring* on the other hand is a structure that (like integers and Booleans) form monoids under two operations where the identity of one is the annihilator of the other.
+
+![](/images/semirings.png)
+
+Having different names for related but different structures gives us different levels at which we can talk about and compare them and allows us to prove different things.
+
+When we abstract, pull out a commonality to talk about, we often invent a word for that commonality or abstraction, to point to *that pattern* and not the differences. When we can't talk about the similarities, when we can only highlight the differences, we have to invent many more words to describe each operation, which is how we end up with phrases like "null coalescing operator". Of course, with very common things such as addition and multiplication, it is still handy to also have names for those particular operations, but using the word *monoid* means I don't need a separate word for when I'm doing that with *Maybe* and *Either* and *My_Type_I_Just_Defined*. I have one word that tells you what to expect of the operator and how it will behave: it's a monoid so it's associative and has an identity.
+
+Now, in truth, `Monoid` is awkward in Haskell, because so few types form a monoid under only *one* operation. In practice, we have, for example, not a *Bool* monoid in Haskell, but two boolean monoids that we call *Any* and *All*. *Any* is our disjunctive monoid of *Bool* and *All* is our conjunctive monoid of *Bool*.
 
 
-# Learn from examples
+point out that null coalescing operator: you don't have an intuition that it's associative, you have to be told; you'd have to name very many of these things, whereas we just call it "the First monoid".
 
-we tend when teaching haskell to start from the word "monoid" and the definition instead of building up this intuition from examples
+# Examples first, then generalize
+
+When teaching Haskell, we tend to start from the word "monoid" or "monad" and the definition of these words instead of building up this intuition from examples. This is exactly the opposite of how they were invented.
+
+
+![](/images/inventing-vs-teaching.png)
+
+It's fair to ask what a monoid is, but usually Haskellers will answer with "it's a set with a binary associative operation and an identity." But that abstraction was built out of seeing many examples of it in practice and unifying them. The best way to learn what they are and develop an intuition for them is to rebuild the abstraction for yourself by looking at many examples and seeing what they have in common.
