@@ -274,6 +274,8 @@ Everything we do in Haskell, even `IO`, can be done without monads, but not as e
 
 # Further reading:
 
+- I wrote a [course that starts in just about the same place as this post](https://typeclasses.com/validation) but continues refactoring the password validation code with different types and ends up demonstrating one of the differences between `Applicative` and `Monad`. It's not free, but it is available now.
+
 - [A Gentle Intro to Monads ... Maybe?](http://sean.voisen.org/blog/2013/10/intro-monads-maybe/) -- code in this one is all JavaScript.
 - [A Guide to FP Lingo for JavaScripters](https://gist.github.com/ericelliott/ea925c58410f0ae74aef) -- what the heck, it's like the JavaScripters outnumber us Haskellers. :)
 - [It's a bit like asking "What is a number?"](https://stackoverflow.com/questions/44965/what-is-a-monad#10245311)
