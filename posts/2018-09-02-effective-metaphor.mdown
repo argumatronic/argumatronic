@@ -1,0 +1,11 @@
+---
+title: The Unreasonable Effectiveness of Metaphor
+tags: talks, linguistics, math
+---
+
+# The Unreasonable Effectiveness of Metaphor
+### A talk given August 27, 2018, in Melbourne
+
+I gave the opening keynote at the [C&#x2218;mp&#x2218;se :: Melbourne](http://www.composeconference.org/), and the organizers were kind enough to give me a lot of freedom in my choice of topic. I often find myself very frustrated by the way programmers talk about metaphor, so I chose a topic that would let me give an entirely different view of metaphors -- metaphors the way linguists and cognitive scientists talk about them, metaphors as the crucial backbone of everyday thought and abstractions in mathematics and elsewhere.
+
+I drew from a lot of sources in preparing this talk; citations are given here where appropriate and a complete reference list is given at the end if you would like to read more. Given the breadth of the material covered in a 45-minute talk, I had to breeze through some of it; perhaps next time I return to Australia I can explore some topics in more depth, such as how our search for *closure* (in mathematics) has been an important motivation for developing more and more kinds of numbers. At any rate, I hope for now, this will give an overview, enough that the conversation about metaphors might shift just a bit and we might see new ways to empathize with learners who are struggling to *see* the abstractions.
