@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="6.3000002in"
+   height="3.54in"
+   viewBox="0 0 160.02 89.915999"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="which-equation.svg">
+  <defs
+     id="defs2">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter3028"
+       x="-0.0281107"
+       width="1.0562214"
+       y="-0.050027516"
+       height="1.100055"
+       inkscape:menu-tooltip="Adds a turbulent transparency which displaces pixels at the same time"
+       inkscape:menu="Overlays"
+       inkscape:label="Rough Transparency">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.8742809"
+         id="feGaussianBlur3030"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix3078" />
+      <feTurbulence
+         id="feTurbulence3080"
+         result="result3"
+         baseFrequency="0.3"
+         type="fractalNoise"
+         seed="0"
+         numOctaves="3" />
+      <feGaussianBlur
+         id="feGaussianBlur3082"
+         stdDeviation="1.5"
+         result="result91" />
+      <feDisplacementMap
+         in2="result91"
+         id="feDisplacementMap3084"
+         result="fbSourceGraphic"
+         in="fbSourceGraphic"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="30" />
+      <feColorMatrix
+         id="feColorMatrix3086"
+         type="luminanceToAlpha"
+         in="fbSourceGraphic"
+         result="result0" />
+      <feColorMatrix
+         id="feColorMatrix3088"
+         result="result2"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 " />
+      <feComposite
+         in2="result2"
+         id="feComposite3090"
+         operator="over"
+         in="result3"
+         result="result4" />
+      <feGaussianBlur
+         id="feGaussianBlur3092"
+         stdDeviation="2"
+         result="result5" />
+      <feDisplacementMap
+         in2="result3"
+         id="feDisplacementMap3094"
+         scale="100"
+         xChannelSelector="R"
+         in="result5"
+         yChannelSelector="G" />
+      <feColorMatrix
+         id="feColorMatrix3096"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 6.5 -4.5 "
+         result="result92" />
+      <feComposite
+         in2="result92"
+         id="feComposite3098"
+         in="fbSourceGraphic"
+         operator="out" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter3028-7"
+       x="-0.0281107"
+       width="1.0562214"
+       y="-0.050027516"
+       height="1.100055"
+       inkscape:menu-tooltip="Adds a turbulent transparency which displaces pixels at the same time"
+       inkscape:menu="Overlays"
+       inkscape:label="Rough Transparency">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.8742809"
+         id="feGaussianBlur3030-5"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix3078-3" />
+      <feTurbulence
+         id="feTurbulence3080-5"
+         result="result3"
+         baseFrequency="0.3"
+         type="fractalNoise"
+         seed="0"
+         numOctaves="3" />
+      <feGaussianBlur
+         id="feGaussianBlur3082-6"
+         stdDeviation="1.5"
+         result="result91" />
+      <feDisplacementMap
+         in2="result91"
+         id="feDisplacementMap3084-2"
+         result="fbSourceGraphic"
+         in="fbSourceGraphic"
+         xChannelSelector="R"
+         yChannelSelector="G"
+         scale="30" />
+      <feColorMatrix
+         id="feColorMatrix3086-9"
+         type="luminanceToAlpha"
+         in="fbSourceGraphic"
+         result="result0" />
+      <feColorMatrix
+         id="feColorMatrix3088-1"
+         result="result2"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 " />
+      <feComposite
+         in2="result2"
+         id="feComposite3090-2"
+         operator="over"
+         in="result3"
+         result="result4" />
+      <feGaussianBlur
+         id="feGaussianBlur3092-7"
+         stdDeviation="2"
+         result="result5" />
+      <feDisplacementMap
+         in2="result3"
+         id="feDisplacementMap3094-0"
+         scale="100"
+         xChannelSelector="R"
+         in="result5"
+         yChannelSelector="G" />
+      <feColorMatrix
+         id="feColorMatrix3096-9"
+         values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 6.5 -4.5 "
+         result="result92" />
+      <feComposite
+         in2="result92"
+         id="feComposite3098-3"
+         in="fbSourceGraphic"
+         operator="out" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="278.78524"
+     inkscape:cy="168.08943"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     units="in"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     scale-x="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="background"
+     style="display:inline"
+     transform="translate(0,-138.684)">
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#4da7e9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.06500018;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:3.19500013, 3.19500012999999994;stroke-dashoffset:0;stroke-opacity:0.719697;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect4504"
+       width="160.02"
+       height="89.916"
+       x="7.9375"
+       y="33.644436" />
+    <rect
+       y="138.68402"
+       x="-9.3296997e-08"
+       height="89.916"
+       width="160.02002"
+       id="rect2970"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#4da7e9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.06500018;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:3.19500016, 3.19500016000000020;stroke-dashoffset:0;stroke-opacity:0.719697;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:0.79500002;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#4da7e9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.07282317;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:3.21846885, 3.21846884999999983;stroke-dashoffset:0;stroke-opacity:0.719697;filter:url(#filter3028);color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect4504-6"
+       width="160.02"
+       height="89.916"
+       x="0"
+       y="138.68402"
+       transform="matrix(0.98741836,0,0,0.99802625,1.0066594,0.3624428)" />
+    <rect
+       y="138.68402"
+       x="-9.3296997e-08"
+       height="89.916"
+       width="160.02002"
+       id="rect2970-6"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#1f75e3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.06500018;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:3.19500016, 3.19500016000000020;stroke-dashoffset:0;stroke-opacity:0.719697;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:0.79500002;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#448ae7;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.07282317;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:3.21846885, 3.21846884999999983;stroke-dashoffset:0;stroke-opacity:0.719697;filter:url(#filter3028-7);color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect4504-0"
+       width="160.02"
+       height="89.916"
+       x="0"
+       y="138.68402"
+       transform="matrix(0.98741836,0,0,0.99802625,1.00666,0.36244412)" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-207.08398)"
+     sodipodi:insensitive="true">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.89791679px;line-height:10.07476044px;font-family:'Libre Baskerville';-inkscape-font-specification:'Libre Baskerville Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#d8d8d8;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="45.343246"
+       y="231.69731"
+       id="text4508"><tspan
+         sodipodi:role="line"
+         x="46.259377"
+         y="231.69731"
+         style="font-size:6.89791679px;line-height:10.07476044px;text-align:center;text-anchor:middle;fill:#d8d8d8;fill-opacity:1;stroke-width:0.26458332px"
+         id="tspan4516">5 `min` 9 = 5 </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.89791679px;line-height:10.07476044px;font-family:'Libre Baskerville';-inkscape-font-specification:'Libre Baskerville Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#d8d8d8;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="45.37973"
+       y="266.96799"
+       id="text4508-3"><tspan
+         sodipodi:role="line"
+         x="45.37973"
+         y="266.96799"
+         style="font-size:6.89791679px;line-height:10.07476044px;text-align:center;text-anchor:middle;fill:#d8d8d8;fill-opacity:1;stroke-width:0.26458332px"
+         id="tspan4516-3">[1, 2, 3] ++ [4, 5, 6]</tspan><tspan
+         sodipodi:role="line"
+         x="45.37973"
+         y="277.04276"
+         style="font-size:6.89791679px;line-height:10.07476044px;text-align:center;text-anchor:middle;fill:#d8d8d8;fill-opacity:1;stroke-width:0.26458332px"
+         id="tspan4680">= [1, 2, 3, 4, 5, 6]</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.89791679px;line-height:10.07476044px;font-family:'Libre Baskerville';-inkscape-font-specification:'Libre Baskerville Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#d8d8d8;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="123.13818"
+       y="267.49911"
+       id="text4508-5"><tspan
+         sodipodi:role="line"
+         x="123.13818"
+         y="267.49911"
+         style="font-size:6.89791679px;line-height:10.07476044px;text-align:center;text-anchor:middle;fill:#d8d8d8;fill-opacity:1;stroke-width:0.26458332px"
+         id="tspan4516-2">True || False</tspan><tspan
+         sodipodi:role="line"
+         x="123.13818"
+         y="277.57388"
+         style="font-size:6.89791679px;line-height:10.07476044px;text-align:center;text-anchor:middle;fill:#d8d8d8;fill-opacity:1;stroke-width:0.26458332px"
+         id="tspan4690">= True</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.89791679px;line-height:10.07476044px;font-family:'Libre Baskerville';-inkscape-font-specification:'Libre Baskerville Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#d8d8d8;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="123.18803"
+       y="231.56799"
+       id="text4508-7"><tspan
+         sodipodi:role="line"
+         x="123.18803"
+         y="231.56799"
+         style="font-size:6.89791679px;line-height:10.07476044px;text-align:center;text-anchor:middle;fill:#d8d8d8;fill-opacity:1;stroke-width:0.26458332px"
+         id="tspan4516-0">4 * 3 = 12</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4682"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:25px;font-family:'Libre Baskerville';-inkscape-font-specification:'Libre Baskerville Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.26458333,0,0,0.26458333,0,68.399983)"><flowRegion
+         id="flowRegion4684"><rect
+           id="rect4686"
+           width="858.62964"
+           height="1165.7161"
+           x="715.18799"
+           y="-101.70583" /></flowRegion><flowPara
+         id="flowPara4688" /></flowRoot>  </g>
+</svg>

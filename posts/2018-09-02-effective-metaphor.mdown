@@ -8,4 +8,246 @@ tags: talks, linguistics, math
 
 I gave the opening keynote at the [C&#x2218;mp&#x2218;se :: Melbourne](http://www.composeconference.org/), and the organizers were kind enough to give me a lot of freedom in my choice of topic. I often find myself very frustrated by the way programmers talk about metaphor, so I chose a topic that would let me give an entirely different view of metaphors -- metaphors the way linguists and cognitive scientists talk about them, metaphors as the crucial backbone of everyday thought and abstractions in mathematics and elsewhere.
 
-I drew from a lot of sources in preparing this talk; citations are given here where appropriate and a complete reference list is given at the end if you would like to read more. Given the breadth of the material covered in a 45-minute talk, I had to breeze through some of it; perhaps next time I return to Australia I can explore some topics in more depth, such as how our search for *closure* (in mathematics) has been an important motivation for developing more and more kinds of numbers. At any rate, I hope for now, this will give an overview, enough that the conversation about metaphors might shift just a bit and we might see new ways to empathize with learners who are struggling to *see* the abstractions.
+I drew from a lot of sources in preparing this talk; citations are given here where appropriate and a complete reference list is given at the end if you would like to read more. Given the breadth of the material covered in a 45-minute talk, I had to breeze through some of it; perhaps next time I return to Australia I can explore some topics in more depth, such as how our search for *closure* (in mathematics) has been an important motivation for developing more and more kinds of numbers. At any rate, I hope for now, this will give an overview, enough that the conversation about metaphors might shift just a bit and we might find new ways to empathize with learners who are struggling to *see* the abstractions.
+
+> The Unreasonable Effectiveness of Metaphor
+> C&#x2218;mp&#x2218;se :: Melbourne
+> August 27, 2018
+
+Welcome!
+
+The first two images come from the book *Which One Doesn't Belong?* by Christopher Danielson. The beauty of this book is that on each page, for each collection of images, you can argue that *any* of the four is the one that doesn't belong. This book is not about getting the right answer; it's about making good mathematical argumentation and talking about properties of the figures. (It's a wonderful book and I cannot recommend it highly enough.)
+
+![not quite triangles](/images/triangularity.jpg)
+
+Which one doesn't belong here? The top right is the only quadrilateral. The lower right is the only one with curved lines. The lower left is the only one that is not a closed figure. The top left is the only one that is an actual triangle. You might be able to come up with more reasons why any of the four doesn't belong.
+
+We can see in three of the four figures some notion of "triangularity"; usually even children who have yet to learn a formal definition of a triangle can see it. *Triangularity* is a notion we came up with and then formalized by looking around at the irregular and somewhat noisy input from the real world and deciding on ways to group things according to their properties.
+
+Kids will often ask, and so should you: What properties matter when we talk about these things?
+
+![quadrilaterals](/images/context-matters.jpg)
+
+In some contexts, the properties that matter are very obvious. In the image above, if we are in a context where what we care about is color or size, for example, then we can easily pick out which one doesn't fit the others along those criteria. But the answer isn't always so obvious.
+
+![some basic equations](/images/which-equation.svg)
+
+Now which one doesn't belong? Like the images from the book, there isn't a single right answer. You can make an argument that each one in turn doesn't belong: the top right because it's the only product, the bottom right because it doesn't involve numbers at all or is the only one dealing with a two-valued set (or the only one where the result is one of the inputs), the bottom left because it's the only one that involves a collection of things or a type constructor (in Haskell terms), the top left because it's the only one that doesn't have a sensible notion of an identity value or the one that is most purely identifiable as an operation of "choosing".
+
+However, the context matters. We can rewrite all four of those using the same operator, called `mappend` but here written in its infix notation `<>`, in Haskell:
+
+```haskell
+λ> Product 4 <> Product 3
+Product {getProduct = 12}
+
+λ> Min 5 <> Min 9
+Min {getMin = 5}
+
+λ> [1, 2, 3] <> [4, 5, 6]
+[1,2,3,4,5,6]
+
+λ> Any True <> Any False
+Any {getAny = True}
+```
+
+The `mappend` operator is the `Semigroup` operator. So, we can see each of these operations as being different from all the rest, as we saw in the previous slide, but we can also group them all under the notion of *semigroup*. A semigroup is a set along with a binary associative operation (such as `min`, `||`, `++`, or `*`) that obeys some laws; you can also think of it as a monoid minus the identity element. We use newtype wrappers (`Min`, `Product`, and `Any`) to indicate which semigroup because many types form semigroups under multiple operations; we use one operator for all these in Haskell, but indicate which operation is relevant by renaming the underlying type (e.g., `Integer` or `Bool`).
+
+The point is, depending on how we look at these equations and what properties matter to us at a given time, we can see them each as being different or see them as all the same. They are different, and yet they are also the same at some level of abstraction. Abstraction looks at the ways things are the same and ignores ways in which they are different. Abstraction allows us to formalize things and make sure they are all very proper and law-abiding, and it also sometimes provides us new layers of what we can consider "concrete" in order to abstract and generalize further, as we'll see.
+
+This process relies on our ability to analogize, and, more importantly, on metaphor. Analogy and metaphor are not quite the same thing, but they both come under suspicion from programmers who like to believe themselves rational folks who value clear, precise statements of what a thing *is* not what it's *like*.
+
+![metaphors do not scale well](/images/scale.svg)
+
+So you see a lot of statements like this one in this business. This was taken from a paper about designing interfaces, but I don't want to particularly call out or shame this author, because this is an extremely common view of metaphor. But I'm here to tell you that without metaphors, mathematics and computers simply wouldn't exist.
+
+> She was the single artificer of the world \n
+> In which she sang. And when she sang, the sea, \newline
+> Whatever self it had, became the self \newline
+> That was her song, for she was the maker.
+> -- Wallace Stevens, The Idea of Order at Key West
+
+"The Idea of Order at Key West" has always been my favorite poem, and the poet here hits the nail on the head. The ocean, and indeed the world, makes noise; we make order -- we humans make music from the noise of the physical world.
+
+![our innate genius](/images/innate.svg)
+
+It's become clear in the past few decades that we come into the world with some innate abilities for dealing with the raw inputs we begin responding to even before birth. We share some of these with animals, and it's clear that they are evolved aspects of our embodied minds. The case for an innate grammar of one kind of another is complex and really out of the scope of this talk; I refer you to Ray Jackedoff's *Patterns in the Mind* for a readable, mostly nontechnical overview of the arguments and evidence. But if you've ever tried to listen to rapid natural speech of native speakers in a language you do not speak at all, you have some sense of how hard it is to even discern word boundaries, yet babies couldn't learn language if they were unable to do this.
+
+Further research indicates that we have some innate arithmetic ability. For example, we (and some animals) seem able to accurately gauge how many objects are in a collection without counting them; when we're infants we can perhaps do this for collections up to about three objects, but this increases as we get older, up to about seven objects for most people. This ability is known as *subitizing*. Babies (and, again, some animals) also seem to understand addition and subtraction up to about three; for details about the relevant research, I'll refer you to George Lakoff and Rafael Nu&ntilde;ez's *Where Mathematics Comes From*.
+
+And finally there is significant evidence that we have innate abilities to analogize and thence make metaphors. Here, I'll refer you to Douglas Hofstadter's book *Surfaces and Essences* as well as nearly any book with George Lakoff as one of the authors.
+
+Let's cover a couple of these in more depth.
+
+![subitizing](/images/subitize.svg)
+
+If I ask you how many red hearts are here, you do not have to count them. Very young children might, but adults can easily subitize this, especially when they are put in a familiar pattern such as this. Greg Tang writes math books for children specifically encouraging this subitizing ability; the abacus is also designed around this principle, as are dice, the patterns on playing cards and dominoes, and the ways we group the zeroes by threes in large numbers.
+
+> Analogy is what allows categorization to happen. \n
+> Analogy is the perception of common essence between two things.\n
+> -- Douglas Hofstadter, ["Analogy as the Core of Cognition"](https://www.youtube.com/watch?v=n8m7lFQ3njk)
+
+I mentioned that there is some difference between analogy and metaphor. Analogy is the similarity between two things. Metaphor is the linguistic expression of this similarity but, more fundamentally, metaphor is when we structure our understanding of one thing -- usually something abstract or at least not something we can directly experience through the senses -- in terms of another.
+
+![vicious killers](/images/bird-features.svg)
+
+Analogy is what lets us see this friendly owl and this vicious killer and pay attention to what they have in common: they are winged, they have feathers, they lay eggs. In this case, one of these can't even fly, although most winged and feathered creatures can!
+
+![BIRD](/images/bird-metonymy.svg)
+
+We then organize all the data the world provides about winged, feathered, egg-laying, usually flying creatures into a group and call it *BIRD*. Bird is now a category of thing that exists in your mind and in your mental lexicon of your language.
+
+![nice little birdies](/images/prototypical.svg)
+
+Some birds are more prototypical birds, some are less. Generally the more "bird-like" features the bird has, the more prototypical it is and the more likely you are to think of it on one of those tests they give you where they ask you to name the first instance of a category that comes to mind. Chickens are less prototypical than robins, penguins are even less prototypical, and the Australian velociraptor from the earlier slide even less so (for most people).
+
+Analogy and being able to find the *essence* of things and organize them accordingly is, indeed, the core of our cognition.
+
+> The essence of metaphor is understanding and experiencing one kind of thing in terms of another.\n
+> George Lakoff and Mark Johnson, Metaphors We Live By
+
+The word "metaphor" is often used to refer to the mere linguistic expression of analogy; however, over the past few decades, linguists and cognitive scientists have come to realize metaphor is much more.
+
+*Conceptual metaphor* is how we structure our understanding of nearly everything we can't directly experience. For example, we structure our understanding of time in terms of spatial relationships. We think of times as being "ahead" or "behind" us, as if we were standing on a physical timeline. One interesting thing here is that, while structuring understanding of time in terms of space is universal, the orientation is *not* universal: in some cultures, the future is "ahead" and in some it is "behind". An important thing to understand is that the inferences about what it means for something to be "ahead" of you versus "behind" you hold for those cultures' interpretations of time, mapped directly from the spatial inferences.
+
+![the circuitry of conceptual metaphor](/images/circuits.svg)
+
+We're going to get a little hand-wavy here, mostly to stay out of the weeds of technical detail and the various areas that are still poorly understood and up for dispute, but we can think of conceptual metaphor in the brain as something like this. We have a group of neurons that are interconnected and correspond to a concrete concept such as *UP*. Up-ness is a well understood, universal, concrete notion that we understand by being bodies in the world. So we have this little network of neurons related to that concept.
+
+On the right we have the target frame, the thing we're trying to understand, to grapple with, to talk about. Over time as we experience some target concept, such as "more" or "happy", and analogize aspects of the source concept *UP* to aspects of the target, we form connections between "happy" and "up (physical)". The little neural network for "happy" has most of the same structure as the network for "up" (although over time it might gain mappings from some other source, some other concept that we use to partially structure the concept of "happy"). And so the concept of *HAPPY* becomes irrevocably structured in terms of *UP*. This does find expression in our language, and it's important to note that once we have this metaphor, poets might get creative about ways to express it, but the metaphor *never* breaks -- *HAPPY* is never *down*.
+
+![conceptual metaphor](/images/conceptual-metaphor.svg)
+
+This is how George Lakoff defines conceptual metaphor. By "grounded" we mean there is a source frame, generally something more concrete or better understood. By "inference preserving" we mean that the inferences we can make about the source concept hold for the target concept. So when we structure some concept in terms of *UP*-*DOWN* the continuum of relative up-ness and down-ness will hold for that concept as it does for the physical relationship.  
+
+![the varieties of upness](/images/up-down.svg)
+
+But the spatial continuum represented by *UP*-*DOWN* is *everywhere*. It's one of the most fundamental concepts we have, and so we structure *so many* things in these terms. Quantity is slightly less concrete than spatial relationships; consciousness is a lot less concrete. But we can imagine how each of those mappings might have come about: as the quantity of something in a container becomes "more" it also "rises"; unconscious animals are not typically upright.
+
+Things like "rational" and "virtuous" mapping to *UP* may result from an extension process: conscious is up, humans are *more conscious* than other animals therefore the *more human* attributes, such as reason and virtue, are *more up*. To a certain extent, we're telling "just so" stories here about how these things come about, but we are certain that the mappings exist, however they came to be. They show up consistently in our language usage, are extremely common cross-culturally, and are further revealed as physically *real* in our brains by the various methods of the cognitive scientist.
+
+Importantly, these relationships also preserve the inferences of their mappings. Your mood can be raised and lifted; even if you are already happy, your spirits can be further lifted and you may become joyful or even *elated* (whose root means "raised"). And if you get *depressed* enough, you may reach a *nadir*.
+
+One thing I like to do sometimes is think of how we can do things like "more concrete" and think of the state of "being concrete" increasing. Even though "concrete" is *down* relative to "abstract", we can prioritize the up-ness of the *quantity* relationship, if we were going to draw a visualization of "more vs less concrete". Think about it. Seriously stuff like this has kept me awake nights.
+
+OK but what does this have to do with mathematics?!?! I'm referencing mathematics in my title and it's hard to see how we get from birds and happiness to the *serious stuff* of mathematics, right? Let's go.
+
+> Mathematics starts from a variety of human activities,
+> disentangles from them a number of notions which are generic
+> and not arbitrary, then formalizes these notions and their
+> manifold interrelations.
+> -- Saunders Mac Lane, ["Mathematical Models"](http://home.deib.polimi.it/schiaffo/TFIS/philofmaths.pdf)
+
+We'll take our starting cue from a man who surely understood abstraction and precision, Saunders Mac Lane, one of the inventors of category theory. He found himself frustrated at the poor state of philosophy of mathematics and tried to explain why in this paper, eventually expanding it into a book called *Mathematics Form and Function*. What he saw was that none of the dominant schools of thought adequately explained mathematics. Mathematics starts off in concrete activities, aided by our innate abilities (see above), "disentangles *from them* a number of notions which are generic and not arbitrary", and then formalizes and makes precise those notions (and their "manifold interrelations").
+
+This *disentangling* is the process of settling on things like "triangularity", "semigroup", "bird" by picking out properties that matter. We often, even advanced mathematicians, often discover which properties matter by process of experimentation, trial and error. We think, well, what if this property mattered? And see where it leads us. If it doesn't lead to anything useful we can generalize, whether to understand the world better or to find new planes of abstraction and new relationships, we abandon it. You can see this process happen naturally in children if you let them go through it, but mathematicians like Mac Lane and Eugenia Cheng sometimes describe working through similar processes.
+
+![the metaphors of mathematics](/images/various-metaphors.svg)
+
+Now we'll look in more detail how it happens for math. Mathematical metaphors come in basically three types. *Grounding metaphors* are those that ground abstract concepts in some human activity. There are a handful of grounding metaphors for mathematics. Mac Lane gives more than Lakoff and Nu&ntilde;ez do, and we'll stick with their characterization for our purposes. *Linking metaphors* link two areas of mathematics (or some other field, but our concern is maths) by analogy with each other. The last one, *extraneous metaphors* are things like "maybe monads are like burritos"; typically when we think of metaphor as a poetic device, it's the extraneous metaphors we're thinking of. Extraneous metaphors can be useful sometimes for explanation of new concepts, but they are not integral to how the concepts came to be in the first place; the development of monads in category theory didn't have anything to do with burritos (arguably it had something to do with containers, but not in the way programmers typically mean that).
+
+![the four grounding metaphors](/images/arithmetic-metaphors.svg)
+
+The four grounding metaphors of arithmetic are:
+
+- _*Object collections*_: This is often one of the first ways we work with kids to teach them arithmetic. You have a group of three candies and a group of two candies (note that both of those collections can be subitized rather than counted) -- now look we have a group of five! You can count them! Every time it will be five, and you can subtract the one from the other and have the two collections you started with! This metaphor does not lend itself well to a notion of zero (a collection of zero is ... not a collection, not at this concrete level) and certainly not to negative numbers. It also becomes difficult to do with large numbers, although some math manipulatives have bars of 10 and blocks of ten 10s for a "hundred block" that helps with subitizing arithmetic.
+
+- _*Object construction*_: A next step is thinking of numbers as constructed objects rather than collections. We can think of a single object being built out of parts, like you might build a single figure out of Lego bricks. We can see the figure get bigger; we can see that a single object made of five objects consists of five single bricks or of a group of two bricks plus three bricks. We can get to fractions from here, among other things (such as literal cake cutting).
+
+Notice in both of these metaphors, numbers are related to multidimensional tactile objects.
+
+- _*Measuring stick*_: Measuring is also a natural human activity, whether we're doing it with a body part such as a "foot" or with a stick or formalized stick. Now numbers can be seen as one-dimensional segments or points on a line. This notion gives us a very clear way to conceptualize zero, as the starting point of our measurement.
+
+- _*Motion along a path*_: We'll be talking about this one in more detail, as it makes the *inference-preserving* nature of conceptual metaphor especially clear in my opinion. We can conceive of numbers as a path that we can walk along. It has a natural zero. It includes a natural conception of negative numbers, at least when coupled with the concept of rotation in space or starting at zero and walking "the other way". A path has a certain topology, it might even go on to the horizon, as far as the eye can see, helping us to visualize an idea of "infinity."
+
+The combination of these four metaphors give us a lot to work with -- numbers as multidimensional tactile objects, numbers as spatial relationships, and so on. However, doing arithmetic physically with one of these source frames behaves the same as arithmetic in any of the others. If you put a collection of two objects together and a collection of three together, you get five; if you take two steps along a path and then take three more, you have taken five steps. From here, we formalize and make precise the *laws of arithmetic*.
+
+![arithmetic along a path](/images/source-path-goal.svg)
+
+Let's look at the source frame *motion along a path* in a little more detail. If you have traveled from the start points to some point A, then you have been at every point between the two points.
+
+![composition along a path](/images/functor-diagrams.svg)
+
+Do these look familiar? These diagrams of function composition show motion along a path and rely on our intuitions about real paths (at least, "as the crow flies" or idealized paths) to demonstrate an important property of composition.
+
+
+
+![what are numbers](/images/what-are-birds.svg)
+
+So, what are numbers? We just don't know. Even mathematicians don't have a single answer; what a number is depends on what branch of mathematics we're talking about and what we want to do with it. We have numbers that violate the laws of arithmetic even. How?
+
+How are penguins and sparrows both *birds*? How are 3 and [(3 :: Float)](https://stackoverflow.com/questions/42291558/why-are-float-and-double-different-in-the-case-of-adding-0-1-and-0-2/42293440) and &pi; all easily thought of as *numbers*?
+
+![basic metaphors of numbers](/images/set-vs-line.svg)
+
+For one thing, we have two basic "shapes" of numbers -- as points or segments along some kind of line and as potentially three-dimensional collections or groups or ... *sets* of matter. These concepts are qualitatively different; they are different *in kind*.
+
+
+![arithmetic on a plane](/images/plane.svg)
+
+And with one conception we can even rotate one *axis* and conceptualize numbers as points in two-dimensional space.
+
+With another we get the various set-theoretic ways of constructing numbers. Again, these are different *in kind* and useful for different *types* of mathematics.
+
+We have structured the abstract concept *number* in terms of two different *types* of grounding concepts and thus created a very complex target concept.
+
+As Aristotle said in the *Rhetoric*, "Ordinary words convey only what we know already; it is from *metaphor* that we can best get hold of something fresh."
+
+![numbers along a path](/images/repeated-analogy-number.svg)
+
+By repeated application of analogy and linking metaphor, we are perfectly able to conceive of all these things as *numbers*.
+
+But incidentally, now that we have this concept of *number*, and all the ways we understand numbers are by analogy to *things in the world*, we decide -- via metaphor again -- that *NUMBERS ARE REAL THINGS.* The real things are real; quantities and points along a path are all things we understand intuitively from our experience in the world. But numbers, like language, are not things that exist independent of our minds.
+
+![plato wat](/images/plato.svg)
+
+This one of the things Mac Lane argues against in his philosophy of mathematics, but very many mathematicians believe in the Platonic existence of numbers that we discovered, rather than invented. Well, in fact, as with natural language, it's a bit of a false dichotomy: we discover properties of the real world and we invent formalizations and idealizations of them.
+
+Next we'll look more at the idea of *linking metaphors*. We'll start first with one of the grounding metaphors of our concepts of sets.
+
+![containers for real](/images/containers.svg)
+
+Once we conceptualize the idea of container, we can visualize (mentally or on paper) situations that we are extremely unlikely to see in real life by analogy with ones that we do.
+
+![numbers and containers](/images/boolean-arithmetic.svg)
+
+We can conceptualize set theory in terms of arithmetic with linking metaphor.
+
+George Boole came along and decided we could also conceptualize propositional logic in terms of arithmetic, from which we could link all three areas of mathematics.
+
+Linking three already abstract (away from the original grounding metaphors of arithmetic anyway) concepts gave us a new abstraction.
+
+
+![MONOID](/images/MONOID.svg)
+
+The concept *monoid* came from the similarities among arithmetic, Boolean arithmetic, and set operations. Creating that metaphor and formalizing it allows us to structure entirely new experiences in terms of our understanding of what monoids are in general and how they should behave.
+
+![statue of Plato looking down at us](/images/plato-statue.jpg)
+
+Like all the Western world, I have lived in the shadow of Plato, but new research is constantly emerging that this is the source of all mathematics -- indeed, something like this process appears to be the engine of most human thought.
+
+Does this mean mathematics isn't *true* or *real*? Certainly not.
+
+![intersubjectivity](/images/conjective.svg)
+
+
+![we are the makers of mathematics](/images/no-plato.svg)
+
+![extraneous burritos](/images/sushi-monad.svg)
+
+![extraneous desktop](/images/desktop.svg)
+
+![the takeaway](/images/thesis.svg)
+
+### References:
+
+- *Which One Doesn't Belong* by Christopher Danielson
+- *Patterns in the Mind* by Ray Jackendoff
+
+- *Metaphors We Live By* by George Lakoff and Mark Johnson
+- *Surfaces and Essences* by Douglas Hofstadter
+- *Where Mathematics Comes From* by George Lakoff and Rafael E Nunez
+- [*Mathematical Models: A Sketch for the Philosophy of Mathematics*](http://home.deib.polimi.it/schiaffo/TFIS/philofmaths.pdf) by Saunders Mac Lane (1981)
+
+- *Mindstorms* by Seymour Papert
+- *Computers as Theatre* by Brenda Laurel
+- [*Of Subjects and Object*](https://sweettalkconversation.com/2015/08/02/of-subjects-and-object/) by Adam Gurri
