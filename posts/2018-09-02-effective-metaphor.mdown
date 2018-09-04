@@ -31,7 +31,7 @@ In some contexts, the properties that matter are very obvious. In the image abov
 
 ![](/images/which-equation.png)
 
-Now which one doesn't belong? Like the images from the book, there isn't a single right answer. You can make an argument that each one in turn doesn't belong: the top right because it's the only product, the bottom right because it doesn't involve numbers at all or is the only one dealing with a two-valued set (or the only one where the result is one of the inputs), the bottom left because it's the only one that involves a collection of things or a type constructor (in Haskell terms), the top left because it's the only one that doesn't have a sensible notion of an identity value or the one that is most purely identifiable as an operation of "choosing".
+Now which one doesn't belong? Like the images from the book, there isn't a single right answer. You can make an argument that each one in turn doesn't belong: the top right because it's the only product, the bottom right because it doesn't involve numbers at all or is the only one dealing with a two-valued set, the bottom left because it's the only one that involves a collection of things or a type constructor (in Haskell terms), the top left because it's the only one that doesn't have a sensible notion of an identity value or the one that is most purely identifiable as an operation of "choosing".
 
 However, the context matters. We can rewrite all four of those using the same operator, called `mappend` but here written in its infix notation `<>`, in Haskell:
 
@@ -160,6 +160,8 @@ Notice in both of these metaphors, numbers are related to multidimensional tacti
 
 - **Motion along a path**: We'll be talking about this one in more detail, as it makes the *inference-preserving* nature of conceptual metaphor especially clear in my opinion. We can conceive of numbers as a path that we can walk along. It has a natural zero. It includes a natural conception of negative numbers, at least when coupled with the concept of rotation in space or starting at zero and walking "the other way". A path has a certain topology, it might even go on to the horizon, as far as the eye can see, helping us to visualize an idea of "infinity."
 
+With these two metaphors, especially measuring things, we start to get ideas about irrational numbers. If we already understand the Pythagorean theorem as a result of measuring triangles and formalizing those properties, then at some point we encounter a triangle whose hypotenuse is &radic;<span style="text-decoration: overline">2</span>. And we have this metaphor that any line segment corresponds to a number, so &radic;<span style="text-decoration: overline">2</span> must be a number now.
+
 The combination of these four metaphors give us a lot to work with -- numbers as multidimensional tactile objects, numbers as spatial relationships, and so on. However, doing arithmetic physically with one of these source frames behaves the same as arithmetic in any of the others. If you put a collection of two objects together and a collection of three together, you get five; if you take two steps along a path and then take three more, you have taken five steps. From here, we formalize and make precise the *laws of arithmetic*.
 
 ![](/images/source-path-goal.png)
@@ -197,6 +199,8 @@ As Aristotle said in the *Rhetoric*, "Ordinary words convey only what we know al
 ![](/images/repeated-analogy-number.png)
 
 By repeated application of analogy and linking metaphor, we are perfectly able to conceive of all these things as *numbers*.
+
+I want to say just a brief bit about *closure* here. Part of the reason why we continually link new concepts to the concept of a *number* is we have an intuition from the real world that arithmetic operations in general should be *closed* -- that is, that they should return an entity of the same kind as their inputs. When we add two collections of objects, we get another collection; when we walk two sections of a path, we have a path. But as we expanded our conceptions of numbers to include irrational numbers and negative numbers, some operations were no longer closed. By considering whatever entity those operations did return as another "number" -- no matter how irrational, no matter how much it didn't *look* like other numbers -- by expanding the set of numbers, we are able to preserve closure.
 
 But incidentally, now that we have this concept of *number*, and all the ways we understand numbers are by analogy to *things in the world*, we decide -- via metaphor again -- that *NUMBERS ARE REAL THINGS.* The real things are real; quantities and points along a path are all things we understand intuitively from our experience in the world. But numbers, like language, are not things that exist independent of our minds.
 
