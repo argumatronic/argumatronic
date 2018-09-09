@@ -1,0 +1,6 @@
+---
+title: What happened with haskellbook
+tags: Haskell, personal
+---
+
+Last October, I saw [this tweet thread](https://twitter.com/bitemyapp/status/914876624927150080) and knew my co-author was going to begin selling things owned by our partnership on a web site owned solely by him.
