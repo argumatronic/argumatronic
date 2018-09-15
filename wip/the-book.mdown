@@ -3,4 +3,48 @@ title: What happened with haskellbook
 tags: Haskell, personal
 ---
 
-Last October, I saw [this tweet thread](https://twitter.com/bitemyapp/status/914876624927150080) and knew my co-author was going to begin selling things owned by our partnership on a web site owned solely by him.
+* Fall 2014: We begin collaborating on haskellbook. He's written only small bits and pieces before this. We discuss a table of contents and shop it around to some publishers.
+
+* One publisher sends us a note that one of the reviewers who read our proposal had told them they should not accept our book because we are bad for the community. I'm shocked at this as I'm not even in the community, but I eventually come to understand why they'd say it.
+
+* December 2014: My uncle/godfather, with whom I'm very close, is dying of lung cancer and I ask for a few days off from dealing with the book and publisher paperwork so I can go visit him. I had written a bit in the book before I left, and while I'm in Phoenix at my uncle's house, I ask if he's had a chance to look at it and give me feedback; he replies that I need to get over my need to have my ego stroked. He begins texting me about "dibblegate" and getting angry if I do not reply promptly. I ask him if he's taking care of the paperwork for the publisher we're in contact with, and he says he will.
+
+As I'm driving across New Mexico with my children, having just said my last goodbye to my uncle, he tells me he has not done the paperwork. I get to the hotel, put my children to bed, and fill out the paperwork. That publisher accepts the book.
+
+* April 2015: We amicably sever the relationship with that publisher and decide to self-publish. To be clear, there was nothing wrong with the publisher; we  wanted more freedom in how we laid the book out.
+
+* May 2015: The first few chapters of the book are released in Early Access on Gumroad. We do not have a joint bank account or a joint authorship contract yet.
+
+* Summer 2015: My family is homeless for reasons I've made known on Twitter, and I'm very stressed. The co-author badgers me to be more cheerful and when I fail at this, tells me he's "taking me off the book." My husband wants me to quit working with the co-author and reluctantly agrees to support me if and only if I get a formal legal contract. The co-author finally agrees to this and has a contract drawn up.
+
+* Spring 2016: Rapidly approaching content completion of this book, we each have several other books we'd like to write and we agree to go on collaborating. We start a site called "Fighting Tanukis" that will be the umbrella of our publishing concern.
+
+At one point during these discussions, he says, "Why should I go on working with you, though? If I break up the partnership now, I get to have all the money."
+
+* May 2, 2016: We [announced the final content release](https://twitter.com/haskellbook/status/727036492959227904) of the book.
+
+* mid-May, 2016: My husband is a taciturn man, but one day as we were preparing for the upcoming LambdaConf, he comes to me and says, "This pattern, where he yells at you and threatens to take the book away from you, or tells you you're boring, and you stop talking to him, but then he apologizes and you forgive him, you know what it's like? It's like wife beaters. It's like watching my wife become an abused wife."
+
+* June 2016: We decide to stop working together, but for editing the book and getting it finalized and printed.
+
+* June - August 2016: He keeps trying to convince me to let him publish and sell the book exclusively on his own site. He keeps asking don't I want to sever the business relationship cleanly and get it over with, and wouldn't it be best if he, more firmly attached to the Haskell community, is the one made steward of it. I repeatedly say no.
+
+* August 2016: We ordered and received [our first physical proofs](https://twitter.com/argumatronic/status/768636887263174656) of the book.
+
+* Fall and Winter 2016: We divide up the tasks to get the book to completion. We each have some tasks assigned to us. I have the lion's share of the editing and proofreading of the book, while he agrees to get [our site](http://haskellbook.com/) ready to handle sales of a physical book, as the intention is to print it and sell the physical books ourselves, in addition to selling the electronic books so that we can move off Gumroad. He says he will automate the indexing of the book as well as some placement of other LaTeX tags, but as I'm proofreading I find the book is largely not indexed.
+
+During this time, in several emails, we discuss Shopify and other e-commerce options for hosting the e-books and selling and shipping the books. I note that there are no recent changes in the site repository and that the site continues to not have an SSL certificate, but he assures me that he is getting close to being ready to sell things. We have some cool Typeclassopedia t-shirts as well as some copies of *Lauren Ipsum* left over from the previous LambdaConf, and we've agreed to sell them through a haskellbook-branded Shopify site as a test for the shipping fulfillment he's been working on. But despite assurances it's coming along, it never happens, although the unused Shopify account will be allowed, to my surprise, to auto-renew in 2018.
+
+* February 22, 2017: I discover [LambdaConf has announced](https://twitter.com/lambda_conf/status/834413311605276673) that my co-author and Steve Syrek will be teaching a Haskell workshop that includes a copy of haskellbook with registration. I wasn't asked permission, I wasn't being offered compensation, and they were intending to profit off teaching this workshop. The workshop was later canceled.
+
+* March 2017: I make some changes to the haskellbook site but find I can no longer deploy the site. I email him to ask what happened and he does not respond to my questions.
+
+It is worth noting that all our accounts -- Gumroad, AWS, Shopify, and so forth -- are tied to his personal email, not to a joint email, so I have limited ability to manage the accounts myself. And now I can't deploy our site either.
+
+* May 2017: I finish indexing the book and [write a blog post about it](https://argumatronic.com/posts/2017-05-12-indexing-haskell.html), thinking the book will now move toward completion.
+
+* July 2017: We exchange emails regarding the comments that are still laced throughout the book that have his name attached to them. He claims he cannot find them by grepping, so I grep and find them for him.
+
+* October 2017: I see [this tweet thread](https://twitter.com/bitemyapp/status/914876624927150080), the co-author announcing plans to begin selling things (the book and t-shirts he mentions in the thread) owned by our partnership on a web site owned solely by him. He wants us to go to mediation; I contact a lawyer.
+
+* September 14, 2018: The joint partnership is officially dissolved and I no longer have intellectual property or financial stake in haskellbook.
