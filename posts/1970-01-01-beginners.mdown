@@ -4,26 +4,27 @@ tags: beginner-friendly
 withtoc: yes
 ---
 
-People ask me a lot how they can best get started with programming, functional programming, or Haskell specifically. I think [Haskell Programming from First Principles](http://haskellbook.com/), which was written for beginners, is a great place to start, but FULL DISCLOSURE, I am one of its authors. I'm going to try to collect here the things that I have personally found most helpful for getting started with programming and with Haskell. It's an opinionated collection. It might not be perfectly suited to your needs, but these are things that worked for me.
+People ask me a lot how they can best get started with programming, functional programming, or Haskell specifically. I have tried here to put together a list of free resources to help you get started, things that I've used and feel confident are pedagogically sound. It's an opinionated collection. It might not be perfectly suited to your needs, but these are things that worked for me.
 
 
 # What to do first
 
 OK, you're here looking at a Haskell-ish blog already so maybe you don't need this advice. But. Just in case.
 
-This [Getting Started](https://haskell-lang.org/get-started) guide will help you get set up quickly.
+Unless you already know what you're doing, I recommend following the [minimal installers](https://www.haskell.org/downloads) instructions here.
 
-If you are not already a Nix user, I recommend you use [Stack](http://docs.haskellstack.org/en/stable/README/) and look through some of its documentation. The documentation for it is fairly thorough.
+It's worth noting that the word "Cabal" around the Haskell community refers to two things: one is a [framework for building Haskell packages](https://www.haskell.org/cabal/), while the other is a [command-line interface](http://hackage.haskell.org/package/cabal-install) for building and installing packages. While neither is technically essential, it's good to take some time to familiarize yourself with both. You may sometimes hear talk around the Haskell community of "cabal hell," but due to recent improvements in the `cabal-install` package, this is expected to be a thing of the past.
 
 If you are itching to write some Haskell, try [Writing Simple Haskell](https://soupi.github.io/rfc/writing_simple_haskell/).
 
 
 # Books
 
-When we're talking about learning resources, I am very opinionated. In the course of writing our Haskell book, I have read most of the other Haskell books. I recognize that not everyone's judgments here will be the same as mine, but these are what worked best for me (totally new programmer with not a lot of math background):
+When we're talking about learning resources, I am very opinionated. In the course of writing a Haskell book, I have read most of the other Haskell books. I recognize that not everyone's judgments here will be the same as mine, but these are what worked best for me (totally new programmer with not a lot of math background):
 
   - [Haskell Wikibook](https://en.wikibooks.org/wiki/Haskell): The wikibook is free, which is awesome, and it really starts from the basics and works its way up in a nice progression. It has some exercises, although you'll want more. You can get more exercises by doing [cis194](http://www.seas.upenn.edu/~cis194/spring13/), the [99 Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems), and the [NICTA course](https://github.com/NICTA/course), among other things. All of those are free. The wikibook does have uneven coverage -- some topics aren't covered enough and some parts are not as well written as others, which just follows from it being a wikibook. However, I found many parts of it very clear and reasonably easy to follow.
-  - [Haskell Programming from First Principles](http://haskellbook.com/) by Chris Allen and Julie Moronuki: Sure. It's my book. This is how I learned Haskell, so it covers thoroughly all the things I didn't know, which was everything. It assumes no particular background knowledge besides some familiarity with high school level algebra. It goes from the lambda calculus through monad transformers, parser combinators, and exception handling, so it covers more than enough to get you working on your own projects in Haskell (or other functional languages). It has quite a few exercises.
+
+  - [gilmi](https://twitter.com/_gilmi) put together a [fantastic and thorough list of resources as well](https://github.com/soupi/haskell-study-plan/tree/6490a5a89f24adae860ad0e2afe2a87c8bc58e0a).
 
   - [Haskell: The Craft of Functional Programming](http://www.haskellcraft.com/craft3e/Home.html) by Simon Thompson: Ah, this book is not free, and it's not perfect, but I do love this book. It has quite a few exercises, and I found them interesting and challenging without making me want to hurl the book through the window.
 
