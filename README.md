@@ -34,5 +34,7 @@ In addition to Jasper's rather [extensive documentation and tutorials](https://j
  
 - Dr. Kat Chuang maintains a [Hakyll CSS garden](http://katychuang.com/hakyll-cssgarden/gallery/) with instructions for quickly setting up various themes. That's how I got mine started back when I didn't know anything at all about CSS.  
 
+- I have blogged exactly once (so far) about Hakyll, specifically about [the changes I needed to make in order to generate tables of contents on long articles](https://argumatronic.com/posts/2018-01-16-pandoc-toc.html). 
+
 
  
