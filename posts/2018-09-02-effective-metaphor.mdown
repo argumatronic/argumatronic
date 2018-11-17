@@ -9,9 +9,12 @@ I gave the opening keynote at the [C&#x2218;mp&#x2218;se :: Melbourne](http://ww
 
 I drew from a lot of sources in preparing this talk; citations are given here where appropriate and a complete reference list is given at the end if you would like to read more. Given the breadth of the material covered in a 45-minute talk, I had to breeze through some of it; perhaps next time I return to Australia I can explore some topics in more depth, such as how our search for *closure* (in mathematics) has been an important motivation for developing more and more kinds of numbers. At any rate, I hope for now, this will give an overview, enough that the conversation about metaphors might shift just a bit and we might find new ways to empathize with learners who are struggling to *see* the abstractions.
 
-> The Unreasonable Effectiveness of Metaphor    
-> C&#x2218;mp&#x2218;se :: Melbourne    
-> August 27, 2018  
+You can watch the talk here or keep reading below. Or both!
+
+<div style="text-align: center;">
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/xMl3Y9r3HFA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<br />
 
 Welcome!
 
