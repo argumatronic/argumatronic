@@ -43,7 +43,7 @@ function :: a -> (b -> (c -> d))
 ```
 Applying the function to an `a` results in another function and so on.
 
-So, any "multiparameter" function is a series of nested one-argument functions, and any of those arguments could theoretically be functions. It's this default currying that enables the cool thing called _[partial application](https://wunki.org/posts/2011-10-04-currying-and-partial-application.html)_. We'll look at that in a moment.
+So, any "multiparameter" function is a series of nested one-argument functions, and any of those arguments could theoretically be functions. It's this default currying that enables the cool thing called _[partial application](https://blog.carbonfive.com/2012/09/09/partial-function-application-in-haskell/)_. We'll look at that in a moment.
 
 ## Higher-Order Functions
 
@@ -60,11 +60,6 @@ function :: (a -> (b -> c)) -> (b -> (a -> c))
 but this is done by default.
 
 One of the important points about functional programming is supposed to be that _[functions are first class](https://www.schoolofhaskell.com/user/EFulmer/currying-and-partial-application)_. Since Haskell is my first language, I suppose I take it for granted and never understood the significance (I get why higher-order functions are useful and good, but it just seems so bloody natural to me). But what it means is what we've seen: functions can be passed as arguments or returned as values. They may also be stored in variables or data structures, like other values.
-
-<!-- because the function constructor just constructs a value of type (->) like any other typed value
- -->
-
-<!-- No ordinary data constructors, you're right. It's baked into the compiler so that , but it still acts like *ordinary* data constructors in that nesting functions produces nested (->)'s. -->
 
 ## Currying and Partial Application
 
@@ -112,22 +107,17 @@ By applying them to one argument each (`5` and `even`), they become functions pr
 
 Currying allows you to build more specialized functions via partial application, so the order of arguments is a design concern with functions you'll want to reuse. For example, you're more likely to want to build a filtering function that will filter all the zeroes out of any list it is given, which can be easily done by partially applying `filter` to a test for nonequality with `0`, than to build one where `filter` is partially applied to some list first and awaits its filtering criterion. A similar idea gives us the partially applied folds that work as `sum` and `reverse` functions.
 
-<!-- Partial application lets you build more specialized functions. -->
-
-<!-- partially applying functions is the same as partially applying other type constructors. partial application and the function application (left assoc) means that "take 5" applies to the list as a unit.  
- -->
-
 ## Kinds
 
 All of that is very nice, but for me the really cool part came when I discovered that the types of types, called _kinds_, work the same way, and knowing this about kinds gives you quite a lot of information about how other things work, things that seem complicated and mind-bending when you approach them cold. _So many things_ just made sense when I realized they're a logical progression from how the function type works.
 
-So, in case you're not familiar with kinds already, here's a very short rundown. Kinds are represented by stars, `(*)`. Some datatypes, the ones that don't take any arguments, are essentially type _constants_ rather than type constructors, just as some data constructors are constant values (think of `True` and `False` -- they don't _construct_ a value, really, they just _are_). Those datatypes, such as `Bool` are a concrete type, so they have one star:
+So, in case you're not familiar with kinds already, here's a very short rundown. Kinds are represented by stars, `(*)` or `Type`. Some datatypes, the ones that don't take any arguments, are essentially type _constants_ rather than type constructors, just as some data constructors are constant values (think of `True` and `False` -- they don't _construct_ a value, really, they just _are_). Those datatypes, such as `Bool`, are concrete types so they have one star:
 
 ```haskell
 Prelude> :kind Bool
 Bool :: *
 ```
-That tells us that the _kind_ of `Bool` is just one star. It's not a constructor; that is, it's not a function. It's a concrete type -- like a value at the type level.
+That tells us that the _kind_ of `Bool` is just one star, or `Type`; you can also read this as. It's not a constructor; that is, it's not a function. It's a concrete type -- like a value at the type level.
 
 On the other hand, `List` and `Maybe`, dataytypes which must be applied to a type argument before they can construct a value of that type, are represented at the kind level with a function arrow:
 
@@ -137,7 +127,7 @@ Prelude> :kind []
 Prelude> :kind Maybe
 Maybe :: * -> *
 ```
-See, they're functions! You apply them to an argument and construct a type.
+See, they're functions! You apply them to an argument and construct a type. You may also see this as `Type -> Type`: when applied to a `Type`, they return a `Type` where `Type` is the kind of concrete types.
 
 Types that have more than two arguments have even more stars. A datatype called `Either` takes two parameters:
 
@@ -196,12 +186,11 @@ Left 1
 Prelude> fmap (+1) (Right 1)
 Right 2
 ```
-Our function can't be applied to whatever is inside the `Left` because what is inside `Left` is our `a` and that's what we had to partially apply to make `Either` have the kind `* -> *`. When we write a `Functor` instance for `Either` (or tuples, or any datatype with two parameters) to tell the compiler how `fmap` should work for that type, we have to partially apply the type constructor which makes the first type argument (or arguments, if our datatype has more than two parameters) part of the structure that `Functor` lifts over.
+Our function can't be applied to whatever is inside the `Left` because what is inside `Left` is our `a` and that's what we had to partially apply to make `Either` have the kind `* -> *`. When we write a `Functor` instance for `Either` (or tuples, or any datatype with two parameters[^1]) to tell the compiler how `fmap` should work for that type, we have to partially apply the type constructor which makes the first type argument (or arguments, if our datatype has more than two parameters) part of the structure that `Functor` lifts over.[^2]
 
-<!-- Since ordinary `fmap` won't apply a function to the `a` in `Left a`, then, by default the `Left a` value is one that you don't want to use or touch. So, it's fairly common for people to use it for failure cases, similar to the interaction between partial application and argument order of functions we saw above. -->
-
-<!-- As an aside, in a lot of cases, such as with Either and tuples, the parameters _may_ be different types, remember, they're `a` and `b` (although the names themselves are meaningless), although they are not required to be. But you don't know that before they've been applied to anything. If `a` and `b` _were_ different types, your function may not be able to apply to both of those types anyway.  
--->
+  [^1]: As an aside, in a lot of cases, such as with Either and tuples, the parameters _may_ be different types, remember, they're `a` and `b` (although the names themselves are meaningless), although they are not required to be. But you don't know that before they've been applied to anything. If `a` and `b` _were_ different types, your function may not be able to apply to both of those types anyway.
+  
+  [^2]: Since ordinary `fmap` can't apply a function to the `a` in `Left a`, it's common for people to use it for failure cases. You may notice a relationship between this and the interaction between partial application and argument order of functions we saw above.
 
 Anyway, so we're finally getting to the part that was really exciting for me, although it seems to follow so naturally from what came before, it's almost a disappointment. _Almost._
 
@@ -279,13 +268,12 @@ True
 ```
 We'll return `True` whenever the input is between 14.5 and 20.1 (but not equal to either).
 
-So partial application and currying have allowed us to create a context in which we have functions sort of hanging around waiting for some input to come from _somewhere_ in the environment, and we don't need to keep stringing that argument explicitly through every function. The `Monad` and transformer versions, called `Reader` and `ReaderT`, are quite commonly used because the pattern is so useful.
+So partial application and currying have allowed us to create a context in which we have functions sort of hanging around waiting for some input to come from _somewhere_ in the environment, and we don't need to keep stringing that argument explicitly through every function. The `Monad` and transformer versions, called `Reader` and `ReaderT`, are probably more common than this bare applicative.
 
-Sometimes people ask us why we don't split the book into two volumes. What it comes down to is that all the really important stuff is in the first half, but people always think that to understand Haskell, they need the second half (and they do! there's a lot of stuff in there that would be difficult and tiresome to work out for yourself!). But much of what comes in the second half is just more complex ways to nest lambdas and apply and compose functions, which is what the first half is all about.
+Sometimes people ask us why we didn't split Haskell Programming from First Principles into two volumes. What it comes down to is that all the really important stuff is in the first half, but people often think that to understand Haskell, they need the second half. But much of what comes in the second half is just more complex ways to nest lambdas and apply and compose functions, which is what the first half is all about.
 
 _Many thanks to John DeGoes and Adam McCullough for their thorough, though not at all brutal, feedback._
 
-_Next post is likely to be a disquisition about disjunction._
 
 <!-- Yes, the Functor and Monad instances for (->) are mind-bending so I won't say much except to note that given (->) is kind * -> * -> * and Functor/Monad expect a * -> *, you'll have to partially apply the (->) type constructor before you get something of the right kind.
 
