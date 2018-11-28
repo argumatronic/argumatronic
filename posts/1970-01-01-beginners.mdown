@@ -45,6 +45,8 @@ A lot of people who have experience programming in other languages think the big
 
 - If you really can't wait, try [this post](2018-01-23-the-nesting-instinct.html).
 
+- And then follow it up with Pat Brisbin's [*Maybe Haskell*](https://books.thoughtbot.com/assets/maybe-haskell.pdf).
+
 # Blog Posts and Tutorials
 
 Good, good, now that you've decided to forego learning about monads until you have a better understanding of types, typeclasses, functors and all that, here are some blog posts and tutorials from around the web that I found helpful. Even if you are working through a book, getting the same lesson presented differently, with different wording and examples, can help.
@@ -104,11 +106,13 @@ Some of the posts listed here go beyond basic function application and types. Yo
 
 - [Interactive Demonstration](https://stevekrouse.github.io/hs.js/) of `map` and folds.
 
-## Awesome Typeclasses
+## The Type System
 
 The problem with most blog posts about functors, applicatives, and monads is less that they have analogies to food items and more that they miss the point that all of those big typeclasses are generalizations of basic patterns. What we want to do is apply and compose functions in the presence of *structure*, and these are ways of doing it. None of these typeclasses are magic, and they all exist to solve common programming problems. They're things you [might well have written yourself](http://sean.voisen.org/blog/2013/10/intro-monads-maybe/), but in Haskell, we've just pulled them out into typeclasses to make them reusable with a lot of different types of structure. I mean, I say "we" but obviously this was done by smarter people than I am.
 
 They did that with monoids, too, and even though you're thinking "monoid" sounds like some unfortunate disease, it's a pattern you're familiar with -- addition, multiplication, and list concatenation are all monoids.
+
+Pat Brisbin's [*Maybe Haskell*](https://books.thoughtbot.com/assets/maybe-haskell.pdf) is longer than a blog post but by focusing on the `Maybe` type constructor all the way through, he is able to keep the scope small enough to explain a lot about Haskell in a single short monograph.
 
 The [Typeclassopedia](https://wiki.haskell.org/Typeclassopedia) is one of the things people told me to read when I was a beginner, and it was way over my head. However, once you're ready for it, it's an invaluable source of information about important typeclasses. You might try going through it as you're working through the NICTA course. Heh.
 
