@@ -1,0 +1,204 @@
+---
+title: Algebras Cheat Sheet
+tags: math, reference
+withtoc: yes
+---
+
+### Intro 
+
+I sometimes want a fast, simple reference to the major algebraic structures. This is *not* meant to be a post explaining these to folks who have never heard of these algebras before. There will be some mathematical language and notation that may not be familiar to everyone, and I am not making an attempt here to explain everything from scratch.
+
+This sort of became longer than I originally intended, but I think the different sections might be useful at different times and  perhaps to different audiences, so I kept it all. Hopefully the table of contents will still make it useful as a quick reference.
+
+# Some terminology
+
+This first section gives definitions of some common terminology when talking about the laws and properties of these algebras. Some of these will probably be familiar to most people from high school math, others may not be. 
+
+- **Absorption** : The absorption element is an identity that links a pair of binary operations. If `(S, *)` is a set `S` with a closed binary operation `*` on it, the absorbing or zero element is an element `z` such that for all `a` in `S`, `z * a = a * z = z`. Absorption is also called "annihilation," and we talk of "annihilating" or "absorbing" elements as well as of *zero elements* on analogy with multiplication by zero. The absorption laws in a given algebraic structure (notably semirings and lattices) link the identity of one operation, as zero is the identity of addition, to its role as the annihilator of the other operation (multiplication).
+
+- **Associativity** : The associative property is a property of some binary operations. In expressions containing two or more successive applications of the same associative operator, the order in which the operations are performed does not affect the result. That is, repeated application of the operation produces the same result regardless of how we might insert parentheses to group the subexpressions. More formally, an operation `*` on a set `S` is *associative* when for all `x`, `y`, and `z` in `S`, `x * (y * z) = (x * y) * z`.
+
+- **Closed** : By definition, a binary operation over a set implies that the operation is *closed*, that is, for all `a`, `b`, in set `M`, the result of the binary operation `a + b` is also an element in `M`. In Haskell, that looks like a type signature such as `a -> a -> a`. Also, sometimes called the property of *closure*.
+
+- **Commutativity** : Commutativity is not the same as associativity, although most commutative operations are also associative. The commutative property of some binary operations holds that changing the order of the inputs does not affect the result. More formally, an operation `*` on a set `S` is *commutative* when for all `x` and `y` in `S`, `x * y = y * x`. Commutativity is also closely related to *symmetry*. 
+
+- **Distributivity** : The distributive property in arithmetic states that multiplication distributes over addition such that `2 * (1 + 3) = (2 * 1) + (2 * 3)`. In algebra, this is generalized such that for any set `S` with two binary operators, `*` and `+`, `*` *distributes over* `+` when for all `x`, `y`, and `z` in `S`, `x * (y + z) = (x * y) + (y * z)` (left distributive) *and* `(y + z) * x = (y * x) + (z * x)` (right distributive). Note that if `*` is commutative and left distributive, it follows that it is also right distributive (and therefore distributive).
+
+- **Identity** : An identity element is an element of a set that is neutral with respect to some binary operation on that set; that is, it leaves any other element of that set unchanged when combined with it. An identity value is unique with respect to the given set and operation. Most identity values take the shape of something analogous to `1` (products) or `0` (sums). More formally, for a set `S` with a binary operation `*` on it, `e` is the identity value when `e * a = a * e = a` for all `a` in `S`.   
+- **Invertibility** : This is a property of groups. For each `a` in the set `G`, there exists an element `b` in `G` such that `ab = ba = e` where `e` is the identity element for the group. In the case of addition, then, we'd say `a + b = b + a = 0`. This is also sometimes referred to as the property of having inverses or negatives (e.g., the negative integers).
+
+
+## Left and right
+
+Several of the laws above can also have *left* or *right* variants. For example, exponentiation is only *right-associative*. That is, in a chain of such operations, they group for evaluation purposes from the right.
+
+```haskell
+λ> 2^3^2
+512
+-- is the same as
+λ> 2^(3^2)
+512
+-- but not
+λ> (2^3)^2
+64
+```
+
+We call something *associative* when it is both left- and right-associative. We call something *distributive* when it is both left- and right-distributive. We call something an *identity* if it is both a left and right identity.
+
+# Algebras, briefly described in prose
+
+This list is organized by dependencies, more or less, rather than alphabetically.  
+
+- *Magma*: A set with a (closed) binary operation. Sometimes also called a *groupoid*.
+
+- *Semigroup* : A magma where the operation is associative.
+
+- *Semilattice* : A magma where the operation is commutative and idempotent.
+
+- *Monoid* : A semigroup where there is also an element of the set that is an identity element with respect to the operation.
+
+- *Group* : A monoid where there are also inverses. 
+
+- *Abelian group* : A group where the operation is also commutative. Commutative monoids are also sometimes called "abelian monoids."
+
+- *Ring* : Abelian group plus a monoid (over the same set) where the monoid operation is distributive over the group operation.
+
+- *Semiring* : A ring without inverses. Alternatively, two monoids where one monoid is distributive over the other monoid. Can think of this as the difference between the integers under addition and multiplication (a ring) and the natural numbers under the same two operations (a semiring). Also sometimes called a *rig*, i.e., a ring without *n*egatives. 
+
+- *Rng* : A ring without *i*dentities.
+
+- *Lattice* : Two semilattices, in the way that a semiring is two monoids, plus absorption. 
+
+# Algebras, briefly described in math
+
+# Some algebras in Haskell
+
+The typeclass system of Haskell more or less corresponds to algebraic structures, with types as the sets. The typeclass definition gives the most general possible form of the operations over the sets, and the `instance` declarations define the implementations of those operations for the specified type (set). This is how algebra became relevant to my adult life. 
+
+Not all of the above algebras are well represented in Haskell, but some are, and we give those typeclass definitions, a representative `instance` or two, and links to documentation where appropriate.
+
+One important thing to note before we get started that is, perhaps, somewhat disappointing: the compiler does not enforce the laws of the algebraic typeclasses. The only thing standing between you and a law-breaking ring or monoid is ... well ... you, and your willingness to test your instances, I suppose.
+
+### Semigroup : 
+
+The [`Semigroup`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Semigroup.html) class in Haskell is defined as follows:
+
+```haskell 
+class Semigroup a where
+  -- | An associative operation.
+  (<>) :: a -> a -> a
+```
+
+Many sets form semigroups under more than one operation, so in Haskell, to preserve the unique relationship between a type and a typeclass, we use a named type wrapper, called a `newtype`, which identifies which semigroup we're talking about.
+
+```haskell 
+-- the Max semigroup is only for orderable sets
+instance Ord a => Semigroup (Max a) where
+  (<>) = coerce (max :: a -> a -> a)
+  
+-- the NonEmpty semigroup is concatenation of nonempty lists
+instance Semigroup (NonEmpty a) where
+  (a :| as) <> ~(b :| bs) = a :| (as ++ b : bs)
+```
+
+I've written extensively about [`Semigroup` over on Type Classes](https://typeclasses.com/semigroup).
+
+### Monoid : 
+
+In modern Haskell, `Semigroup` is a superclass of [`Monoid`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Monoid.html). That is, since monoids are semigroups with the additional requirement that there be an identity element, semigroup is in some sense the weaker algebra and there are more of them than there are monoids. What this means is if we want a `Monoid`, we have to first have a `Semigroup`; the binary operation comes from the `Semigroup` instance. Then we define the identity element for that type and operation in our `Monoid` instance -- in the `Monoid` class it's called `mempty`.
+
+```haskell 
+class Semigroup a => Monoid a where
+  -- | Identity of '<>'
+  mempty  :: a
+```
+
+Again, many sets form monoids under more than one operation, so we use `newtype`s in Haskell to tell them apart.
+
+```haskell 
+instance Num a => Semigroup (Sum a) where
+  (<>) = coerce ((+) :: a -> a -> a)
+
+instance Num a => Monoid (Sum a) where
+  mempty = Sum 0
+        
+instance Num a => Semigroup (Product a) where
+  (<>) = coerce ((*) :: a -> a -> a)
+
+instance Num a => Monoid (Product a) where
+  mempty = Product 1
+```
+
+I have also written extensively about [`Monoid` over on Type Classes](https://typeclasses.com/monoid), about [JavaScript and monoidal folds](https://typeclasses.com/javascript/monoidal-folds), and also [given talks](/posts/2017-10-12-haskellx17-talk.html) about these wonderful structures.
+
+It is perhaps worth pointing out that the [`Alternative`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Applicative.html#g:2) and [`MonadPlus`](http://hackage.haskell.org/package/monadplus-1.4.2/docs/Control-Monad-Plus.html) typeclasses in Haskell are *also* monoids. The difference between them and the `Monoid` class is that `Monoid` is a typeclass for concrete types, whereas `Alternative` and `MonadPlus` are for type constructors, that is, parameterized types.
+
+### Ring :
+
+We don't exactly have a `Ring` typeclass in standard Haskell; what we have instead is the `Num` class and it's sort of like a ring. It's a big typeclass, so this is a simplified version with the functions you'd expect a ring to have.
+
+```haskell 
+class  Num a  where
+  (+), (-), (*)       :: a -> a -> a
+  negate              :: a -> a
+```
+
+[Comments in the source code](http://hackage.haskell.org/package/base-4.12.0.0/docs/src/GHC.Num.html) say:
+
+> The Haskell Report defines no laws for 'Num'. However, '(+)' and '(*)' are customarily expected to define a ring
+
+and then give the properties a ring is expected to have; however, those laws are not enforced in any way, and I suspect many people do not even think of `Num` as a ring that should have laws. Let us speak no more of this.
+
+### Semiring :
+
+It's a shame that `Semiring` is not in the standard library (yet?). It is in the [standard PureScript library](https://pursuit.purescript.org/packages/purescript-prelude/3.1.0/docs/Data.Semiring), and I really admire PureScript for that, among other things. However, we have some decent implementations of it in libraries. My preference at this time is [this `semirings` package](http://hackage.haskell.org/package/semirings).
+
+A `Semiring` definition looks like this:
+
+```haskell 
+class Semiring a where
+  plus  :: a -> a -> a -- commutative operation
+  zero  :: a           -- identity for `plus`
+  times :: a -> a -> a -- associative operation
+  one   :: a           -- identity for `times`
+```
+
+And a Boolean semiring -- the `instance` of that typeclass for `Bool` -- could be implemented thusly:
+
+```haskell
+instance Semiring Bool where
+  plus  = (||)
+  zero  = False
+  times = (&&)
+  one   = True
+```
+
+I have also written more about [semirings on Type Classes](https://typeclasses.com/semiring).
+
+### Lattice and semilattice : 
+
+I have a growing interest in these structures but have not yet written much about them or used the [`lattices`](https://hackage.haskell.org/package/lattices-1.4) package. I notice that that package defines two semilattice classes and then a `Lattice` class that is constrained by *both*. We note that the `Lattice` class has no new functions in it; you can use it as a constraint on other things when you have two semilattices (the meet and the join) and the absorption law holds.
+
+```haskell
+class JoinSemiLattice a where
+    (\/) :: a -> a -> a
+    
+class MeetSemiLattice a where
+    (/\) :: a -> a -> a
+    
+class (JoinSemiLattice a, MeetSemiLattice a) => Lattice a where
+```
+
+And the instances for `Bool` are defined:
+
+```haskell
+instance JoinSemiLattice Bool where
+    (\/) = (||)
+
+instance MeetSemiLattice Bool where
+    (/\) = (&&)
+
+instance Lattice Bool where
+```
+
+The absorption law does hold for the `Bool` lattice, so I guess we're all good here!

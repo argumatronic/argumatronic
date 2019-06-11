@@ -1,0 +1,30 @@
+---
+title: How tired are you
+tags: community, complaints
+withtoc: yes
+---
+
+It's been a while since I blogged here. Most of my technical writing is now on [Type Classes](https://typeclasses.com/) rather than here, and this wasn't the first blog post I wanted to write as a comeback. But here we are.
+
+There is a [Twitter thread that's gone viral](https://twitter.com/hillelogram/status/1119709859979714560) by Hillel Wayne that begins: 
+
+> One of my most controversial software opinions is that your sleep quality and stress level matter far, far more than the languages you use or the practices you follow. Nothing else comes close: not type systems, not TDD, not formal methods, not ANYTHING.
+
+I don't really disagree with anything in the thread, and the evidence about the effects of sleep deprivation and stress on cognitive abilities is solid. 
+
+I replied to one person that being able to sleep enough and not have stress represents an enormous privilege, to which they objected that it is a right, not a privilege, and that employers should treat it as such. For me, that misses the point a bit.
+
+I'd like to explain here what I meant when I said it's a privilege. I explicitly do not mean that some people *deserve* it while others do not. Everyone deserves to have enough sleep and relaxation time, although some people by circumstance (particularly those with very young children or caring for the ill, for example) will have times when it's simply not possible. If you really believe it's a right that everyone should have, then you should be actively supporting those folks as well as you are able. (This isn't meant as a dig at the person who said that, by the way; for all I know about them, they are doing exactly that!)
+
+You can go ahead and assume that any time in this post that I am generalizing over a large category of people there are exceptions -- your "not all men", "not all women", "not all programmers" replies are not counter-arguments.
+
+## Do the work...no, more
+
+Programmers make a lot of big talk about how anyone who has ever written a program is a programmer and belongs here and all you have to do is show your work to get respect. If you've done the work and proven yourself, then we are all equals here, other than the usual infighting about whose language or text editor is better, of course. 
+
+This attitude was enormously appealing to me when I started learning Haskell, because I felt very capable of doing the work to prove myself. My first act of learning Haskell was to co-author an enormous book about Haskell, a book that some experienced Haskellers have reported that they learned something from, despite the fact that they already knew Haskell. Part of that was that because I didn't know any other programming language, and because of the particulars of my background in philosophy, linguistics, and especially the years I spent teaching, I brought a different perspective. Some people found that perspective quite helpful and refreshing, and, notably, we used that story about my background extensively as part of the marketing of the book.
+
+And yet, over the years, 
+
+But it's just not true. We are not equals once we've done the work.
+
