@@ -10,7 +10,7 @@ I sometimes want a fast, simple reference to the major algebraic structures. Thi
 
 This sort of became longer than I originally intended, but I think the different sections might be useful at different times and  perhaps to different audiences, so I kept it all. Hopefully the table of contents will still make it useful as a quick reference.
 
-# Some terminology
+# A little glossary
 
 This first section gives definitions of some common terminology when talking about the laws and properties of these algebras. Some of these will probably be familiar to most people from high school math, others may not be. 
 
@@ -23,6 +23,8 @@ This first section gives definitions of some common terminology when talking abo
 - **Commutativity** : Commutativity is not the same as associativity, although most commutative operations are also associative. The commutative property of some binary operations holds that changing the order of the inputs does not affect the result. More formally, an operation `*` on a set `S` is *commutative* when for all `x` and `y` in `S`, `x * y = y * x`. Commutativity is also closely related to *symmetry*. 
 
 - **Distributivity** : The distributive property in arithmetic states that multiplication distributes over addition such that `2 * (1 + 3) = (2 * 1) + (2 * 3)`. In algebra, this is generalized such that for any set `S` with two binary operators, `*` and `+`, `*` *distributes over* `+` when for all `x`, `y`, and `z` in `S`, `x * (y + z) = (x * y) + (y * z)` (left distributive) *and* `(y + z) * x = (y * x) + (z * x)` (right distributive). Note that if `*` is commutative and left distributive, it follows that it is also right distributive (and therefore distributive).
+
+- **Idempotence** : Idempotence is a property of some binary operations under which applying the operation multiple times doesn't change the result after the first application. Consider a device where there are separate buttons for turning the device on and off; pushing the *on* button doesn't turn it "more on", so the *on* button is idempotent (and so is the *off* button). We say an element of a set is idempotent with respect to some operation `*` if `x * x = x`. We say an operation is idempotent if every element in the set is idempotent with respect to the operation. For the natural numbers under multiplication, both `1` and `0` are idempotent; for the naturals under addition, only `0` is. Hence neither addition nor multiplication of the natural numbers is itself idempotent. However, taking the absolute value of integers is an idempotent operations. Furthermore, the set operations of union and intersection are both idempotent operations.
 
 - **Identity** : An identity element is an element of a set that is neutral with respect to some binary operation on that set; that is, it leaves any other element of that set unchanged when combined with it. An identity value is unique with respect to the given set and operation. Most identity values take the shape of something analogous to `1` (products) or `0` (sums). More formally, for a set `S` with a binary operation `*` on it, `e` is the identity value when `e * a = a * e = a` for all `a` in `S`.   
 - **Invertibility** : This is a property of groups. For each `a` in the set `G`, there exists an element `b` in `G` such that `ab = ba = e` where `e` is the identity element for the group. In the case of addition, then, we'd say `a + b = b + a = 0`. This is also sometimes referred to as the property of having inverses or negatives (e.g., the negative integers).
@@ -79,7 +81,7 @@ Not all of the above algebras are well represented in Haskell, but some are, and
 
 One important thing to note before we get started that is, perhaps, somewhat disappointing: the compiler does not enforce the laws of the algebraic typeclasses. The only thing standing between you and a law-breaking ring or monoid is ... well ... you, and your willingness to test your instances, I suppose.
 
-### Semigroup : 
+### Semigroup 
 
 The [`Semigroup`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Semigroup.html) class in Haskell is defined as follows:
 
@@ -103,7 +105,7 @@ instance Semigroup (NonEmpty a) where
 
 I've written extensively about [`Semigroup` over on Type Classes](https://typeclasses.com/semigroup).
 
-### Monoid : 
+### Monoid 
 
 In modern Haskell, `Semigroup` is a superclass of [`Monoid`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Monoid.html). That is, since monoids are semigroups with the additional requirement that there be an identity element, semigroup is in some sense the weaker algebra and there are more of them than there are monoids. What this means is if we want a `Monoid`, we have to first have a `Semigroup`; the binary operation comes from the `Semigroup` instance. Then we define the identity element for that type and operation in our `Monoid` instance -- in the `Monoid` class it's called `mempty`.
 
@@ -133,7 +135,7 @@ I have also written extensively about [`Monoid` over on Type Classes](https://ty
 
 It is perhaps worth pointing out that the [`Alternative`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Applicative.html#g:2) and [`MonadPlus`](http://hackage.haskell.org/package/monadplus-1.4.2/docs/Control-Monad-Plus.html) typeclasses in Haskell are *also* monoids. The difference between them and the `Monoid` class is that `Monoid` is a typeclass for concrete types, whereas `Alternative` and `MonadPlus` are for type constructors, that is, parameterized types.
 
-### Ring :
+### Ring
 
 We don't exactly have a `Ring` typeclass in standard Haskell; what we have instead is the `Num` class and it's sort of like a ring. It's a big typeclass, so this is a simplified version with the functions you'd expect a ring to have.
 
@@ -149,7 +151,7 @@ class  Num a  where
 
 and then give the properties a ring is expected to have; however, those laws are not enforced in any way, and I suspect many people do not even think of `Num` as a ring that should have laws. Let us speak no more of this.
 
-### Semiring :
+### Semiring
 
 It's a shame that `Semiring` is not in the standard library (yet?). It is in the [standard PureScript library](https://pursuit.purescript.org/packages/purescript-prelude/3.1.0/docs/Data.Semiring), and I really admire PureScript for that, among other things. However, we have some decent implementations of it in libraries. My preference at this time is [this `semirings` package](http://hackage.haskell.org/package/semirings).
 
@@ -175,7 +177,7 @@ instance Semiring Bool where
 
 I have also written more about [semirings on Type Classes](https://typeclasses.com/semiring).
 
-### Lattice and semilattice : 
+### Lattice and semilattice 
 
 I have a growing interest in these structures but have not yet written much about them or used the [`lattices`](https://hackage.haskell.org/package/lattices-1.4) package. I notice that that package defines two semilattice classes and then a `Lattice` class that is constrained by *both*. We note that the `Lattice` class has no new functions in it; you can use it as a constraint on other things when you have two semilattices (the meet and the join) and the absorption law holds.
 
