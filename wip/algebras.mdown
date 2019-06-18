@@ -1,5 +1,5 @@
 ---
-title: Algebras Cheat Sheet
+title: A Reference to Some Common Algebras
 tags: math, reference
 withtoc: yes
 ---
@@ -10,23 +10,26 @@ I sometimes want a fast, simple reference to the major algebraic structures. Thi
 
 This sort of became longer than I originally intended, but I think the different sections might be useful at different times and  perhaps to different audiences, so I kept it all. Hopefully the table of contents will still make it useful as a quick reference.
 
+This post was co-authored with [Daniel Brice](https://twitter.com/fried_brice).
+
 # A little glossary
 
 This first section gives definitions of some common terminology when talking about the laws and properties of these algebras. Some of these will probably be familiar to most people from high school math, others may not be. 
 
-- **Absorption** : The absorption element is an identity that links a pair of binary operations. If `(S, *)` is a set `S` with a closed binary operation `*` on it, the absorbing or zero element is an element `z` such that for all `a` in `S`, `z * a = a * z = z`. Absorption is also called "annihilation," and we talk of "annihilating" or "absorbing" elements as well as of *zero elements* on analogy with multiplication by zero. The absorption laws in a given algebraic structure (notably semirings and lattices) link the identity of one operation, as zero is the identity of addition, to its role as the annihilator of the other operation (multiplication).
+- **Absorption** : An absorption element is an element of a set that always absorbs the other element, sort of the opposite of an identity element (see below). If `(S, *)` is a set `S` with a closed binary operation `*` on it, the absorbing or zero element is an element `z` such that for all `a` in `S`, `z * a = a * z = z`. Absorption is also called "annihilation," and we talk of "annihilating" or "absorbing" elements as well as of *zero elements* on analogy with multiplication by zero. The absorption laws in a given algebraic structure (notably semirings and lattices) link a pair of binary operations by linking the identity of one operation, as zero is the identity of addition, to its role as the annihilator of the other operation (multiplication).
 
 - **Associativity** : The associative property is a property of some binary operations. In expressions containing two or more successive applications of the same associative operator, the order in which the operations are performed does not affect the result. That is, repeated application of the operation produces the same result regardless of how we might insert parentheses to group the subexpressions. More formally, an operation `*` on a set `S` is *associative* when for all `x`, `y`, and `z` in `S`, `x * (y * z) = (x * y) * z`.
 
-- **Closed** : By definition, a binary operation over a set implies that the operation is *closed*, that is, for all `a`, `b`, in set `M`, the result of the binary operation `a + b` is also an element in `M`. In Haskell, that looks like a type signature such as `a -> a -> a`. Also, sometimes called the property of *closure*.
+- **Closed** : By definition, a binary operation over a set implies that the operation is *closed*, that is, for all `a`, `b`, in set `S`, the result of the binary operation `a * b` is also an element in `S`. In Haskell, that looks like a type signature such as `a -> a -> a`. Also, sometimes called the property of *closure*.
 
 - **Commutativity** : Commutativity is not the same as associativity, although most commutative operations are also associative. The commutative property of some binary operations holds that changing the order of the inputs does not affect the result. More formally, an operation `*` on a set `S` is *commutative* when for all `x` and `y` in `S`, `x * y = y * x`. Commutativity is also closely related to *symmetry*. 
 
 - **Distributivity** : The distributive property in arithmetic states that multiplication distributes over addition such that `2 * (1 + 3) = (2 * 1) + (2 * 3)`. In algebra, this is generalized such that for any set `S` with two binary operators, `*` and `+`, `*` *distributes over* `+` when for all `x`, `y`, and `z` in `S`, `x * (y + z) = (x * y) + (y * z)` (left distributive) *and* `(y + z) * x = (y * x) + (z * x)` (right distributive). Note that if `*` is commutative and left distributive, it follows that it is also right distributive (and therefore distributive).
 
-- **Idempotence** : Idempotence is a property of some binary operations under which applying the operation multiple times doesn't change the result after the first application. Consider a device where there are separate buttons for turning the device on and off; pushing the *on* button doesn't turn it "more on", so the *on* button is idempotent (and so is the *off* button). We say an element of a set is idempotent with respect to some operation `*` if `x * x = x`. We say an operation is idempotent if every element in the set is idempotent with respect to the operation. For the natural numbers under multiplication, both `1` and `0` are idempotent; for the naturals under addition, only `0` is. Hence neither addition nor multiplication of the natural numbers is itself idempotent. However, taking the absolute value of integers is an idempotent operations. Furthermore, the set operations of union and intersection are both idempotent operations.
+- **Idempotence** : Idempotence is a property of some binary operations under which applying the operation multiple times doesn't change the result after the first application. Consider a device where there are separate buttons for turning the device on and off; pushing the *on* button doesn't turn it "more on", so the *on* button is idempotent (and so is the *off* button). We say an element of a set is idempotent with respect to some operation `*` if `x * x = x`. It seems that both absorption and identity elements should always be idempotent elements. We say an operation is idempotent if every element in the set is idempotent with respect to the operation. For the natural numbers under multiplication, both `1` and `0` are idempotent; for the naturals under addition, only `0` is. Hence neither addition nor multiplication of the natural numbers is itself idempotent. However, taking the absolute value of integers is an idempotent operation. Furthermore, the set operations of union and intersection are both idempotent operations.
 
 - **Identity** : An identity element is an element of a set that is neutral with respect to some binary operation on that set; that is, it leaves any other element of that set unchanged when combined with it. An identity value is unique with respect to the given set and operation. Most identity values take the shape of something analogous to `1` (products) or `0` (sums). More formally, for a set `S` with a binary operation `*` on it, `e` is the identity value when `e * a = a * e = a` for all `a` in `S`.   
+
 - **Invertibility** : This is a property of groups. For each `a` in the set `G`, there exists an element `b` in `G` such that `ab = ba = e` where `e` is the identity element for the group. In the case of addition, then, we'd say `a + b = b + a = 0`. This is also sometimes referred to as the property of having inverses or negatives (e.g., the negative integers).
 
 

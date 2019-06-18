@@ -2,11 +2,9 @@
 title: About
 ---
 
-I have been a teacher, librarian, linguist, student of philosophy, and writer. I am still at least three of those things.
+Julie Moronuki went to college for philosophy and linguistics, and once believed she would spend her adult life doing morphological analysis of Native American languages and writing papers about generative syntax. Needing a vacation from graduate school, however, she moved to Japan to teach English for three years and discovered that her real passion is teaching. So she was intrigued when a person she met on Twitter wanted to experiment on her: the Haskell programming language is said to be difficult to learn and difficult to teach, and he wanted to teach her Haskell with the aim of eventually writing a book that would introduce Haskell so well that even someone with no prior programming experience -- that's me! -- could learn it. Over time, that book became Haskell Programming from First Principles, and Julie was one of the two co-authors. Rather than become a Haskell developer, though, Julie has continued writing, speaking, and teaching the Haskell language at meetups and workshops around the world. She is a co-founder of the Haskell education site [Type Classes](https://typeclasses.com/) and her most recent book is called [Finding Success (and Failure) in Haskell](https://leanpub.com/finding-success-in-haskell). She lives in Montana, where she homeschools her two children, grows a big garden, and keeps too many pets.
 
-I cowrote Haskell Programming from First Principles. That is how I learned Haskell.
-
-I am now writing [The Joy of Haskell](https://joyofhaskell.com/) and writing extensively at [Type Classes](https://typeclasses.com/). I founded both of these with [Chris Martin](https://chris-martin.org/).
+I am now writing [The Joy of Haskell](https://joyofhaskell.com/) series of books as well. I founded Joy of Haskell and Type Classes with [Chris Martin](https://chris-martin.org/).
 
 I'm interested in helping people learn to create technology. I care a lot about making math and (mostly functional) programming accessible and approachable to all. To that end, I create books, blog posts, and documentation. You can support my work by being friendly on Twitter or more concretely via:  
 
