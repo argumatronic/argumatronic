@@ -1,15 +1,5 @@
 # Blog posts
 
-## Haskell monad demystified
-
-Essentially it's nested case statements: you want them to evaluate sequentially and have results depend on each other. The evaluation short circuit on any failure or bottom. Do not go into why we have the abstraction as a typeclass; just look we have this overloaded operator that acts as a kind of pipeline for these kinds of calculations. Similar to Applicative in that way, but also different (see later post).
-
-> Rather than finding mathematical abstractions and presenting abstract mathematical structures, she would build (online and interactive?) museums to present typical specimen as they appear in interesting situations in the real world. -- Tomas P, Thinking the Unthinkable
-
--- why we want to call these things out as a typeclass: to develop intuition about when we have encountered another possible specimen
-
-
-
 ## Higher-kinded monoids
 
 There is a dissimilarity between list concatenation and addition in that lists are a type constructor. It turns out not to matter much to the list monoid because we can concatenate for free without caring at all about what the `a` values are. But this isn't true of other higher-kinded monoids.
@@ -19,15 +9,6 @@ Applicative and Monad are monoids (of a sort -- if we don't care too much about 
 The incoherence of the maybe monoids.
 
 Alternative is a disjunctive monoid that can't touch the `a` in Maybe a.
-
-
-
-## Applicative is cool
-
-point  up the diffs between this and monad. why validation can't have a monad but does have a v nice applicative.
-
-
-
 
 ## Verb as typeclass
 
@@ -53,12 +34,12 @@ point  up the diffs between this and monad. why validation can't have a monad bu
 
 ## ppl
 
-## redo clock using fltkhs
 
 # books for the curious nonprogrammer or beginning programmer
 
 - How Software Works
 - Once Upon an Algorithm
 - BubbleSort zines
+- The Bug by Ellen Ullman
 - Lauren Ipsum and CS Unplugged for the much younger
 - related:  baseCS and imposter's handbook
