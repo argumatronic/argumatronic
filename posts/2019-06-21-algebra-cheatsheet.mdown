@@ -6,7 +6,7 @@ withtoc: yes
 
 ### Intro
 
-I started writing this post because, for whatever reason, I keep forgetting what the difference is between a *ring* and a *group*, which is funny to me because I never forget the difference between a *semiring* and a *semigroup* -- but other people do! It's quite easy to forget. So, I wanted a fast reference to the kinds of algebraic structures that I am most often dealing with in one way or another, usually because I'm writing Haskell (which has some reliance on terminology and structure from abstract algebra and category theory) or I'm trying to read a book about category theory and they keep talking about groups. Wikipedia, of course, defines all these structures, and that's fine, but what I need in those times is more of a refresher than an in-depth explanation. 
+I started writing this post because, for whatever reason, I keep forgetting what the difference is between a *ring* and a *group*, which is funny to me because I never forget the difference between a *semiring* and a *semigroup* -- although other people do, because it's quite easy to forget! So, I wanted a fast reference to the kinds of algebraic structures that I am most often dealing with in one way or another, usually because I'm writing Haskell (which has some reliance on terminology and structure from abstract algebra and category theory) or I'm trying to read a book about category theory and they keep talking about "groups." Wikipedia, of course, defines all these structures, and that's fine, but what I need in those times is more of a refresher than an in-depth explanation. 
 
 So, that's the intent of this post -- to be that fast reference to the kinds of algebraic structures I care about. There will be some mathematical language and notation that may not be familiar to everyone, so don't freak out if you see something you're not familiar with -- it's okay. Some of this is stuff I learned while writing this, because I want to know more about lattices than I currently do! There is a glossary at the end, so if some terminology is unfamiliar or you've (as I have, many times) forgotten what "idempotent" means, try checking there.
 
@@ -25,7 +25,7 @@ Some symbols used in this section:
 - $u$: An identity element or unit.  
 - $'$: An inverse.
 
-For definitions of terms, see [glossary](#glossary).
+For definitions of terms, see [glossary](#a-little-glossary).
 
 
 ## Group-like Structures
@@ -114,7 +114,10 @@ Semigroup $(A, \ast)$
 
 ### *Quasiring*
 
-Two monoids over the same set whose monoid structures are compatible, in the sense that (1) one operation (called multiplication) distributes over the other (called addition) and (2) the additive identity is a multiplicative annihilator.
+Two monoids over the same set whose monoid structures are compatible, in the sense that
+ 
+ 1. one operation (called multiplication) distributes over the other (called addition) and  
+ 2. the additive identity is a multiplicative annihilator.
 
 $(A, +, \cdot, 0, 1)$
 
@@ -180,7 +183,7 @@ Nearring $(A, +, \cdot, 0, 1, -)$
 
 Rings, semirings, and the lot can also be commutative rings, commutative semirings, etc., but, unlike the group-like structures, they are not usually described as, e.g., "abelian rings."
 
-### Division Algebra
+### *Division Algebra*
 
 A ring with multiplicative inverses.
 
@@ -201,7 +204,7 @@ $(A, +, \cdot, 0, 1, -, ')$
 * $(A \setminus \{0\}, 1, ')$ is a group
 
 
-### Field
+### *Field*
 
 A division algebra with commutative multiplication.
 
@@ -214,11 +217,13 @@ Division algebra $(A, +, \cdot, 0, 1, -, ')$
 
 ## Lattice-like Structures
 
+### *Semilattice* 
+
+A magma where the operation is commutative, associative, and idempotent. It could refer to either of the abelian semigroups of a lattice, often called $\vee$ *join* or Boolean *or*, and $\wedge$ *meet* or Boolean *and*. We define the term here for reasons related to its usage in Haskell, but it is best understood in context of lattices, rather than independently. 
+
 ### *Lattice* 
 
-Two idempotent abelian semigroups over the same set whose semigroup structures are compatible, in the sense that the operations satisfy absorption laws. Interestingly, it's sort of *two semilattices* in the same way that a *semiring* is two monoids, with laws tying them together (distributivity in the case of semirings, absorption laws in the case of lattices).
-
-<!-- This is a good place to define the lattice absorption laws (as they're unique to lattices). They are: `a \/ (a /\ b) = a = a /\ (a \/ b)` -->
+Two idempotent abelian semigroups over the same set whose semigroup structures are compatible, in the sense that the operations satisfy absorption laws. Interestingly, it's sort of *two semilattices* in the same way that a semiring is *two monoids*, with laws tying them together (distributivity in the case of semirings, absorption laws in the case of lattices).
 
 $(A, \vee, \wedge)$
 
@@ -233,10 +238,22 @@ $(A, \vee, \wedge)$
 * $(A, \wedge)$ is an idempotent abelian semigroup
 * $\forall x, y \in A; x \vee (x \wedge y) = x$
 * $\forall x, y \in A; x \wedge (x \vee y) = x$
+<!-- wait is this right -- for all x in A? i would have thought there exists an x in A such that ... ?
 
-### *Semilattice* 
+The last law is the *absorption* law, a special case of identity. Since absorption laws are unique to lattices, we discuss them here instead of in the glossary. The absorption laws link a pair of binary operations by linking the identity of one operation, as zero is the identity of addition, to its role as the annihilator of the other operation (multiplication).
+Absorption, on the other hand, refers specifically to something more like a distributive relationship between the two binary operations in lattice-like algebraic structures.
 
-A magma where the operation is commutative and idempotent. It could refer to either of the abelian semigroups of a lattice. We define the term here for reasons related to its usage in Haskell, but it is best understood in context of lattices, rather than independently. 
+In a Boolean lattice, that element is false. Consider this, where `||` corresponds to $\vee$ and `&&` corresponds to $\wedge$:
+
+```haskell
+λ> False || (False && True)
+False
+
+λ> False && (False || True)
+False
+```
+
+
 
 
 ### *Bounded Lattice*
@@ -486,21 +503,15 @@ The absorption law does hold for the `Bool` lattice, so I guess we're all good h
 
 # A little glossary
 
-This first section gives definitions of some common terminology when talking about the laws and properties of these algebras.
-<!-- ^ Algebraists avoid calling these classes "algebras", because the term "algebra" refers to a particular such class. The term algebraists tend to use us "algebraic structure", though such terminology is quite stuffy. In the field of Universal Algebra, they're called "varieties of algebras", though this is less than ideal, because there's a thing called an "algebraic variety" in the field of Algebraic Geometry. It's all rather unfortunate. I suggest we use a more neutral term--one that has synergy with Haskell. I suggest we use the term "algebraic classes". Barring that, we could call them "structures" for brevity, as it reinforces the use of the term "algebraic structure" in the intro. -->
+This first section gives definitions of some common terminology when talking about the laws and properties of these structures.
+
 Some of these will probably be familiar to most people from high school math, others may not be.
 
-- **Absorption** : An absorption element is an element of a set that always absorbs the other element, sort of the opposite of an identity element (see below).
-If `(S, *)` is a set `S` with a closed binary operation `*` on it, the absorbing or zero element is an element `z` such that for all `a` in `S`, `z * a = a * z = z`.
-<!-- ^ I would omit the qualifier "closed". Why qualify "binary operation" here and not anywhere else? -->
-Absorption is also called "annihilation," and we talk of "annihilating" or "absorbing" elements as well as of *zero elements* on analogy with multiplication by zero.
-The absorption laws in a given algebraic structure (notably semirings and lattices) link a pair of binary operations by linking the identity of one operation, as zero is the identity of addition, to its role as the annihilator of the other operation (multiplication).
-<!-- ^ "Absorption" and "Annihilator" are different concepts. For example, the natural numbers under multiplication is a monoid with an annihilator. (I.e., we don't need two binary operations to have an annihilator. See 'Maybes.Nullify' for an example.) Absorption, on the other hand, refers specifically to something more like a distributive relationship between the two binary operations in lattice-like algebraic structures. -->
+- **Absorption** : See [lattices](#lattice-like-structures).
 
-- **Associativity** : The associative property is a property of some binary operations.
-In expressions containing two or more successive applications of the same associative operator, the order in which the operations are performed does not affect the result.
-That is, repeated application of the operation produces the same result regardless of how we might insert parentheses to group the subexpressions.
-More formally, an operation `*` on a set `S` is *associative* when for all `x`, `y`, and `z` in `S`, `x * (y * z) = (x * y) * z`.
+- **Annihilator** : We have to include this term because it is such a metal thing to call zeroes. An annihilating element is an element of a set that always absorbs the other element, sort of the opposite of an identity element (see below). If `(S, *)` is a set `S` with a binary operation `*` on it, the annihilator, or zero element, is an element `z` such that for all `a` in `S`, `z * a = a * z = z`. In the monoid of integer multiplication, the annihilator is zero, while in the monoid of Boolean conjunction, the annihilator is `False`.
+
+- **Associativity** : The associative property is a property of some binary operations. In expressions containing two or more successive applications of the same associative operator, the order in which the operations are performed does not affect the result. That is, repeated application of the operation produces the same result regardless of how we might insert parentheses to group the subexpressions. More formally, an operation `*` on a set `S` is *associative* when for all `x`, `y`, and `z` in `S`, `x * (y * z) = (x * y) * z`.
 
 - **Closed** : By definition, a binary operation over a set implies that the operation is *closed*, that is, for all `a`, `b`, in set `S`, the result of the binary operation `a * b` is also an element in `S`.
 <!-- ^ This coincides exactly with the definition of a function `(S, S) -> S`, maybe that's worth mentioning? Rather, instead of defining "closed", define "binary operations." Something like "A *binary operation* `*` on a set `S` is a function `* : (S, S) -> S`. Notice that `*` maps `(S, S)` back into `S`. Because of an historical quirk, this fact is sometimes called *closure*." -->
