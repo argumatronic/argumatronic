@@ -12,7 +12,7 @@ So, that's the intent of this post -- to be that fast reference to the kinds of 
 
 This sort of became longer than I originally intended, but I think the different sections might be useful at different times and perhaps to different audiences, so I kept it all. Hopefully the table of contents will still make it useful as a quick reference.
 
-I had some help writing this and fact-checking it from [Daniel Brice](https://twitter.com/fried_brice) -- therefore, I will stop talking about myself as if I wrote it alone and shift to using "we" but, sorry, it felt weird to write this intro as if I were  multiple people. Our hope is that this reference will be helpful to people who may be learning Haskell or PureScript and encountering a lot of new vocabulary.
+I had some help writing this and fact-checking it from [Daniel Brice](https://twitter.com/fried_brice). I had some help writing about complements and duality from my friend, the lattice-master, Alex Feldman-Crough -- thank you for making 'involution' finally make sense. Therefore, I will stop talking about myself as if I wrote it alone and shift to using "we" but, sorry, it felt weird to write this intro as if I were  multiple people. Our hope is that this reference will be helpful to people who may be learning Haskell or PureScript and encountering a lot of new vocabulary. 
 
 
 # Algebraic structures, briefly described
@@ -21,9 +21,11 @@ This list is organized by dependencies, more or less, rather than alphabetically
 
 Some symbols used in this section:
 
-- $\ast$ and $\times$: A generic binary operation. These do not necessarily mean *multiplication (as of integers)*.  
+- $\ast$ and $\times$: A generic binary operation. These do not necessarily mean *multiplication (as of integers)*. Where we must distinguish between two binary operations, we typically use `+` and $\cdot$. The binary operations in the [lattice-like structures](#lattice-like-structures) have their own symbols, though.
 - $u$: An identity element or unit. 
 - $'$: An inverse.
+- $\forall$: "For all"; universal quantification. 
+- $\in$: "in"; set membership. Thus, $\forall x \in A$ can be read "for every `x` in `A`..." meaning the thing we're about to assert must be true for every element `x` that is in the set `A`.
 
 For definitions of terms, see [glossary](#a-little-glossary).
 
@@ -91,8 +93,6 @@ $(A, \ast, u, ')$
 
 A group where the operation is also commutative. You may also see the term *abelian* applied to semigroups and monoids whose operations are commutative.
 
-Semigroup $(A, \ast)$
-
 **Laws:**
 
 * $\forall x, y \in A; x \ast y = y \ast x$
@@ -102,8 +102,6 @@ This is in addition to the laws for semigroup, monoid, or group (whichever abeli
 ### *Idempotent group*
 
 A group whose operation is idempotent. Strictly speaking, an idempotent group is necessarily trivial -- that is, it is necessarily a group with only one element. As with *abelian*, *idempotent* may apply to semigroups or monoids as well when the operation is idempotent. 
-
-Semigroup $(A, \ast)$
 
 **Laws:**
 
@@ -219,7 +217,7 @@ Division algebra $(A, +, \cdot, 0, 1, -, ')$
 
 ### *Semilattice* 
 
-A magma where the operation is commutative, associative, and idempotent. It could refer to either of the abelian semigroups of a lattice, often called $\vee$ *join* or Boolean *or*, and $\wedge$ *meet* or Boolean *and*. We define the term here for reasons related to its usage in Haskell, but it is best understood in context of lattices, rather than independently. 
+A magma where the operation is commutative, associative, and idempotent. It could refer to either of the abelian semigroups of a lattice, written $\vee$ and often called *join* or Boolean *or*, and $\wedge$ often called *meet* or Boolean *and*. We define the term here for reasons related to its usage in Haskell, but it is best understood in context of lattices, rather than independently. 
 
 ### *Lattice* 
 
@@ -327,7 +325,7 @@ Lattice $(A, \vee, \wedge)$
 * $\forall x, y, z \in A; x \wedge (y \vee z) = (x \wedge y) \vee (x \wedge z)$
 * $\forall x, y, z \in A; x \vee (y \wedge z) = (x \vee y) \wedge (x \vee z)$
 
-Strictly speaking, the second law can be derived from the first law and the lattice laws, and as such is redundant.
+Strictly speaking, the second law can be derived from the first law and the lattice laws, and as such is redundant. Every totally ordered set, such as the real numbers and subsets of the reals including the naturals and integers, form distributive lattices with `max` as $\vee$ (join) and `min` as $\wedge$ (meet).
 
 
 ### *Heyting algebra*
@@ -395,7 +393,7 @@ instance Semigroup (NonEmpty a) where
   (a :| as) <> ~(b :| bs) = a :| (as ++ b : bs)
 ```
 
-I've written extensively about [`Semigroup` over on Type Classes](https://typeclasses.com/semigroup).
+You can find more about [`Semigroup` over on Type Classes](https://typeclasses.com/semigroup).
 
 ### Monoid
 
@@ -425,7 +423,7 @@ instance Num a => Monoid (Product a) where
   mempty = Product 1
 ```
 
-I have also written extensively about [`Monoid` over on Type Classes](https://typeclasses.com/monoid), about [JavaScript and monoidal folds](https://typeclasses.com/javascript/monoidal-folds), and also [given talks](/posts/2017-10-12-haskellx17-talk.html) about these wonderful structures.
+Julie has also written extensively about [`Monoid` over on Type Classes](https://typeclasses.com/monoid), about [JavaScript and monoidal folds](https://typeclasses.com/javascript/monoidal-folds), and also [given talks](/posts/2017-10-12-haskellx17-talk.html) about these wonderful structures.
 
 It is perhaps worth pointing out that the [`Alternative`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Applicative.html#g:2) and [`MonadPlus`](http://hackage.haskell.org/package/monadplus-1.4.2/docs/Control-Monad-Plus.html) typeclasses in Haskell are *also* monoids. The difference between them and the `Monoid` class is that `Monoid` is a typeclass for concrete types, whereas `Alternative` and `MonadPlus` are for type constructors, that is, parameterized types. We can make this more precise. If `f` is an `Alternative`, then for all `a`, `f a` is a monoid under `<|>`, with identity `empty`. We encode this fact in Haskell via the `Alt` newtype and its `Monoid` instance.
 
@@ -441,7 +439,7 @@ class  Num a  where
   fromInteger         :: Integer -> a
 ```
 
-Perhaps surprisingly `fromInteger` has everything to do with rings and rightly belongs in the definition of any typeclass for rings. This is because the ring of integers is an initial object in the category of rings, i.e. for every ring `A`, there is always one and only one ring homomorphism (e.g. ring-structure-compatible function) from the ring of integers to the ring `A`. This is beyond the scope of the blog post, at least for now, but we mention it here so that someday Julie can come back to it.
+Perhaps surprisingly `fromInteger` has everything to do with rings and rightly belongs in the definition of any typeclass for rings. This is because the ring of integers is an initial object in the category of rings, i.e. for every ring `A`, there is always one and only one ring homomorphism (i.e., ring-structure-compatible function) from the ring of integers to the ring `A`. This is beyond the scope of the blog post, at least for now, but we mention it here so that someday Julie can come back to it.
 
 [Comments in the source code](http://hackage.haskell.org/package/base-4.12.0.0/docs/src/GHC.Num.html) say:
 
@@ -452,7 +450,7 @@ and then give the properties a ring is expected to have; however, those laws are
 
 ### Semiring
 
-It's a shame that `Semiring` is not in the standard library (yet?). It is in the [standard PureScript library](https://pursuit.purescript.org/packages/purescript-prelude/3.1.0/docs/Data.Semiring), and I really admire PureScript for that, among other things. However, we have some decent implementations of it in libraries. My preference at this time is [this `semirings` package](http://hackage.haskell.org/package/semirings).
+It's a shame that `Semiring` is not in the standard library (yet?). It is in the [standard PureScript library](https://pursuit.purescript.org/packages/purescript-prelude/3.1.0/docs/Data.Semiring), and we really admire PureScript for that, among other things. However, we have some decent implementations of it in libraries, for example [this `semirings` package](http://hackage.haskell.org/package/semirings).
 
 That `Semiring` definition looks like this:
 
@@ -480,11 +478,11 @@ instance Semiring a => Semiring (Maybe a) where
   times (Just x) (Just y) = Just (times x y)
 ```
 
-I have also written more about [semirings on Type Classes](https://typeclasses.com/semiring).
+There is more about [semirings on Type Classes](https://typeclasses.com/semiring).
 
 ### Lattice and semilattice
 
-I have a growing interest in these structures but have not yet written much about them or used the [`lattices`](https://hackage.haskell.org/package/lattices-1.4) package. I notice that that package defines two semilattice classes and then a `Lattice` class that is constrained by *both*. We note that the `Lattice` class has no new functions in it; you can use it as a constraint on other things when you have two semilattices (the meet and the join) and the absorption law holds.
+These structures are interesting, but we have not yet written much about them or used the [`lattices`](https://hackage.haskell.org/package/lattices-1.4) package. We notice that that package defines two semilattice classes and then a `Lattice` class that is constrained by *both*. We note that the `Lattice` class has no new functions in it; you can use it as a constraint on other things when you have two semilattices (the meet and the join) and the absorption law holds.
 
 ```haskell
 class JoinSemiLattice a where
@@ -508,7 +506,7 @@ instance MeetSemiLattice Bool where
 instance Lattice Bool where
 ```
 
-The absorption law does hold for the `Bool` lattice, so I guess we're all good here!
+The absorption law does hold for the `Bool` lattice, so it looks like we're all good here!
 
 
 # A little glossary
@@ -519,22 +517,33 @@ Some of these will probably be familiar to most people from high school math, ot
 
 - **Absorption** : See [lattices](#lattice-like-structures).
 
-- **Annihilator** : We have to include this term because it is such a metal thing to call zeroes. Annihilation is a property of some structures, such that there is an element of a set that always *annihilates* the other element with respect to that operation, sort of the opposite of an identity element (see below). If `(S, *)` is a set `S` with a binary operation `*` on it, the annihilator, or zero element, is an element `z` such that for all `a` in `S`, `z * a = a * z = z`. In the monoid of integer multiplication, the annihilator is zero, while in the monoid of set intersection, the annihilator is the empty set; notice that the monoids of integer addition and set union *do not have annihilators*.
+- **Annihilator** : We have to include this term because it is such a metal thing to call zeroes. Annihilation is a property of some structures, such that there is an element of a set that always *annihilates* the other input to a binary operation, sort of the opposite of an identity element (see below). If `(S, *)` is a set `S` with a binary operation `*` on it, the annihilator, or zero element, is an element `z` such that for all `a` in `S`, `z * a = a * z = z`. In the monoid of integer multiplication, the annihilator is zero, while in the monoid of set intersection, the annihilator is the empty set; notice that the monoids of integer addition and set union *do not have annihilators*.
 
 - **Associativity** : Associativity may be familiar from elementary arithmetic, even if the name isn't. For example, you may recall that `2 * (3 * 4)` and `(2 * 3) * 4` always evaluate to the same result, even though you simplify the parts in parentheses first so the parentheses change the order in which you evaluate the expression. When the result never depends on the order of simplification, we say that a binary operation is *associative.* More formally, an operation `*` on a set `S` is *associative* when for all `x`, `y`, and `z` in `S`, `x * (y * z) = (x * y) * z`.
 
 - **Binary operation** : A *binary operation* `*` on a set `S` is a function `* : (S, S) -> S`. Notice that `*` maps `(S, S)` back into `S`. Because of an historical quirk, this fact is sometimes called *closure* (see below). In Haskell, that looks like a type signature such as `a -> a -> a` because Haskell is curried by default. All functions in Haskell are ... actually unary functions, taking one input and returning one result (which may itself be a function). The final parameter of a Haskell type signature is the return type; all others are input types.
 
-- **Closed** : By definition, a binary operation over a set implies that the operation is *closed*, that is, for all `a`, `b`, in set `S`, the result of the binary operation `a * b` is also an element in `S`. This coincides exactly with the definition of a function `(S, S) -> S` (see above). Also, sometimes called the property of *closure*. While this definitionally a property of binary operations and, thus, not independently important, we mention it here because it comes up in the Haskell literature.
+- **Closed** : By definition, a binary operation over a set implies that the operation is *closed*, that is, for all `a`, `b`, in set `S`, the result of the binary operation `a * b` is also an element in `S`. This coincides exactly with the definition of a function `(S, S) -> S` (see above). Also, sometimes called the property of *closure*. While this is definitionally a property of binary operations and, thus, not independently important, we mention it here because it comes up in the Haskell literature.
 <!-- ^ Historically, the idea of requiring "closure" as an axiom of abstract algebraic structures predates the modern notion of functions. They required "closure" because they didn't have the modern vocabulary of functions, domains, and codomains. Since the vocabulary of functions, domains, and codomains is so flexible and precise, we should probably dispense with mentioning "closure" as a property of algebraic structures entirely, mentioning it as a historical quirk in the definition of "binary operation" exactly once, then immediately proceeding in the more-suitable framing of ideas that speaking in terms of functions, domains, and codomains allows. Julie: I'm not really sure I undertand this -- are you saying that historically there wasn't a way to talk about functions that map one set to another? anyway, i'm keeping this because it still comes up when people say, e.g., "the natural numbers aren't closed under subtraction" -->
 
 - **Commutativity** : Commutativity is not the same as associativity, although most commutative operations are also associative.
 The commutative property of some binary operations holds that changing the order of the inputs does not affect the result.
 More formally, an operation `*` on a set `S` is *commutative* when for all `x` and `y` in `S`, `x * y = y * x`.
 
-- **Distributivity** : The distributive property in arithmetic states that multiplication distributes over addition such that `2 * (1 + 3) = (2 * 1) + (2 * 3)`. Some algebraic structures generalize this with their own distributive law. Suppose we have a set `S` with two binary operations, `<>` and `><`. We say `><` *distributes over* `<>` when for all `x`, `y`, and `z` in `S`, `x >< (y <> z) = (x >< y) <> (y >< z)` (left distributive) *and* `(y <> z) >< x = (y >< x) <> (z >< x)` (right distributive). Note that if `*` is commutative and left distributive, it follows that it is also right distributive (and therefore distributive).
+- **Complement** : You may have learned about *complements* in geometry or with sets: two angles are complementary when they add up to 90 degrees; and two subsets of a set `S` -- let's call the subsets `A` and `B` -- are complements when $A \cup B = S$ and $A \cap B = \emptyset$ (where $\cup$ is for *union* and $\cap$ is for *intersection*). Simply put, a complement is what you combine with something to make it "whole". In a complemented lattice, every element `a` has a complement `b` satisfying $a \vee b = 1$ and $a \wedge b = 0$ where 1 and 0 are the greatest and least elements of the set, respectively. Complements need not be unique, except in distributive lattices.
 
-- **Dual** : This principle can also be somewhat tricky to understand, and discussions of what it means tend to get into the mathematical weeds quickly. Roughly, for our purposes (but perhaps not all purposes) it's a "mirror-like" relationship between operations such that one "reflects" the other. In category theory, it's described as "take all the arrows representing relationships (morphisms) between the objects and flip them in the opposite direction." Addition and multiplication -- *not* subtraction -- are dual to each other; Boolean conjunction and disjunction are dual; universal ("for all `x` in `A`...") and existential quantification ("there exists an `x` in `A`...") are dual because `∃x.¬P(x)` and `¬∀x.P(x)` are equivalent for all predicates `P` in classical logic: if there exists an `x` for which `P` fails to hold, then it is false that `P` holds for all `x` (but the converse does not hold constructively).
+- **Distributivity** : The distributive property in arithmetic states that multiplication distributes over addition such that `2 * (1 + 3) = (2 * 1) + (2 * 3)`. Some algebraic structures generalize this with their own distributive law. Suppose we have a set `S` with two binary operations, `<>` and `><`. We say `><` *distributes over* `<>` when 
+    - for all `x`, `y`, and `z` in `S`, 
+    - `x >< (y <> z) = (x >< y) <> (y >< z)` (left distributive) *and* 
+    - `(y <> z) >< x = (y >< x) <> (z >< x)` (right distributive). 
+    
+    Note that if `*` is commutative and left distributive, it follows that it is also right distributive (and therefore distributive).
+
+- **Dual** : This principle can also be somewhat tricky to understand, and discussions of what it means tend to get into the mathematical weeds quickly. Roughly, for our purposes (but perhaps not all purposes) it's a "mirror-like" relationship between operations such that one "reflects" the other. Somewhat more formally, it means that there is a mapping between `A` and `B` that *involutes*, so `f(A) = B` and `f(B) = A`. Understanding duality is important because if you prove things in `f(A)`, you can prove things about `B`, and if you prove things about `f(B)`, then you can prove them about `A`. So, `A` and `B` are related but it's a bit more complicated than a standard function mapping. An involution is a function that equals its inverse, so applying it to itself give the identity; that is, if `f(A) = B` and `f(B) = A` then `f(f(A))=A`. Some examples:
+
+  - In Haskell, [sum types and product types are dual](http://blog.ezyang.com/2012/10/duality-for-haskellers/) (as are products and coproducts in category theory). You can demonstrate this by implementing `f :: (a, b) -> (Either (a -> c) (b -> c) -> c)` (mapping a product type to a sum) and `f' :: (Either a b) -> ((a -> c, b -> c) -> c)` (mapping a sum type to a product) and trying it out. 
+
+  - In classical logic, universal ("for all `x` in `A`...") and existential quantification ("there exists an `x` in `A`...") are dual because $\exists x: \neg P(x)$ and $\neg \forall x: P(x)$ are equivalent for all predicates `P` : if there exists an `x` for which `P` does not hold, then it is not the case that `P` holds for all `x` (but the converse does not hold constructively).                            
 
 - **Idempotence** : The idempotence we care about for our algebraic structures is a property of some binary operations under which applying the operation multiple times doesn't change the result after the first application. However, it can be a bit tricky to understand, so let's consider idempotence with regard to unary functions to get a sense of the meaning first. Consider a device where there are separate buttons for turning the device on and off; pushing the *on* button doesn't turn it "more on", so the *on* button is idempotent (and so is the *off* button). Similarly, taking the absolute value of integers is an idempotent unary function; you can keep taking the absolute value of a number and after the first time, the answer won't change.
 
