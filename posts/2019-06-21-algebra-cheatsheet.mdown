@@ -22,7 +22,7 @@ This list is organized by dependencies, more or less, rather than alphabetically
 Some symbols used in this section:
 
 - $\ast$ and $\times$: A generic binary operation. These do not necessarily mean *multiplication (as of integers)*.  
-- $u$: An identity element or unit.  
+- $u$: An identity element or unit. 
 - $'$: An inverse.
 
 For definitions of terms, see [glossary](#a-little-glossary).
@@ -183,7 +183,7 @@ Nearring $(A, +, \cdot, 0, 1, -)$
 
 Rings, semirings, and the lot can also be commutative rings, commutative semirings, etc., but, unlike the group-like structures, they are not usually described as, e.g., "abelian rings."
 
-### *Division Algebra*
+### *Division algebra*
 
 A ring with multiplicative inverses.
 
@@ -238,12 +238,10 @@ $(A, \vee, \wedge)$
 * $(A, \wedge)$ is an idempotent abelian semigroup
 * $\forall x, y \in A; x \vee (x \wedge y) = x$
 * $\forall x, y \in A; x \wedge (x \vee y) = x$
-<!-- wait is this right -- for all x in A? i would have thought there exists an x in A such that ... ?
 
-The last law is the *absorption* law, a special case of identity. Since absorption laws are unique to lattices, we discuss them here instead of in the glossary. The absorption laws link a pair of binary operations by linking the identity of one operation, as zero is the identity of addition, to its role as the annihilator of the other operation (multiplication).
-Absorption, on the other hand, refers specifically to something more like a distributive relationship between the two binary operations in lattice-like algebraic structures.
+The last pair of laws is called *absorption*. Since absorption laws are unique to lattices, we discuss them here instead of in the glossary. The absorption laws link a pair of semilattices in a kind of distributive relationship, so that a lattice is not just any two semilattices that happen to be over the same set, but only semilattices that are linked in this way. In particular, the absorption laws ensure that the two semilattices are *dual* of each other. It can take a moment to see what it means, so let's pause and look at concrete examples.
 
-In a Boolean lattice, that element is false. Consider this, where `||` corresponds to $\vee$ and `&&` corresponds to $\wedge$:
+Consider a Boolean lattice with two elements, `True` and `False`, where `||` corresponds to $\vee$ and `&&` corresponds to $\wedge$:
 
 ```haskell
 λ> False || (False && True)
@@ -253,16 +251,34 @@ False
 False
 ```
 
+But it's important to note that these hold *for all* $x$ and $y$ in the set. So, if we swap them, the absorption laws still hold:
+
+```haskell 
+λ> True || (True && False)
+True
+
+λ> True && (True || False) 
+True
+```
+
+Positive integers form a lattice under the operations `min` and `max`, and we can see the absorption law in action here, too.
+
+```haskell
+λ> 5 `min` (5 `max` 9)
+5
+
+λ> 5 `max` (5 `min` 9)
+5
+```
+
+The absorption laws are sometimes called a special case of identity, and they're also related to idempotence in that the idempotence laws can be derived from the absorption laws taken together.
 
 
+### *Bounded lattice*
 
-### *Bounded Lattice*
+A lattice whose semigroup structures are monoids.
 
 $(A, \vee, \wedge, 0, 1)$
-
-**Summary:**
-
-A _bounded lattice_ is a lattice whose semigroup structures are monoids.
 
 **Structure:**
 
@@ -278,13 +294,11 @@ A _bounded lattice_ is a lattice whose semigroup structures are monoids.
 * $(A, \wedge, 1)$ is a monoid
 
 
-* Complemented Lattice
+### *Complemented lattice*
+
+A bounded lattice where each element has a complement. 
 
 $(A, \vee, \wedge, 0, 1, ')$
-
-**Summary:**
-
-A _complemented lattice_ is a bounded lattice where each element has a compliment. (BEWARE: Although $'$ defines a particular choice of complements [i.e., each element $x \in A$ has exactly one corresponding $x' \in A$], there may additionally be other elements $y \in A$ such that $x \vee y = 1$ and $x \wedge y = 0$. In particular, there may be other suitable $'$ functions, and $x''$ is not necessarily $x$.)
 
 **Structure:**
 
@@ -300,28 +314,27 @@ A _complemented lattice_ is a bounded lattice where each element has a complimen
 * $\forall x \in A; x \vee x' = 1$
 * $\forall x \in A; x \wedge x' = 0$
 
+*Nota bene*: Although $'$ defines a particular choice of complements (i.e., each element $x \in A$ has exactly one corresponding $x' \in A$), there may additionally be other elements $y \in A$ such that $x \vee y = 1$ and $x \wedge y = 0$. In particular, there may be other suitable $'$ functions, and $x''$ is not necessarily $x$.
 
-* Distributive Lattice
+### *Distributive lattice*
+
+A lattice where the operations distribute over each other. 
 
 Lattice $(A, \vee, \wedge)$
-
-**Summary:**
-
-A _distributive lattice_ is a lattice where the operations distribute over each other. (Strictly speaking, the second law can be derived from the first law and the lattice laws, and as such is redundant.)
 
 **Laws:**
 
 * $\forall x, y, z \in A; x \wedge (y \vee z) = (x \wedge y) \vee (x \wedge z)$
 * $\forall x, y, z \in A; x \vee (y \wedge z) = (x \vee y) \wedge (x \vee z)$
 
+Strictly speaking, the second law can be derived from the first law and the lattice laws, and as such is redundant.
 
-* Heyting Algebra
+
+### *Heyting algebra*
+
+A bounded lattice with an implication operation.
 
 $(A, \vee, \wedge, 0, 1, \Rightarrow)$
-
-**Summary:**
-
-A _Heyting algebra_ is a bounded lattice with an implication operation.
 
 **Structure:**
 
@@ -339,31 +352,26 @@ A _Heyting algebra_ is a bounded lattice with an implication operation.
 * $\forall a, b, c \in A; a \Rightarrow (b \wedge c) = (a \Rightarrow b) \wedge (a \Rightarrow c)$
 
 
-* Boolean Algebra
+### *Boolean algebra*
+
+A complemented Heyting algebra.
 
 Complemented lattice $(A, \vee, \wedge, 0, 1, ')$
-
-**Summary:**
-
-A _boolean algebra_ is a complemented Heyting algebra.
 
 **Laws:**
 
 Let $\Rightarrow : A \times A \to A$ by $x \Rightarrow y = x' \vee y$.
 
-* $(A, \vee, \wedge, 0, 1, \Rightarrow)$ is a Heyting algebra
+$(A, \vee, \wedge, 0, 1, \Rightarrow)$ is a Heyting algebra
 
 
+# Some algebra in Haskell
 
+The typeclass system of Haskell more or less corresponds to algebraic structures, with types as the sets. The typeclass definition gives the most general possible form of the operations over the sets, and the `instance` declarations define the implementations of those operations for the specified type (set). 
 
-# Some algebras in Haskell
+Not all of the above structures are well represented in Haskell, but some are, and a couple of them (semigroups and monoids) are super important. We give those typeclass definitions, a representative `instance` or two, and links to documentation where appropriate.
 
-The typeclass system of Haskell more or less corresponds to algebraic structures, with types as the sets. The typeclass definition gives the most general possible form of the operations over the sets, and the `instance` declarations define the implementations of those operations for the specified type (set). This is how algebra became relevant to my adult life.
-
-Not all of the above algebras are well represented in Haskell, but some are, and we give those typeclass definitions, a representative `instance` or two, and links to documentation where appropriate.
-
-One important thing to note before we get started that is, perhaps, somewhat disappointing: the compiler does not enforce the laws of the algebraic typeclasses. The only thing standing between you and a law-breaking ring or monoid is ... well ... you, and your willingness to test your instances, I suppose.
-
+One important thing to note before we get started that is, perhaps, somewhat disappointing: the compiler does not enforce the laws of the algebraic typeclasses. The only thing standing between you and a law-breaking ring or monoid is ... well ... you, and your willingness to test your instances. That isn't really different from the situation in mathematics, where it would be on you to prove that such-and-such upholds the ring laws or whatever, but some people come to Haskell expecting the compiler wouldn't *let you* write a bad instance and that is absolutely not the case. We like type checking and inference a lot and are grateful for the problems it does help with, but it's important to be aware of its limitations as well!
 
 ### Semigroup
 
@@ -375,8 +383,7 @@ class Semigroup a where
   (<>) :: a -> a -> a
 ```
 
-Many sets form semigroups under more than one operation, so in Haskell, to preserve the unique relationship between a type and a typeclass, we use a named type wrapper, called a `newtype`, which identifies which semigroup we're talking about.
-<!-- This is precisely the same situation in Math. A set can't be a group (or a ring, etc). Instead, a group has to be a pair (G, *) where `G` is a set and `* : (G, G) -> G` and the group axioms hold. `G` is not the group: the group is the pairing of the set `G` with the structure function `*`. In Haskell, we use `newtypes` to pair a set (in this case, the type being wrapped) with some structure functions. -->
+Many sets form semigroups under more than one operation, so in Haskell, to preserve the unique relationship between a type and a typeclass, we use a named type wrapper, called a `newtype`, which identifies which semigroup we're talking about. This parallels the situation in math where a set can't be a group (or a ring, etc). Instead, a group has to be a pair `(G, *)` where `G` is a set and `* : (G, G) -> G` and the group axioms hold. `G` is not the group: the group is the pairing of the set `G` with the structure function `*`. In Haskell, we use `newtypes` to pair a set (in this case, the type being wrapped) with some structure functions.
 
 ```haskell
 -- the Max semigroup is only for orderable sets
@@ -420,34 +427,34 @@ instance Num a => Monoid (Product a) where
 
 I have also written extensively about [`Monoid` over on Type Classes](https://typeclasses.com/monoid), about [JavaScript and monoidal folds](https://typeclasses.com/javascript/monoidal-folds), and also [given talks](/posts/2017-10-12-haskellx17-talk.html) about these wonderful structures.
 
-It is perhaps worth pointing out that the [`Alternative`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Applicative.html#g:2) and [`MonadPlus`](http://hackage.haskell.org/package/monadplus-1.4.2/docs/Control-Monad-Plus.html) typeclasses in Haskell are *also* monoids. The difference between them and the `Monoid` class is that `Monoid` is a typeclass for concrete types, whereas `Alternative` and `MonadPlus` are for type constructors, that is, parameterized types.
-<!-- We should probably make this more precise. Something like this:
-  > If `f` is an `Alternative`, then for all `a`, `f a` is a monoid under `<|>`, with identity `empty`. We encode this fact in Haskell via the `Alt` newtype and its `Monoid` instance.
-Notice I intentionally did not capitalize "monoid" above, because `(Alternative f) => f a` doesn't have a `Monoid` instance, so it's not a `Monoid`, but it certainly is a monoid (under `<|>`), whether or not it has a `Monoid`. -->
+It is perhaps worth pointing out that the [`Alternative`](http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Applicative.html#g:2) and [`MonadPlus`](http://hackage.haskell.org/package/monadplus-1.4.2/docs/Control-Monad-Plus.html) typeclasses in Haskell are *also* monoids. The difference between them and the `Monoid` class is that `Monoid` is a typeclass for concrete types, whereas `Alternative` and `MonadPlus` are for type constructors, that is, parameterized types. We can make this more precise. If `f` is an `Alternative`, then for all `a`, `f a` is a monoid under `<|>`, with identity `empty`. We encode this fact in Haskell via the `Alt` newtype and its `Monoid` instance.
+
 
 ### Ring
 
 We don't exactly have a `Ring` typeclass in standard Haskell; what we have instead is the `Num` class and it's sort of like a ring. It's a big typeclass, so this is a simplified version with the functions you'd expect a ring to have.
-<!-- While `abs` and `signum` have nothing at all to do with rings, perhaps surprisingly `fromInteger` has everything to do with rings and rightly belongs in the definition of any type class for rings. This is because the ring of integers is an initial object in the category of rings, i.e. for every ring `A`, there is always one and only one ring homomorphism (e.g. ring-structure-compatible function) from the ring of integers to the ring `A`. This is probably beyond the scope of the blog post, but I just thought you might things it's fun/interesting to know. -->
 
 ```haskell
 class  Num a  where
   (+), (-), (*)       :: a -> a -> a
   negate              :: a -> a
+  fromInteger         :: Integer -> a
 ```
+
+Perhaps surprisingly `fromInteger` has everything to do with rings and rightly belongs in the definition of any typeclass for rings. This is because the ring of integers is an initial object in the category of rings, i.e. for every ring `A`, there is always one and only one ring homomorphism (e.g. ring-structure-compatible function) from the ring of integers to the ring `A`. This is beyond the scope of the blog post, at least for now, but we mention it here so that someday Julie can come back to it.
 
 [Comments in the source code](http://hackage.haskell.org/package/base-4.12.0.0/docs/src/GHC.Num.html) say:
 
 > The Haskell Report defines no laws for 'Num'. However, '(+)' and '(*)` are customarily expected to define a ring
 
-and then give the properties a ring is expected to have; however, those laws are not enforced in any way, and I suspect many people do not even think of `Num` as a ring that should have laws. Let us speak no more of this.
+and then give the properties a ring is expected to have; however, those laws are rarely mentioned with regard to `Num`, and we suspect many people do not even think of `Num` as a ring that should have laws. Let us speak no more of this.
 
 
 ### Semiring
 
 It's a shame that `Semiring` is not in the standard library (yet?). It is in the [standard PureScript library](https://pursuit.purescript.org/packages/purescript-prelude/3.1.0/docs/Data.Semiring), and I really admire PureScript for that, among other things. However, we have some decent implementations of it in libraries. My preference at this time is [this `semirings` package](http://hackage.haskell.org/package/semirings).
 
-A `Semiring` definition looks like this:
+That `Semiring` definition looks like this:
 
 ```haskell
 class Semiring a where
@@ -457,17 +464,21 @@ class Semiring a where
   one   :: a           -- identity for `times`
 ```
 
-And a Boolean semiring -- the `instance` of that typeclass for `Bool` -- could be implemented thusly:
+It also provides several instances, including this one for `Maybe` -- notice the difference between the `plus` and `times` cases when one input is `Nothing`:
 
 ```haskell
-instance Semiring Bool where
-  plus  = (||)
-  zero  = False
-  times = (&&)
-  one   = True
-```
+instance Semiring a => Semiring (Maybe a) where
+  zero  = Nothing
+  one   = Just one
 
-<!-- This is perhaps incorrect. There's some ambiguity around the definition of a boolean semiring, so it's best not to bring them up, I think. There is a well-established notion of a boolean ring, and in a boolean ring, `plus x y` is defined as `(x && not y) || (y && not x)`, not as `x || y` (thought the other methods are still defined as you have them above). -->
+  plus Nothing y = y
+  plus x Nothing = x
+  plus (Just x) (Just y) = Just (plus x y)
+
+  times Nothing _ = Nothing
+  times _ Nothing = Nothing
+  times (Just x) (Just y) = Just (times x y)
+```
 
 I have also written more about [semirings on Type Classes](https://typeclasses.com/semiring).
 
@@ -499,7 +510,6 @@ instance Lattice Bool where
 
 The absorption law does hold for the `Bool` lattice, so I guess we're all good here!
 
-<!-- I really admire the work you put in to making the subject matter both approachable and correct. Too often people tend to sacrifice one for the sacrifice of the other, but I don't think it's as zero-sum as they think it is: I think things can be both. I'm glad you do, too. -->
 
 # A little glossary
 
@@ -509,59 +519,33 @@ Some of these will probably be familiar to most people from high school math, ot
 
 - **Absorption** : See [lattices](#lattice-like-structures).
 
-- **Annihilator** : We have to include this term because it is such a metal thing to call zeroes. An annihilating element is an element of a set that always absorbs the other element, sort of the opposite of an identity element (see below). If `(S, *)` is a set `S` with a binary operation `*` on it, the annihilator, or zero element, is an element `z` such that for all `a` in `S`, `z * a = a * z = z`. In the monoid of integer multiplication, the annihilator is zero, while in the monoid of Boolean conjunction, the annihilator is `False`.
+- **Annihilator** : We have to include this term because it is such a metal thing to call zeroes. Annihilation is a property of some structures, such that there is an element of a set that always *annihilates* the other element with respect to that operation, sort of the opposite of an identity element (see below). If `(S, *)` is a set `S` with a binary operation `*` on it, the annihilator, or zero element, is an element `z` such that for all `a` in `S`, `z * a = a * z = z`. In the monoid of integer multiplication, the annihilator is zero, while in the monoid of set intersection, the annihilator is the empty set; notice that the monoids of integer addition and set union *do not have annihilators*.
 
-- **Associativity** : The associative property is a property of some binary operations. In expressions containing two or more successive applications of the same associative operator, the order in which the operations are performed does not affect the result. That is, repeated application of the operation produces the same result regardless of how we might insert parentheses to group the subexpressions. More formally, an operation `*` on a set `S` is *associative* when for all `x`, `y`, and `z` in `S`, `x * (y * z) = (x * y) * z`.
+- **Associativity** : Associativity may be familiar from elementary arithmetic, even if the name isn't. For example, you may recall that `2 * (3 * 4)` and `(2 * 3) * 4` always evaluate to the same result, even though you simplify the parts in parentheses first so the parentheses change the order in which you evaluate the expression. When the result never depends on the order of simplification, we say that a binary operation is *associative.* More formally, an operation `*` on a set `S` is *associative* when for all `x`, `y`, and `z` in `S`, `x * (y * z) = (x * y) * z`.
 
-- **Closed** : By definition, a binary operation over a set implies that the operation is *closed*, that is, for all `a`, `b`, in set `S`, the result of the binary operation `a * b` is also an element in `S`.
-<!-- ^ This coincides exactly with the definition of a function `(S, S) -> S`, maybe that's worth mentioning? Rather, instead of defining "closed", define "binary operations." Something like "A *binary operation* `*` on a set `S` is a function `* : (S, S) -> S`. Notice that `*` maps `(S, S)` back into `S`. Because of an historical quirk, this fact is sometimes called *closure*." -->
-In Haskell, that looks like a type signature such as `a -> a -> a`.
-<!-- ^ Delicious curry -->
-Also, sometimes called the property of *closure*.
-<!-- ^ Historically, the idea of requiring "closure" as an axiom of abstract algebraic structures predates the modern notion of functions. They required "closure" because they didn't have the modern vocabulary of functions, domains, and codomains. Since the vocabulary of functions, domains, and codomains is so flexible and precise, we should probably dispense with mentioning "closure" as a property of algebraic structures entirely, mentioning it as a historical quirk in the definition of "binary operation" exactly once, then immediately proceeding in the more-suitable framing of ideas that speaking in terms of functions, domains, and codomains allows. -->
+- **Binary operation** : A *binary operation* `*` on a set `S` is a function `* : (S, S) -> S`. Notice that `*` maps `(S, S)` back into `S`. Because of an historical quirk, this fact is sometimes called *closure* (see below). In Haskell, that looks like a type signature such as `a -> a -> a` because Haskell is curried by default. All functions in Haskell are ... actually unary functions, taking one input and returning one result (which may itself be a function). The final parameter of a Haskell type signature is the return type; all others are input types.
+
+- **Closed** : By definition, a binary operation over a set implies that the operation is *closed*, that is, for all `a`, `b`, in set `S`, the result of the binary operation `a * b` is also an element in `S`. This coincides exactly with the definition of a function `(S, S) -> S` (see above). Also, sometimes called the property of *closure*. While this definitionally a property of binary operations and, thus, not independently important, we mention it here because it comes up in the Haskell literature.
+<!-- ^ Historically, the idea of requiring "closure" as an axiom of abstract algebraic structures predates the modern notion of functions. They required "closure" because they didn't have the modern vocabulary of functions, domains, and codomains. Since the vocabulary of functions, domains, and codomains is so flexible and precise, we should probably dispense with mentioning "closure" as a property of algebraic structures entirely, mentioning it as a historical quirk in the definition of "binary operation" exactly once, then immediately proceeding in the more-suitable framing of ideas that speaking in terms of functions, domains, and codomains allows. Julie: I'm not really sure I undertand this -- are you saying that historically there wasn't a way to talk about functions that map one set to another? anyway, i'm keeping this because it still comes up when people say, e.g., "the natural numbers aren't closed under subtraction" -->
 
 - **Commutativity** : Commutativity is not the same as associativity, although most commutative operations are also associative.
 The commutative property of some binary operations holds that changing the order of the inputs does not affect the result.
 More formally, an operation `*` on a set `S` is *commutative* when for all `x` and `y` in `S`, `x * y = y * x`.
-Commutativity is also closely related to *symmetry*.
-<!-- ^ A "binary relation" `R` on `S` is a function `R : (S, S) -> Bool`. We'd use the term *symmetric* to refer to certain binary relations, but not really to refer to binary operations, so I don't know if mentioning "symmetry" adds to clarity; it might even add to confusion. -->
 
-- **Distributivity** : The distributive property in arithmetic states that multiplication distributes over addition such that `2 * (1 + 3) = (2 * 1) + (2 * 3)`.
-<!-- I like how you lead with a familiar example. Maybe the other definitions can also lead off with an example that will be familiar to the read. E.g. for associative:
-  > Recall from arithmetic that (2 * 9) * 5 and 2 * (9 * 5) must always give the same result, no matter which pair you decide to multiply first. When the result never depends on the order of simplification, we say that a binary operation is *associative.* Formally, for all ... ... ... . Importantly, not all binary operations are associative. (For example, is `-` associative?)
--->
-In algebra, this is generalized such that for any set `S` with two binary operators, `*` and `+`, `*` *distributes over* `+` when for all `x`, `y`, and `z` in `S`, `x * (y + z) = (x * y) + (y * z)` (left distributive) *and* `(y + z) * x = (y * x) + (z * x)` (right distributive).
-<!-- The wording "In algebra, this is generalized such that for any set `S` with two binary operators..." doesn't sit right with me. It almost sounds like an assertion that any structure with two operations must satisfy the distributive law. Can we try instead something more like this:
-  > Some algebraic structures generalize this with their own distributive law. Suppose we have a set `S` with two binary operations, `<>` and `><`. We say `><` *distributes over* `<>` when for all... -->
-Note that if `*` is commutative and left distributive, it follows that it is also right distributive (and therefore distributive).
+- **Distributivity** : The distributive property in arithmetic states that multiplication distributes over addition such that `2 * (1 + 3) = (2 * 1) + (2 * 3)`. Some algebraic structures generalize this with their own distributive law. Suppose we have a set `S` with two binary operations, `<>` and `><`. We say `><` *distributes over* `<>` when for all `x`, `y`, and `z` in `S`, `x >< (y <> z) = (x >< y) <> (y >< z)` (left distributive) *and* `(y <> z) >< x = (y >< x) <> (z >< x)` (right distributive). Note that if `*` is commutative and left distributive, it follows that it is also right distributive (and therefore distributive).
 
-- **Idempotence** : Idempotence is a property of some binary operations under which applying the operation multiple times doesn't change the result after the first application.
-Consider a device where there are separate buttons for turning the device on and off; pushing the *on* button doesn't turn it "more on", so the *on* button is idempotent (and so is the *off* button).
-<!-- In these first two sentences, you're defining idempotence for unary functions, not for binary operations. For instance, the effect of pressing the "on" button is a unary function: it takes a state and returns a state (with state space { on, off}). It's a good example, but of a different, related concept. Let's not worry about defining idempotence for unary functions and instead jump straight to the definition of idempotent elements of a binary operation instead. -->
-We say an element of a set is idempotent with respect to some operation `*` if `x * x = x`.
-It seems that both absorption and identity elements should always be idempotent elements.
-<!-- Replace "absorption" with "annihilator" above :-) -->
-We say an operation is idempotent if every element in the set is idempotent with respect to the operation.
-For the natural numbers under multiplication, both `1` and `0` are idempotent; for the naturals under addition, only `0` is.
-Hence neither addition nor multiplication of the natural numbers is itself idempotent.
-However, taking the absolute value of integers is an idempotent function.
-<!-- Replace "operation" with "function" above. Operation isn't technically wrong, but we're trying to stick to using the word "operation" for binary operations. -->
-Furthermore, the set operations of union and intersection are both idempotent operations.
-<!-- Excellent examples. -->
+- **Dual** : This principle can also be somewhat tricky to understand, and discussions of what it means tend to get into the mathematical weeds quickly. Roughly, for our purposes (but perhaps not all purposes) it's a "mirror-like" relationship between operations such that one "reflects" the other. In category theory, it's described as "take all the arrows representing relationships (morphisms) between the objects and flip them in the opposite direction." Addition and multiplication -- *not* subtraction -- are dual to each other; Boolean conjunction and disjunction are dual; universal ("for all `x` in `A`...") and existential quantification ("there exists an `x` in `A`...") are dual because `∃x.¬P(x)` and `¬∀x.P(x)` are equivalent for all predicates `P` in classical logic: if there exists an `x` for which `P` fails to hold, then it is false that `P` holds for all `x` (but the converse does not hold constructively).
 
-- **Identity** : An identity element is an element of a set that is neutral with respect to some binary operation on that set; that is, it leaves any other element of that set unchanged when combined with it.
-An identity value is unique with respect to the given set and operation.
-Most identity values take the shape of something analogous to `1` (products) or `0` (sums).
-<!-- Always great to provide the reader with examples grounded in prior experience. Though I'm not sure I know what's meant by "take the shape of something analogous to" means in this context. I think we should keep the examples but find a better wording. -->
-More formally, for a set `S` with a binary operation `*` on it, `e` is the identity value when `e * a = a * e = a` for all `a` in `S`.
+- **Idempotence** : The idempotence we care about for our algebraic structures is a property of some binary operations under which applying the operation multiple times doesn't change the result after the first application. However, it can be a bit tricky to understand, so let's consider idempotence with regard to unary functions to get a sense of the meaning first. Consider a device where there are separate buttons for turning the device on and off; pushing the *on* button doesn't turn it "more on", so the *on* button is idempotent (and so is the *off* button). Similarly, taking the absolute value of integers is an idempotent unary function; you can keep taking the absolute value of a number and after the first time, the answer won't change.
 
-- **Invertibility** : This is a property of groups.
-<!-- None of the other definitions mention the sorts of structures they feature in. Also, inverses is also a property in fields. Together, those observations make me feel like this first sentence is sort of out of place. -->
-For each `a` in the set `G`, there exists an element `b` in `G` such that `ab = ba = e` where `e` is the identity element for the group.
-<!-- I like how you defined idempotent elements first, and then defined idempotent binary operations. Maybe we can do something similar here. Maybe something like this:
-  > Given a binary operation `*` on `S` with identity `e`, an element `b` in `S` is said to be an *inverse* of an element `a` in `S` if `a * b = e = b * a`, in which case `a` (as well as `b`, simply by the symmetry in the definition) is said to be *invertible* in `S` relative to `*`. If every element of `S` is invertible in `S` relative to `*`, then we say `S` has inverses relative to `*`. -->
-In the case of addition, then, we'd say `a + b = b + a = 0`.
-This is also sometimes referred to as the property of having inverses or negatives (e.g., the negative integers).
+    We say an element of a set is idempotent with respect to some operation `*` if `x * x = x`. We say an operation is idempotent if every element in the set is idempotent with respect to the operation. Both the annihilator and identity elements, if present in a given structure, are idempotent elements. For the natural numbers under multiplication, both `1` and `0` are idempotent; for the naturals under addition, only `0` is. Hence neither addition nor multiplication of the natural numbers is itself idempotent. Furthermore, the set operations of union and intersection are both idempotent operations.
+
+- **Identity** : An identity element is an element of a set that is neutral with respect to some binary operation on that set; that is, it leaves any other element of that set unchanged when combined with it. An identity value is unique with respect to the given set and operation. More formally, for a set `S` with a binary operation `*` on it, `x` is the identity value when `x * a = a * x = a` for all `a` in `S`. In Haskell, `mempty` is a *return-type polymorphic* identity value for monoids and `empty` is the same but for `Alternative`s, but identity values are also often called `one` and `zero` on analogy with the identities for addition and multiplication, respectively. Often, the identity called "zero" will also be an annihilator for the dual operation, e.g., the empty set or empty list (identity of concatenation, annihilator of `zip`), `False`, and the like are in their respective structures.
+
+- **Invertibility** : This is also familiar to many of us from basic arithmetic, even if the name is not. Zero can serve as an identity element for addition of integers or of the natural ("counting") numbers assuming we include zero in those. The set of integers includes numbers that we can add to each other to get back to zero, e.g., `(-3) + 3 = 0`; there aren't any such natural numbers because the set of natural numbers does not include negatives. This property of the integers under addition is *invertibility*. Given a binary operation `*` on `S` with identity `e`, an element `b` in `S` is said to be an *inverse* of an element `a` in `S` if `a * b = e = b * a`, in which case `a` (as well as `b`, simply by the symmetry in the definition) is said to be *invertible* in `S` relative to `*`. If every element of `S` is invertible in `S` relative to `*`, then we say `S` has inverses relative to `*`. 
+
+- **Unit** : The idea of being a unit is related to invertibility. A *unit* is an element of a ring structure that is its own inverse. The number `1` is its own multiplicative inverse, as is `(-1)` because `(-1) * (-1) = 1`. In Haskell, there is a type called "unit", written `()` (an empty tuple, if you will); while types in Haskell do not form a ring, the unit type plays the same role in the semiring of types as the number 1 plays in the semiring of natural numbers (the zero is represented by the `Void` type, which has no values).
+
 
 ## Left and right
 
@@ -579,4 +563,3 @@ You may sometimes hear about *left* or *right* associativity or identity. For ex
 ```
 
 This is more of a convention than a property of the function, though, and it is often preferable to use parentheses to make associativity explicit when it is one-sided (i.e., when something is right associative but not *associative*). We call something *associative* when it is both left- and right-associative. We call something *distributive* when it is both left- and right-distributive. We call something an *identity* if it is both a left and right identity.
-
