@@ -10,9 +10,9 @@ I started writing this post because, for whatever reason, I keep forgetting what
 
 So, that's the intent of this post -- to be that fast reference to the kinds of algebraic structures I care about. There will be some mathematical language and notation that may not be familiar to everyone, so don't freak out if you see something you're not familiar with -- it's okay. Some of this is stuff I learned while writing this, because I want to know more about lattices than I currently do! There is a glossary at the end, so if some terminology is unfamiliar or you've (as I have, many times) forgotten what "idempotent" means, try checking there.
 
-This sort of became longer than I originally intended, but I think the different sections might be useful at different times and perhaps to different audiences, so I kept it all. Hopefully the table of contents will still make it useful as a quick reference.
+This sort of became longer than I originally intended, but I think the different sections might be useful at different times and perhaps to different audiences, so I kept it all. Hopefully the table of contents will still make it useful as a quick reference. If you like this style, this is a good preview of what you can expect from the main [Joy of Haskell](https://joyofhaskell.com/) book, tentatively titled *The Haskell Desk Reference*, currently being written.
 
-I had some help writing this and fact-checking it from [Daniel Brice](https://twitter.com/fried_brice). I had some help writing about complements and duality from my friend, the lattice-master, Alex Feldman-Crough -- thank you for making 'involution' finally make sense. Therefore, I will stop talking about myself as if I wrote it alone and shift to using "we" but, sorry, it felt weird to write this intro as if I were  multiple people. Our hope is that this reference will be helpful to people who may be learning Haskell or PureScript and encountering a lot of new vocabulary. 
+I had some help writing this and fact-checking it from [Daniel Brice](https://twitter.com/fried_brice). I also had some help writing about complements and duality from my friend, Alex Feldman-Crough -- thank you for making 'involution' make sense. Therefore, I will stop talking about myself as if I wrote it alone and shift to using "we" but, sorry, it felt weird to write this intro as if I were  multiple people. Our hope is that this reference will be helpful to people who may be learning Haskell or PureScript and encountering a lot of new vocabulary. 
 
 
 # Algebraic structures, briefly described
@@ -21,7 +21,8 @@ This list is organized by dependencies, more or less, rather than alphabetically
 
 Some symbols used in this section:
 
-- $\ast$ and $\times$: A generic binary operation. These do not necessarily mean *multiplication (as of integers)*. Where we must distinguish between two binary operations, we typically use `+` and $\cdot$. The binary operations in the [lattice-like structures](#lattice-like-structures) have their own symbols, though.
+- $\ast$: A generic binary operation. These do not necessarily mean *multiplication (as of integers)*. Where we must distinguish between two binary operations, we typically use `+` and $\cdot$. The binary operations in the [lattice-like structures](#lattice-like-structures) have their own symbols, though.
+- $\times$: The Cartesian product. Often this represents the Cartesian product of `A` and `B`, i.e., the set of all ordered pairs `(a, b)` with $a \in A$ and $b \in B$." We are primarily concerned here with operations over a single set, though, so it's more typically $A \times A$ in this post.
 - $u$: An identity element or unit. 
 - $'$: An inverse.
 - $\forall$: "For all"; universal quantification. 
@@ -196,6 +197,8 @@ $(A, +, \cdot, 0, 1, -, ')$
 * $- : A \to A$
 * $' : A \setminus \{0\} \to A \setminus \{0\}$
 
+The notation $A \setminus \{0\}$, sometimes alternatively given as $A - \{0\}$, means "everything in $A$ except 0."
+
 **Laws:**
 
 * $(A, +, \cdot, 0, 1, -)$ is a ring
@@ -214,6 +217,8 @@ Division algebra $(A, +, \cdot, 0, 1, -, ')$
 
 
 ## Lattice-like Structures
+
+There are some cool things about lattices that aren't covered here, but lattice-like structures will be getting their very own followup post at some point in the (hopefully near) future.
 
 ### *Semilattice* 
 
@@ -330,7 +335,7 @@ Strictly speaking, the second law can be derived from the first law and the latt
 
 ### *Heyting algebra*
 
-A bounded lattice with an implication operation.
+A bounded, distributive lattice with an implication operation.
 
 $(A, \vee, \wedge, 0, 1, \Rightarrow)$
 
@@ -344,10 +349,11 @@ $(A, \vee, \wedge, 0, 1, \Rightarrow)$
 
 **Laws:**
 
-* $\forall x \in A; a \Rightarrow a = 1$
-* $\forall x, y \in A; a \wedge (a \Rightarrow b) = a \wedge b$
-* $\forall x, y \in A; b \wedge (a \Rightarrow b) = b$
-* $\forall a, b, c \in A; a \Rightarrow (b \wedge c) = (a \Rightarrow b) \wedge (a \Rightarrow c)$
+* $(A, \vee, \wedge, 0, 1)$ is a bounded, distributive lattice.
+* $\forall x \in A; x \Rightarrow x = 1$
+* $\forall x, y \in A; x \wedge (x \Rightarrow y) = x \wedge y$
+* $\forall x, y \in A; y \wedge (x \Rightarrow y) = y$
+* $\forall x, y, z \in A; x \Rightarrow (y \wedge z) = (x \Rightarrow y) \wedge (x \Rightarrow z)$
 
 
 ### *Boolean algebra*
@@ -358,9 +364,7 @@ Complemented lattice $(A, \vee, \wedge, 0, 1, ')$
 
 **Laws:**
 
-Let $\Rightarrow : A \times A \to A$ by $x \Rightarrow y = x' \vee y$.
-
-$(A, \vee, \wedge, 0, 1, \Rightarrow)$ is a Heyting algebra
+$(A, \vee, \wedge, 0, 1, \Rightarrow)$ is a Heyting algebra where $\Rightarrow : A \times A \to A$ by $x \Rightarrow y = x' \vee y$.
 
 
 # Some algebra in Haskell
