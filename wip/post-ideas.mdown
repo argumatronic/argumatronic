@@ -43,3 +43,7 @@ Alternative is a disjunctive monoid that can't touch the `a` in Maybe a.
 - The Bug by Ellen Ullman
 - Lauren Ipsum and CS Unplugged for the much younger
 - related:  baseCS and imposter's handbook
+
+# assholes
+
+https://twitter.com/gin_n_jelly/status/1137823504429137927
