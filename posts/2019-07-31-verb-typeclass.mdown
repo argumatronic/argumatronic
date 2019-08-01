@@ -1,0 +1,63 @@
+---
+title: Verb as a typeclass
+tags: speculation, monad, language
+---
+
+About -- yikes! -- *four* years ago, [I tweeted about having road thoughts](https://twitter.com/argumatronic/status/611653599815299072) about whether nouns and verbs are more like types or more like typeclasses. Road thoughts are a bit like shower thoughts, and I don't usually turn either one of them into blog posts, but in this case, I've spent four years with the thought occasionally coming back to me, and a few people have expressed interest in reading my reasoning. 
+
+I want to note at the outset that, while I do have a master's degree in linguistics and have spent a greater-than-normal amount of time thinking about verbs in my life, it's been a long time since I graduated, and the science of language is by no means settled. Some of what I'm about to gesture at is still under dispute, and since this is a highly nontechnical post, I'm going to gloss over a lot of details and conflate some things, and this post will reflect the overall perspective and biases of the model I worked in when I was still doing linguistics work.
+
+One of the confusions that I think motivated some of the initial responses to my tweet is that non-linguists tend to think of language as primarily a *set of words*, with *subsets* that include the different sorts of words we're all familiar with: nouns, verbs, adjectives, and whatnot. On this model, verbs are a set of words, further divided (presumably) into subsets based perhaps on whether they are transitive or intransitive or regular or irregular in their past tense or whatever. 
+ 
+But, at least since Chomsky's Syntactic Structures was published -- or Saussure, if you prefer! -- most linguists do not think about language this way. There are certainly words in a language, and they generally have meaning, but the meanings of individual words do not make a language; grammar makes a language. Grammar is perhaps a bad word to use for this, because it's been tainted for most of us by primary school education, in much the same way as "math" has. So call it syntax instead. What is important is that there is an underlying structure to language, rules that we are not really conscious of but that guide us in putting sentences together and constructing and understanding meaning.
+
+Verbs are more than an arbitrary set of words. It doesn't matter what we call these words; what matters is *why* we group them together. If we insist on thinking of this in set theory terms, what I want is not an extensional definition of the set but an *intensional* one: what are the criteria for inclusion in that set?
+
+- How do we know when a word is a verb? We "verb" words, especially in English, all the time; how do we know it became a verb? Having worked on languages that I don't speak and that don't have an established tradition of Latin-based grammar study, I am painfully aware that you can't just ask everyone in the world to tell you if something is a verb or to list the verbs in their language. For this kind of research, it really matters whether we know some criteria by which we can begin to talk about the sets and classes of words in a new language.
+
+- What makes a verb a verb? There isn't a very satisfying explanation in terms of what those words *mean*, a point to which I'll return.
+
+- Could there be a language without verbs? I'm not really going to address that here, but it's fun to think about, isn't it? The roles we associate (for most of us, unconsciously) with verbs would have to be filled by something else [narrator voice: or would they?].
+
+I apparently really miss my old gig of overanalyzing verbs, but as I was driving that day I was still at a point where Haskell was fresh and new to me and I was also thinking about typeclasses a great deal. And it occurred to me that we might ask similar questions about monads: how do we know when a type is a monad? What makes a monad a monad?
+
+Now, monads do all share some things in common. They all take one type argument, for example. But not all types that take one type argument are monads, so that isn't enough. And monads like `Maybe` and `List` and `Either a` are semantically quite distinct. On the other side of the coin, `Validation a` and `Either a` are *isomorphic* and yet `Validation a` isn't a monad. So we have some rules about what can be included in the typeclass `Monad`: the type has to have a certain structure (taking one argument) and it has to be able to *do* a specific thing. For `Monad` it has to be a type for which we can write a lawful implementation of the `>>=` ("bind") function. You can actually write that function for `Validation a`, but it violates some laws so we don't include it in the class of monads. 
+
+In other words, we know a monad by what it *can do* in a program. Monad is a *class*: a type is a monad iff it meets these conditions. Things that are not sufficient for knowing whether a type is a monad:
+
+- its semantic content.
+
+- (extensional) membership in a platonic Set of All Monads -- ok, fine, this *might* work if we could *know* what all is included in it!
+
+- its structure. Its arity is a clue that we *might* have a monad, but it doesn't always work out -- necessary, but not sufficient.
+
+
+Verbs are more different from each other, perhaps, than monads are. We typically learn, at least in my American schools, that verbs express "action" and later we amend this to include "states of being", "sensing", or even "linking". There are transitive and intransitive verbs, some taking no objects and some taking multiple objects. I've already pointed out that `Maybe` and `List` are semantically *very* different, but consider this small set of English verbs: 
+
+- 'rain' -- Plausibly an "action" but there is no plausible agent. In English we have to give sentences a subject but the 'it' in "it's raining" isn't really an *agent* of that action. 
+
+- 'seem' -- Not an action; in many uses, no plausible agent. Consider: "It seems like it might rain."
+
+- 'run' -- Definitely an action, usually a plausible agent; no objects (intransitive).
+
+- 'give' -- Typically an action, no problem with agency here. Deluxe transitivity: there is both an object that is given and an object to whom that object is given. But not always!
+
+These are very different in their arities, in their structures, in their meanings. What do they have in common? They all play the same role(s) in a clause. They get marked in certain ways -- this is really language dependent, but typically includes
+
+- tense (present, past, future)
+
+- aspect (e.g., ongoing or continuous actions vs finished ones)
+
+- agreement with subjects and sometimes objects (such as the third person singular '-s' in English; English is unfortunately very poor in this type of marking but some languages are richer in inflection.)
+
+- mood (indicative, imperative, subjunctive)
+
+They form the head of the verb phrase and have an argument structure -- that is, they require subjects, objects, other phrases possibly indicating directionality or recipients of an action, e.g., 'give x *to him*'. On some interpretations, all the relationships between all the other things in a clause are determined or caused or at least indicated by the verb (again, some languages mark their verbs with suffixes and such much more than English does, but English does a lot of this relationship-giving by our relatively fixed word order), sort of like a function determines the relationship between its parameters.
+
+It's not wrong to say there is a set of verbs in a given language, but it's also not exactly wrong to say `Monad` is a set -- it's a class, a collection of sets where membership is defined by some property that all its members share. `Monad` class membership is clearly defined, so that we have criteria for including new types in the class and we can always monad new types. Always be monading, that's the Haskell way.
+
+I verbed 'monad'. How do you know I verbed 'monad' or that I'm verbing 'verb'? 
+
+Because we have rules verbs must follow and roles that verbs fill. I've just added 'monad' to the set of verbs by making it perform certain functions. I've written an instance for it, so to speak.
+
+
