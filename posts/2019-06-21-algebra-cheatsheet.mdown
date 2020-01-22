@@ -88,7 +88,7 @@ $(A, \ast, u, ')$
 **Laws:**
 
 * $(A, \ast, u)$ is a monoid
-* $\forall x \in A; x \ast x' = x' \ast x = u$
+* $\forall x \in A, \exists x'; x \ast x' = x' \ast x = u$
 
 ### *Abelian group*
 
