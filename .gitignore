@@ -5,3 +5,4 @@ _site/
 .cabal-sandbox/
 .DS_Store
 .stack-work/
+stack.yaml.lock
