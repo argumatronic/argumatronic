@@ -26,4 +26,11 @@ The map of the whole trip could prevent you from believing this, if you could si
 
 There are things you both know and believe, though, that you don't really understand. Many people know and believe that water expands when you freeze it, because they've seen it happen, but they don't understand why. Many people believe that plants do a thing called "photosynthesis" and know some facts about it (plants take in carbon dioxide and produce oxygen &mdash; neat!) that they learned in science class but they don't understand how it all works. Most English speakers believe that "colorless green ideas sleep furiously" is not good English while also knowing that it is grammatical, but few understand more about the uneasy feeling such sentences give them than that.
 
-For Cheng, a proof is like a guide whose intentions and knowledge you do fully believe in, leading you step by step through the forest but without giving you the full, high-level overview of the point. It's knowledge and it might lead you to understanding or even belief, but it can also leave you lost.
+For Cheng, a proof is like a guide whose intentions and knowledge you do fully believe in, leading you step by step through the forest but without giving you the full, high-level overview of the point. Each premise of the proof is like each step the guide tells you to take through the forest: some things are legible about that particular step, and they might all together get you to the other side where you can see *that* a particular mathematical truth is true, but they might not tell you *why* it's true, and without understanding, they might not *convince* you of something you didn't already believe. It's knowledge and it might lead you to understanding or even belief, but it can also leave you lost.
+
+Being convinced, or believing in the truth of something, can happen in a number of ways
+
+
+on the basis of pure authority (such as the way most of us come to believe that photosynthesis is real),
+on the basis of lived experience (most people believe in gravity, for example, not because they understand it but because we see it in action all the time),
+on the basis of understanding
