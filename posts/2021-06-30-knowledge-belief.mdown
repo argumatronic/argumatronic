@@ -1,0 +1,29 @@
+---
+title: Knowledge, Understanding, Belief
+tags: teaching, math
+withtoc: yes
+---
+
+### Intro
+
+I gave a talk at ZuriHac way back in 2017 that was about teaching Haskell; I think I called it "Teaching Haskell for Understanding" although perhaps I should have called it "Teaching Haskell for *Belief*" but unfortunately that would have been widely misunderstood, for reasons that I'll be discussing here, as well as being probably too ambitious a goal for a teacher.
+
+One part of that talk focused on what I meant by *understanding*, and I want to recap and expand on that part here. The specific language, "knowledge, understanding, and belief" is borrowed from Eugenia Cheng's excellent *How to Bake π*. Cheng is concerned in particular with the role *proofs* play in mathematical communication, but I have a slightly different concern here. But, still, clarity will best be served by starting with her explanations, so that's where we'll pick up.
+
+# Three Views of Truth
+
+Imagine you're at the edge of a forest with a guide. The guide tells you she will lead you through the forest to the other side; she tells you she has been through this forest before, so she can do it. She guides you each step of the way, but she never gives you an overall view of the trip or any trail markers or landmarks with which you could find your own way (whether to the other side or back to where you came from) should she abandon you.
+
+You *know* certain things: that you're in a forest, that (for now, at least) you have a guide, and the details about your current location that you can see for yourself.
+
+You also *believe* certain things: that your guide is knowledgeable (she said so!) and that she intends to and will lead you to the other side (rather than in a circle or to her gingerbread house where she intends to eat you), that there is an end to the forest (an "other side" to get to). You may have good reasons to believe these things, or you may simply be taking her word for everything. Your belief that the forest will end, that there is an "other side", is an extrapolation from your experience and knowledge about the planet Earth, on which there is no forest that doesn't end.
+
+But, lacking the overall view of your trip, or a map, or the ability to recognize landmarks and such, you lack some critical *understanding*. You couldn't get to the other side of the forest, or back to where you started from, without your guide telling you each step to make.
+
+And, indeed, this lack of understanding may erode your ability to believe. If you've ever taken a walk that lasted longer than your physical stamina, you might know the feeling that, truly, this walk is never going to end, you're going to DIE out here, but if you just had that map of the entire path, you'd see that in fact you're only a few meters from the end right now. Some part of you definitely knew you were not going to literally die and yet ... and yet the feeling that your body will be overmastered by this route, *that you will not make it*, can become compelling, superseding your beliefs that forests always have an end and your guide has only benevolent intentions and the skills to fulfill those intentions. The Earth itself has turned against me on a few hikes, or, at least, I was fully convinced of that in the moment.
+
+The map of the whole trip could prevent you from believing this, if you could simply see that you were almost there. So, *understanding* is a crucial mediator between knowledge and belief.
+
+There are things you both know and believe, though, that you don't really understand. Many people know and believe that water expands when you freeze it, because they've seen it happen, but they don't understand why. Many people believe that plants do a thing called "photosynthesis" and know some facts about it (plants take in carbon dioxide and produce oxygen &mdash; neat!) that they learned in science class but they don't understand how it all works. Most English speakers believe that "colorless green ideas sleep furiously" is not good English while also knowing that it is grammatical, but few understand more about the uneasy feeling such sentences give them than that.
+
+For Cheng, a proof is like a guide whose intentions and knowledge you do fully believe in, leading you step by step through the forest but without giving you the full, high-level overview of the point. It's knowledge and it might lead you to understanding or even belief, but it can also leave you lost.

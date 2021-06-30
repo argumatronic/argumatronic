@@ -34,6 +34,7 @@
 		  extraUsers = {
 		    julie = {
 		      isNormalUser = true;
+          extraGroups = ["wheel"];
 		      description = "Julie Moronuki";
 		      uid = 1000;
 		      openssh = {
