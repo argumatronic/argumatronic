@@ -28,9 +28,38 @@ There are things you both know and believe, though, that you don't really unders
 
 For Cheng, a proof is like a guide whose intentions and knowledge you do fully believe in, leading you step by step through the forest but without giving you the full, high-level overview of the point. Each premise of the proof is like each step the guide tells you to take through the forest: some things are legible about that particular step, and they might all together get you to the other side where you can see *that* a particular mathematical truth is true, but they might not tell you *why* it's true, and without understanding, they might not *convince* you of something you didn't already believe. It's knowledge and it might lead you to understanding or even belief, but it can also leave you lost.
 
-Being convinced, or believing in the truth of something, can happen in a number of ways
+## Beliefs
 
+Colloquially, we use the word "belief" to mean a lot of things. We can talk about things we believe without knowing for certain, things we believe without understanding, or things we believe because we know and understand them; we can use the word to talk about beliefs in religions or beliefs in aliens, you can believe scientific authority, believe in the law of the excluded middle, believe half of what you see, son, and none of what you hear, and so on.
 
-on the basis of pure authority (such as the way most of us come to believe that photosynthesis is real),
-on the basis of lived experience (most people believe in gravity, for example, not because they understand it but because we see it in action all the time),
-on the basis of understanding
+Some beliefs are based on knowledge and understanding and some are based on things like faith or what we often call "intuition".
+
+And some are based on imagination, and here we're closer to the role Cheng believes "belief" plays in mathematics. That is, in certain contexts, we can develop a strong intuition or conviction that something must be true, even if we don't yet know it for certain or have a way to prove it. Sometimes that conviction will be mistaken, but one way to think of the work mathematicians do is that they imagine something, or come to believe it, and then work on ways of understanding why it might be true, and only then (and not always even then) work on proving it. It is sometimes the case that mathematicians in a given field widely come to agree that something must be true before there is any kind of proof in support of its truth.
+
+This is what Cheng means by "belief" and its complementarity with knowledge and understanding. Often beliefs come before understanding (although they are based on other understandings) and proof mainly serves the role of being able to densely communicate knowledge. But as she points out, proofs rarely convince people, and they generally rely on the reader to have already amassed enough knowledge (and charity) that they can and will do the work of reconstructing the understanding that the proof usually elides. By reconstructing for themselves the understanding that proofs are not good at conveying, they can come to convince themselves of the truth of the thing the proof is proving, but a knowledgeable mathematician often can come to this belief without the proof.
+
+However, it's simply harder to convey the understanding directly, without the condensed proof. Knowledge, represented here by the written proof, serves this vital role in getting understanding (and hopefully belief) from one person's mind to another person's mind.
+
+I'm relying on Cheng's formulation here because I think she hits on a particularly compelling way of talking about the process, but I have been struck over the years with how similarly other mathematicians talk about what it means to be a mathematician. Take Lockhart. Or Thurston. Badiou! That other guy you saw in Quanta lol. Mathematics is, in some important senses, not about knowledge but about understanding and beliefs, and the work of putting those beliefs into the dense written knowledge form of a proof is something many
+
+and in some ways a lot of fields are harder because we don't have the dense notational system that maths has to convey knowledge, so we have to convey intuitions and understandings, which often takes a lot more verbiage and hence opens more opportunities for imprecisions, misunderstandings, miscommunications. As the mathematicians point out, it's very hard to convey such things as understanding directly, which is the role proof plays (although as Cheng notes, it isn't enough to convey the full understanding either; it depends on communication outside of the proof itself for that)
+
+You have a lot of knowledge and understanding already, a lot of observations, and then you get inspired
+
+I don't think mathematics is alone in this either. I think this process is generally how a lot of human endeavor works: you become an expert in something, so you know and understand a lot of facts, and then you start to be struck with *inspiration* and *intuitions* and, well, *beliefs*.
+
+## the curry-howard trap
+
+In "On Proof and Progress in Mathematics", William Thurston says he thinks computer rpogramming is much harder than mathematics, a claim I think must surprise many programmers who think they are bad at math or whatever. He lists some of the reasons, including the many difficulties in making software compatible with different operating systems and versions (constantly being updated) of other software.
+
+But I think the deeper point here is that programming is entirely about the proof, not the understanding or belief that mathematicians are relying on. The proof is the entire point of the project. You are a programmer, the saying goes, if you have ever written a program, and what is a program? A bit of text that is executable by a machine.
+
+By the Curry-Howard corrrespondence, programs are proofs, in the mathematical sense. And in being proofs, they suffer many of the same problems that proofs have in mathematics: they are dense and difficult to understand, often unpleasant to read; they convey only the knowledge and not the beautiful understanding and inspiration that (maybe) went into them.
+
+Indeed, I often see programmers say that some bit of code works but they don't know how; the process is exactly backwards from what mathematicians do. Mathematicians don't try to write proofs about ideas they do not yet understand! But programmers do this *all the time*. That is the essence of computer programming. I don't think it's always strictly necessary, and I think that's probably why some computer science teacher may have tried to teach some people about algorithm design or data structure design, to provide a basis for understanding that could you lead you to the kinds of inspiration mathematicians have.
+
+And I think you can see this sometimes in library designs. It seems clear that Edward Kmett, for example, is going through this process like a mathematician does: belief, understanding, write the `lens` library and then for some time no one understands this fancy proof he wrote, but gradually it converts people and changes the baseline understanding and belief in the Haskell community. And I think you can see a similar process going on sometimes in language development; I've been watching the utter *conviction* involved in the development of PureScript and Unison, among others.
+
+But the day to day work of computer programming is writing proofs, not necessarily elegant and beautiful proofs, and not proofs designed for human understanding, but proofs that can withstand the rigors of being executed by the machine, by many machines, over and over. And then benchmark them and profile them and CI test them.
+
+programmers can't make progress in the field tho, in Thurston's sense of what constitutes progress in mathematics -- academic CS can (or, e.g., Kmett) and arguably this is one of the reasons why people want you to have a CS degree, because only through advancing understanding can computer programming as a field make progress
