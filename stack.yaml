@@ -38,7 +38,4 @@ allow-newer: true
 
 nix:
   enable: true
-  packages:
-    - zlib
-    - rsync
-    - openssh
+  shell-file: shell.nix
