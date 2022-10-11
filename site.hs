@@ -23,7 +23,7 @@ import Hakyll
 --------------------------------------------------------------------------------
 config :: Configuration
 config = defaultConfiguration
-         { deployCommand = "rsync --verbose --recursive --compress --rsh 'ssh -i ~/.ssh/id_rsa' ./_site/ julie@54.226.89.11:/home/julie/argumatronic/" }
+         { deployCommand = "rsync -avh ./_site/ chris-martin.org:/var/www/argumatronic.com/" }
 -- deployCommand = "./bin/deploy.sh" -- this would be better ?
 
 -- configuration for rss feed
