@@ -1,0 +1,24 @@
+name: Deploy
+
+on:
+  push:
+    branches: master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v22
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
+      - name: crane auth login
+        shell: bash
+        run: >
+          nix shell .#crane --command
+          crane auth login registry.digitalocean.com
+          --username ch.martin@gmail.com
+          --password "${{ secrets.DIGITAL_OCEAN }}"
+      - run: nix build .#argumatronic --no-link
+      - run: nix build .#htmlPages --no-link
+      - run: nix build .#container --no-link
+      - run: nix develop .#deploy --command deploy-argumatronic
