@@ -1,4 +1,4 @@
-all: deploy
+all: build
 
 CMD=stack exec -- site
 
@@ -10,9 +10,6 @@ clean:
 
 build:
 	${CMD} build
-
-deploy: clean build
-	${CMD} deploy
 
 watch: clean
 	${CMD} watch

@@ -20,11 +20,15 @@ import Text.Pandoc.Options ( WriterOptions
                            , writerTOCDepth
                            )
 import Hakyll
+
+import Data.Functor.Identity
+import Text.DocTemplates
+
 --------------------------------------------------------------------------------
 config :: Configuration
 config = defaultConfiguration
-         { deployCommand = "rsync --verbose --recursive --compress --rsh 'ssh -i ~/.ssh/id_rsa' ./_site/ julie@54.226.89.11:/home/julie/argumatronic/" }
--- deployCommand = "./bin/deploy.sh" -- this would be better ?
+    { providerDirectory = "content"
+    }
 
 -- configuration for rss feed
 feedConfig :: FeedConfiguration
@@ -234,19 +238,19 @@ withToc :: WriterOptions
 withToc = defaultHakyllWriterOptions
         { writerTableOfContents = True
         , writerTOCDepth = 2
-        , writerTemplate = Just "\n<div class=\"toc\"><div class=\"header\">Contents</div>\n$toc$\n</div>\n$body$"
+        , writerTemplate = Just $ either error id $ runIdentity $ compileTemplate "" "\n<div class=\"toc\"><div class=\"header\">Contents</div>\n$toc$\n</div>\n$body$"
         }
 
 -- i'm not really sure this is the ideal way to set up these contexts
 -- but it does work. may reconsider later, esp if i add teasers.
-postCtx :: Context String
+postCtx :: Hakyll.Context String
 postCtx =
     dateField "date" "%B %e, %Y" <>
     field "nextPost" nextPostUrl <>
     field "prevPost" prevPostUrl <>
     defaultContext
 
-postCtxWithTags :: Tags -> Context String
+postCtxWithTags :: Tags -> Hakyll.Context String
 postCtxWithTags tags = tagsField "tags" tags <> postCtx
 
 -- postsCtx :: [Item String] -> Context String
